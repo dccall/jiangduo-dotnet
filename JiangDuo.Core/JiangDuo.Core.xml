@@ -1,0 +1,839 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JiangDuo.Core</name>
+    </assembly>
+    <members>
+        <member name="T:JiangDuo.Core.Base.EntityBase">
+            <summary>
+            实体类基础基础
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.Creator">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.Updater">
+            <summary>
+            更新者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Base.EntityBase.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.EnumExtension">
+            <summary>
+            枚举扩展类
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Enums.EnumExtension.GetDescription(System.Enum)">
+            <summary>
+            获取枚举的描述信息
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.ConfigType">
+            <summary>
+            系统配置类型
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.DeptStatus">
+            <summary>
+            部门状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.DictStatus">
+            <summary>
+            字典状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.LogininforStatus">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.MenuType">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.MenuStatus">
+            <summary>
+            菜单状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.MenuVisible">
+            <summary>
+            菜单显示状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.NoticeStatus">
+            <summary>
+            公告状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.NoticeType">
+            <summary>
+            公告类型
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.OperLogStatus">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.OperatorType">
+            <summary>
+             操作类别
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.PostStatus">
+            <summary>
+            职位状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.RoleStatus">
+            <summary>
+            角色状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.UserSex">
+            <summary>
+            用户性别
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.UserStatus">
+            <summary>
+            用户状态
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Enums.UploadFileSource">
+            <summary>
+            文件来源
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysConfig">
+            <summary>
+            参数配置表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysConfig.ConfigName">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysConfig.ConfigKey">
+            <summary>
+            参数键名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysConfig.ConfigValue">
+            <summary>
+            参数键值
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysConfig.Type">
+            <summary>
+            系统内置0是 1.否
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysConfig.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysDept">
+            <summary>
+            部门表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.DeptName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.DeptCode">
+            <summary>
+            部门编号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.ParentId">
+            <summary>
+            父部门id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Parent">
+            <summary>
+            父级部门
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Ancestors">
+            <summary>
+            祖级列表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Order">
+            <summary>
+            显示顺序
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Leader">
+            <summary>
+            负责人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Phone">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDept.Status">
+            <summary>
+            部门状态（0正常 1停用）
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysDict">
+            <summary>
+            字典表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDict.DictName">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDict.DictType">
+            <summary>
+            字典类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDict.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDict.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDict.SysDictItem">
+            <summary>
+            一对多
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysDictItem">
+            <summary>
+            字典数据表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.Order">
+            <summary>
+            字典排序
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.Label">
+            <summary>
+            字典标签
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.Value">
+            <summary>
+            字典键值
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.IsDefault">
+            <summary>
+            是否默认
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysDictItem.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysLogininfor">
+            <summary>
+            系统访问记录
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.UserName">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.Ipaddr">
+            <summary>
+            登录IP地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.LoginLocation">
+            <summary>
+            登录地点
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.Browser">
+            <summary>
+            浏览器类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.Status">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.Msg">
+            <summary>
+            提示消息
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysLogininfor.LoginTime">
+            <summary>
+            访问时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysMenu">
+            <summary>
+            菜单权限表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Title">
+            <summary>
+            菜单标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Code">
+            <summary>
+            权限编号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Name">
+            <summary>
+            路由名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Order">
+            <summary>
+            显示顺序
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.ParentId">
+            <summary>
+            父菜单ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.IsFrame">
+            <summary>
+            是否为外链
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Href">
+            <summary>
+            外链地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.KeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Hide">
+            <summary>
+            是否隐藏
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Type">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Icon">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysMenu.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Models.SysMenu.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysNotice">
+            <summary>
+            通知公告表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysNotice.NoticeTitle">
+            <summary>
+            公告标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysNotice.Type">
+            <summary>
+            公告类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysNotice.NoticeContent">
+            <summary>
+            公告内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysNotice.Status">
+            <summary>
+            公告状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysNotice.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysOperLog">
+            <summary>
+            操作日志记录
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.Id">
+            <summary>
+            日志主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.Title">
+            <summary>
+            模块标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.Method">
+            <summary>
+            方法名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.RequestMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperName">
+            <summary>
+            操作人员
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperUrl">
+            <summary>
+            请求URL
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperIp">
+            <summary>
+            主机地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperSource">
+            <summary>
+            操作来源
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperParam">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.JsonResult">
+            <summary>
+            返回参数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.Status">
+            <summary>
+            操作状态（0正常 1异常）
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.ErrorMsg">
+            <summary>
+            错误消息
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.StackTrace">
+            <summary>
+            堆栈信息
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysOperLog.OperTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysPost">
+            <summary>
+            岗位信息表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysPost.PostCode">
+            <summary>
+            岗位编码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysPost.PostName">
+            <summary>
+            岗位名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysPost.Order">
+            <summary>
+            显示顺序
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysPost.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysPost.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysRole">
+            <summary>
+            角色信息表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRole.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRole.Status">
+            <summary>
+            角色状态（0正常 1停用）
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRole.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysRoleMenu">
+            <summary>
+            角色和菜单关联表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRoleMenu.RoleId">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRoleMenu.MenuId">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysUser">
+            <summary>
+            用户信息表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.DeptId">
+            <summary>
+            部门ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.UserName">
+            <summary>
+            用户账号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.NickName">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Type">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Email">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Phonenumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Sex">
+            <summary>
+            用户性别（ 0未知 1男 2女）
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Avatar">
+            <summary>
+            头像地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.PassWord">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Status">
+            <summary>
+            帐号状态（0正常 1停用）
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.LoginIp">
+            <summary>
+            最后登录IP
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.LoginDate">
+            <summary>
+            最后登录时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUser.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Models.SysUser.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysUserPost">
+            <summary>
+            用户与岗位关联表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUserPost.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUserPost.PostId">
+            <summary>
+            岗位ID
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysUserRole">
+            <summary>
+            用户和角色关联表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUserRole.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUserRole.RoleId">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.UploadFile">
+            <summary>
+            文件上传表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.OldName">
+            <summary>
+            原文件名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.FileSource">
+            <summary>
+            文件来源
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.FileExt">
+            <summary>
+            文件后缀
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.UploadFile.FileLength">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.JwtTokenResult.AccessToken">
+            <summary>
+            账号token
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.JwtTokenResult.RefreshToken">
+            <summary>
+            刷新token
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Utils.IRedisCache">
+            <summary>
+            Redis缓存帮助接口
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.IRedisCache.SetAsync``1(System.String,``0,System.Nullable{System.DateTime})">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="t">值</param>
+            <param name="expireTime">过期时间(绝对)</param>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.IRedisCache.SetAsync``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="t">值</param>
+            <param name="expireAt">过期时间(相对)</param>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.IRedisCache.SetAsync``1(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="bytes">数据</param>
+            <param name="options">选项</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.IRedisCache.GetAsync``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Core.Utils.RedisCache">
+            <summary>
+            Redis缓存帮助类
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.RedisCache.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="cache">缓存</param>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.RedisCache.SetAsync``1(System.String,``0,System.Nullable{System.DateTime})">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="t">值</param>
+            <param name="expireTime">过期时间(绝对)</param>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.RedisCache.SetAsync``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="t">值</param>
+            <param name="expireAt">过期时间(相对)</param>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.RedisCache.SetAsync``1(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <param name="bytes">数据</param>
+            <param name="options">选项</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.RedisCache.GetAsync``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.Filters.AuthorizeCodeAttribute">
+            <summary>
+            授权代码
+            </summary>
+        </member>
+        <member name="T:ArkNeTransport.Application.Common.Utils.JsonHelp">
+            <summary>
+            Json帮助类
+            </summary>
+        </member>
+        <member name="M:ArkNeTransport.Application.Common.Utils.JsonHelp.JsonConvertConfig(System.String)">
+            <summary>
+            将json字符串转为Configuration
+            </summary>
+            <param name="jsonTxt">json字符串</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

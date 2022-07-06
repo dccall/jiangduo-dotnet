@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JiangDuo.Web.Core": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

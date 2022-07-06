@@ -1,0 +1,6 @@
+{
+
+  "ConnectionStrings": {
+    "MySqlDbConnectionString": "Data Source=localhost;Database=jiangduo;User ID=root;Password=root;pooling=true;port=3306;sslmode=none;CharSet=utf8;"
+  }
+}

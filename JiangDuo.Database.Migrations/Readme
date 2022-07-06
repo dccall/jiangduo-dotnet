@@ -1,0 +1,27 @@
+﻿#########数据迁移#############
+
+#根据数据库连接，生成数据库上下文与表模型
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+#根据数据库连接，生成数据库上下文与表模型（指定所选表生成，指定数据库DbContext名称和命名空间）
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext -ContextNamespace New.Namespace
+
+#根据数据库连接，生成数据库上下文与模型（可指定配置文件中的连接字符串）
+Scaffold-DbContext "Name=ConnectionStrings:Blogging" Microsoft.EntityFrameworkCore.SqlServer
+
+#添加新的迁移
+Add-Migration v1.0.0 -Context testContext
+
+-Name <String>	迁移的名称。 这是一个位置参数，并且是必需的。
+-OutputDir <String>	用于输出文件的目录。 路径相对于目标项目目录。 默认路径为“Migrations”。
+-Namespace <String>	要用于生成的类的命名空间。 默认为从输出目录生成的命名空间。 已在 EF Core 5.0 中添加。
+
+#更新数据库
+Update-Database v1.0.0
+Update-Database v1.0.0 -Context testContext
+
+##其它https://docs.microsoft.com/zh-cn/ef/core/cli/powershell
+
+
+
+

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>JiangDuo.Web.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="JiangDuo.Web.Core.xml" />
+    <None Remove="Jwtsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Jwtsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Furion.Extras.DatabaseAccessor.MongoDB" Version="3.3.0" />
+    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="3.3.0" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="MsgPack.Cli" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JiangDuo.Application\JiangDuo.Application.csproj" />
+    <ProjectReference Include="..\JiangDuo.Database.Migrations\JiangDuo.Database.Migrations.csproj" />
+    <ProjectReference Include="..\JiangDuo.SignalR\JiangDuo.SignalR.csproj" />
+  </ItemGroup>
+
+</Project>

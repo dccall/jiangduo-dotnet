@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>JiangDuo.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ReserveStation\**" />
+    <EmbeddedResource Remove="ReserveStation\**" />
+    <None Remove="ReserveStation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Application\System\Dict\Dto\DictItemDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="applicationsettings.json" />
+    <None Remove="JiangDuo.Application.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="applicationsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JiangDuo.Core\JiangDuo.Core.csproj" />
+    <ProjectReference Include="..\JiangDuo.EntityFramework.Core\JiangDuo.EntityFramework.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npoi.Mapper" Version="3.5.1" />
+    <PackageReference Include="Yitter.IdGenerator" Version="1.0.12" />
+  </ItemGroup>
+
+</Project>
