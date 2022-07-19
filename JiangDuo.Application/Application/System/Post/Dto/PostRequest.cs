@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Post.Dto
 {
-    public class PostRequest: RequestBase
+    public class PostRequest: BaseRequest
     {
         /// <summary>
         ///  职位名称

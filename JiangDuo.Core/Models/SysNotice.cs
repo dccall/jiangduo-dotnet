@@ -11,7 +11,7 @@ namespace JiangDuo.Core.Models
     /// 通知公告表
     /// </summary>
     [Table("sys_notice")]
-    public partial class SysNotice: EntityBase
+    public partial class SysNotice: BaseEntity
     {
         /// <summary>
         /// 公告标题

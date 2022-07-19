@@ -12,7 +12,7 @@ namespace JiangDuo.Core.Models
     /// 字典表
     /// </summary>
     [Table("sys_dict")]
-    public partial class SysDict: Base.EntityBase
+    public partial class SysDict: Base.BaseEntity
     {
         /// <summary>
         /// 字典名称

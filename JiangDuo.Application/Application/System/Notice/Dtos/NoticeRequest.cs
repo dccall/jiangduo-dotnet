@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Notice.Dtos
 {
-    public class NoticeRequest: RequestBase
+    public class NoticeRequest: BaseRequest
     {
     }
 }

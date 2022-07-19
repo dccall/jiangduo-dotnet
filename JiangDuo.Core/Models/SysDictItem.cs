@@ -12,7 +12,7 @@ namespace JiangDuo.Core.Models
     /// 字典数据表
     /// </summary>
     [Table("sys_dictitem")]
-    public partial class SysDictItem: Base.EntityBase
+    public partial class SysDictItem: Base.BaseEntity
     {
         public long SysDictId { get; set; }
         /// <summary>

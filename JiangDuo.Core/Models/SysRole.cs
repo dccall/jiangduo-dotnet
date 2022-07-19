@@ -13,7 +13,7 @@ namespace JiangDuo.Core.Models
     /// 角色信息表
     /// </summary>
     [Table("sys_role")]
-    public partial class SysRole: Base.EntityBase, IEntitySeedData<SysRole>
+    public partial class SysRole: Base.BaseEntity, IEntitySeedData<SysRole>
     {
         /// <summary>
         /// 角色名称

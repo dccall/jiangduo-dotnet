@@ -15,7 +15,7 @@ namespace JiangDuo.Core.Models
     /// 文件上传表
     /// </summary>
     [Table("uploadfile")]
-    public class UploadFile : EntityBase
+    public class UploadFile : BaseEntity
     {
         /// <summary>
         /// 原文件名

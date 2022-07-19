@@ -11,7 +11,7 @@ namespace JiangDuo.Core.Models
     /// 部门表
     /// </summary>
     [Table("sys_dept")]
-    public partial class SysDept: EntityBase
+    public partial class SysDept: BaseEntity
     {
         /// <summary>
         /// 部门名称

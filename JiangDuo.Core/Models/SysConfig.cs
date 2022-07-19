@@ -11,7 +11,7 @@ namespace JiangDuo.Core.Models
     /// 参数配置表
     /// </summary>
     [Table("sys_config")]
-    public partial class SysConfig: EntityBase
+    public partial class SysConfig: BaseEntity
     {
         /// <summary>
         /// 参数名称

@@ -4,41 +4,33 @@
         <name>JiangDuo.Core</name>
     </assembly>
     <members>
-        <member name="T:JiangDuo.Core.Base.EntityBase">
+        <member name="T:JiangDuo.Core.Base.BaseEntity">
             <summary>
             实体类基础基础
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.Id">
+        <member name="P:JiangDuo.Core.Base.BaseEntity.Id">
             <summary>
             Id
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.Creator">
+        <member name="P:JiangDuo.Core.Base.BaseEntity.Creator">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.Updater">
-            <summary>
-            更新者
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.UpdatedTime">
+        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Base.BaseEntity.CreatedTime" -->
+        <member name="P:JiangDuo.Core.Base.BaseEntity.UpdatedTime">
             <summary>
             更新时间
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Base.EntityBase.IsDeleted">
+        <member name="P:JiangDuo.Core.Base.BaseEntity.Updater">
             <summary>
-            是否删除
+            更新者
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Base.BaseEntity.IsDeleted" -->
         <member name="T:JiangDuo.Core.Enums.EnumExtension">
             <summary>
             枚举扩展类
@@ -132,6 +124,471 @@
         <member name="T:JiangDuo.Core.Enums.UploadFileSource">
             <summary>
             文件来源
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Area">
+            <summary>
+            选区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.AreaName">
+            <summary>
+            选区名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.Province">
+            <summary>
+            省
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.City">
+            <summary>
+            市区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.Area1">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.AreaType">
+            <summary>
+            区域类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Area.AreaRange">
+            <summary>
+            选区范围
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Building">
+            <summary>
+            建筑
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.BuildingName">
+            <summary>
+            建筑名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.Address">
+            <summary>
+            建筑地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.Location">
+            <summary>
+            建筑位置
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.ImageUrl">
+            <summary>
+            建筑图片
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Building.AreaId">
+            <summary>
+            所属选区
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.News">
+            <summary>
+            新闻
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.Title">
+            <summary>
+            新闻标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.Subtitle">
+            <summary>
+            子标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.CoverPhoto">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.NewsClassifyId">
+            <summary>
+            新闻分类
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.RelationId">
+            <summary>
+            引用的id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Newsclassify">
+            <summary>
+            新闻分类
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Newsclassify.ClassifyName">
+            <summary>
+            分类名称
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Official">
+            <summary>
+            人大名单
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.CategoryId">
+            <summary>
+            类别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Nationality">
+            <summary>
+            名族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.CulturalLevel">
+            <summary>
+            文化程度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Party">
+            <summary>
+            党派
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Post">
+            <summary>
+            职务
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.AreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.OpenId">
+            <summary>
+            微信OpenId
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.PersonalResume">
+            <summary>
+            个人履历
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Officialsstructure">
+            <summary>
+            人大结构
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Officialsstructure.Name">
+            <summary>
+            人大结构名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Officialsstructure.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Officialsstructure.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Onlineletter">
+            <summary>
+            码上说马上办
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.ResidentId">
+            <summary>
+            居民Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.OfficialsId">
+            <summary>
+            人大名单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Onlineletter.AreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Participant">
+            <summary>
+            参与人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Participant.ServiceId">
+            <summary>
+            服务Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Participant.ResidentId">
+            <summary>
+            居民id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Regulation">
+            <summary>
+            规章制度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Regulation.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Regulation.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Reserve">
+            <summary>
+            有事好商量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.Theme">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.VenueDeviceId">
+            <summary>
+            场地设备
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.Number">
+            <summary>
+            人数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.ReserveDate">
+            <summary>
+            预约日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.MeetingResults">
+            <summary>
+            会议结果
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.AreaId">
+            <summary>
+            所属区域
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Resident">
+            <summary>
+            居民
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Origin">
+            <summary>
+            户籍
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.OpenId">
+            <summary>
+            微信openid
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Resident.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Service">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.ServiceTypeId">
+            <summary>
+            服务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.PlanNumber">
+            <summary>
+            计划人数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.PlanStartTime">
+            <summary>
+            计划开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.PlanEndTime">
+            <summary>
+            计划结束时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.AreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.VillagesRange">
+            <summary>
+            村 范围
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.OfficialsId">
+            <summary>
+            人大名单id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Servicetype">
+            <summary>
+            服务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Servicetype.Name">
+            <summary>
+            类型名称
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.SysConfig">
@@ -718,6 +1175,236 @@
         <member name="P:JiangDuo.Core.Models.UploadFile.FileLength">
             <summary>
             文件大小
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Venuedevice">
+            <summary>
+            场地设备
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.Type">
+            <summary>
+            1.场地，2.设备
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.BuildingId">
+            <summary>
+            所属建筑Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Village">
+            <summary>
+            村落
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Village.Name">
+            <summary>
+            村名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Village.AreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Volunteer">
+            <summary>
+            志愿者名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Origin">
+            <summary>
+            户籍
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.OpenId">
+            <summary>
+            微信openid
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Workorder">
+            <summary>
+            工单
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.OriginatorId">
+            <summary>
+            发起人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.ReceiverId">
+            <summary>
+            接收人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.Type">
+            <summary>
+            工单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.RelationId">
+            <summary>
+            引用的业务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.AreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.Status">
+            <summary>
+            工单状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.Content">
+            <summary>
+            工单内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.OverTime">
+            <summary>
+            完结时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Workorderfeedback">
+            <summary>
+            工单反馈
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.WordOrderId">
+             <summary>
+            工单id
+             </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.HandlerName">
+            <summary>
+            处理人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.HandlerContent">
+            <summary>
+            处理内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.HandlerTime">
+            <summary>
+            处理时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorName">
+            <summary>
+            发起人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorContent">
+            <summary>
+            发起人回复内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorTime">
+            <summary>
+            发起人回复时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Workorderlog">
+            <summary>
+            工单日志
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderlog.WordOrderId">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderlog.LogContent">
+            <summary>
+            日志内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorderlog.LogTime">
+            <summary>
+            日志时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Workordervolunteer">
+            <summary>
+            工单志愿者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workordervolunteer.WordOrderId">
+            <summary>
+            工单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workordervolunteer.VolunteerId">
+            <summary>
+            志愿者Id
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Utils.JwtTokenResult.AccessToken">

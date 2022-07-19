@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.DictItem.Dto
 {
-    public class DictItemRequest: RequestBase
+    public class DictItemRequest: BaseRequest
     {
     }
 }

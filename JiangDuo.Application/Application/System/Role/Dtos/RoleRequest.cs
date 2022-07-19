@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.Role.Dtos
 {
-    public class RoleRequest : RequestBase
+    public class RoleRequest : BaseRequest
     {
         /// <summary>
         /// 角色名称

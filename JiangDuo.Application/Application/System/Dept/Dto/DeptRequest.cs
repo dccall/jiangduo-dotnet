@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Dept.Dtos
 {
-    public class DeptRequest: RequestBase
+    public class DeptRequest: BaseRequest
     {
         /// <summary>
         /// 部门名称

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Base
 {
-    public class RequestBase
+    public class BaseRequest
     {
 
 

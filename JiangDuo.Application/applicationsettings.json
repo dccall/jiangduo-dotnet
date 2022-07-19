@@ -1,22 +1,12 @@
 ﻿{
   "SpecificationDocumentSettings": {
-    "DocumentTitle": "燃气项目规范化接口",
+    "DocumentTitle": "蒋垛项目规范化接口",
     "GroupOpenApiInfos": [
       {
         "Group": "Default",
-        "Title": "燃气项目接口演示",
+        "Title": "蒋垛项目接口演示",
         "Description": "",
         "Version": "1.0.0"
-        //"TermsOfService": "https://furion.icu",
-        //"Contact": {
-        //  "Name": "百小僧",
-        //  "Url": "https://gitee.com/monksoul",
-        //  "Email": "monksoul@outlook.com"
-        //},
-        //"License": {
-        //  "Name": "Apache-2.0",
-        //  "Url": "https://gitee.com/dotnetchina/Furion/blob/rc1/LICENSE"
-        //}
       }
     ]
   },

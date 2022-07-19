@@ -10,7 +10,7 @@ namespace JiangDuo.Core.Base
 	/// 实体类基础基础
 	/// </summary>
 	[NotMapped]
-	public class EntityBase :IEntity
+	public class BaseEntity :IEntity
 	{
 		/// <summary>
 		/// Id
@@ -21,18 +21,18 @@ namespace JiangDuo.Core.Base
 		/// 创建者
 		/// </summary>
 		public long Creator { get; set; }
+		/// 创建时间
+		/// </summary>
+		public DateTimeOffset CreatedTime { get; set; }
+		/// <summary>
+		/// 更新时间
+		/// </summary>
+		public DateTimeOffset? UpdatedTime { get; set; }
 		/// <summary>
 		/// 更新者
 		/// </summary>
 		public long? Updater { get; set; }
 		/// <summary>
-		/// 创建时间
-		/// </summary>
-		public  DateTime CreatedTime { get; set; }
-		/// <summary>
-		/// 更新时间
-		/// </summary>
-		public  DateTime? UpdatedTime { get; set; }
 		/// <summary>
 		/// 是否删除
 		/// </summary>

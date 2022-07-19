@@ -11,7 +11,7 @@ namespace JiangDuo.Core.Models
     /// 岗位信息表
     /// </summary>
     [Table("sys_post")]
-    public partial class SysPost: EntityBase
+    public partial class SysPost: BaseEntity
     {
         /// <summary>
         /// 岗位编码

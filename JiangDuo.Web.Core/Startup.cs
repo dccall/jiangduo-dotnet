@@ -62,8 +62,6 @@ public class Startup : AppStartup
 		app.UseAuthorization();
 		app.UseInject(string.Empty);
 
-
-
 		app.UseEndpoints(endpoints => {
 
 			endpoints.MapHub<ChatHub>("/hubs/chathub");

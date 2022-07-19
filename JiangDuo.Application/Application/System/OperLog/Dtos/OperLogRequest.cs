@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.OperLog.Dtos
 {
-    public class OperLogRequest: RequestBase
+    public class OperLogRequest: BaseRequest
     {
 
     }

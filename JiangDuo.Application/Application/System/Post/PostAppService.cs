@@ -73,7 +73,7 @@ namespace JiangDuo.Application.System.Post
         /// </summary>
         /// <param name="idList"></param>
         /// <returns></returns>
-        public async Task<int> Delete(List<long> idList)
+        public async Task<int> Delete([FromBody] List<long> idList)
         {
             return await _postService.FakeDelete(idList);
         }

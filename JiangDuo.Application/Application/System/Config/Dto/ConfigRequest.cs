@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Config.Dto
 {
-    public class ConfigRequest: RequestBase
+    public class ConfigRequest: BaseRequest
     {
         /// <summary>
         /// 参数名称

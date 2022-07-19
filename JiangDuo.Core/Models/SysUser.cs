@@ -13,7 +13,7 @@ namespace JiangDuo.Core.Models
     /// 用户信息表
     /// </summary>
     [Table("sys_user")]
-    public partial class SysUser: Base.EntityBase, IEntitySeedData<SysUser>
+    public partial class SysUser: Base.BaseEntity, IEntitySeedData<SysUser>
     {
         /// <summary>
         /// 部门ID

@@ -37,6 +37,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\JiangDuo.Web.Core\JiangDuo.Web.Core.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="logs\" />
+	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>
 			<UserProperties properties_4launchsettings_1json__JsonSchema="" />

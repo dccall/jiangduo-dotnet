@@ -6,7 +6,7 @@ namespace JiangDuo.Application.User.Dtos;
 /// <summary>
 /// 用户列表参数
 /// </summary>
-public class DtoUserRequert : RequestBase
+public class DtoUserRequert : BaseRequest
 {
     /// <summary>
     /// 部门ID

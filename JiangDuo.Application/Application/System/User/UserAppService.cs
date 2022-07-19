@@ -83,7 +83,7 @@ public class UserAppService : IDynamicApiController
 	/// </summary>
 	/// <param name="idList"></param>
 	/// <returns></returns>
-	public async Task<int> Delete(List<long> idList)
+	public async Task<int> Delete([FromBody] List<long> idList)
 	{
 		return await _userService.FakeDelete(idList);
 	}

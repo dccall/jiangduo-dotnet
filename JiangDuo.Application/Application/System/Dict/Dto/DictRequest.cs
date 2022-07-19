@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Dict.Dto
 {
-    public class DictRequest : RequestBase
+    public class DictRequest : BaseRequest
     {
         /// <summary>
         /// 字典名称

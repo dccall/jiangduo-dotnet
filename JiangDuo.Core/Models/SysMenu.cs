@@ -13,7 +13,7 @@ namespace JiangDuo.Core.Models
     /// 菜单权限表
     /// </summary>
     [Table("sys_menu")]
-    public partial class SysMenu: Base.EntityBase, IEntitySeedData<SysMenu>
+    public partial class SysMenu: Base.BaseEntity, IEntitySeedData<SysMenu>
     {
         /// <summary>
         /// 菜单标题

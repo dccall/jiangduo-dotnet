@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.Menu.Dtos
 {
-    public class MenuRequest: RequestBase
+    public class MenuRequest: BaseRequest
     {
         /// <summary>
         /// 菜单/按钮标题
