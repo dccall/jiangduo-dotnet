@@ -1348,6 +1348,493 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Type">
+            <summary>
+            1.场地，2.设备
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.BuildingId">
+            <summary>
+            所属建筑Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery.VenuedeviceName">
+            <summary>
+            建筑名称
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.GetList(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.Insert(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.Update(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.GetList(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.Insert(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.Update(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.VenuedeviceService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService">
+            <summary>
+            场地设备管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Get(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Insert(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Update(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VenuedeviceService.VenuedeviceAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Name">
+            <summary>
+            村名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.GetList(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.Insert(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.Update(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.GetList(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.Insert(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.Update(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.Services.VillageService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.VillageService.VillageAppService">
+            <summary>
+            村落管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Get(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Insert(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Update(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VillageService.VillageAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Origin">
+            <summary>
+            户籍
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.OpenId">
+            <summary>
+            微信openid
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.IVolunteerService.GetList(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.IVolunteerService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.IVolunteerService.Insert(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.IVolunteerService.Update(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.IVolunteerService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.GetList(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.Insert(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.Update(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.Services.VolunteerService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService">
+            <summary>
+            志愿者管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Get(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Insert(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Update(JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
         <member name="T:JiangDuo.Application.Account.AccountAppService">
             <summary>
             账号服务
