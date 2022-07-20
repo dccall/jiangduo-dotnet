@@ -60,7 +60,7 @@ namespace JiangDuo.Application.System.Config.Services
 
             var dto = entity.Adapt<ConfigDto>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

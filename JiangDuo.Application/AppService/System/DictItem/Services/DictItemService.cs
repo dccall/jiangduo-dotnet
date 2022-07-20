@@ -59,7 +59,7 @@ namespace JiangDuo.Application.System.DictItem.Services
 
             var dto = entity.Adapt<DictItemDto>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

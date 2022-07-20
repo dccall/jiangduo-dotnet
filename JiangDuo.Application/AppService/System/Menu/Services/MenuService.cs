@@ -70,7 +70,7 @@ namespace JiangDuo.Application.Menu.Services
 
             var dto = entity.Adapt<MenuDto>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
 
         public async Task<int> Insert(DtoMenuForm model)

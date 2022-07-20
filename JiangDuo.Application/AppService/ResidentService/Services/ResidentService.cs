@@ -51,7 +51,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
 
             var dto = entity.Adapt<DtoResident>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

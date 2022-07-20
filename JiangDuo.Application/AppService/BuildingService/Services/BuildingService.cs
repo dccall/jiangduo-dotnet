@@ -50,7 +50,7 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
 
             var dto = entity.Adapt<DtoBuilding>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

@@ -61,7 +61,7 @@ namespace JiangDuo.Application.Role.Services
             var entity = await _roleRepository.FindOrDefaultAsync(id);
             var dto = entity.Adapt<RoleDto>();
             dto.MenuIdList = _roleMenuRepository.Where(x => x.RoleId == id).Select(x=>x.MenuId).ToList();
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 新增

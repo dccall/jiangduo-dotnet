@@ -51,7 +51,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
 
             var dto = entity.Adapt<DtoOfficialsstruct>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

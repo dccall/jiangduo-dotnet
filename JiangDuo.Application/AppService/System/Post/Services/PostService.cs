@@ -60,7 +60,7 @@ namespace JiangDuo.Application.System.Post.Services
 
             var dto = entity.Adapt<PostDto>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

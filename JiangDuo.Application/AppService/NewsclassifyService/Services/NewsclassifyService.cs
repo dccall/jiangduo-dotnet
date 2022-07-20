@@ -51,7 +51,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
 
             var dto = entity.Adapt<DtoNewsclassify>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

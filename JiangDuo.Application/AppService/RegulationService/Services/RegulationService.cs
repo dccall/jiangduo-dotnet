@@ -51,7 +51,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
 
             var dto = entity.Adapt<DtoRegulation>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         /// <summary>
         /// 添加

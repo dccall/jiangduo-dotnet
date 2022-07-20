@@ -45,7 +45,7 @@ namespace JiangDuo.Application.OperLog.Services
 
             var dto = entity.Adapt<OperLogDto>();
 
-            return await Task.FromResult(dto);
+            return dto;
         }
         public async Task<int> Insert(OperLogDto model)
         {
