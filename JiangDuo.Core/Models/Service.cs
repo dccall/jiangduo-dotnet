@@ -1,6 +1,8 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -14,6 +16,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 服务名称
         /// </summary>
+        [MaxLength(100)]
         public string ServiceName { get; set; } = null!;
         /// <summary>
         /// 服务类型
@@ -22,6 +25,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 描述
         /// </summary>
+        [MaxLength(255)]
         public string Remarks { get; set; }
         /// <summary>
         /// 计划人数
@@ -30,19 +34,20 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 计划开始时间
         /// </summary>
-        public DateOnly? PlanStartTime { get; set; }
+        public DateTimeOffset? PlanStartTime { get; set; }
         /// <summary>
         /// 计划结束时间
         /// </summary>
-        public DateOnly? PlanEndTime { get; set; }
+        public DateTimeOffset? PlanEndTime { get; set; }
         /// <summary>
         /// 地址
         /// </summary>
+        [MaxLength(255)]
         public string Address { get; set; }
         /// <summary>
         /// 选区id
         /// </summary>
-        public long? AreaId { get; set; }
+        public long? SelectAreaId { get; set; }
         /// <summary>
         /// 村 范围
         /// </summary>
@@ -50,7 +55,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 状态
         /// </summary>
-        public int? Status { get; set; }
+        public ServiceStatusEnum? Status { get; set; }
         /// <summary>
         /// 人大名单id
         /// </summary>

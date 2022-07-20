@@ -19,6 +19,629 @@ namespace JiangDuo.Database.Migrations.Migrations
                 .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("JiangDuo.Core.Models.Building", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("BuildingName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingName");
+
+                    b.ToTable("Building", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.News", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CoverPhoto")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long?>("NewsClassifyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RelationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Subtitle")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Title");
+
+                    b.ToTable("News", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Newsclassify", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ClassifyName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassifyName");
+
+                    b.ToTable("Newsclassify", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Official", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("Birthday")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CulturalLevel")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Idnumber")
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nationality")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("OpenId")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Party")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PersonalResume")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Post")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Official", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Officialsstruct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Officialsstruct", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Onlineletter", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Attachments")
+                        .HasColumnType("longtext");
+
+                    b.Property<long?>("BusinessId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long?>("OfficialsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ResidentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Onlineletter", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Participant", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long?>("ResidentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ServiceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Participant", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Regulation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regulation", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Reserve", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("EndTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("MeetingResults")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int?>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTimeOffset>("ReserveDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Theme")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("VenueDeviceId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reserve", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Resident", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("Birthday")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Idnumber")
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nationality")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("OpenId")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Origin")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("PoliticalOutlook")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("VillageId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Resident", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.SelectArea", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Area")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("City")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Province")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SelectAreaName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("SelectAreaRange")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SelectAreaType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SelectAreaName");
+
+                    b.ToTable("SelectArea", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Service", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long?>("OfficialsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("PlanEndTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("PlanNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("PlanStartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ServiceName")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<long>("ServiceTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("VillagesRange")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Servicetype", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicetype", (string)null);
+                });
+
             modelBuilder.Entity("JiangDuo.Core.Models.SysConfig", b =>
                 {
                     b.Property<long>("Id")
@@ -334,7 +957,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1051), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5763), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -347,7 +970,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1075), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5787), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -360,7 +983,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1080), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5792), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -374,7 +997,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1082), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5793), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -388,7 +1011,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 5L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1084), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5794), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -402,7 +1025,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 6L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1086), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5797), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -416,7 +1039,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 7L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1088), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5798), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -430,7 +1053,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 8L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 24, DateTimeKind.Unspecified).AddTicks(1089), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 978, DateTimeKind.Unspecified).AddTicks(5800), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -627,7 +1250,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 26, DateTimeKind.Unspecified).AddTicks(8183), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 981, DateTimeKind.Unspecified).AddTicks(2931), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             IsDeleted = false,
                             RoleName = "管理员",
@@ -700,6 +1323,54 @@ namespace JiangDuo.Database.Migrations.Migrations
                             MenuId = 8L,
                             RoleId = 1L
                         });
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.SysUploadFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileExt")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<long>("FileLength")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileName")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("FilePath")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<int>("FileSource")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("OldName")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("sys_uploadfile", (string)null);
                 });
 
             modelBuilder.Entity("JiangDuo.Core.Models.SysUser", b =>
@@ -778,7 +1449,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 7, 21, 34, 8, 28, DateTimeKind.Unspecified).AddTicks(1771), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 20, 11, 41, 18, 983, DateTimeKind.Unspecified).AddTicks(3827), new TimeSpan(0, 8, 0, 0, 0)),
                             Creator = 0L,
                             DeptId = 0L,
                             IsDeleted = false,
@@ -833,7 +1504,47 @@ namespace JiangDuo.Database.Migrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("JiangDuo.Core.Models.UploadFile", b =>
+            modelBuilder.Entity("JiangDuo.Core.Models.Venuedevice", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BuildingId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venuedevice", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Village", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -845,30 +1556,15 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<long>("Creator")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("FileExt")
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<long>("FileLength")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FileName")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("FilePath")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<int>("FileSource")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("OldName")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("datetime(6)");
@@ -878,7 +1574,254 @@ namespace JiangDuo.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("uploadfile", (string)null);
+                    b.ToTable("Village", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Volunteer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("Birthday")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Idnumber")
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nationality")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("OpenId")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Origin")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("PoliticalOutlook")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("VillageId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Volunteer", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Workorder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<long>("OriginatorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("OverTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("ReceiverId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RelationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SelectAreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Type");
+
+                    b.ToTable("Workorder", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Workorderfeedback", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("HandlerContent")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<string>("HandlerName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("HandlerTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("OriginatorContent")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<string>("OriginatorName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset?>("OriginatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WordOrderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workorderfeedback", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Workorderlog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LogContent")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<DateTimeOffset>("LogTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WordOrderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workorderlog", (string)null);
+                });
+
+            modelBuilder.Entity("JiangDuo.Core.Models.Workordervolunteer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("Creator")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("Updater")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("VolunteerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WordOrderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workordervolunteer", (string)null);
                 });
 
             modelBuilder.Entity("JiangDuo.Core.Models.SysDept", b =>

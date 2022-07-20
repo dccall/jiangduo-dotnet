@@ -1,6 +1,7 @@
 ﻿using JiangDuo.Core.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -18,6 +19,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 日志内容
         /// </summary>
+        [MaxLength(300)]
         public string LogContent { get; set; }
         /// <summary>
         /// 日志时间

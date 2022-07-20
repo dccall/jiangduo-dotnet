@@ -22,14 +22,14 @@ namespace JiangDuo.Application.Tools
     public static class FileHelp
     {
         
-        public static async Task<UploadFile> UploadFileAsync(IFormFile file, UploadFileSource fileSource= UploadFileSource.Null)
+        public static async Task<SysUploadFile> UploadFileAsync(IFormFile file, UploadFileSource fileSource= UploadFileSource.Null)
         {
             if (file == null)
             {
                 throw Oops.Oh($"缺少上传文件");
             }
-            var uploadFileRepository = Db.GetRepository<UploadFile>();
-            var userId = JwtHelp.GetUserId();
+            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
+            var userId = JwtHelper.GetUserId();
             // 如：保存到网站根目录下的 uploads 目录
             var path = "uploads/"+ userId;  
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, path);
@@ -48,14 +48,14 @@ namespace JiangDuo.Application.Tools
             {
                 await file.CopyToAsync(stream);
             }
-            UploadFile fileInfo = new UploadFile();
+            SysUploadFile fileInfo = new SysUploadFile();
             fileInfo.OldName= oldName;
             fileInfo.FileName = fileName;
             fileInfo.FilePath = filePath;
             fileInfo.FileSource = fileSource;
             fileInfo.FileExt = fileExt;
             fileInfo.FileLength = size;  // 文件大小 KB
-            fileInfo.CreatedTime = DateTime.Now;
+            fileInfo.CreatedTime = DateTimeOffset.UtcNow;
             fileInfo.Creator = userId;
             fileInfo.Id = YitIdHelper.NextId();
             await uploadFileRepository.InsertNowAsync(fileInfo);
@@ -65,7 +65,7 @@ namespace JiangDuo.Application.Tools
 
         public static IActionResult FileDownload(long fileId)
         {
-            var uploadFileRepository = Db.GetRepository<UploadFile>();
+            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
             var uploadFile= uploadFileRepository.FindOrDefault(fileId);
             if (uploadFile == null)
             {
@@ -86,7 +86,7 @@ namespace JiangDuo.Application.Tools
 
         public static FileStream GetFileStream(long fileId)
         {
-            var uploadFileRepository = Db.GetRepository<UploadFile>();
+            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
             var uploadFile = uploadFileRepository.FindOrDefault(fileId);
             // 如：保存到网站根目录下的 uploads 目录
             var filePath = uploadFile.FilePath;

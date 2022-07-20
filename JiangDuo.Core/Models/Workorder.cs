@@ -1,7 +1,9 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -10,6 +12,7 @@ namespace JiangDuo.Core.Models
     /// 工单
     /// </summary>
     [Table("Workorder")]
+    [Index(nameof(Type))]
     public partial class Workorder : BaseEntity
     {
         /// <summary>
@@ -31,7 +34,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 选区id
         /// </summary>
-        public long? AreaId { get; set; }
+        public long? SelectAreaId { get; set; }
         /// <summary>
         /// 工单状态
         /// </summary>
@@ -39,6 +42,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 工单内容
         /// </summary>
+        [MaxLength(300)]
         public string Content { get; set; }
         /// <summary>
         /// 开始时间

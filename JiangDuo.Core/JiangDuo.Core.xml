@@ -126,46 +126,6 @@
             文件来源
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.Area">
-            <summary>
-            选区
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.AreaName">
-            <summary>
-            选区名称
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.Province">
-            <summary>
-            省
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.City">
-            <summary>
-            市区
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.Area1">
-            <summary>
-            区
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.AreaType">
-            <summary>
-            区域类型
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.ParentId">
-            <summary>
-            父级Id
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Area.AreaRange">
-            <summary>
-            选区范围
-            </summary>
-        </member>
         <member name="T:JiangDuo.Core.Models.Building">
             <summary>
             建筑
@@ -196,7 +156,7 @@
             建筑图片
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Building.AreaId">
+        <member name="P:JiangDuo.Core.Models.Building.SelectAreaId">
             <summary>
             所属选区
             </summary>
@@ -306,7 +266,7 @@
             手机号码
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Official.AreaId">
+        <member name="P:JiangDuo.Core.Models.Official.SelectAreaId">
             <summary>
             所属选区Id
             </summary>
@@ -321,22 +281,22 @@
             个人履历
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.Officialsstructure">
+        <member name="T:JiangDuo.Core.Models.Officialsstruct">
             <summary>
             人大结构
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Officialsstructure.Name">
+        <member name="P:JiangDuo.Core.Models.Officialsstruct.Name">
             <summary>
             人大结构名称
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Officialsstructure.ParentId">
+        <member name="P:JiangDuo.Core.Models.Officialsstruct.ParentId">
             <summary>
             父级
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Officialsstructure.Remarks">
+        <member name="P:JiangDuo.Core.Models.Officialsstruct.Remarks">
             <summary>
             描述
             </summary>
@@ -371,7 +331,7 @@
             附件
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.AreaId">
+        <member name="P:JiangDuo.Core.Models.Onlineletter.SelectAreaId">
             <summary>
             所属选区Id
             </summary>
@@ -396,6 +356,11 @@
             规章制度
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Regulation.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Regulation.Type">
             <summary>
             类型
@@ -408,7 +373,7 @@
         </member>
         <member name="T:JiangDuo.Core.Models.Reserve">
             <summary>
-            有事好商量
+            有事好商量(服务)
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Reserve.Theme">
@@ -451,7 +416,7 @@
             会议结果
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Reserve.AreaId">
+        <member name="P:JiangDuo.Core.Models.Reserve.SelectAreaId">
             <summary>
             所属区域
             </summary>
@@ -521,6 +486,46 @@
             政治面貌
             </summary>
         </member>
+        <member name="T:JiangDuo.Core.Models.SelectArea">
+            <summary>
+            选区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.SelectAreaName">
+            <summary>
+            选区名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.Province">
+            <summary>
+            省
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.City">
+            <summary>
+            市区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.Area">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.SelectAreaType">
+            <summary>
+            区域类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.SelectAreaRange">
+            <summary>
+            选区范围(坐标集合)
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Service">
             <summary>
             服务
@@ -561,7 +566,7 @@
             地址
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Service.AreaId">
+        <member name="P:JiangDuo.Core.Models.Service.SelectAreaId">
             <summary>
             选区id
             </summary>
@@ -999,6 +1004,31 @@
             备注
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.SysRegion.RegionName">
+            <summary>
+            地区名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRegion.RegionShortName">
+            <summary>
+            地区缩写
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRegion.RegionCode">
+            <summary>
+            行政地区编号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRegion.ParentId">
+            <summary>
+            地区父id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysRegion.RegionLevel">
+            <summary>
+            地区级别 1-省、自治区、直辖市 2-地级市、地区、自治州、盟 3-市辖区、县级市、县
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.SysRole">
             <summary>
             角色信息表
@@ -1032,6 +1062,41 @@
         <member name="P:JiangDuo.Core.Models.SysRoleMenu.MenuId">
             <summary>
             菜单ID
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.SysUploadFile">
+            <summary>
+            文件上传表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.OldName">
+            <summary>
+            原文件名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.FileSource">
+            <summary>
+            文件来源
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.FileExt">
+            <summary>
+            文件后缀
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.FileLength">
+            <summary>
+            文件大小
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.SysUser">
@@ -1142,41 +1207,6 @@
             角色ID
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.UploadFile">
-            <summary>
-            文件上传表
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.OldName">
-            <summary>
-            原文件名
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.FileName">
-            <summary>
-            文件名
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.FilePath">
-            <summary>
-            文件路径
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.FileSource">
-            <summary>
-            文件来源
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.FileExt">
-            <summary>
-            文件后缀
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.UploadFile.FileLength">
-            <summary>
-            文件大小
-            </summary>
-        </member>
         <member name="T:JiangDuo.Core.Models.Venuedevice">
             <summary>
             场地设备
@@ -1212,7 +1242,7 @@
             村名称
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Village.AreaId">
+        <member name="P:JiangDuo.Core.Models.Village.SelectAreaId">
             <summary>
             选区id
             </summary>
@@ -1307,7 +1337,7 @@
             引用的业务id
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.AreaId">
+        <member name="P:JiangDuo.Core.Models.Workorder.SelectAreaId">
             <summary>
             选区id
             </summary>
@@ -1510,12 +1540,12 @@
             授权代码
             </summary>
         </member>
-        <member name="T:ArkNeTransport.Application.Common.Utils.JsonHelp">
+        <member name="T:ArkNeTransport.Application.Common.Utils.JsonHelper">
             <summary>
             Json帮助类
             </summary>
         </member>
-        <member name="M:ArkNeTransport.Application.Common.Utils.JsonHelp.JsonConvertConfig(System.String)">
+        <member name="M:ArkNeTransport.Application.Common.Utils.JsonHelper.JsonConvertConfig(System.String)">
             <summary>
             将json字符串转为Configuration
             </summary>

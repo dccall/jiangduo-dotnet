@@ -1,7 +1,9 @@
 ﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -10,11 +12,13 @@ namespace JiangDuo.Core.Models
     /// 人大名单
     /// </summary>
     [Table("Official")]
+    [Index(nameof(Name))]
     public partial class Official : BaseEntity
     {
         /// <summary>
         /// 姓名
         /// </summary>
+        [MaxLength(50)]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 性别
@@ -31,6 +35,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 名族
         /// </summary>
+        [MaxLength(50)]
         public string Nationality { get; set; }
         /// <summary>
         /// 文化程度
@@ -39,14 +44,17 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 党派
         /// </summary>
+        [MaxLength(50)]
         public string Party { get; set; }
         /// <summary>
         /// 职务
         /// </summary>
+        [MaxLength(50)]
         public string Post { get; set; }
         /// <summary>
         /// 身份证号码
         /// </summary>
+        [MaxLength(18)]
         public string Idnumber { get; set; }
         /// <summary>
         /// 手机号码
@@ -55,10 +63,11 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 所属选区Id
         /// </summary>
-        public long? AreaId { get; set; }
+        public long? SelectAreaId { get; set; }
         /// <summary>
         /// 微信OpenId
         /// </summary>
+        [MaxLength(50)]
         public string OpenId { get; set; }
         /// <summary>
         /// 个人履历

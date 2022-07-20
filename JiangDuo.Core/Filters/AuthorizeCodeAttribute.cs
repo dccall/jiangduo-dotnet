@@ -33,7 +33,7 @@ namespace JiangDuo.Application.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var codes = GetUserRouteCodes(JwtHelp.GetUserId());
+            var codes = GetUserRouteCodes(JwtHelper.GetUserId());
             var authorizeCodeAttribute = context.FindEffectivePolicy<AuthorizeCodeAttribute>();
             if (authorizeCodeAttribute != null)
             {

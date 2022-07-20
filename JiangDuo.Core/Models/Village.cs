@@ -1,6 +1,7 @@
 ﻿using JiangDuo.Core.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -14,10 +15,11 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 村名称
         /// </summary>
+        [MaxLength(50)]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 选区id
         /// </summary>
-        public long? AreaId { get; set; }
+        public long? SelectAreaId { get; set; }
     }
 }

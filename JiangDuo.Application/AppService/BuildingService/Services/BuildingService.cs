@@ -1,0 +1,122 @@
+﻿using JiangDuo.Application.System.Config.Dto;
+using JiangDuo.Application.Tools;
+using JiangDuo.Core.Models;
+using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
+using Mapster;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yitter.IdGenerator;
+using JiangDuo.Core.Utils;
+using JiangDuo.Application.AppService.BuildingService.Dto;
+using Furion.FriendlyException;
+
+namespace JiangDuo.Application.AppService.BuildingService.Services
+{
+    public class BuildingService:IBuildingService, ITransient
+    {
+        private readonly ILogger<BuildingService> _logger;
+        private readonly IRepository<Building> _buiildingRepository;
+        public BuildingService(ILogger<BuildingService> logger, IRepository<Building> buiildingRepository)
+        {
+            _logger = logger;
+            _buiildingRepository = buiildingRepository;
+        }
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoBuilding> GetList(DtoBuildingQuery model)
+        {
+            var query = _buiildingRepository.Where(x => !x.IsDeleted);
+            query = query.Where(!string.IsNullOrEmpty(model.BuildingName), x => x.BuildingName.Contains(model.BuildingName));
+
+            //将数据映射到DtoBuilding中
+            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoBuilding>().ToPagedList(model.PageIndex, model.PageSize);
+        }
+        /// <summary>
+        /// 根据编号查询详情
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <returns></returns>
+        public async Task<DtoBuilding> GetById(long id)
+        {
+            var entity = await _buiildingRepository.FindOrDefaultAsync(id);
+
+            var dto = entity.Adapt<DtoBuilding>();
+
+            return await Task.FromResult(dto);
+        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> Insert(DtoBuildingForm model)
+        {
+            var entity = model.Adapt<Building>();
+            entity.Id = YitIdHelper.NextId();
+            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.Creator = JwtHelper.GetUserId();
+            _buiildingRepository.Insert(entity);
+            return await _buiildingRepository.SaveNowAsync();
+        }
+     
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> Update(DtoBuildingForm model)
+        {
+            //先根据id查询实体
+            var entity= _buiildingRepository.FindOrDefault(model.Id);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            //将模型数据映射给实体属性
+            entity= model.Adapt(entity);
+            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.Updater = JwtHelper.GetUserId();
+            _buiildingRepository.Update(entity);
+            return await _buiildingRepository.SaveNowAsync();
+        }
+     
+        /// <summary>
+        /// 假删除
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <returns></returns>
+        public async Task<int> FakeDelete(long id)
+        {
+            var entity = _buiildingRepository.FindOrDefault(id);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.IsDeleted = true;
+            return await _buiildingRepository.SaveNowAsync();
+        }
+        /// <summary>
+        /// 批量假删除
+        /// </summary>
+        /// <param name="idList">编号</param>
+        /// <returns></returns>
+        public async Task<int> FakeDelete(List<long> idList)
+        {
+            var result = await _buiildingRepository.Context.BatchUpdate<Building>()
+                .Set(x => x.IsDeleted, x => true)
+                .Where(x => idList.Contains(x.Id))
+                .ExecuteAsync();
+            return result;
+        }
+    
+
+    }
+}

@@ -35,6 +35,6 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 所属选区Id
         /// </summary>
-        public long? AreaId { get; set; }
+        public long? SelectAreaId { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 是否为外链
         /// </summary>
-        public bool? IsFrame { get; set; }
+        public int? IsFrame { get; set; }
         /// <summary>
         /// 外链地址
         /// </summary>
@@ -56,11 +56,11 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 是否缓存
         /// </summary>
-        public bool? KeepAlive { get; set; }
+        public int? KeepAlive { get; set; }
         /// <summary>
         /// 是否隐藏
         /// </summary>
-        public bool? Hide { get; set; }
+        public int? Hide { get; set; }
         /// <summary>
         /// 菜单类型
         /// </summary>
@@ -96,7 +96,7 @@ namespace JiangDuo.Core.Models
                     Path="/dashboard",
                     Icon="carbon:dashboard",
                     Order=0,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0  
                 },
                 new SysMenu {
@@ -106,7 +106,7 @@ namespace JiangDuo.Core.Models
                     Path="/system",
                     Icon="carbon:dashboard",
                     Order=1,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 }, 
                 new SysMenu {
@@ -117,7 +117,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/peopleConfig/user",
                     Icon="carbon:dashboard",
                     Order=1,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -128,7 +128,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/peopleConfig/role",
                     Icon="carbon:dashboard",
                     Order=2,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -139,7 +139,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/menu",
                     Icon="carbon:dashboard",
                     Order=3,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -150,7 +150,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/dept",
                     Icon="carbon:dashboard",
                     Order=5,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -161,7 +161,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/post",
                     Icon="carbon:dashboard",
                     Order=6,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -172,7 +172,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/dict",
                     Icon="carbon:dashboard",
                     Order=7,
-                    CreatedTime=DateTime.Now,
+                    CreatedTime=DateTimeOffset.UtcNow,
                     Creator=0
                 }
             };

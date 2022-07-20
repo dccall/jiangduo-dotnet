@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Application\System\Dict\Dto\DictItemDto.cs" />
+    <Compile Remove="AppService\System\Dict\Dto\DictItemDto.cs" />
   </ItemGroup>
 
   <ItemGroup>
