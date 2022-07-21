@@ -6,45 +6,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JiangDuo.Application.AppService.NewsService.Dto
+namespace JiangDuo.Application.AppService.OnlineletterService.Dto
 {
-    public class DtoNewsForm
+    public class DtoOnlineletterForm
     {
         /// <summary>
         /// 主键
         /// </summary>
         public long? Id { get;  set; }
         /// <summary>
-        /// 新闻标题
+        /// 居民Id
         /// </summary>
-        [MaxLength(50)]
-        public string Title { get; set; } = null!;
+        public long? ResidentId { get; set; }
         /// <summary>
-        /// 子标题
+        /// 业务类型
         /// </summary>
-        [MaxLength(50)]
-        public string Subtitle { get; set; }
+        public long? BusinessId { get; set; }
         /// <summary>
-        /// 封面
+        /// 人大名单Id
         /// </summary>
-        [MaxLength(255)]
-        public string CoverPhoto { get; set; }
+        public long? OfficialsId { get; set; }
         /// <summary>
         /// 内容
         /// </summary>
         public string Content { get; set; }
         /// <summary>
-        /// 作者
+        /// 附件
         /// </summary>
-        [MaxLength(50)]
-        public string Author { get; set; }
+        public string Attachments { get; set; }
         /// <summary>
-        /// 新闻分类
+        /// 所属选区Id
         /// </summary>
-        public long? NewsClassifyId { get; set; }
+        public long? SelectAreaId { get; set; }
         /// <summary>
-        /// 引用的id
+        /// 关联工单Id
         /// </summary>
-        public long? RelationId { get; set; }
+        public long? WorkOrderId { get; set; }
     }
 }

@@ -33,14 +33,20 @@ namespace JiangDuo.Application.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var codes = GetUserRouteCodes(JwtHelper.GetUserId());
             var authorizeCodeAttribute = context.FindEffectivePolicy<AuthorizeCodeAttribute>();
             if (authorizeCodeAttribute != null)
             {
-                if (!codes.Contains(authorizeCodeAttribute.Code))
+                var AuthorizeCodeChecked = false;
+                bool.TryParse(App.Configuration["AuthorizeCodeChecked"],out AuthorizeCodeChecked);
+                if (AuthorizeCodeChecked)
                 {
-                    throw Oops.Oh($"你没有足够的权限访问");
+                    var codes = GetUserRouteCodes(JwtHelper.GetUserId());
+                    if (!codes.Contains(authorizeCodeAttribute.Code))
+                    {
+                        throw Oops.Oh($"你没有足够的权限访问");
+                    }
                 }
+              
             }
         }
 

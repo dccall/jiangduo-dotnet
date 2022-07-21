@@ -819,6 +819,185 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.ResidentId">
+            <summary>
+            居民Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.OfficialsId">
+            <summary>
+            人大名单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.WorkOrderId">
+            <summary>
+            关联工单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery.WorkOrderId">
+            <summary>
+            关联工单Id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService">
+            <summary>
+            新闻管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Get(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Insert(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Update(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.IOnlineletterService.GetList(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.IOnlineletterService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.IOnlineletterService.Insert(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.IOnlineletterService.Update(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.IOnlineletterService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.GetList(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.Insert(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.Update(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OnlineletterService.Services.OnlineletterService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
         <member name="P:JiangDuo.Application.AppService.RegulationService.Dto.DtoRegulationForm.Id">
             <summary>
             主键
@@ -962,6 +1141,190 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.RegulationService.Services.RegulationService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Theme">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.VenueDeviceId">
+            <summary>
+            场地设备
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Number">
+            <summary>
+            人数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.ReserveDate">
+            <summary>
+            预约日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.MeetingResults">
+            <summary>
+            会议结果
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.SelectAreaId">
+            <summary>
+            所属区域
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.WorkOrderId">
+            <summary>
+            关联工单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery.Theme">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.ReserveService.ReserveAppService">
+            <summary>
+            有事好商量（场地预约）
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Get(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Insert(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Update(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.GetList(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.Insert(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.Update(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.GetList(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.Insert(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.Update(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.FakeDelete(System.Collections.Generic.List{System.Int64})">
             <summary>
             批量假删除
             </summary>
@@ -1342,6 +1705,195 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.ServiceTypeId">
+            <summary>
+            服务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Remarks">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.PlanNumber">
+            <summary>
+            计划人数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.PlanStartTime">
+            <summary>
+            计划开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.PlanEndTime">
+            <summary>
+            计划结束时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.VillagesRange">
+            <summary>
+            村 范围
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.OfficialsId">
+            <summary>
+            人大名单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.ServiceService.ServiceAppService">
+            <summary>
+            服务管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Get(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Insert(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Update(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.GetList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.Insert(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.Update(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.GetList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.Insert(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.Update(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.FakeDelete(System.Collections.Generic.List{System.Int64})">
             <summary>
             批量假删除
             </summary>
@@ -1829,6 +2381,220 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.VolunteerService.VolunteerAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OriginatorId">
+            <summary>
+            发起人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.ReceiverId">
+            <summary>
+            接收人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Type">
+            <summary>
+            工单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.RelationId">
+            <summary>
+            引用的业务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Status">
+            <summary>
+            工单状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Content">
+            <summary>
+            工单内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OverTime">
+            <summary>
+            完结时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Reserve">
+            <summary>
+            有事好商量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Service">
+            <summary>
+            一老一小(服务)
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OnlineLetters">
+            <summary>
+            码上说马上办
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.Type">
+            <summary>
+            工单类型 1.有事好商量 2.一老一小 3.码上说马上办
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.Status">
+            <summary>
+            工单状态 1.未处理 2.进行中 3.已反馈 4.已完结
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.GetList(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.Insert(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.Update(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.GetList(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.Insert(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.Update(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService">
+            <summary>
+            工单管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Get(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Insert(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Update(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.Delete(System.Collections.Generic.List{System.Int64})">
             <summary>
             批量删除
             </summary>

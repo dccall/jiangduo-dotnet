@@ -22,6 +22,9 @@ namespace JiangDuo.Core.Enums
     public enum WorkorderStatusEnum
     {
 
+        /// <summary>
+        /// 默认
+        /// </summary>
         [Description("默认")]
         Normal = 0,
         [Description("未处理")]

@@ -10,6 +10,7 @@
       }
     ]
   },
+  "AuthorizeCodeChecked": false,//开启菜单Code拦截
   "DynamicApiControllerSettings": {
     //"KeepVerb": true, //保留控制器动词
     //"KeepName": true, //保留控制器原名称,

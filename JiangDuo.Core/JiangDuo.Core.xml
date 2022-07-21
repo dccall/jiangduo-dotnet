@@ -126,6 +126,11 @@
             文件来源
             </summary>
         </member>
+        <member name="F:JiangDuo.Core.Enums.WorkorderStatusEnum.Normal">
+            <summary>
+            默认
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Building">
             <summary>
             建筑
@@ -301,39 +306,44 @@
             描述
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.Onlineletter">
+        <member name="T:JiangDuo.Core.Models.OnlineLetters">
             <summary>
             码上说马上办
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.ResidentId">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.ResidentId">
             <summary>
             居民Id
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.BusinessId">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.BusinessId">
             <summary>
             业务类型
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.OfficialsId">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.OfficialsId">
             <summary>
             人大名单Id
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.Content">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.Content">
             <summary>
             内容
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.Attachments">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.Attachments">
             <summary>
             附件
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Onlineletter.SelectAreaId">
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.SelectAreaId">
             <summary>
             所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.OnlineLetters.WorkOrderId">
+            <summary>
+            关联工单Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Participant">
@@ -419,6 +429,11 @@
         <member name="P:JiangDuo.Core.Models.Reserve.SelectAreaId">
             <summary>
             所属区域
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.WorkOrderId">
+            <summary>
+            关联工单Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Resident">
@@ -584,6 +599,11 @@
         <member name="P:JiangDuo.Core.Models.Service.OfficialsId">
             <summary>
             人大名单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.WorkOrderId">
+            <summary>
+            关联工单Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Servicetype">

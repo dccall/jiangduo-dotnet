@@ -128,8 +128,8 @@ namespace JiangDuo.Application.Menu.Services
         private void InsertUpdateChecked(DtoMenuForm model)
         {
             var query = _menuRepository.AsQueryable();
-            query = query.Where(s => s.Title == model.Title);
-            if (model.Id !=0)
+            query = query.Where(s => !s.IsDeleted&& s.Title == model.Title);
+            if (model.Id.HasValue)
             {
                 query = query.Where(s => s.Id != model.Id);
             }

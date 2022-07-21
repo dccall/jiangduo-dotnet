@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace JiangDuo.Core.Models
+namespace JiangDuo.Application.AppService.ReserveService.Dto
 {
-    /// <summary>
-    /// 有事好商量(服务)
-    /// </summary>
-    [Table("Reserve")]
-    public partial class Reserve : BaseEntity
+    public class DtoReserveForm
     {
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public long? Id { get;  set; }
         /// <summary>
         /// 主题
         /// </summary>
@@ -51,7 +53,6 @@ namespace JiangDuo.Core.Models
         /// 所属区域
         /// </summary>
         public long? SelectAreaId { get; set; }
-
 
         /// <summary>
         /// 关联工单Id

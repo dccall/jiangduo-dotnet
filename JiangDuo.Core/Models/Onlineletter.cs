@@ -9,8 +9,8 @@ namespace JiangDuo.Core.Models
     /// <summary>
     /// 码上说马上办
     /// </summary>
-    [Table("Onlineletter")]
-    public partial class Onlineletter : BaseEntity
+    [Table("OnlineLetters")]
+    public partial class OnlineLetters : BaseEntity
     {
         /// <summary>
         /// 居民Id
@@ -36,5 +36,9 @@ namespace JiangDuo.Core.Models
         /// 所属选区Id
         /// </summary>
         public long? SelectAreaId { get; set; }
+        /// <summary>
+        /// 关联工单Id
+        /// </summary>
+        public long? WorkOrderId { get; set; }
     }
 }

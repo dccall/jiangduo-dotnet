@@ -3,16 +3,18 @@ using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace JiangDuo.Core.Models
+namespace JiangDuo.Application.AppService.ServiceService.Dto
 {
-    /// <summary>
-    /// 服务
-    /// </summary>
-    [Table("Service")]
-    public partial class Service:BaseEntity
+    public class DtoServiceForm
     {
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public long? Id { get;  set; }
         /// <summary>
         /// 服务名称
         /// </summary>
@@ -60,10 +62,5 @@ namespace JiangDuo.Core.Models
         /// 人大名单id
         /// </summary>
         public long? OfficialsId { get; set; }
-
-        /// <summary>
-        /// 关联工单Id
-        /// </summary>
-        public long? WorkOrderId { get; set; }
     }
 }

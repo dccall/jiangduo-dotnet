@@ -60,7 +60,7 @@ public class DtoUser : SysUser
     /// <summary>
     /// 性别名称
     /// </summary>
-    public string SexName => Status.GetDescription();
+    public string SexName => Sex.GetDescription();
     /// <summary>
     /// 用户类型名称
     /// </summary>

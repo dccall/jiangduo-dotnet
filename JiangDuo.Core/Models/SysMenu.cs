@@ -43,7 +43,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 父菜单ID
         /// </summary>
-        public long? ParentId { get; set; }
+        public long? ParentId { get; set; } = -1;
         /// <summary>
         /// 是否为外链
         /// </summary>
