@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService;
 /// 场地设备管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "场地设备管理")]
 public class VenuedeviceAppService : IDynamicApiController
 {
  

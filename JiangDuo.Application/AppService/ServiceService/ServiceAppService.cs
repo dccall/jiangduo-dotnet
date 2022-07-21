@@ -15,7 +15,7 @@ namespace JiangDuo.Application.AppService.ServiceService;
 /// 服务管理
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings(Name = "Service")]
+[ApiDescriptionSettings(Name = "Service" , Groups =new string[] { "Default", "服务管理（一老一少）" })]
 public class ServiceAppService : IDynamicApiController
 {
  

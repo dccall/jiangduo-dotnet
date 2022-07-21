@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService;
 /// 新闻分类管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "新闻分类管理")]
 public class NewsclassifyAppService : IDynamicApiController
 {
  

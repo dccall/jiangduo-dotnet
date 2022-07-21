@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.RegulationService;
 /// 规则制度管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "规则制度管理")]
 public class RegulationAppService : IDynamicApiController
 {
  

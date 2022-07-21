@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.OfficialService;
 /// 人大名单管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "人大名单管理")]
 public class OfficialAppService : IDynamicApiController
 {
  

@@ -12,9 +12,10 @@ using System.Threading.Tasks;
 namespace JiangDuo.Application.AppService.OnlineletterService;
 
 /// <summary>
-/// 新闻管理
+/// 码上说马上办
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "码上说马上办")]
 public class OnlineletterAppService : IDynamicApiController
 {
  

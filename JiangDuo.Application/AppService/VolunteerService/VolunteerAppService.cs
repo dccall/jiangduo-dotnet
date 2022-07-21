@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.VolunteerService;
 /// 志愿者管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "志愿者管理")]
 public class VolunteerAppService : IDynamicApiController
 {
  

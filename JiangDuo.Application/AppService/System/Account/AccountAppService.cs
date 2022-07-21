@@ -46,7 +46,8 @@ public class AccountAppService : IDynamicApiController
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[AllowAnonymous]
-	public async Task<JwtTokenResult> Login(DtoLoginRequest model)
+	[HttpPost("api/Account/Login")]
+    public async Task<JwtTokenResult> Login([FromBody] DtoLoginRequest model)
 	{
 	    var user = await _accountService.GetUserByUserNameAndPwd(model);
 		if (user == null)
@@ -57,7 +58,7 @@ public class AccountAppService : IDynamicApiController
 		var jwtTokenResult= JwtHelper.GetJwtToken(user);
 		
 
-		return jwtTokenResult;
+		return  jwtTokenResult;
 	}
 	/// <summary>
 	/// 获取登陆人用户信息

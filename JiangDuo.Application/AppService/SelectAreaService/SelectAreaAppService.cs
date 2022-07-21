@@ -14,6 +14,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService;
 /// 选区管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "选区管理")]
 public class SelectAreaAppService : IDynamicApiController
 {
  

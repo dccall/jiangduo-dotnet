@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.ResidentService;
 /// 居民管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "居民管理")]
 public class ResidentAppService : IDynamicApiController
 {
  

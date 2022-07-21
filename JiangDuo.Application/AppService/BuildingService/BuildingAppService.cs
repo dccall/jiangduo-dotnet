@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.BuildingService;
 /// 建筑管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "建筑管理")]
 public class BuildingAppService : IDynamicApiController
 {
  

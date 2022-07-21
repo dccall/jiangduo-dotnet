@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.VillageService;
 /// 村落管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "村落管理")]
 public class VillageAppService : IDynamicApiController
 {
  

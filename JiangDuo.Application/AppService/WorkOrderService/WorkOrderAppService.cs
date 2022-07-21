@@ -17,6 +17,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService;
 /// 工单管理
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default","工单管理")]
 public class WorkOrderAppService : IDynamicApiController
 {
  

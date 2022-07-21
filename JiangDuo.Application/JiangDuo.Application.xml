@@ -876,7 +876,7 @@
         </member>
         <member name="T:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService">
             <summary>
-            新闻管理
+            码上说马上办
             </summary>
         </member>
         <member name="M:JiangDuo.Application.AppService.OnlineletterService.OnlineletterAppService.Get(JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterQuery)">

@@ -15,6 +15,7 @@ namespace JiangDuo.Application.AppService.ReserveService;
 /// 有事好商量（场地预约）
 /// </summary>
 [Route("api/[controller]")]
+[ApiDescriptionSettings("Default", "有事好商量（场地预约）")]
 public class ReserveAppService : IDynamicApiController
 {
  
