@@ -998,6 +998,145 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Title">
+            <summary>
+            新闻标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Subtitle">
+            <summary>
+            子标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.CoverPhoto">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.RegionClassifyId">
+            <summary>
+            新闻分类
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.RelationId">
+            <summary>
+            引用的id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionQuery.RegionParentId">
+            <summary>
+            地区父id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionQuery.RegionLevel">
+            <summary>
+            地区级别 1-省、自治区、直辖市 2-地级市、地区、自治州、盟 3-市辖区、县级市、县
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.RegionService.RegionAppService">
+            <summary>
+            省市区
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.RegionAppService.Get(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.IRegionService.GetList(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.IRegionService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.IRegionService.Insert(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.IRegionService.Update(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.IRegionService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.GetList(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.GetById(System.Int64)">
+            <summary>
+            根据编号查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.Insert(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.Update(JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.RegionService.Services.RegionService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
         <member name="P:JiangDuo.Application.AppService.RegulationService.Dto.DtoRegulationForm.Id">
             <summary>
             主键

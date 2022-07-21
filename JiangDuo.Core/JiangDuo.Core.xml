@@ -1039,7 +1039,7 @@
             行政地区编号
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.SysRegion.ParentId">
+        <member name="P:JiangDuo.Core.Models.SysRegion.RegionParentId">
             <summary>
             地区父id
             </summary>

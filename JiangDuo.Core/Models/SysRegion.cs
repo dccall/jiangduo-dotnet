@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Furion.DatabaseAccessor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace JiangDuo.Core.Models
 {
     [Table("sys_region")]
-    public partial class SysRegion
+    public partial class SysRegion : IEntity
     {
         [Key]
         public long RegionId { get; set; }
@@ -29,7 +30,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 地区父id
         /// </summary>
-        public long? ParentId { get; set; }
+        public long? RegionParentId { get; set; }
         /// <summary>
         /// 地区级别 1-省、自治区、直辖市 2-地级市、地区、自治州、盟 3-市辖区、县级市、县
         /// </summary>
