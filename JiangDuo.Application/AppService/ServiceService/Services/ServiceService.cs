@@ -15,6 +15,7 @@ using JiangDuo.Core.Utils;
 using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -22,10 +23,12 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
     {
         private readonly ILogger<ServiceService> _logger;
         private readonly IRepository<Service> _serviceRepository;
-        public ServiceService(ILogger<ServiceService> logger, IRepository<Service> serviceRepository)
+        private readonly IRepository<Workorder> _workOrderRepository;
+        public ServiceService(ILogger<ServiceService> logger, IRepository<Service> serviceRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
+            _workOrderRepository = workOrderRepository;
         }
         /// <summary>
         /// 分页
@@ -38,7 +41,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
 
             //将数据映射到DtoService中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -50,6 +53,12 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             var entity = await _serviceRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoService>();
+
+            if (dto.WorkOrderId != null)
+            {
+               var workOrderEntity=  _workOrderRepository.FindOrDefault(dto.WorkOrderId);
+                dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
+            }
 
             return dto;
         }
@@ -113,8 +122,8 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _serviceRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

@@ -154,8 +154,8 @@ namespace JiangDuo.Application.Role.Services
         {
             DeleteCheked(idList);
             var result = await _roleRepository.Context.BatchUpdate<SysRole>()
-               .Set(x => x.IsDeleted, x => true)
                .Where(x => idList.Contains(x.Id))
+               .Set(x => x.IsDeleted, x => true)
                .ExecuteAsync();
             return result;
         }

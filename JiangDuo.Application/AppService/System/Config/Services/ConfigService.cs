@@ -47,7 +47,7 @@ namespace JiangDuo.Application.System.Config.Services
             query = query.Where(!string.IsNullOrEmpty(model.ConfigName), x => x.ConfigName.Contains(model.ConfigName));
 
             //将数据映射到ConfigDto中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<ConfigDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<ConfigDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -122,8 +122,8 @@ namespace JiangDuo.Application.System.Config.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _configRepository.Context.BatchUpdate<SysConfig>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

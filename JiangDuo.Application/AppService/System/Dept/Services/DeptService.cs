@@ -164,8 +164,8 @@ namespace JiangDuo.Application.System.Dept.Services
         {
             DeleteCheked(idList);
             var result = await _deptRepository.Context.BatchUpdate<SysDept>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

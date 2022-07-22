@@ -47,7 +47,7 @@ namespace JiangDuo.Application.System.Post.Services
             var query = _postRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.PostName), x => x.PostName.Contains(model.PostName));
             //将数据映射到ConfigDto中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<PostDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<PostDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -122,8 +122,8 @@ namespace JiangDuo.Application.System.Post.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _postRepository.Context.BatchUpdate<SysPost>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

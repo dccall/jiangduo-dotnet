@@ -81,6 +81,11 @@
             所属选区
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.BuildingService.Dto.DtoBuildingQuery.SelectAreaId">
+            <summary>
+            所属选区
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.BuildingService.Dto.DtoBuildingQuery.BuildingName">
             <summary>
             建筑名称
@@ -470,6 +475,11 @@
             </summary>
             <param name="idList">编号</param>
             <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.NewsService.OfficialAppletService">
+             <summary>
+            人大小程序端
+             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
@@ -1850,6 +1860,16 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.StatusName">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.WorkOrder">
+            <summary>
+            关联的工单
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
             <summary>
             主键
@@ -2526,9 +2546,44 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.WorkorderTypeName">
+            <summary>
+            工单类型名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.StatusName">
+            <summary>
+            工单状态名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Volunteers">
+            <summary>
+            志愿者列表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Reserve">
+            <summary>
+            有事好商量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Service">
+            <summary>
+            一老一小(服务)
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.OnlineLetters">
+            <summary>
+            码上说马上办
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Id">
             <summary>
             主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkOrderNo">
+            <summary>
+            工单编号
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OriginatorId">
@@ -2541,7 +2596,7 @@
             接收人
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Type">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkorderType">
             <summary>
             工单类型
             </summary>
@@ -2591,7 +2646,7 @@
             码上说马上办
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.Type">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkorderType">
             <summary>
             工单类型 1.有事好商量 2.一老一小 3.码上说马上办
             </summary>
@@ -2660,9 +2715,9 @@
         </member>
         <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.GetById(System.Int64)">
             <summary>
-            根据编号查询详情
+            根据id查询详情
             </summary>
-            <param name="id">编号</param>
+            <param name="id">id</param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.Insert(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">

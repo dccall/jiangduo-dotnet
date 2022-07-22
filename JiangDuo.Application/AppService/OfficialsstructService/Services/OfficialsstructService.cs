@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoOfficialsstruct中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoOfficialsstruct>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficialsstruct>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -113,8 +113,8 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _officialsstructRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

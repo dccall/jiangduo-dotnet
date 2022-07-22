@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Theme), x => x.Theme.Contains(model.Theme));
 
             //将数据映射到DtoReserve中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoReserve>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoReserve>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -113,8 +113,8 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _reserveRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

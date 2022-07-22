@@ -13,7 +13,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// <summary>
         /// 工单类型 1.有事好商量 2.一老一小 3.码上说马上办
         /// </summary>
-        public WorkorderTypeEnum? Type { get; set; }
+        public WorkorderTypeEnum? WorkorderType { get; set; }
         /// <summary>
         /// 选区id
         /// </summary>

@@ -1337,6 +1337,11 @@
             工单
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.WorkOrderNo">
+            <summary>
+            工单编号
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Workorder.OriginatorId">
             <summary>
             发起人
@@ -1347,7 +1352,7 @@
             接收人
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.Type">
+        <member name="P:JiangDuo.Core.Models.Workorder.WorkorderType">
             <summary>
             工单类型
             </summary>
@@ -1457,6 +1462,52 @@
             志愿者Id
             </summary>
         </member>
+        <member name="T:JiangDuo.Core.Services.IVerifyCodeService">
+            <summary>
+            验证码服务
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Services.IVerifyCodeService.GenerateVerificationCodeAsync(System.String)">
+            <summary>
+            根据手机号生成验证码
+            </summary>
+            <param name="phone">手机号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.IVerifyCodeService.CheckVerificationCodeAsync(System.String,System.String)">
+            <summary>
+            验证验证码是否正确
+            </summary>
+            <param name="phone">手机号</param>
+            <param name="code">代码</param>
+            <returns></returns>
+        </member>
+        <member name="F:JiangDuo.Core.Services.VerifyCodeService._rnd">
+            <summary>
+            随机数
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Services.VerifyCodeService.#ctor(JiangDuo.Core.Utils.IRedisCache)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="redisCache">redis缓存</param>
+        </member>
+        <member name="M:JiangDuo.Core.Services.VerifyCodeService.GenerateVerificationCodeAsync(System.String)">
+            <summary>
+            根据手机号生成验证码
+            </summary>
+            <param name="phone">手机号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.VerifyCodeService.CheckVerificationCodeAsync(System.String,System.String)">
+            <summary>
+            验证验证码是否正确
+            </summary>
+            <param name="phone">手机号</param>
+            <param name="code">代码</param>
+            <returns></returns>
+        </member>
         <member name="P:JiangDuo.Core.Utils.JwtTokenResult.AccessToken">
             <summary>
             账号token
@@ -1500,12 +1551,13 @@
             <param name="options">选项</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Core.Utils.IRedisCache.GetAsync``1(System.String)">
+        <member name="M:JiangDuo.Core.Utils.IRedisCache.GetAsync``1(System.String,``0)">
             <summary>
             获取缓存
             </summary>
             <typeparam name="T">类型</typeparam>
             <param name="key">键</param>
+            <param name="defaultValue">默认数据</param>
             <returns></returns>
         </member>
         <member name="T:JiangDuo.Core.Utils.RedisCache">
@@ -1547,12 +1599,13 @@
             <param name="options">选项</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Core.Utils.RedisCache.GetAsync``1(System.String)">
+        <member name="M:JiangDuo.Core.Utils.RedisCache.GetAsync``1(System.String,``0)">
             <summary>
             获取缓存
             </summary>
             <typeparam name="T">类型</typeparam>
             <param name="key">键</param>
+            <param name="defaultValue">默认类型</param>
             <returns></returns>
         </member>
         <member name="T:JiangDuo.Application.Filters.AuthorizeCodeAttribute">

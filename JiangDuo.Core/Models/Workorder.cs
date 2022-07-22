@@ -12,9 +12,14 @@ namespace JiangDuo.Core.Models
     /// 工单
     /// </summary>
     [Table("Workorder")]
-    [Index(nameof(Type))]
+    [Index(nameof(WorkOrderNo))]
     public partial class Workorder : BaseEntity
     {
+        /// <summary>
+        /// 工单编号
+        /// </summary>
+        [MaxLength(50)]
+        public string WorkOrderNo { get; set; }
         /// <summary>
         /// 发起人
         /// </summary>
@@ -26,7 +31,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 工单类型
         /// </summary>
-        public WorkorderTypeEnum Type { get; set; }
+        public WorkorderTypeEnum WorkorderType { get; set; }
         /// <summary>
         /// 引用的业务id
         /// </summary>

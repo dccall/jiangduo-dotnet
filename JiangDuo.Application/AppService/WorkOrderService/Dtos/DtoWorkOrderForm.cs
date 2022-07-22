@@ -18,6 +18,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// 主键
         /// </summary>
         public long? Id { get;  set; }
+        /// <summary>
+        /// 工单编号
+        /// </summary>
+        [MaxLength(50)]
+        public string WorkOrderNo { get; set; }
 
         /// <summary>
         /// 发起人
@@ -30,7 +35,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// <summary>
         /// 工单类型
         /// </summary>
-        public WorkorderTypeEnum Type { get; set; }
+        public WorkorderTypeEnum WorkorderType { get; set; }
         /// <summary>
         /// 引用的业务id
         /// </summary>

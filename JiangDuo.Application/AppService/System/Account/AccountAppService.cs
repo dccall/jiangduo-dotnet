@@ -46,7 +46,6 @@ public class AccountAppService : IDynamicApiController
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[AllowAnonymous]
-	[HttpPost("api/Account/Login")]
     public async Task<JwtTokenResult> Login([FromBody] DtoLoginRequest model)
 	{
 	    var user = await _accountService.GetUserByUserNameAndPwd(model);

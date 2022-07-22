@@ -163,8 +163,8 @@ namespace JiangDuo.Application.System.DictItem.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _dictItemRepository.Context.BatchUpdate<SysDictItem>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

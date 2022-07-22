@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
 using Microsoft.Extensions.Caching.Distributed;
 using MsgPack.Serialization;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Utils
 {
@@ -42,8 +42,9 @@ namespace JiangDuo.Core.Utils
 		/// </summary>
 		/// <typeparam name="T">类型</typeparam>
 		/// <param name="key">键</param>
+		/// <param name="defaultValue">默认数据</param>
 		/// <returns></returns>
-		Task<T> GetAsync<T>(string key);
+		Task<T> GetAsync<T>(string key, T defaultValue = default(T));
 	}
 
 	/// <summary>
@@ -123,12 +124,14 @@ namespace JiangDuo.Core.Utils
 		/// </summary>
 		/// <typeparam name="T">类型</typeparam>
 		/// <param name="key">键</param>
+		/// <param name="defaultValue">默认类型</param>
 		/// <returns></returns>
-		public async Task<T> GetAsync<T>(string key)
+		public async Task<T> GetAsync<T>(string key, T defaultValue = default(T))
 		{
+			// Creates serializer.
 			try
 			{
-				// Creates serializer.
+
 				var serializer = MessagePackSerializer.Get<T>();
 				var bytes = await _cache.GetAsync(key);
 				using var stream = new MemoryStream(bytes);

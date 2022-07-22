@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
             query = query.Where(!string.IsNullOrEmpty(model.ClassifyName), x => x.ClassifyName.Contains(model.ClassifyName));
 
             //将数据映射到DtoNewsclassify中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoNewsclassify>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoNewsclassify>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -113,8 +113,8 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _newsclassifyRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

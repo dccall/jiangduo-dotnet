@@ -37,4 +37,8 @@
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AppService\OfficialApplet\Dtos\" />
+  </ItemGroup>
+
 </Project>

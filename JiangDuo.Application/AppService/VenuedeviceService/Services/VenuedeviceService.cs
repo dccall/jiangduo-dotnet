@@ -37,7 +37,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             query = query.Where(!string.IsNullOrEmpty(model.VenuedeviceName), x => x.Name.Contains(model.VenuedeviceName));
 
             //将数据映射到DtoVenuedevice中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -111,8 +111,8 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _venuedeviceRepository.Context.BatchUpdate<Venuedevice>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

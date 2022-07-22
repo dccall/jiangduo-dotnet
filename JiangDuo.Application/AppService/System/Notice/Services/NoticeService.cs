@@ -164,8 +164,8 @@ namespace JiangDuo.Application.System.Notice.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _noticeRepository.Context.BatchUpdate<SysNotice>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

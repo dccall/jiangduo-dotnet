@@ -8,7 +8,7 @@
         "Title": "默认接口",
         "Description": "",
         "Version": "1.0.0",
-        "Order":1000
+        "Order": 1000
       }
     ]
   },
@@ -20,5 +20,20 @@
 
     "AsLowerCamelCase": true,
     "CamelCaseSeparator": ""
+  },
+  "Oss": {
+    "Endpoint": "https://oss-cn-hangzhou.aliyuncs.com/",
+    "AccessKeyId": "",
+    "AccessKeySecret": "",
+    "BucketName": ""
+  },
+  "WeiXin": {
+    "BaseAddress": "https://api.weixin.qq.com/",
+    "Appid": "",
+    "Secret": "",
+    "OAuthRedirectUri": {
+      "Client": "",
+      "Driver": ""
+    }
   }
 }

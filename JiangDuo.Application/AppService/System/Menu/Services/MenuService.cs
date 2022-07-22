@@ -116,8 +116,8 @@ namespace JiangDuo.Application.Menu.Services
         {
             DeleteCheked(idList);
              var result= await _menuRepository.Context.BatchUpdate<SysMenu>()
+                .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
-                .Where(x=> idList.Contains(x.Id))
                 .ExecuteAsync();
             return result;
         }

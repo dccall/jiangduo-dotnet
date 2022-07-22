@@ -35,9 +35,11 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
         {
             var query = _buiildingRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.BuildingName), x => x.BuildingName.Contains(model.BuildingName));
-
+            //不传或者传-1查询全部
+            query = query.Where(model.SelectAreaId!=null|| model.SelectAreaId!=-1, x => x.SelectAreaId==model.SelectAreaId);
+            
             //将数据映射到DtoBuilding中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoBuilding>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoBuilding>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -111,8 +113,8 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _buiildingRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }

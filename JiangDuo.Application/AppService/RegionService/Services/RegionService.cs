@@ -108,8 +108,8 @@ namespace JiangDuo.Application.AppService.RegionService.Services
         public async Task<int> FakeDelete(List<long> idList)
         {
             var result = await _regionRepository.Context.BatchUpdate<Building>()
-                .Set(x => x.IsDeleted, x => true)
                 .Where(x => idList.Contains(x.Id))
+                .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
             return result;
         }
