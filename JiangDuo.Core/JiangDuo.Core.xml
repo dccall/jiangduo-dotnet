@@ -156,7 +156,7 @@
             描述
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Building.ImageUrl">
+        <member name="P:JiangDuo.Core.Models.Building.Images">
             <summary>
             建筑图片
             </summary>
@@ -549,6 +549,11 @@
         <member name="P:JiangDuo.Core.Models.Service.ServiceName">
             <summary>
             服务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.GroupOriented">
+            <summary>
+            面向群体
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Service.ServiceTypeId">
@@ -1089,7 +1094,7 @@
             文件上传表
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.SysUploadFile.OldName">
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.Name">
             <summary>
             原文件名
             </summary>
@@ -1102,6 +1107,11 @@
         <member name="P:JiangDuo.Core.Models.SysUploadFile.FilePath">
             <summary>
             文件路径
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.Url">
+            <summary>
+            Url
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.SysUploadFile.FileSource">
@@ -1461,6 +1471,22 @@
             <summary>
             志愿者Id
             </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Services.AliyunSmsService.SendSms(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            发送短信
+            </summary>
+            <param name="mobile"></param>
+            <param name="templateCode"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:JiangDuo.Core.Services.IAliyunSmsService.SendSms(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            发送短信
+            </summary>
+            <param name="mobile"></param>
+            <param name="templateCode"></param>
+            <param name="data"></param>
         </member>
         <member name="T:JiangDuo.Core.Services.IVerifyCodeService">
             <summary>

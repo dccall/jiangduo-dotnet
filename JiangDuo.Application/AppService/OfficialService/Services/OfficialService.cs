@@ -1,6 +1,4 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
+﻿using JiangDuo.Core.Models;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Mapster;
@@ -12,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.OfficialService.Dto;
 using Furion.FriendlyException;
 

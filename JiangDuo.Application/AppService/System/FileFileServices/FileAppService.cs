@@ -1,7 +1,6 @@
 ﻿
 using JiangDuo.Application.Role.Dtos;
 using JiangDuo.Application.Role.Services;
-using JiangDuo.Application.System.File.Dtos;
 using JiangDuo.Application.Tools;
 using JiangDuo.Core.Attributes;
 using JiangDuo.Core.Enums;
@@ -18,15 +17,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JiangDuo.Core.Filters;
+using Microsoft.AspNetCore.Authorization;
+using JiangDuo.Application.AppService.System.FileFileServices.Services;
+using JiangDuo.Application.System.FileFileServices.Dtos;
 
-namespace JiangDuo.Application.System.File
+namespace JiangDuo.Application.System.FileFileServices
 {
     /// <summary>
     /// 文件服务
     /// </summary>
     public class FileAppService : IDynamicApiController
     {
-       
+        private readonly IFileService _fileService;
+        public FileAppService(IFileService fileService)
+        {
+            _fileService = fileService;
+        }
+
 
         /// <summary>
         /// 文件上传
@@ -37,7 +44,7 @@ namespace JiangDuo.Application.System.File
         [HttpPost]
         public async Task<SysUploadFile> UploadFile(IFormFile file, [FromForm] UploadRequest model)
         {
-           var fileInfo= await FileHelp.UploadFileAsync(file, model.FileSource);
+           var fileInfo= await _fileService.UploadFileAsync(file, model.FileSource);
            return fileInfo;
         }
         /// <summary>
@@ -46,9 +53,10 @@ namespace JiangDuo.Application.System.File
         /// <param name="fileId">文件id</param>
         /// <returns></returns>
         [HttpGet, NonUnify]
+        [AllowAnonymous]
         public  IActionResult Download(long fileId)
         {
-            return  FileHelp.FileDownload(fileId);
+            return _fileService.FileDownload(fileId);
         }
 
         /// <summary>

@@ -25,5 +25,8 @@ namespace JiangDuo.Application.AppService.OfficialAppletService.Services
             _logger = logger;
         }
 
+
+
+
     }
 }

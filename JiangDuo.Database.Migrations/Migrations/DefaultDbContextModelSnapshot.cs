@@ -39,9 +39,8 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<long>("Creator")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                    b.Property<string>("Images")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -577,6 +576,10 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<long>("Creator")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("GroupOriented")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
@@ -971,7 +974,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8921), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9742), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -985,7 +988,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8925), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9749), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -999,7 +1002,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8927), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9751), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1013,7 +1016,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8928), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9752), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1027,7 +1030,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 5L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8929), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9754), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1041,7 +1044,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 6L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8931), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9799), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1055,7 +1058,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 7L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8932), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9802), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1069,7 +1072,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 8L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 555, DateTimeKind.Unspecified).AddTicks(8933), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 476, DateTimeKind.Unspecified).AddTicks(9804), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             Icon = "carbon:dashboard",
                             IsDeleted = false,
@@ -1232,9 +1235,6 @@ namespace JiangDuo.Database.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("RegionCode")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -1245,6 +1245,9 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<string>("RegionName")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<long?>("RegionParentId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("RegionShortName")
                         .HasMaxLength(50)
@@ -1295,7 +1298,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 559, DateTimeKind.Unspecified).AddTicks(2123), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 483, DateTimeKind.Unspecified).AddTicks(421), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             IsDeleted = false,
                             RoleName = "管理员",
@@ -1403,7 +1406,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("OldName")
+                    b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
@@ -1412,6 +1415,10 @@ namespace JiangDuo.Database.Migrations.Migrations
 
                     b.Property<long?>("Updater")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
 
                     b.HasKey("Id");
 
@@ -1494,7 +1501,7 @@ namespace JiangDuo.Database.Migrations.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 21, 9, 50, 53, 561, DateTimeKind.Unspecified).AddTicks(3314), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 7, 22, 9, 52, 13, 487, DateTimeKind.Unspecified).AddTicks(2879), new TimeSpan(0, 0, 0, 0, 0)),
                             Creator = 0L,
                             DeptId = 0L,
                             IsDeleted = false,
@@ -1734,18 +1741,22 @@ namespace JiangDuo.Database.Migrations.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<long?>("Updater")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("WorkOrderNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("WorkorderType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Type");
+                    b.HasIndex("WorkOrderNo");
 
                     b.ToTable("Workorder", (string)null);
                 });

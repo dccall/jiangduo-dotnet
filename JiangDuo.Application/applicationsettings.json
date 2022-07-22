@@ -35,5 +35,9 @@
       "Client": "",
       "Driver": ""
     }
+  },
+  "Aliyun": {
+    "sms-accessKeyId": "",
+    "sms-accessKeySecret": ""
   }
 }

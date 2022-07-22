@@ -197,7 +197,12 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 .ExecuteAsync();
             return result;
         }
-    
+
+
+        public async Task<int> WorkOrderOrderAssign(long id)
+        {
+            return 1;
+        }
 
         private string GetWorkOrderNo()
         {

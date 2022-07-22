@@ -71,7 +71,7 @@
             描述
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.BuildingService.Dto.DtoBuildingForm.ImageUrl">
+        <member name="P:JiangDuo.Application.AppService.BuildingService.Dto.DtoBuildingForm.Images">
             <summary>
             建筑图片
             </summary>
@@ -829,6 +829,11 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletter.WorkOrder">
+            <summary>
+            关联的工单
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.Id">
             <summary>
             主键
@@ -1295,6 +1300,11 @@
             </summary>
             <param name="idList">编号</param>
             <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.WorkOrder">
+            <summary>
+            关联的工单
+            </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Id">
             <summary>
@@ -3738,22 +3748,22 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:JiangDuo.Application.System.File.Dtos.UploadRequest">
+        <member name="T:JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest">
             <summary>
             上传请求参数
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.System.File.Dtos.UploadRequest.FileSource">
+        <member name="P:JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest.FileSource">
             <summary>
             文件来源
             </summary>
         </member>
-        <member name="T:JiangDuo.Application.System.File.FileAppService">
+        <member name="T:JiangDuo.Application.System.FileFileServices.FileAppService">
             <summary>
             文件服务
             </summary>
         </member>
-        <member name="M:JiangDuo.Application.System.File.FileAppService.UploadFile(Microsoft.AspNetCore.Http.IFormFile,JiangDuo.Application.System.File.Dtos.UploadRequest)">
+        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.UploadFile(Microsoft.AspNetCore.Http.IFormFile,JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest)">
             <summary>
             文件上传
             </summary>
@@ -3761,20 +3771,20 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.File.FileAppService.Download(System.Int64)">
+        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.Download(System.Int64)">
             <summary>
             文件下载
             </summary>
             <param name="fileId">文件id</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.File.FileAppService.ExportExcel">
+        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.ExportExcel">
             <summary>
             导出excel
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.File.FileAppService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             导入Excel
             </summary>

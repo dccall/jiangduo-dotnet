@@ -1,13 +1,13 @@
-﻿using JiangDuo.Core;
+﻿using Furion;
+using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
+using Furion.FriendlyException;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
-using Furion;
-using Furion.DatabaseAccessor;
-using Furion.FriendlyException;
-using Microsoft.AspNetCore.Hosting;
+using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,23 +15,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
 
-namespace JiangDuo.Application.Tools
+namespace JiangDuo.Application.AppService.System.FileFileServices.Services
 {
-    public static class FileHelp
+    public class FileService: IFileService, ITransient
     {
-        
-        public static async Task<SysUploadFile> UploadFileAsync(IFormFile file, UploadFileSource fileSource= UploadFileSource.Null)
+
+        private readonly ILogger<FileService> _logger;
+        private readonly IRepository<SysUploadFile> _uploadRepository;
+        public FileService(ILogger<FileService> logger,
+            IRepository<SysUploadFile> uploadRepository)
+        {
+            _logger = logger;
+            _uploadRepository = uploadRepository;
+        }
+
+
+        public async Task<SysUploadFile> UploadFileAsync(IFormFile file, UploadFileSource fileSource = UploadFileSource.Null)
         {
             if (file == null)
             {
                 throw Oops.Oh($"缺少上传文件");
             }
-            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
             var userId = JwtHelper.GetUserId();
             // 如：保存到网站根目录下的 uploads 目录
-            var path = "uploads/"+ userId;  
+            var path = "uploads/" + userId;
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, path);
             if (!Directory.Exists(saveDirectory)) Directory.CreateDirectory(saveDirectory);
             //// 这里还可以获取文件的信息
@@ -42,7 +50,7 @@ namespace JiangDuo.Application.Tools
             // 避免文件名重复，采用 GUID 生成
             var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
             var filePath = Path.Combine(path, fileName);
-            var savePath= Path.Combine(saveDirectory, fileName);
+            var savePath = Path.Combine(saveDirectory, fileName);
             // 保存到指定路径
             using (var stream = File.Create(savePath))
             {
@@ -51,25 +59,24 @@ namespace JiangDuo.Application.Tools
             var request = App.HttpContext.Request;
             SysUploadFile fileInfo = new SysUploadFile();
             fileInfo.Id = YitIdHelper.NextId();
-            fileInfo.Name= oldName;
+            fileInfo.Name = oldName;
             fileInfo.FileName = fileName;
-            //fileInfo.FilePath = filePath;
-            //fileInfo.FilePath = $"{request.Scheme}://{request.Host.Value}/api/file/download/{fileInfo.Id}";
-            fileInfo.FilePath = $"/file/download/{fileInfo.Id}";
+            fileInfo.FilePath = filePath;
+            //fileInfo.Url = $"{request.Scheme}://{request.Host.Value}/api/file/download/{fileInfo.Id}";
+            fileInfo.Url = $"/file/download/{fileInfo.Id}";
             fileInfo.FileSource = fileSource;
             fileInfo.FileExt = fileExt;
             fileInfo.FileLength = size;  // 文件大小 KB
             fileInfo.CreatedTime = DateTimeOffset.UtcNow;
             fileInfo.Creator = userId;
-            await uploadFileRepository.InsertNowAsync(fileInfo);
+            await _uploadRepository.InsertNowAsync(fileInfo);
 
             return fileInfo;
         }
 
-        public static IActionResult FileDownload(long fileId)
+        public  IActionResult FileDownload(long fileId)
         {
-            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
-            var uploadFile= uploadFileRepository.FindOrDefault(fileId);
+            var uploadFile = _uploadRepository.FindOrDefault(fileId);
             if (uploadFile == null)
             {
                 throw Oops.Oh($"未找到对应的文件");
@@ -87,10 +94,9 @@ namespace JiangDuo.Application.Tools
             };
         }
 
-        public static FileStream GetFileStream(long fileId)
+        private  FileStream GetFileStream(long fileId)
         {
-            var uploadFileRepository = Db.GetRepository<SysUploadFile>();
-            var uploadFile = uploadFileRepository.FindOrDefault(fileId);
+            var uploadFile = _uploadRepository.FindOrDefault(fileId);
             // 如：保存到网站根目录下的 uploads 目录
             var filePath = uploadFile.FilePath;
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, filePath);
@@ -100,8 +106,6 @@ namespace JiangDuo.Application.Tools
             }
             return new FileStream(filePath, FileMode.Open);
         }
+
     }
-
-
-   
 }

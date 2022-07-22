@@ -12,6 +12,7 @@ using Yitter.IdGenerator;
 using JiangDuo.Core.Utils;
 using JiangDuo.Application.AppService.OnlineletterService.Dto;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
 
 namespace JiangDuo.Application.AppService.OnlineletterService.Services
 {
@@ -19,10 +20,13 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
     {
         private readonly ILogger<OnlineletterService> _logger;
         private readonly IRepository<OnlineLetters> _onlineletterRepository;
-        public OnlineletterService(ILogger<OnlineletterService> logger, IRepository<OnlineLetters> onlineletterRepository)
+
+        private readonly IRepository<Workorder> _workOrderRepository;
+        public OnlineletterService(ILogger<OnlineletterService> logger, IRepository<OnlineLetters> onlineletterRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _onlineletterRepository = onlineletterRepository;
+            _workOrderRepository = workOrderRepository;
         }
         /// <summary>
         /// 分页
@@ -47,6 +51,13 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
             var entity = await _onlineletterRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoOnlineletter>();
+
+            if (dto.WorkOrderId != null)
+            {
+                var workOrderEntity = _workOrderRepository.FindOrDefault(dto.WorkOrderId);
+                dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
+            }
+
 
             return dto;
         }

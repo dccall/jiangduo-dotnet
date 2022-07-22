@@ -21,7 +21,7 @@ namespace JiangDuo.Core.Models
         /// 原文件名
         /// </summary>
         [MaxLength(100)]
-        public string OldName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 文件名
         /// </summary>
@@ -32,6 +32,11 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(300)]
         public string FilePath { get; set; }
+        /// <summary>
+        /// Url
+        /// </summary>
+        [MaxLength(300)]
+        public string Url { get; set; }
         /// <summary>
         /// 文件来源
         /// </summary>

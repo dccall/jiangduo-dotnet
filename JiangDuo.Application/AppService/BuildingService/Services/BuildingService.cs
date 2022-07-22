@@ -21,10 +21,12 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
     {
         private readonly ILogger<BuildingService> _logger;
         private readonly IRepository<Building> _buiildingRepository;
-        public BuildingService(ILogger<BuildingService> logger, IRepository<Building> buiildingRepository)
+        private readonly IRepository<SysUploadFile> _uploadRepository;
+        public BuildingService(ILogger<BuildingService> logger, IRepository<Building> buiildingRepository, IRepository<SysUploadFile> uploadRepository)
         {
             _logger = logger;
             _buiildingRepository = buiildingRepository;
+            _uploadRepository = uploadRepository;
         }
         /// <summary>
         /// 分页
@@ -52,6 +54,12 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
 
             var dto = entity.Adapt<DtoBuilding>();
 
+            if (!string.IsNullOrEmpty(dto.Images))
+            {
+                var idList= dto.Images.Split(',').ToList();
+                dto.ImageList = _uploadRepository.Where(x => idList.Contains(x.Id.ToString())).ToList();
+            }
+
             return dto;
         }
         /// <summary>
@@ -65,6 +73,12 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
             entity.Creator = JwtHelper.GetUserId();
+
+            if (model.ImageList != null && model.ImageList.Any())
+            {
+                entity.Images = String.Join(",",model.ImageList.Select(x=>x.Id));
+            }
+
             _buiildingRepository.Insert(entity);
             return await _buiildingRepository.SaveNowAsync();
         }
@@ -86,6 +100,12 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
             entity= model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
             entity.Updater = JwtHelper.GetUserId();
+
+            if (model.ImageList != null && model.ImageList.Any())
+            {
+                entity.Images = String.Join(",", model.ImageList.Select(x => x.Id));
+            }
+
             _buiildingRepository.Update(entity);
             return await _buiildingRepository.SaveNowAsync();
         }

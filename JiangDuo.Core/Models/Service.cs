@@ -19,6 +19,12 @@ namespace JiangDuo.Core.Models
         [MaxLength(100)]
         public string ServiceName { get; set; } = null!;
         /// <summary>
+        /// 面向群体
+        /// </summary>
+        [MaxLength(50)]
+        public string GroupOriented { get; set; }
+        
+        /// <summary>
         /// 服务类型
         /// </summary>
         public long ServiceTypeId { get; set; }

@@ -15,6 +15,7 @@ using JiangDuo.Core.Utils;
 using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
 
 namespace JiangDuo.Application.AppService.ReserveService.Services
 {
@@ -22,10 +23,12 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
     {
         private readonly ILogger<ReserveService> _logger;
         private readonly IRepository<Reserve> _reserveRepository;
-        public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository)
+        private readonly IRepository<Workorder> _workOrderRepository;
+        public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _reserveRepository = reserveRepository;
+            _workOrderRepository = workOrderRepository;
         }
         /// <summary>
         /// 分页
@@ -50,6 +53,12 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             var entity = await _reserveRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoReserve>();
+
+            if (dto.WorkOrderId != null)
+            {
+                var workOrderEntity = _workOrderRepository.FindOrDefault(dto.WorkOrderId);
+                dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
+            }
 
             return dto;
         }

@@ -38,8 +38,8 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 建筑图片
         /// </summary>
-        [MaxLength(255)]
-        public string ImageUrl { get; set; }
+        //[MaxLength(255)]
+        public string Images { get; set; }
         /// <summary>
         /// 所属选区
         /// </summary>

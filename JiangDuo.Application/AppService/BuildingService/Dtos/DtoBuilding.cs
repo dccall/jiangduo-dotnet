@@ -11,5 +11,7 @@ namespace JiangDuo.Application.AppService.BuildingService.Dto
     [Manual]
     public class DtoBuilding : Building
     {
+
+        public List<SysUploadFile> ImageList { get; set; } = new List<SysUploadFile>();
     }
 }

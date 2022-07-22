@@ -37,8 +37,10 @@ namespace JiangDuo.Application.AppService.BuildingService.Dto
         /// <summary>
         /// 建筑图片
         /// </summary>
-        [MaxLength(255)]
-        public string ImageUrl { get; set; }
+        //[MaxLength(500)]
+        public string Images { get; set; }
+
+        public List<SysUploadFile> ImageList { get; set; } = new List<SysUploadFile>();
         /// <summary>
         /// 所属选区
         /// </summary>
