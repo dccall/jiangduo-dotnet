@@ -40,7 +40,7 @@ namespace JiangDuo.Application.Filters
                 bool.TryParse(App.Configuration["AuthorizeCodeChecked"],out AuthorizeCodeChecked);
                 if (AuthorizeCodeChecked)
                 {
-                    var codes = GetUserRouteCodes(JwtHelper.GetUserId());
+                    var codes = GetUserRouteCodes(JwtHelper.GetAccountId());
                     if (!codes.Contains(authorizeCodeAttribute.Code))
                     {
                         throw Oops.Oh($"你没有足够的权限访问");
@@ -54,6 +54,7 @@ namespace JiangDuo.Application.Filters
         {
             
         }
+
 
 
         public  List<string> GetUserRouteCodes(long userId)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JiangDuo.Application.System.FileFileServices.Dtos
+namespace JiangDuo.Application.System.FileServices.Dtos
 {
     /// <summary>
     /// 上传请求参数

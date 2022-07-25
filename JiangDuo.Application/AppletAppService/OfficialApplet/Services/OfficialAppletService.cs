@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 using Yitter.IdGenerator;
 using JiangDuo.Core.Utils;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppletService.OfficialApplet.Services;
 
-namespace JiangDuo.Application.AppService.OfficialAppletService.Services
+namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
 {
     public class OfficialAppletService:IOfficialAppletService, ITransient
     {

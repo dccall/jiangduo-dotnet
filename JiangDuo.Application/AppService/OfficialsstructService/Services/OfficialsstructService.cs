@@ -64,7 +64,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             var entity = model.Adapt<Officialsstruct>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _officialsstructRepository.Insert(entity);
             return await _officialsstructRepository.SaveNowAsync();
         }
@@ -85,7 +85,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _officialsstructRepository.Update(entity);
             return await _officialsstructRepository.SaveNowAsync();
         }

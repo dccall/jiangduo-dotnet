@@ -54,9 +54,12 @@ public class AccountAppService : IDynamicApiController
 			throw Oops.Oh($"用户不存在或密码错误");
 		}
 		user.PassWord = null;
-		var jwtTokenResult= JwtHelper.GetJwtToken(user);
 		
-
+		AccountModel accountModel = new AccountModel();
+		accountModel.Id = user.Id;
+		accountModel.Name = user.NickName;
+		accountModel.Type = AccountType.System;
+		var jwtTokenResult= JwtHelper.GetJwtToken(accountModel);
 		return  jwtTokenResult;
 	}
 	/// <summary>
@@ -66,7 +69,7 @@ public class AccountAppService : IDynamicApiController
 	[ApiDescriptionSettings(KeepVerb = true)]
 	public async Task<DtoUser> GetUserInfo()
 	{
-		var userId = JwtHelper.GetUserId();
+		var userId = JwtHelper.GetAccountId();
 		return await _accountService.GetById(userId);
 	}
 	/// <summary>
@@ -76,7 +79,7 @@ public class AccountAppService : IDynamicApiController
 	[ApiDescriptionSettings(KeepVerb = true)]
 	public async Task<DtoUserRoutes> GetUserRoutes()
 	{
-		var userId = JwtHelper.GetUserId();
+		var userId = JwtHelper.GetAccountId();
 		return await _accountService.GetUserRoutes(userId);
 	}
 	/// <summary>

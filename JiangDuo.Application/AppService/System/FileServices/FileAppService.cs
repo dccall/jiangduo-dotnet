@@ -18,10 +18,10 @@ using System.Text;
 using System.Threading.Tasks;
 using JiangDuo.Core.Filters;
 using Microsoft.AspNetCore.Authorization;
-using JiangDuo.Application.AppService.System.FileFileServices.Services;
-using JiangDuo.Application.System.FileFileServices.Dtos;
+using JiangDuo.Application.AppService.System.FileServices.Services;
+using JiangDuo.Application.System.FileServices.Dtos;
 
-namespace JiangDuo.Application.System.FileFileServices
+namespace JiangDuo.Application.System.FileServices
 {
     /// <summary>
     /// 文件服务

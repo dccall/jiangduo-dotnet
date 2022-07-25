@@ -11,5 +11,9 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
     [Manual]
     public class DtoVenuedevice : Venuedevice
     {
+        /// <summary>
+        /// 所属建筑名称
+        /// </summary>
+        public string BuildingName{ get; set; }
     }
 }

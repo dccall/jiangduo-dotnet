@@ -19,5 +19,14 @@ namespace JiangDuo.Core.Models
         /// 居民id
         /// </summary>
         public long? ResidentId { get; set; }
+
+        /// <summary>
+        /// 预约开始时间
+        /// </summary>
+        public DateTimeOffset? StartTime { get; set; }
+        /// <summary>
+        /// 预约结束时间
+        /// </summary>
+        public DateTimeOffset? EndTime { get; set; }
     }
 }

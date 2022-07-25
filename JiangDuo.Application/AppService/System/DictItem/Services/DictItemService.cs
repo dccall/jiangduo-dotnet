@@ -72,7 +72,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             var entity = model.Adapt<SysDictItem>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DictStatus.Normal;
             _dictItemRepository.Insert(entity);
             return await _dictItemRepository.SaveNowAsync();
@@ -112,7 +112,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _dictItemRepository.Update(entity);
             return await _dictItemRepository.SaveNowAsync();
         }

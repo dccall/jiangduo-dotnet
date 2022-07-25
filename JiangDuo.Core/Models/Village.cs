@@ -15,7 +15,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 村名称
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 选区id

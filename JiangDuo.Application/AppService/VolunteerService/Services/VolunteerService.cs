@@ -64,7 +64,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             var entity = model.Adapt<Volunteer>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _volunteerRepository.Insert(entity);
             return await _volunteerRepository.SaveNowAsync();
         }
@@ -85,7 +85,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _volunteerRepository.Update(entity);
             return await _volunteerRepository.SaveNowAsync();
         }

@@ -73,7 +73,7 @@ namespace JiangDuo.Application.System.Config.Services
             var entity = model.Adapt<SysConfig>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _configRepository.Insert(entity);
             return await _configRepository.SaveNowAsync();
         }
@@ -94,7 +94,7 @@ namespace JiangDuo.Application.System.Config.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _configRepository.Update(entity);
             return await _configRepository.SaveNowAsync();
         }

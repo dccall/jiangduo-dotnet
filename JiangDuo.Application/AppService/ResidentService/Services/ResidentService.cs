@@ -64,7 +64,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             var entity = model.Adapt<Resident>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _residentRepository.Insert(entity);
             return await _residentRepository.SaveNowAsync();
         }
@@ -85,7 +85,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _residentRepository.Update(entity);
             return await _residentRepository.SaveNowAsync();
         }

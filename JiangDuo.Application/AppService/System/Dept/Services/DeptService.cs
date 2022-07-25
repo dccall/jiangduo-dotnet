@@ -79,7 +79,7 @@ namespace JiangDuo.Application.System.Dept.Services
             var entity = model.Adapt<SysDept>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DeptStatus.Normal;
             _deptRepository.Insert(entity);
             return await _deptRepository.SaveNowAsync();
@@ -102,7 +102,7 @@ namespace JiangDuo.Application.System.Dept.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _deptRepository.Update(entity,ignoreNullValues:false);
             return await _deptRepository.SaveNowAsync();
         }

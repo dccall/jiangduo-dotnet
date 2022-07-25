@@ -4,6 +4,221 @@
         <name>JiangDuo.Application</name>
     </assembly>
     <members>
+        <member name="T:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService">
+             <summary>
+            人大小程序端
+             </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService.ServiceId">
+            <summary>
+            服务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin.Code">
+            <summary>
+            微信code
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery.ServiceTypeId">
+            <summary>
+            服务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.StatusName">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.ServiceId">
+            <summary>
+            服务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.StartTime">
+            <summary>
+            预约开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.EndTime">
+            <summary>
+            预约结束时间
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService">
+             <summary>
+            居民小程序端
+             </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
+            <summary>
+            居民端登录
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetAccountInfo">
+            <summary>
+            获取账号信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+            <summary>
+            修改/完善个人信息
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
+            <summary>
+            查询已发布的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            参与服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetServiceById(System.Int64)">
+            <summary>
+            根据Id获取服务详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetMyServiceList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoMyServiceQuery)">
+            <summary>
+            查询我的参与和预约的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            预约服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
+            <summary>
+            居民端登录
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetAccountInfo">
+            <summary>
+            获取账号信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+            <summary>
+            修改/完善个人信息
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
+            <summary>
+            查询已发布的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetServiceById(System.Int64)">
+            <summary>
+            根据Id获取服务详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetMyServiceList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoMyServiceQuery)">
+            <summary>
+            查询我的参与和预约的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            参与服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            预约服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
+            <summary>
+            居民端登录
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetAccountInfo">
+            <summary>
+            获取账号信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+            <summary>
+            修改/完善个人信息
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
+            <summary>
+            查询已发布的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            参与服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetServiceById(System.Int64)">
+            <summary>
+            根据Id获取服务详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetMyServiceList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoMyServiceQuery)">
+            <summary>
+            查询我的参与和预约的服务
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            预约服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:JiangDuo.Application.AppService.BuildingService.BuildingAppService">
             <summary>
             建筑管理
@@ -475,11 +690,6 @@
             </summary>
             <param name="idList">编号</param>
             <returns></returns>
-        </member>
-        <member name="T:JiangDuo.Application.AppService.NewsService.OfficialAppletService">
-             <summary>
-            人大小程序端
-             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
@@ -1811,23 +2021,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="F:JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService._logger">
-            <summary>
-            日志
-            </summary>
-        </member>
-        <member name="F:JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService._configRepository">
-            <summary>
-            SelectArea仓储
-            </summary>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService.#ctor(Microsoft.Extensions.Logging.ILogger{JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService},Furion.DatabaseAccessor.IRepository{JiangDuo.Core.Models.SelectArea})">
-            <summary>
-            构造函数
-            </summary>
-            <param name="logger">日志</param>
-            <param name="configRepository">部门仓储</param>
-        </member>
         <member name="M:JiangDuo.Application.AppService.SelectAreaService.Services.SelectAreaService.GetList(JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaQuery)">
             <summary>
             分页
@@ -1943,6 +2136,16 @@
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.ServiceName">
             <summary>
             服务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.ServiceTypeId">
+            <summary>
+            服务类型
             </summary>
         </member>
         <member name="T:JiangDuo.Application.AppService.ServiceService.ServiceAppService">
@@ -2068,6 +2271,11 @@
             </summary>
             <param name="idList">编号</param>
             <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.BuildingName">
+            <summary>
+            所属建筑名称
+            </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Type">
             <summary>
@@ -3748,22 +3956,22 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest">
+        <member name="T:JiangDuo.Application.System.FileServices.Dtos.UploadRequest">
             <summary>
             上传请求参数
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest.FileSource">
+        <member name="P:JiangDuo.Application.System.FileServices.Dtos.UploadRequest.FileSource">
             <summary>
             文件来源
             </summary>
         </member>
-        <member name="T:JiangDuo.Application.System.FileFileServices.FileAppService">
+        <member name="T:JiangDuo.Application.System.FileServices.FileAppService">
             <summary>
             文件服务
             </summary>
         </member>
-        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.UploadFile(Microsoft.AspNetCore.Http.IFormFile,JiangDuo.Application.System.FileFileServices.Dtos.UploadRequest)">
+        <member name="M:JiangDuo.Application.System.FileServices.FileAppService.UploadFile(Microsoft.AspNetCore.Http.IFormFile,JiangDuo.Application.System.FileServices.Dtos.UploadRequest)">
             <summary>
             文件上传
             </summary>
@@ -3771,20 +3979,20 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.Download(System.Int64)">
+        <member name="M:JiangDuo.Application.System.FileServices.FileAppService.Download(System.Int64)">
             <summary>
             文件下载
             </summary>
             <param name="fileId">文件id</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.ExportExcel">
+        <member name="M:JiangDuo.Application.System.FileServices.FileAppService.ExportExcel">
             <summary>
             导出excel
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.System.FileFileServices.FileAppService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:JiangDuo.Application.System.FileServices.FileAppService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             导入Excel
             </summary>

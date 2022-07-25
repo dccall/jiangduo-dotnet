@@ -73,7 +73,7 @@ namespace JiangDuo.Application.System.Post.Services
             var entity = model.Adapt<SysPost>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _postRepository.Insert(entity);
             return await _postRepository.SaveNowAsync();
         }
@@ -94,7 +94,7 @@ namespace JiangDuo.Application.System.Post.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _postRepository.Update(entity);
             return await _postRepository.SaveNowAsync();
         }

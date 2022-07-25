@@ -21,10 +21,12 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
     {
         private readonly ILogger<VenuedeviceService> _logger;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
-        public VenuedeviceService(ILogger<VenuedeviceService> logger, IRepository<Venuedevice> venuedeviceRepository)
+        private readonly IRepository<Building> _buiildingRepository;
+        public VenuedeviceService(ILogger<VenuedeviceService> logger, IRepository<Venuedevice> venuedeviceRepository, IRepository<Building> buiildingRepository)
         {
             _logger = logger;
             _venuedeviceRepository = venuedeviceRepository;
+            _buiildingRepository = buiildingRepository;
         }
         /// <summary>
         /// 分页
@@ -35,9 +37,23 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         {
             var query = _venuedeviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.VenuedeviceName), x => x.Name.Contains(model.VenuedeviceName));
+            var pageList = query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
+            if (pageList.Items.Count() > 0)
+            {
+                var buildingIdList= pageList.Items.Select(x => x.BuildingId).Distinct().ToList();
+                var buildingList= _buiildingRepository.Where(x => buildingIdList.Contains(x.Id)).ToList();
+                foreach (var item in pageList.Items)
+                {
+                    var entity= buildingList.Where(x => x.Id == item.BuildingId).FirstOrDefault();
+                    item.BuildingName = entity?.BuildingName;
+                }
+            }
+            
+            return pageList;
+
 
             //将数据映射到DtoVenuedevice中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
+            //return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -62,7 +78,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             var entity = model.Adapt<Venuedevice>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _venuedeviceRepository.Insert(entity);
             return await _venuedeviceRepository.SaveNowAsync();
         }
@@ -83,7 +99,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             //将模型数据映射给实体属性
             entity= model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _venuedeviceRepository.Update(entity);
             return await _venuedeviceRepository.SaveNowAsync();
         }

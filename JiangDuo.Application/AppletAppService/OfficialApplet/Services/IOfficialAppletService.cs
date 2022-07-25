@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JiangDuo.Application.AppService.OfficialAppletService.Services
+namespace JiangDuo.Application.AppletService.OfficialApplet.Services
 {
     public interface IOfficialAppletService
     {

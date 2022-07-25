@@ -49,11 +49,11 @@ namespace JiangDuo.Application.OperLog.Services
         }
         public async Task<int> Insert(OperLogDto model)
         {
-            var user = JwtHelper.GetUserInfo();
+            var user = JwtHelper.GetAccountInfo();
             var entity = model.Adapt<SysOperLog>();
             var app= App.WebHostEnvironment;
             //entity.Id = YitIdHelper.NextId();
-            entity.OperName = user == null ? "" : user.NickName;
+            entity.OperName = user == null ? "" : user.Name;
             entity.OperIp = "";
             entity.OperTime = DateTime.UtcNow;
             _operLogRepository.Insert(entity);

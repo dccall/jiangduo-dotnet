@@ -4,20 +4,21 @@ using Furion.FriendlyException;
 using JiangDuo.Core.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace JiangDuo.Core.Utils
 {
     public static class JwtHelper
     {
 
-        public static JwtTokenResult GetJwtToken(SysUser user)
+        public static JwtTokenResult GetJwtToken(AccountModel model)
         {
             // token
             var accessToken = JWTEncryption.Encrypt(new Dictionary<string, object>()
             {
-                { "UserId", user.Id }, // 存储Id
-                { "UserName", user.UserName }, // 存储Id
-                { "User",user } 
+                { "Id", model.Id }, // 存储Id
+                { "Name", model.Name }, // 存储Id
+                { "AccountModel",model }
             });
             // 获取刷新 token
             var refreshToken = JWTEncryption.GenerateRefreshToken(accessToken, 43200); // 第二个参数是刷新 token 的有效期（分钟），默认三十天
@@ -26,26 +27,43 @@ namespace JiangDuo.Core.Utils
             return new JwtTokenResult { AccessToken = accessToken, RefreshToken = refreshToken };
         }
 
-        public static long GetUserId()
+        public static long GetAccountId()
         {
-            var userId = App.User.FindFirst(s => s.Type == "UserId");
-            if (userId == null)
+            var id = App.User.FindFirst(s => s.Type == "Id");
+            if (id == null)
             {
                 throw Oops.Oh("账号异常");
             }
-            return long.Parse(userId.Value);
+            return long.Parse(id.Value);
         }
-        public static SysUser GetUserInfo()
+        public static AccountModel GetAccountInfo()
         {
-            var user = App.User.FindFirst(s => s.Type == "User");
+            var user = App.User.FindFirst(s => s.Type == "AccountModel");
             if (user == null)
             {
                 throw Oops.Oh("账号异常");
             }
-            return JsonConvert.DeserializeObject<SysUser>(user.Value);
+            return JsonConvert.DeserializeObject<AccountModel>(user.Value);
         }
     }
 
+
+    public class AccountModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public AccountType Type { get; set; }
+    }
+
+    public enum AccountType
+    {
+        [Description("系统")]
+        System = 0,
+        [Description("居民")]
+        Resident = 1,
+        [Description("人大")]
+        Official = 0,
+    }
 
     public class JwtTokenResult
     {

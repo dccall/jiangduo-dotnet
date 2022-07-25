@@ -64,7 +64,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             var entity = model.Adapt<Regulation>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _regulationRepository.Insert(entity);
             return await _regulationRepository.SaveNowAsync();
         }
@@ -85,7 +85,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _regulationRepository.Update(entity);
             return await _regulationRepository.SaveNowAsync();
         }
@@ -112,7 +112,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _regulationRepository.Context.BatchUpdate<Building>()
+            var result = await _regulationRepository.Context.BatchUpdate<Regulation>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

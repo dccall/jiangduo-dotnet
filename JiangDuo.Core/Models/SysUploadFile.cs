@@ -1,4 +1,5 @@
-﻿using JiangDuo.Core.Attributes;
+﻿using Furion.DatabaseAccessor;
+using JiangDuo.Core.Attributes;
 using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using System;
@@ -15,8 +16,10 @@ namespace JiangDuo.Core.Models
     /// 文件上传表
     /// </summary>
     [Table("sys_uploadfile")]
-    public class SysUploadFile : BaseEntity
+    public class SysUploadFile : IEntity
     {
+        [Key]
+        public long FileId { get; set; }
         /// <summary>
         /// 原文件名
         /// </summary>
@@ -51,6 +54,27 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public long FileLength { get; set; }
 
+
+        /// <summary>
+		/// 创建者
+		/// </summary>
+		public long Creator { get; set; }
+        /// 创建时间
+        /// </summary>
+        public DateTimeOffset CreatedTime { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTimeOffset? UpdatedTime { get; set; }
+        /// <summary>
+        /// 更新者
+        /// </summary>
+        public long? Updater { get; set; }
+        /// <summary>
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public bool IsDeleted { get; set; }
 
     }
 }

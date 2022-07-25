@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
-namespace JiangDuo.Application.AppService.System.FileFileServices.Services
+namespace JiangDuo.Application.AppService.System.FileServices.Services
 {
     public class FileService: IFileService, ITransient
     {
@@ -37,7 +37,7 @@ namespace JiangDuo.Application.AppService.System.FileFileServices.Services
             {
                 throw Oops.Oh($"缺少上传文件");
             }
-            var userId = JwtHelper.GetUserId();
+            var userId = JwtHelper.GetAccountId();
             // 如：保存到网站根目录下的 uploads 目录
             var path = "uploads/" + userId;
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, path);
@@ -58,12 +58,12 @@ namespace JiangDuo.Application.AppService.System.FileFileServices.Services
             }
             var request = App.HttpContext.Request;
             SysUploadFile fileInfo = new SysUploadFile();
-            fileInfo.Id = YitIdHelper.NextId();
+            fileInfo.FileId = YitIdHelper.NextId();
             fileInfo.Name = oldName;
             fileInfo.FileName = fileName;
             fileInfo.FilePath = filePath;
             //fileInfo.Url = $"{request.Scheme}://{request.Host.Value}/api/file/download/{fileInfo.Id}";
-            fileInfo.Url = $"/file/download/{fileInfo.Id}";
+            fileInfo.Url = $"/api/file/download/{fileInfo.FileId}";
             fileInfo.FileSource = fileSource;
             fileInfo.FileExt = fileExt;
             fileInfo.FileLength = size;  // 文件大小 KB

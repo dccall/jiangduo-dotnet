@@ -1,9 +1,5 @@
 ﻿using Furion.DynamicApiController;
-using JiangDuo.Application.AppService.NewsService.Dto;
-using JiangDuo.Application.AppService.NewsService.Services;
-using JiangDuo.Application.AppService.OfficialAppletService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
-using Microsoft.AspNetCore.Authorization;
+using JiangDuo.Application.AppletService.OfficialApplet.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JiangDuo.Application.AppService.NewsService;
+namespace JiangDuo.Application.AppletAppService.OfficialApplet;
 
 /// <summary>
 ///人大小程序端

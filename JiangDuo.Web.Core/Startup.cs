@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System;
 
 namespace JiangDuo.Web.Core;
 
@@ -39,10 +40,20 @@ public class Startup : AppStartup
 			// 键名前缀
 			options.InstanceName = string.Empty;
 		});
+
+		services.AddRemoteRequest(options =>
+		{
+			// 配置微信api基本信息
+			options.AddHttpClient("WeiXin", c =>
+			{
+				c.BaseAddress = new Uri(App.Configuration["WeiXin:BaseAddress"]);
+			});
+		});
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 	{
+	
 		if (env.IsDevelopment())
 		{
 			app.UseDeveloperExceptionPage();

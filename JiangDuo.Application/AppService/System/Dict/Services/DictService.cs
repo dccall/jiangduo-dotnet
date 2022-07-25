@@ -80,7 +80,7 @@ namespace JiangDuo.Application.System.Dict.Services
             var entity = model.Adapt<SysDict>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DictStatus.Normal;
             _dictRepository.Insert(entity);
             return await _dictRepository.SaveNowAsync();
@@ -95,7 +95,7 @@ namespace JiangDuo.Application.System.Dict.Services
         {
             var entity = model.Adapt<SysDict>();
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _dictRepository.Update(entity);
             return await _dictRepository.SaveNowAsync();
         }

@@ -29,7 +29,7 @@ namespace JiangDuo.Application.Tools
                 throw Oops.Oh($"缺少上传文件");
             }
             var uploadFileRepository = Db.GetRepository<SysUploadFile>();
-            var userId = JwtHelper.GetUserId();
+            var userId = JwtHelper.GetAccountId();
             // 如：保存到网站根目录下的 uploads 目录
             var path = "uploads/"+ userId;  
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, path);
@@ -50,12 +50,12 @@ namespace JiangDuo.Application.Tools
             }
             var request = App.HttpContext.Request;
             SysUploadFile fileInfo = new SysUploadFile();
-            fileInfo.Id = YitIdHelper.NextId();
+            fileInfo.FileId = YitIdHelper.NextId();
             fileInfo.Name= oldName;
             fileInfo.FileName = fileName;
             //fileInfo.FilePath = filePath;
             //fileInfo.FilePath = $"{request.Scheme}://{request.Host.Value}/api/file/download/{fileInfo.Id}";
-            fileInfo.FilePath = $"/file/download/{fileInfo.Id}";
+            fileInfo.FilePath = $"/file/download/{fileInfo.FileId}";
             fileInfo.FileSource = fileSource;
             fileInfo.FileExt = fileExt;
             fileInfo.FileLength = size;  // 文件大小 KB

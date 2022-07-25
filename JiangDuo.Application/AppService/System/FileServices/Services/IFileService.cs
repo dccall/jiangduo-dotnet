@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JiangDuo.Application.AppService.System.FileFileServices.Services
+namespace JiangDuo.Application.AppService.System.FileServices.Services
 {
     public interface IFileService
     {

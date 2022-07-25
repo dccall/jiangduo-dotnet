@@ -64,7 +64,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             var entity = model.Adapt<News>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             _newsRepository.Insert(entity);
             return await _newsRepository.SaveNowAsync();
         }
@@ -85,7 +85,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _newsRepository.Update(entity);
             return await _newsRepository.SaveNowAsync();
         }

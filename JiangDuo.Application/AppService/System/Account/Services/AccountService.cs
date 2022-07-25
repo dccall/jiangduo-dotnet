@@ -171,7 +171,7 @@ public class AccountService : IAccountService, ITransient
     
     public async Task<int> UpdatePassword(DtoUpdatePassword model)
     {
-        var userId = JwtHelper.GetUserId();
+        var userId = JwtHelper.GetAccountId();
         var userEntity = _userRepository.FindOrDefault(userId);
         var salt = $"${userEntity.UserName}-${model.OldPassWord}";
         var md5 = MD5Encryption.Encrypt(salt, true);

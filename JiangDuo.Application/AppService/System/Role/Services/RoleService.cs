@@ -74,7 +74,7 @@ namespace JiangDuo.Application.Role.Services
             var entity = model.Adapt<SysRole>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTimeOffset.UtcNow;
-            entity.Creator = JwtHelper.GetUserId();
+            entity.Creator = JwtHelper.GetAccountId();
             entity.Status = RoleStatus.Normal;
             _roleRepository.Insert(entity);
 
@@ -110,7 +110,7 @@ namespace JiangDuo.Application.Role.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             await _roleRepository.UpdateAsync(entity);
             if (model.MenuIdList != null && model.MenuIdList.Count() > 0)
             {

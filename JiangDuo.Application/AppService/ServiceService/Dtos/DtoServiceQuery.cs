@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,15 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// 服务名称
         /// </summary>
         public string ServiceName { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public ServiceStatusEnum? Status { get; set; }
+
+        /// <summary>
+        /// 服务类型
+        /// </summary>
+        public long? ServiceTypeId { get; set; }
     }
 }

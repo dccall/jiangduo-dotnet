@@ -109,7 +109,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             entityWorkOrder.Id = YitIdHelper.NextId();
             entityWorkOrder.WorkOrderNo = GetWorkOrderNo();
             entityWorkOrder.CreatedTime = DateTimeOffset.UtcNow;
-            entityWorkOrder.Creator = JwtHelper.GetUserId();
+            entityWorkOrder.Creator = JwtHelper.GetAccountId();
             // 引用的业务id
             var relationId = YitIdHelper.NextId();
             //有事好商量（预约）
@@ -118,7 +118,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 var reserveEntity=  model.Reserve.Adapt<Reserve>();
                 reserveEntity.Id = relationId;//与工单表关联
                 reserveEntity.CreatedTime = DateTimeOffset.UtcNow;
-                reserveEntity.Creator = JwtHelper.GetUserId();
+                reserveEntity.Creator = JwtHelper.GetAccountId();
                 reserveEntity.WorkOrderId = entityWorkOrder.Id;
                 _reserveRepository.Insert(reserveEntity);
             }
@@ -128,7 +128,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 var reviceEntity = model.Service.Adapt<Service>();
                 reviceEntity.Id = relationId;//与工单表关联
                 reviceEntity.CreatedTime = DateTimeOffset.UtcNow;
-                reviceEntity.Creator = JwtHelper.GetUserId();
+                reviceEntity.Creator = JwtHelper.GetAccountId();
                 reviceEntity.WorkOrderId = entityWorkOrder.Id;
                 _serviceRepository.Insert(reviceEntity);
             }
@@ -138,7 +138,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 var onlineLettersEntity = model.OnlineLetters.Adapt<OnlineLetters>();
                 onlineLettersEntity.Id = relationId;//与工单表关联
                 onlineLettersEntity.CreatedTime = DateTimeOffset.UtcNow;
-                onlineLettersEntity.Creator = JwtHelper.GetUserId();
+                onlineLettersEntity.Creator = JwtHelper.GetAccountId();
                 onlineLettersEntity.WorkOrderId = entityWorkOrder.Id;
                 _onlineletterRepository.Insert(onlineLettersEntity);
             }
@@ -164,7 +164,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTimeOffset.UtcNow;
-            entity.Updater = JwtHelper.GetUserId();
+            entity.Updater = JwtHelper.GetAccountId();
             _workOrderRepository.Update(entity);
             return await _workOrderRepository.SaveNowAsync();
         }
