@@ -37,6 +37,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<Workorderlog> _workOrderLog;
         private readonly IRepository<Resident> _residentRepository;
         private readonly IRepository<Official> _officialRepository;
+        private readonly IRepository<SysUser> _userRepository;
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
             IRepository<Service> serviceRepository,
@@ -46,7 +47,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             IRepository<SysUploadFile> uploadRepository,
             IRepository<Workorderlog> workOrderLog,
             IRepository<Resident> residentRepository,
-            IRepository<Official> officialRepository
+            IRepository<Official> officialRepository,
+            IRepository<SysUser> userRepository
             )
         {
             _logger = logger;
@@ -60,6 +62,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _workOrderLog = workOrderLog;
             _residentRepository = residentRepository;
             _officialRepository = officialRepository;
+            _userRepository = userRepository;
         }
         /// <summary>
         /// 分页
@@ -127,6 +130,9 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             entityWorkOrder.Id = YitIdHelper.NextId();
             entityWorkOrder.WorkOrderNo = GetWorkOrderNo();
             entityWorkOrder.OriginatorId = JwtHelper.GetAccountId(); //发起人是自己
+            entityWorkOrder.OriginatorName = GetPersonnelName(entityWorkOrder.OriginatorId);
+            entityWorkOrder.ReceiverName = GetPersonnelName(entityWorkOrder.ReceiverId);
+            entityWorkOrder.Status = WorkorderStatusEnum.NotProcessed;//待处理
             entityWorkOrder.CreatedTime = DateTime.Now;
             entityWorkOrder.Creator = JwtHelper.GetAccountId();
             // 引用的业务id
@@ -240,18 +246,21 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 throw Oops.Oh("工单不存在");
             }
             workOrderEntity.ReceiverId = model.ReceiverId;
+            workOrderEntity.ReceiverName =GetPersonnelName(model.ReceiverId);
             workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
-            string name = "";
-
-
-
+           
             //添加日志
-            AddWordOrderLog(workOrderEntity.Id, "工单创建"+ name);
+            AddWordOrderLog(workOrderEntity.Id, "工单指派给了" + workOrderEntity.ReceiverName);
 
-            return "一直拍";
+            return "已指派";
         }
 
 
+        /// <summary>
+        /// 添加工单日志
+        /// </summary>
+        /// <param name="workOrderId"></param>
+        /// <param name="content"></param>
         private void AddWordOrderLog(long workOrderId,string content)
         {
             Workorderlog logEntity=new Workorderlog();
@@ -263,6 +272,30 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _workOrderLog.InsertNow(logEntity);
         }
 
+        private string GetPersonnelName(long? id)
+        {
+            if (id == null)
+            {
+                return "";
+            }
+            var residentEntity=  _residentRepository.FindOrDefault(id);
+            if (residentEntity != null)
+            {
+                return residentEntity.Name;
+            }
+            var officialEntity = _officialRepository.FindOrDefault(id);
+            if (officialEntity != null)
+            {
+                return officialEntity.Name;
+            }
+            var sysUserEntity=_userRepository.FindOrDefault(id);
+            if (sysUserEntity != null)
+            {
+                return sysUserEntity.NickName;
+            }
+            return "";
+
+        }
         private string GetWorkOrderNo()
         {
             return DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");

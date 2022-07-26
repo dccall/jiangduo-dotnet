@@ -25,9 +25,17 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public long OriginatorId { get; set; }
         /// <summary>
+        /// 发起人名称
+        /// </summary>
+        public string OriginatorName{ get; set; }
+        /// <summary>
         /// 接收人
         /// </summary>
         public long? ReceiverId { get; set; }
+        /// <summary>
+        /// 接收人名称
+        /// </summary>
+        public string ReceiverName { get; set; }
         /// <summary>
         /// 工单类型
         /// </summary>

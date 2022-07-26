@@ -27,7 +27,7 @@ namespace JiangDuo.Core.Enums
         /// </summary>
         [Description("默认")]
         Normal = 0,
-        [Description("未处理")]
+        [Description("待处理")]
         NotProcessed = 1,
         [Description("进行中")]
         InProgress = 2,
