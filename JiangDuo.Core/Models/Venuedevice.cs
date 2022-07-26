@@ -31,5 +31,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(255)]
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 规则制度id
+        /// </summary>
+        public long? RegulationId { get; set; }
     }
 }

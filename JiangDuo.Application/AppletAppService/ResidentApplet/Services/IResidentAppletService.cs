@@ -1,6 +1,9 @@
 ﻿using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Core.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,5 +66,34 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> SubscribeService(DtoSubscribeService model);
+
+        /// <summary>
+        /// 获取我的工单
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoWorkOrder> GetMyWorkOrderList(BaseRequest model);
+
+        /// <summary>
+        /// 申请服务(工单)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> ApplyForServices(DtoWorkOrderForm model);
+
+        /// <summary>
+        /// 码上说马上办(工单)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> OnlineLettersServices(DtoWorkOrderForm model);
+
+        /// <summary>
+        /// 查看工单详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<DtoWorkOrder> GetWorkOrderDetail(long id);
     }
 }

@@ -1309,6 +1309,11 @@
             描述
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.RegulationId">
+            <summary>
+            规则制度id
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Village">
             <summary>
             村落

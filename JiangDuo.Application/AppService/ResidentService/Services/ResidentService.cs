@@ -37,6 +37,9 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             var query = _residentRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
+            //不传或者传-1查询全部
+            query = query.Where(!(model.VillageId == null || model.VillageId == -1), x => x.VillageId == model.VillageId);
+
             //将数据映射到DtoResident中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoResident>().ToPagedList(model.PageIndex, model.PageSize);
         }

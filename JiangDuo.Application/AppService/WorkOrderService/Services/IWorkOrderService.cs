@@ -43,5 +43,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         //批量假删除
         public Task<int> FakeDelete(List<long> idList);
      
+
+
     }
 }

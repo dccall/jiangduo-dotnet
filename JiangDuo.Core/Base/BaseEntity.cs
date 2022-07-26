@@ -23,7 +23,7 @@ namespace JiangDuo.Core.Base
 		public long Creator { get; set; }
 		/// 创建时间
 		/// </summary>
-		public DateTime CreatedTime { get; set; }
+		public DateTime CreatedTime { get; set; }=new DateTime();
 		/// <summary>
 		/// 更新时间
 		/// </summary>

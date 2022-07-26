@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +35,12 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Dto
         /// 附件
         /// </summary>
         public string Attachments { get; set; }
+
+        /// <summary>
+        /// 附件文件对象
+        /// </summary>
+        public List<SysUploadFile> AttachmentsFiles { get; set; }
+
         /// <summary>
         /// 所属选区Id
         /// </summary>

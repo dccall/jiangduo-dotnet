@@ -33,13 +33,20 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<OnlineLetters> _onlineletterRepository;
         private readonly IRepository<Volunteer> _volunteerRepository;
         private readonly IRepository<Workordervolunteer> _workOrderVolunteerRepository;
-        
+        private readonly IRepository<SysUploadFile> _uploadRepository;
+        private readonly IRepository<Workorderlog> _workOrderLog;
+        private readonly IRepository<Resident> _residentRepository;
+        private readonly IRepository<Official> _officialRepository;
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
             IRepository<Service> serviceRepository,
             IRepository<OnlineLetters> onlineletterRepository,
             IRepository<Workordervolunteer> workOrderVolunteerRepository,
-            IRepository<Volunteer> volunteerRepository
+            IRepository<Volunteer> volunteerRepository,
+            IRepository<SysUploadFile> uploadRepository,
+            IRepository<Workorderlog> workOrderLog,
+            IRepository<Resident> residentRepository,
+            IRepository<Official> officialRepository
             )
         {
             _logger = logger;
@@ -49,6 +56,10 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _onlineletterRepository = onlineletterRepository;
             _volunteerRepository = volunteerRepository;
             _workOrderVolunteerRepository = workOrderVolunteerRepository;
+            _uploadRepository = uploadRepository;
+            _workOrderLog = workOrderLog;
+            _residentRepository = residentRepository;
+            _officialRepository = officialRepository;
         }
         /// <summary>
         /// 分页
@@ -91,6 +102,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 var onlineletterEntity = _onlineletterRepository.FindOrDefault(dto.RelationId);
                 dto.OnlineLetters = onlineletterEntity.Adapt<DtoOnlineletterForm>();
+                if (!string.IsNullOrEmpty(dto.OnlineLetters.Attachments))
+                {
+                    //附件处理
+                    var fileIdList = dto.OnlineLetters.Attachments.Split(",").ToList();
+                    dto.OnlineLetters.AttachmentsFiles = _uploadRepository.Where(x => fileIdList.Contains(x.FileId.ToString())).ToList();
+                }
+               
             }
             //获取志愿者信息
             var volunteerIdList= _workOrderVolunteerRepository.Where(x => !x.IsDeleted && x.WordOrderId == dto.Id).Select(x=>x.VolunteerId).ToList();
@@ -108,6 +126,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             var entityWorkOrder = model.Adapt<Workorder>();
             entityWorkOrder.Id = YitIdHelper.NextId();
             entityWorkOrder.WorkOrderNo = GetWorkOrderNo();
+            entityWorkOrder.OriginatorId = JwtHelper.GetAccountId(); //发起人是自己
             entityWorkOrder.CreatedTime = DateTime.Now;
             entityWorkOrder.Creator = JwtHelper.GetAccountId();
             // 引用的业务id
@@ -144,6 +163,9 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 onlineLettersEntity.CreatedTime = DateTime.Now;
                 onlineLettersEntity.Creator = JwtHelper.GetAccountId();
                 onlineLettersEntity.WorkOrderId = entityWorkOrder.Id;
+                //附件处理
+                var fileIdList= model.OnlineLetters.AttachmentsFiles.Select(x => x.FileId).ToList();
+                onlineLettersEntity.Attachments=String.Join(",", fileIdList);
                 _onlineletterRepository.Insert(onlineLettersEntity);
 
                 entityWorkOrder.Content = onlineLettersEntity.Content;//工单内容
@@ -151,8 +173,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             entityWorkOrder.RelationId = relationId; //业务表关联Id
             _workOrderRepository.Insert(entityWorkOrder);
+
+            AddWordOrderLog(entityWorkOrder.Id,"工单创建");
+
+
             return await _workOrderRepository.SaveNowAsync();
         }
+
      
         /// <summary>
         /// 修改
@@ -205,9 +232,35 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         }
 
 
-        public async Task<int> WorkOrderOrderAssign(long id)
+        public async Task<string> WorkOrderOrderAssign(DtoWorkOrderAssign model)
         {
-            return 1;
+            var workOrderEntity= await _workOrderRepository.FindOrDefaultAsync(model.Id);
+            if (workOrderEntity == null)
+            {
+                throw Oops.Oh("工单不存在");
+            }
+            workOrderEntity.ReceiverId = model.ReceiverId;
+            workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
+            string name = "";
+
+
+
+            //添加日志
+            AddWordOrderLog(workOrderEntity.Id, "工单创建"+ name);
+
+            return "一直拍";
+        }
+
+
+        private void AddWordOrderLog(long workOrderId,string content)
+        {
+            Workorderlog logEntity=new Workorderlog();
+            logEntity.Id = YitIdHelper.NextId();
+            logEntity.LogTime =DateTime.Now;
+            logEntity.WordOrderId = workOrderId;
+            logEntity.LogContent = content;
+
+            _workOrderLog.InsertNow(logEntity);
         }
 
         private string GetWorkOrderNo()

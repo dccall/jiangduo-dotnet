@@ -21,7 +21,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// <summary>
         /// 接收人
         /// </summary>
-        public long ReceiverId { get; set; }
+        public long? ReceiverId { get; set; }
         /// <summary>
         /// 工单类型
         /// </summary>

@@ -22,6 +22,7 @@ using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Services;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Services;
+using JiangDuo.Core.Base;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -243,6 +244,19 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             return "预约成功";
         }
 
+        /// <summary>
+        /// 获取我的工单
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoWorkOrder> GetMyWorkOrderList(BaseRequest model)
+        {
+            var id = JwtHelper.GetAccountId();
+            var query = _workOrderRepository.Where(x => !x.IsDeleted);
+            query = query.Where(x => x.Creator == id);
+            //将数据映射到DtoWorkOrder中
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+        }
         /// <summary>
         /// 申请服务(工单)
         /// </summary>

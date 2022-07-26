@@ -33,5 +33,10 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
         [MaxLength(255)]
         public string Remarks { get; set; }
 
+
+        /// <summary>
+        /// 规则制度id
+        /// </summary>
+        public long? RegulationId { get; set; }
     }
 }
