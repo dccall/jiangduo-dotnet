@@ -72,7 +72,7 @@ namespace JiangDuo.Application.System.Notice.Services
 
             var entity = model.Adapt<SysNotice>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             entity.Status = NoticeStatus.Normal;
             _noticeRepository.Insert(entity);
@@ -90,7 +90,7 @@ namespace JiangDuo.Application.System.Notice.Services
                 //将ReserveStationDto转换成ReserveStation类
                 var entity = model[i].Adapt<SysNotice>();
                 entity.Id = YitIdHelper.NextId();
-                entity.CreatedTime = DateTime.UtcNow;
+                entity.CreatedTime = DateTime.Now;
                 entity.Creator = 0;
                 await _noticeRepository.InsertAsync(entity, ignoreNullValues: true);
             }
@@ -112,7 +112,7 @@ namespace JiangDuo.Application.System.Notice.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _noticeRepository.Update(entity);
             return await _noticeRepository.SaveNowAsync();
@@ -134,7 +134,7 @@ namespace JiangDuo.Application.System.Notice.Services
                 }
                 //将模型数据映射给实体属性
                 entity = model.Adapt(entity);
-                entity.UpdatedTime = DateTimeOffset.UtcNow;
+                entity.UpdatedTime = DateTime.Now;
                 entity.Updater = JwtHelper.GetAccountId();
                 await _noticeRepository.UpdateAsync(entity, ignoreNullValues: true);
             }

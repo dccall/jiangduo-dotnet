@@ -108,7 +108,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             var entityWorkOrder = model.Adapt<Workorder>();
             entityWorkOrder.Id = YitIdHelper.NextId();
             entityWorkOrder.WorkOrderNo = GetWorkOrderNo();
-            entityWorkOrder.CreatedTime = DateTimeOffset.UtcNow;
+            entityWorkOrder.CreatedTime = DateTime.Now;
             entityWorkOrder.Creator = JwtHelper.GetAccountId();
             // 引用的业务id
             var relationId = YitIdHelper.NextId();
@@ -117,30 +117,36 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 var reserveEntity=  model.Reserve.Adapt<Reserve>();
                 reserveEntity.Id = relationId;//与工单表关联
-                reserveEntity.CreatedTime = DateTimeOffset.UtcNow;
+                reserveEntity.CreatedTime = DateTime.Now;
                 reserveEntity.Creator = JwtHelper.GetAccountId();
                 reserveEntity.WorkOrderId = entityWorkOrder.Id;
                 _reserveRepository.Insert(reserveEntity);
+
+                entityWorkOrder.Content = reserveEntity.Theme;//工单内容
             }
             //一老一少（服务活动）
             if (model.WorkorderType == WorkorderTypeEnum.Service)
             {
                 var reviceEntity = model.Service.Adapt<Service>();
                 reviceEntity.Id = relationId;//与工单表关联
-                reviceEntity.CreatedTime = DateTimeOffset.UtcNow;
+                reviceEntity.CreatedTime = DateTime.Now;
                 reviceEntity.Creator = JwtHelper.GetAccountId();
                 reviceEntity.WorkOrderId = entityWorkOrder.Id;
                 _serviceRepository.Insert(reviceEntity);
+
+                entityWorkOrder.Content = reviceEntity.ServiceName;//工单内容
             }
             //码上说马上办
             if (model.WorkorderType == WorkorderTypeEnum.OnlineLetters&& model.Reserve!=null)
             {
                 var onlineLettersEntity = model.OnlineLetters.Adapt<OnlineLetters>();
                 onlineLettersEntity.Id = relationId;//与工单表关联
-                onlineLettersEntity.CreatedTime = DateTimeOffset.UtcNow;
+                onlineLettersEntity.CreatedTime = DateTime.Now;
                 onlineLettersEntity.Creator = JwtHelper.GetAccountId();
                 onlineLettersEntity.WorkOrderId = entityWorkOrder.Id;
                 _onlineletterRepository.Insert(onlineLettersEntity);
+
+                entityWorkOrder.Content = onlineLettersEntity.Content;//工单内容
             }
 
             entityWorkOrder.RelationId = relationId; //业务表关联Id
@@ -163,7 +169,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _workOrderRepository.Update(entity);
             return await _workOrderRepository.SaveNowAsync();
@@ -191,7 +197,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _workOrderRepository.Context.BatchUpdate<Building>()
+            var result = await _workOrderRepository.Context.BatchUpdate<Workorder>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();
@@ -206,7 +212,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
         private string GetWorkOrderNo()
         {
-            return "";
+            return DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
         }
     }
 }

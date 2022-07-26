@@ -52,7 +52,7 @@ public class OperLogActionFilterAttribute :Attribute, IAsyncActionFilter
             var userId = httpContext.User?.FindFirstValue("userId");
             var userName = httpContext.User?.FindFirstValue("UserName");
             // 请求时间
-            var requestedTime = DateTimeOffset.Now;
+            var requestedTime = DateTime.Now;
             //============== 这里是执行方法之后获取数据 ====================
             var actionContext = await next();
             // 获取返回的结果

@@ -96,7 +96,7 @@ namespace JiangDuo.Core.Models
                     Path="/dashboard",
                     Icon="carbon:dashboard",
                     Order=0,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0  
                 },
                 new SysMenu {
@@ -106,7 +106,7 @@ namespace JiangDuo.Core.Models
                     Path="/system",
                     Icon="carbon:dashboard",
                     Order=1,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 }, 
                 new SysMenu {
@@ -117,7 +117,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/peopleConfig/user",
                     Icon="carbon:dashboard",
                     Order=1,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -128,7 +128,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/peopleConfig/role",
                     Icon="carbon:dashboard",
                     Order=2,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -139,7 +139,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/menu",
                     Icon="carbon:dashboard",
                     Order=3,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -150,7 +150,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/dept",
                     Icon="carbon:dashboard",
                     Order=5,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -161,7 +161,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/post",
                     Icon="carbon:dashboard",
                     Order=6,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 },
                 new SysMenu {
@@ -172,7 +172,7 @@ namespace JiangDuo.Core.Models
                     Path="/system/dict",
                     Icon="carbon:dashboard",
                     Order=7,
-                    CreatedTime=DateTimeOffset.UtcNow,
+                    CreatedTime=DateTime.UtcNow,
                     Creator=0
                 }
             };

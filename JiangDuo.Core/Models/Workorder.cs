@@ -52,10 +52,10 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTimeOffset StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         /// <summary>
         /// 完结时间
         /// </summary>
-        public DateTimeOffset? OverTime { get; set; }
+        public DateTime? OverTime { get; set; }
     }
 }

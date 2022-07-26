@@ -59,7 +59,7 @@ namespace JiangDuo.Application.Tools
             fileInfo.FileSource = fileSource;
             fileInfo.FileExt = fileExt;
             fileInfo.FileLength = size;  // 文件大小 KB
-            fileInfo.CreatedTime = DateTimeOffset.UtcNow;
+            fileInfo.CreatedTime = DateTime.Now;
             fileInfo.Creator = userId;
             await uploadFileRepository.InsertNowAsync(fileInfo);
 

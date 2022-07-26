@@ -30,15 +30,15 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// <summary>
         /// 预约日期
         /// </summary>
-        public DateTimeOffset ReserveDate { get; set; }
+        public DateTime ReserveDate { get; set; }
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTimeOffset StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTimeOffset? EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         /// <summary>
         /// 描述
         /// </summary>

@@ -28,10 +28,11 @@ public class Startup : AppStartup
 		// 添加即时通讯
 		services.AddSignalR();
 		services.AddControllers().AddDynamicApiControllers().AddInjectWithUnifyResult()
-			.AddNewtonsoftJson(option =>
-		   //忽略循环引用
-		   option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-		);
+			.AddNewtonsoftJson(option => {
+				//忽略循环引用
+				option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+				option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+			});
 		
 		services.AddStackExchangeRedisCache(options =>
 		{

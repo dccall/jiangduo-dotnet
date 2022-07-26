@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 性别
         /// </summary>
-        public int Sex { get; set; }
+        public SexEnum Sex { get; set; }
         /// <summary>
         /// 身份证号码
         /// </summary>
@@ -50,7 +51,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTimeOffset? Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
         /// <summary>
         /// 所属村Id
         /// </summary>

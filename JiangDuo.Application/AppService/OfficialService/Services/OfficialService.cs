@@ -33,6 +33,9 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         {
             var query = _officialRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
+            //不传或者传-1查询全部
+            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
 
             //将数据映射到DtoOfficial中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
@@ -60,7 +63,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var entity = model.Adapt<Official>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             _officialRepository.Insert(entity);
             return await _officialRepository.SaveNowAsync();
@@ -81,7 +84,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _officialRepository.Update(entity);
             return await _officialRepository.SaveNowAsync();
@@ -109,7 +112,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _officialRepository.Context.BatchUpdate<Building>()
+            var result = await _officialRepository.Context.BatchUpdate<Official>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

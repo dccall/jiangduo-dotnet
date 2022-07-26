@@ -72,7 +72,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
 
             var entity = model.Adapt<Reserve>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             _reserveRepository.Insert(entity);
             return await _reserveRepository.SaveNowAsync();
@@ -93,7 +93,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _reserveRepository.Update(entity);
             return await _reserveRepository.SaveNowAsync();
@@ -121,7 +121,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _reserveRepository.Context.BatchUpdate<Building>()
+            var result = await _reserveRepository.Context.BatchUpdate<Reserve>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

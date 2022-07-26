@@ -23,10 +23,10 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 预约开始时间
         /// </summary>
-        public DateTimeOffset? StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         /// <summary>
         /// 预约结束时间
         /// </summary>
-        public DateTimeOffset? EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

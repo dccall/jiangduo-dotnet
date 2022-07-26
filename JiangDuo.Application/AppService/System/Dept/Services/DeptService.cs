@@ -78,7 +78,7 @@ namespace JiangDuo.Application.System.Dept.Services
             InsertUpdateChecked(model);
             var entity = model.Adapt<SysDept>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DeptStatus.Normal;
             _deptRepository.Insert(entity);
@@ -101,7 +101,7 @@ namespace JiangDuo.Application.System.Dept.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _deptRepository.Update(entity,ignoreNullValues:false);
             return await _deptRepository.SaveNowAsync();

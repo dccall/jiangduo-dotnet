@@ -79,7 +79,7 @@ namespace JiangDuo.Application.System.Dict.Services
 
             var entity = model.Adapt<SysDict>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DictStatus.Normal;
             _dictRepository.Insert(entity);
@@ -94,7 +94,7 @@ namespace JiangDuo.Application.System.Dict.Services
         public async Task<int> Update(DtoDictForm model)
         {
             var entity = model.Adapt<SysDict>();
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _dictRepository.Update(entity);
             return await _dictRepository.SaveNowAsync();

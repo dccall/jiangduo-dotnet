@@ -62,7 +62,7 @@ namespace JiangDuo.Core.Utils
         [Description("居民")]
         Resident = 1,
         [Description("人大")]
-        Official = 0,
+        Official = 2,
     }
 
     public class JwtTokenResult

@@ -71,7 +71,7 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
         {
             var entity = model.Adapt<Building>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
 
             if (model.ImageList != null && model.ImageList.Any())
@@ -98,7 +98,7 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
 
             if (model.ImageList != null && model.ImageList.Any())

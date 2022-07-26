@@ -18,6 +18,10 @@ using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
 using JiangDuo.Core.Services;
 using Furion;
 using JiangDuo.Application.AppService.ResidentService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Services;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Services;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -29,7 +33,10 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IRepository<Participant> _participantRepository;
         private readonly WeiXinService _weiXinService;
         private readonly IRepository<Resident> _residentRepository;
-        public ResidentAppletService(ILogger<ResidentAppletService> logger, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
+        private readonly IWorkOrderService _workOrderService;
+        private readonly IServiceService _serviceService;
+
+        public ResidentAppletService(ILogger<ResidentAppletService> logger, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -37,6 +44,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _participantRepository = participantRepository;
             _weiXinService = weiXinService;
             _residentRepository = residentRepository;
+            _workOrderService = workOrderService;
         }
 
         /// <summary>
@@ -52,7 +60,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 residentEntity = new Resident();
                 residentEntity.Id = YitIdHelper.NextId();
-                residentEntity.CreatedTime = DateTimeOffset.UtcNow;
+                residentEntity.CreatedTime = DateTime.Now;
                 residentEntity.Creator = JwtHelper.GetAccountId();
                 _residentRepository.InsertNow(residentEntity);
             }
@@ -92,7 +100,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _residentRepository.Update(entity);
              var count=  await _residentRepository.SaveNowAsync();
@@ -158,7 +166,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 
         }
         /// <summary>
-        /// 参与服务
+        /// 参与服务(服务/活动)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -183,13 +191,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             Participant entity = new Participant();
             entity.ServiceId = model.ServiceId;
             entity.ResidentId = JwtHelper.GetAccountId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             await _participantRepository.InsertNowAsync(entity);
             return "已参与";
         }
         /// <summary>
-        /// 预约服务
+        /// 预约服务(服务/活动)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -229,12 +237,48 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             entity.ResidentId = JwtHelper.GetAccountId();
             entity.StartTime =model.StartTime;//预约开始时间
             entity.EndTime =model.EndTime;//预约结束时间
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             await _participantRepository.InsertNowAsync(entity);
             return "预约成功";
         }
 
-
+        /// <summary>
+        /// 申请服务(工单)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> ApplyForServices(DtoWorkOrderForm model)
+        {
+            var count= await _workOrderService.Insert(model);
+            if (count > 0)
+            {
+                return "申请已提交";
+            }
+            return "申请提交失败";
+        }
+        /// <summary>
+        /// 码上说马上办(工单)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
+        {
+            var count = await _workOrderService.Insert(model);
+            if (count > 0)
+            {
+                return "工单已提交";
+            }
+            return "工单提交失败";
+        }
+        /// <summary>
+        /// 查看工单详情
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<DtoWorkOrder> GetWorkOrderDetail(long id)
+        {
+            return await _workOrderService.GetById(id);
+        }
     }
 }

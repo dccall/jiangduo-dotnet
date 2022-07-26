@@ -24,6 +24,6 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 日志时间
         /// </summary>
-        public DateTimeOffset LogTime { get; set; }
+        public DateTime LogTime { get; set; }
     }
 }

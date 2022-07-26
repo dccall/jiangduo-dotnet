@@ -34,7 +34,7 @@ namespace JiangDuo.Core.Models
         {
             return new List<SysRole>
             {
-                new SysRole {Id=1, RoleName="管理员",CreatedTime=DateTimeOffset.UtcNow }
+                new SysRole {Id=1, RoleName="管理员",CreatedTime=DateTime.UtcNow }
             };
         }
     }

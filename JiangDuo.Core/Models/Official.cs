@@ -1,5 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 性别
         /// </summary>
-        public int Sex { get; set; }
+        public SexEnum Sex { get; set; }
        /// <summary>
        /// 类别
        /// </summary>
@@ -31,7 +32,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTimeOffset? Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
         /// <summary>
         /// 名族
         /// </summary>
@@ -73,5 +74,25 @@ namespace JiangDuo.Core.Models
         /// 个人履历
         /// </summary>
         public string PersonalResume { get; set; }
+
+        /// <summary>
+        /// 住址
+        /// </summary>
+        [MaxLength(255)]
+        public string Address { get; set; }
+        /// <summary>
+        /// 政治面貌
+        /// </summary>
+        [MaxLength(50)]
+        public string PoliticalOutlook { get; set; }
+        /// <summary>
+        /// 积分
+        /// </summary>
+        public int Score { get; set; }
+        /// <summary>
+        /// 人大结构Id
+        /// </summary>
+        public long? OfficialsstructId { get; set; }
+
     }
 }

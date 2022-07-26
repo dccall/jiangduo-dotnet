@@ -55,7 +55,7 @@ namespace JiangDuo.Application.OperLog.Services
             //entity.Id = YitIdHelper.NextId();
             entity.OperName = user == null ? "" : user.Name;
             entity.OperIp = "";
-            entity.OperTime = DateTime.UtcNow;
+            entity.OperTime = DateTime.Now;
             _operLogRepository.Insert(entity);
             return await _operLogRepository.SaveNowAsync();
         }

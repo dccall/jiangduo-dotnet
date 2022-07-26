@@ -63,7 +63,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
 
             var entity = model.Adapt<News>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             _newsRepository.Insert(entity);
             return await _newsRepository.SaveNowAsync();
@@ -84,7 +84,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _newsRepository.Update(entity);
             return await _newsRepository.SaveNowAsync();
@@ -112,7 +112,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _newsRepository.Context.BatchUpdate<Building>()
+            var result = await _newsRepository.Context.BatchUpdate<News>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

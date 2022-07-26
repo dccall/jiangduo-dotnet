@@ -76,6 +76,6 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 操作时间
         /// </summary>
-        public DateTimeOffset OperTime { get; set; }
+        public DateTime OperTime { get; set; }
     }
 }

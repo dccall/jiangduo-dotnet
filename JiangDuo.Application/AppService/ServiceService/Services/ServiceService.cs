@@ -54,11 +54,11 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             var dto = entity.Adapt<DtoService>();
 
-            if (dto.WorkOrderId != null)
-            {
-               var workOrderEntity=  _workOrderRepository.FindOrDefault(dto.WorkOrderId);
-                dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
-            }
+            //if (dto.WorkOrderId != null)
+            //{
+            //   var workOrderEntity=  _workOrderRepository.FindOrDefault(dto.WorkOrderId);
+            //    dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
+            //}
 
             return dto;
         }
@@ -72,7 +72,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             var entity = model.Adapt<Service>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             _serviceRepository.Insert(entity);
             return await _serviceRepository.SaveNowAsync();
@@ -93,7 +93,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _serviceRepository.Update(entity);
             return await _serviceRepository.SaveNowAsync();
@@ -121,7 +121,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _serviceRepository.Context.BatchUpdate<Building>()
+            var result = await _serviceRepository.Context.BatchUpdate<Service>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

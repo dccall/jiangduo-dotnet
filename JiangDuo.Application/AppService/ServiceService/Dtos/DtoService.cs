@@ -22,6 +22,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// <summary>
         /// 关联的工单
         /// </summary>
-        public DtoWorkOrder WorkOrder { get; set; }
+        //public DtoWorkOrder WorkOrder { get; set; }
     }
 }

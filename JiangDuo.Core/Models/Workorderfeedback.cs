@@ -29,7 +29,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 处理时间
         /// </summary>
-        public DateTimeOffset? HandlerTime { get; set; }
+        public DateTime? HandlerTime { get; set; }
         /// <summary>
         /// 发起人名称
         /// </summary>
@@ -43,6 +43,6 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 发起人回复时间
         /// </summary>
-        public DateTimeOffset? OriginatorTime { get; set; }
+        public DateTime? OriginatorTime { get; set; }
     }
 }

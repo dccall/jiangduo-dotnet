@@ -286,6 +286,26 @@
             个人履历
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Official.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Score">
+            <summary>
+            积分
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.OfficialsstructId">
+            <summary>
+            人大结构Id
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Officialsstruct">
             <summary>
             人大结构
@@ -1367,6 +1387,11 @@
         <member name="P:JiangDuo.Core.Models.Volunteer.PoliticalOutlook">
             <summary>
             政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Volunteer.SelectAreaId">
+            <summary>
+            所属选区Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Workorder">

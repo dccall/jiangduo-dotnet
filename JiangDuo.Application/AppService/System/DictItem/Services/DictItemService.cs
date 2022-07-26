@@ -71,7 +71,7 @@ namespace JiangDuo.Application.System.DictItem.Services
 
             var entity = model.Adapt<SysDictItem>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             entity.Status = DictStatus.Normal;
             _dictItemRepository.Insert(entity);
@@ -89,7 +89,7 @@ namespace JiangDuo.Application.System.DictItem.Services
                 //将ReserveStationDto转换成ReserveStation类
                 var entity = model[i].Adapt<SysDictItem>();
                 entity.Id = YitIdHelper.NextId();
-                entity.CreatedTime = DateTime.UtcNow;
+                entity.CreatedTime = DateTime.Now;
                 entity.Creator = 0;
                 await _dictItemRepository.InsertAsync(entity, ignoreNullValues: true);
             }
@@ -111,7 +111,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _dictItemRepository.Update(entity);
             return await _dictItemRepository.SaveNowAsync();
@@ -133,7 +133,7 @@ namespace JiangDuo.Application.System.DictItem.Services
                 }
                 //将模型数据映射给实体属性
                 entity = model.Adapt(entity);
-                entity.UpdatedTime = DateTime.UtcNow;
+                entity.UpdatedTime = DateTime.Now;
                 entity.Updater = 0;
                 await _dictItemRepository.UpdateAsync(entity, ignoreNullValues: true);
             }

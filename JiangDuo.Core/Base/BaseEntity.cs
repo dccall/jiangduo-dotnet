@@ -23,11 +23,11 @@ namespace JiangDuo.Core.Base
 		public long Creator { get; set; }
 		/// 创建时间
 		/// </summary>
-		public DateTimeOffset CreatedTime { get; set; }
+		public DateTime CreatedTime { get; set; }
 		/// <summary>
 		/// 更新时间
 		/// </summary>
-		public DateTimeOffset? UpdatedTime { get; set; }
+		public DateTime? UpdatedTime { get; set; }
 		/// <summary>
 		/// 更新者
 		/// </summary>

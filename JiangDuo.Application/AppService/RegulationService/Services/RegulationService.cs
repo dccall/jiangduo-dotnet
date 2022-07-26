@@ -63,7 +63,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
 
             var entity = model.Adapt<Regulation>();
             entity.Id = YitIdHelper.NextId();
-            entity.CreatedTime = DateTimeOffset.UtcNow;
+            entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             _regulationRepository.Insert(entity);
             return await _regulationRepository.SaveNowAsync();
@@ -84,7 +84,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
-            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _regulationRepository.Update(entity);
             return await _regulationRepository.SaveNowAsync();

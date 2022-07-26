@@ -152,14 +152,35 @@
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
             <summary>
-            参与服务
+            参与服务(服务/活动)
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
             <summary>
-            预约服务
+            预约服务(服务/活动)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            申请服务(工单)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.OnlineLettersServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            码上说马上办(工单)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetWorkOrderDetail(System.Int64)">
+            <summary>
+            查看工单详情
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -691,6 +712,11 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.SexName">
+            <summary>
+            性别
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
             主键
@@ -759,6 +785,36 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.PersonalResume">
             <summary>
             个人履历
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Score">
+            <summary>
+            积分
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OfficialsstructId">
+            <summary>
+            人大结构Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.OfficialsstructId">
+            <summary>
+            人大结构Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Name">
@@ -1700,6 +1756,11 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResident.SexName">
+            <summary>
+            性别
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm.Id">
             <summary>
             主键
@@ -2066,11 +2127,6 @@
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.StatusName">
             <summary>
             状态
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.WorkOrder">
-            <summary>
-            关联的工单
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
@@ -2570,6 +2626,11 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteer.SexName">
+            <summary>
+            性别
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.Id">
             <summary>
             主键
@@ -2633,6 +2694,16 @@
         <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.PoliticalOutlook">
             <summary>
             政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerForm.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery.SelectAreaId">
+            <summary>
+            所属选区Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VolunteerService.Dto.DtoVolunteerQuery.Name">
@@ -2799,16 +2870,6 @@
             主键
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkOrderNo">
-            <summary>
-            工单编号
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OriginatorId">
-            <summary>
-            发起人
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.ReceiverId">
             <summary>
             接收人
@@ -2819,34 +2880,14 @@
             工单类型
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.RelationId">
-            <summary>
-            引用的业务id
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.SelectAreaId">
             <summary>
             选区id
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Status">
-            <summary>
-            工单状态
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Content">
             <summary>
             工单内容
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.StartTime">
-            <summary>
-            开始时间
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OverTime">
-            <summary>
-            完结时间
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Reserve">

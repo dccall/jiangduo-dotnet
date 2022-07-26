@@ -110,7 +110,7 @@ public class UserService : IUserService, ITransient
     {
         var entity = model.Adapt<SysUser>();
         entity.Id = YitIdHelper.NextId();
-        entity.CreatedTime = DateTimeOffset.UtcNow;
+        entity.CreatedTime = DateTime.Now;
         entity.Creator = JwtHelper.GetAccountId();
         entity.Status = UserStatus.Normal;
         var salt = $"${entity.UserName}-${entity.PassWord}";
@@ -143,7 +143,7 @@ public class UserService : IUserService, ITransient
         }
         //将模型数据映射给实体属性
         entity = model.Adapt(entity);
-        entity.UpdatedTime = DateTimeOffset.UtcNow;
+        entity.UpdatedTime = DateTime.Now;
         entity.Updater = JwtHelper.GetAccountId();
         //更新用户，排除UserName，PassWord
         _userRepository.UpdateExcludeNow(entity, new[] { nameof(SysUser.UserName), nameof(SysUser.PassWord) });

@@ -92,7 +92,7 @@ namespace JiangDuo.Core.Models
                    NickName="管理员",
                    UserName="admin",
                    PassWord="9B6F539B39186126518612B27FB8504A",//admin123
-                   CreatedTime=DateTimeOffset.UtcNow,
+                   CreatedTime=DateTime.UtcNow,
                 }
             };
         }

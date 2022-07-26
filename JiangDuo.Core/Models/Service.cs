@@ -40,11 +40,11 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 计划开始时间
         /// </summary>
-        public DateTimeOffset? PlanStartTime { get; set; }
+        public DateTime? PlanStartTime { get; set; }
         /// <summary>
         /// 计划结束时间
         /// </summary>
-        public DateTimeOffset? PlanEndTime { get; set; }
+        public DateTime? PlanEndTime { get; set; }
         /// <summary>
         /// 地址
         /// </summary>
