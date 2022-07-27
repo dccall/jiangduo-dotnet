@@ -1,5 +1,6 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -62,5 +63,15 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// 人大名单id
         /// </summary>
         public long? OfficialsId { get; set; }
+
+        /// <summary>
+        /// 附件
+        /// </summary>
+        public string Attachments { get; set; }
+
+        /// <summary>
+        /// 附件文件对象
+        /// </summary>
+        public List<SysUploadFile> AttachmentsFiles { get; set; }
     }
 }

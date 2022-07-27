@@ -38,6 +38,9 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<Resident> _residentRepository;
         private readonly IRepository<Official> _officialRepository;
         private readonly IRepository<SysUser> _userRepository;
+        private readonly IRepository<Workorderfeedback> _workorderfeedbackRepository;
+
+        
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
             IRepository<Service> serviceRepository,
@@ -48,7 +51,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             IRepository<Workorderlog> workOrderLog,
             IRepository<Resident> residentRepository,
             IRepository<Official> officialRepository,
-            IRepository<SysUser> userRepository
+            IRepository<SysUser> userRepository,
+            IRepository<Workorderfeedback> workorderfeedbackRepository
             )
         {
             _logger = logger;
@@ -63,6 +67,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _residentRepository = residentRepository;
             _officialRepository = officialRepository;
             _userRepository = userRepository;
+            _workorderfeedbackRepository=workorderfeedbackRepository;
         }
         /// <summary>
         /// 分页
@@ -73,6 +78,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         {
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
+            query = query.Where(model.WorkorderSource != null, x => x.WorkorderSource == model.WorkorderSource);
             query = query.Where(model.Status!=null, x => x.Status == model.Status);
             query = query.Where(model.StartTime!=null, x => x.StartTime>= model.StartTime);
             query = query.Where(model.EndTime!=null, x => x.StartTime <= model.EndTime);
@@ -100,6 +106,12 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 var serviceEntity = _serviceRepository.FindOrDefault(dto.RelationId);
                 dto.Service = serviceEntity.Adapt<DtoServiceForm>();
+                if (!string.IsNullOrEmpty(dto.Service.Attachments))
+                {
+                    //附件处理
+                    var fileIdList = dto.Service.Attachments.Split(",").ToList();
+                    dto.Service.AttachmentsFiles = _uploadRepository.Where(x => fileIdList.Contains(x.FileId.ToString())).ToList();
+                }
             }
             if (dto.RelationId != null && dto.WorkorderType == WorkorderTypeEnum.Reserve)
             {
@@ -116,6 +128,12 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             //获取志愿者信息
             var volunteerIdList= _workOrderVolunteerRepository.Where(x => !x.IsDeleted && x.WordOrderId == dto.Id).Select(x=>x.VolunteerId).ToList();
             dto.Volunteers = _volunteerRepository.Where(x => !x.IsDeleted && volunteerIdList.Contains(x.Id)).ProjectToType<DtoVolunteer>().ToList();
+
+            //工单日志
+            dto.Workorderlogs = _workOrderLog.Where(x=>x.WordOrderId==dto.Id).OrderByDescending(x=>x.LogTime).ToList();
+
+            //工单反馈信息
+            dto.WorkorderfeedbackList= _workorderfeedbackRepository.Where(x=>x.WordOrderId==dto.Id).OrderByDescending(x=>x.CreatedTime).ToList();
 
             return dto;
         }
@@ -147,7 +165,14 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 reserveEntity.WorkOrderId = entityWorkOrder.Id;
                 _reserveRepository.Insert(reserveEntity);
 
-                entityWorkOrder.Content = reserveEntity.Theme;//工单内容
+                //志愿者部分
+
+
+                if (string.IsNullOrEmpty(entityWorkOrder.Content))
+                {
+                    entityWorkOrder.Content = reserveEntity.Theme;//工单内容
+                }
+             
             }
             //一老一少（服务活动）
             if (model.WorkorderType == WorkorderTypeEnum.Service)
@@ -157,9 +182,23 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 reviceEntity.CreatedTime = DateTime.Now;
                 reviceEntity.Creator = JwtHelper.GetAccountId();
                 reviceEntity.WorkOrderId = entityWorkOrder.Id;
+
+                //如果是人大服务/活动工单
+                if (entityWorkOrder.WorkorderSource == WorkorderSourceEnum.Official)
+                {
+                    reviceEntity.Status = ServiceStatusEnum.Audit;//待审核
+                }
+
+                //附件处理
+                var fileIdList = model.Service.AttachmentsFiles.Select(x => x.FileId).ToList();
+                reviceEntity.Attachments = String.Join(",", fileIdList);
                 _serviceRepository.Insert(reviceEntity);
 
-                entityWorkOrder.Content = reviceEntity.ServiceName;//工单内容
+                if (string.IsNullOrEmpty(entityWorkOrder.Content))
+                {
+                    entityWorkOrder.Content = reviceEntity.ServiceName;//工单内容
+                }
+                
             }
             //码上说马上办
             if (model.WorkorderType == WorkorderTypeEnum.OnlineLetters&& model.Reserve!=null)
@@ -174,7 +213,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 onlineLettersEntity.Attachments=String.Join(",", fileIdList);
                 _onlineletterRepository.Insert(onlineLettersEntity);
 
-                entityWorkOrder.Content = onlineLettersEntity.Content;//工单内容
+
+                if (string.IsNullOrEmpty(entityWorkOrder.Content))
+                {
+                    entityWorkOrder.Content = onlineLettersEntity.Content;//工单内容
+                }
             }
 
             entityWorkOrder.RelationId = relationId; //业务表关联Id
@@ -237,7 +280,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             return result;
         }
 
-
+        /// <summary>
+        /// 工单指派（待处理工单【管理员】）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<string> WorkOrderOrderAssign(DtoWorkOrderAssign model)
         {
             var workOrderEntity= await _workOrderRepository.FindOrDefaultAsync(model.Id);
@@ -245,6 +292,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 throw Oops.Oh("工单不存在");
             }
+            if (workOrderEntity.WorkorderSource != WorkorderSourceEnum.Resident)
+            {
+                throw Oops.Oh("工单来源非居民，无法指派");
+            }
+
             workOrderEntity.ReceiverId = model.ReceiverId;
             workOrderEntity.ReceiverName =GetPersonnelName(model.ReceiverId);
             workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
@@ -255,6 +307,53 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             return "已指派";
         }
 
+        /// <summary>
+        /// 工单状态变更
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderOrderHandel(DtoWorkOrderHandel model)
+        {
+            var workOrderEntity = await _workOrderRepository.FindOrDefaultAsync(model.WordOrderId);
+            if (workOrderEntity == null)
+            {
+                throw Oops.Oh("工单不存在");
+            }
+            List<WorkorderStatusEnum> OverStatus = new List<WorkorderStatusEnum>() {
+                WorkorderStatusEnum.End,//已完结
+                WorkorderStatusEnum.Reject,//已拒绝
+                WorkorderStatusEnum.Approve//已同意
+            };
+            if (OverStatus.Contains(workOrderEntity.Status)) //当前工单状态
+            {
+                throw Oops.Oh("操作失败，工单"+ workOrderEntity.Status.GetDescription());
+            }
+
+            //变更工单状态
+            workOrderEntity.Status = model.Status;
+            if (OverStatus.Contains(model.Status)) //将要变更的状态
+            {
+                workOrderEntity.OverTime = DateTime.Now; //完结时间
+                //如果是人大服务/活动工单 状态已同意
+                if (workOrderEntity.Status == WorkorderStatusEnum.Approve && workOrderEntity.WorkorderSource == WorkorderSourceEnum.Official && workOrderEntity.WorkorderType == WorkorderTypeEnum.Service)
+                {
+                    //将关联的服务改为已发布(暂定。可由管理员或人大手动发布)
+                    var service = _serviceRepository.Where(x => x.WorkOrderId == workOrderEntity.Id).FirstOrDefault();
+                    service.Status = ServiceStatusEnum.Published;
+                    _serviceRepository.UpdateInclude(service, new string[] { nameof(service.Status) });
+                }
+            }
+            //更新状态
+            _workOrderRepository.UpdateInclude(workOrderEntity,new string[] {nameof(workOrderEntity.Status), nameof(workOrderEntity.OverTime) });
+
+            await _workOrderRepository.SaveNowAsync();
+
+            //添加日志
+            AddWordOrderLog(workOrderEntity.Id, "工单"+ model.Status.GetDescription());
+
+            return "工单" + model.Status.GetDescription();
+        }
+      
 
         /// <summary>
         /// 添加工单日志
@@ -263,11 +362,15 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         /// <param name="content"></param>
         private void AddWordOrderLog(long workOrderId,string content)
         {
+            var id = JwtHelper.GetAccountId();
             Workorderlog logEntity=new Workorderlog();
             logEntity.Id = YitIdHelper.NextId();
             logEntity.LogTime =DateTime.Now;
             logEntity.WordOrderId = workOrderId;
             logEntity.LogContent = content;
+            logEntity.LogContent = content;
+            logEntity.CreatedTime =DateTime.Now;
+            logEntity.Creator =id;
 
             _workOrderLog.InsertNow(logEntity);
         }

@@ -4,10 +4,100 @@
         <name>JiangDuo.Application</name>
     </assembly>
     <members>
+        <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery.Status">
+            <summary>
+            状态:1.待处理2.待审核3.已完成
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin.JsCode">
+            <summary>
+            小程序登录code
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService">
              <summary>
             人大小程序端
              </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
+            <summary>
+            获取我的工单
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            申请服务(工单)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.LoginWeiXin(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录（微信code登录）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.LoginByPhone(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录(手机号登录)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetVerifyCode(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetVerifyCode(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.LoginByPhone(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录(手机号登录)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.LoginWeiXin(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录（微信code登录）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            申请服务(工单)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
+            <summary>
+            获取我的工单
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService.ServiceId">
             <summary>
@@ -218,6 +308,41 @@
             查看工单详情
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
+            <summary>
+            获取我的工单
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+            <summary>
+            申请服务(工单)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.LoginWeiXin(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录（微信code登录）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.LoginByPhone(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
+            <summary>
+            人大登录(手机号登录)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetVerifyCode(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="phone"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
@@ -1194,6 +1319,11 @@
             附件
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.AttachmentsFiles">
+            <summary>
+            附件文件对象
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OnlineletterService.Dto.DtoOnlineletterForm.SelectAreaId">
             <summary>
             所属选区Id
@@ -1689,6 +1819,11 @@
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.WorkOrderId">
             <summary>
             关联工单Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.VolunteerList">
+            <summary>
+            志愿者列表
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery.Theme">
@@ -2256,6 +2391,16 @@
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.OfficialsId">
             <summary>
             人大名单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.AttachmentsFiles">
+            <summary>
+            附件文件对象
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.ServiceName">
@@ -2914,6 +3059,11 @@
             工单类型名称
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.WorkorderSourceName">
+            <summary>
+            工单来源名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.StatusName">
             <summary>
             工单状态名称
@@ -2922,6 +3072,16 @@
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Volunteers">
             <summary>
             志愿者列表
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Workorderlogs">
+            <summary>
+            工单日志
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.WorkorderfeedbackList">
+            <summary>
+            工单反馈
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Reserve">
@@ -2939,6 +3099,16 @@
             码上说马上办
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.Id">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.ReceiverId">
+            <summary>
+            接收人
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Id">
             <summary>
             主键
@@ -2952,6 +3122,11 @@
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkorderType">
             <summary>
             工单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkorderSource">
+            <summary>
+            工单来源
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.SelectAreaId">
@@ -2979,6 +3154,16 @@
             码上说马上办
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel.WordOrderId">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel.Status">
+            <summary>
+            工单状态
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkorderType">
             <summary>
             工单类型 1.有事好商量 2.一老一小 3.码上说马上办
@@ -2991,7 +3176,12 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.Status">
             <summary>
-            工单状态 1.未处理 2.进行中 3.已反馈 4.已完结
+            工单状态 1.未处理 2.进行中 3.已反馈 4.已完结 5.已同意 6已拒绝
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkorderSource">
+            <summary>
+            工单来源 0系统1居民 2.人大
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.StartTime">
@@ -3039,6 +3229,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+            <summary>
+            工单指派
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+            <summary>
+            工单状态变更
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.GetList(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery)">
             <summary>
             分页
@@ -3080,6 +3284,27 @@
             </summary>
             <param name="idList">编号</param>
             <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+            <summary>
+            工单指派（待处理工单【管理员】）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+            <summary>
+            工单状态变更
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.AddWordOrderLog(System.Int64,System.String)">
+            <summary>
+            添加工单日志
+            </summary>
+            <param name="workOrderId"></param>
+            <param name="content"></param>
         </member>
         <member name="T:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService">
             <summary>
@@ -3126,6 +3351,20 @@
             批量删除
             </summary>
             <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+            <summary>
+            工单指派
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+            <summary>
+            工单状态变更
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="T:JiangDuo.Application.Account.AccountAppService">

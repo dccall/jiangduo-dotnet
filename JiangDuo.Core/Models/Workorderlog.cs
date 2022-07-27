@@ -15,7 +15,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 工单id
         /// </summary>
-        public long? WordOrderId { get; set; }
+        public long WordOrderId { get; set; }
         /// <summary>
         /// 日志内容
         /// </summary>

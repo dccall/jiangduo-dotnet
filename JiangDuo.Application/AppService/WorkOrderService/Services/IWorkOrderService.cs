@@ -42,8 +42,21 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         public Task<int> FakeDelete(long id);
         //批量假删除
         public Task<int> FakeDelete(List<long> idList);
-     
 
 
+        /// <summary>
+        /// 工单指派
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> WorkOrderOrderAssign(DtoWorkOrderAssign model);
+
+
+        /// <summary>
+        /// 工单状态变更
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<string> WorkOrderOrderHandel(DtoWorkOrderHandel model);
     }
 }

@@ -1,4 +1,5 @@
-﻿using JiangDuo.Core.Base;
+﻿using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Core.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -58,5 +59,10 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// 关联工单Id
         /// </summary>
         public long? WorkOrderId { get; set; }
+
+        /// <summary>
+        /// 志愿者列表
+        /// </summary>
+        public List<DtoVolunteerForm> VolunteerList { get; set; }
     }
 }

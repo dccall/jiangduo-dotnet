@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.WorkOrderService.Dto
 {
-    public class DtoWorkOrderAssign
+    public class DtoWorkOrderHandel
     {
         /// <summary>
         /// 工单id
         /// </summary>
-        public long? Id { get;  set; }
+        public long WordOrderId { get;  set; }
         /// <summary>
-        /// 接收人
+        /// 工单状态
         /// </summary>
-        public long ReceiverId { get; set; }
+        public WorkorderStatusEnum Status { get; set; }
     }
 }

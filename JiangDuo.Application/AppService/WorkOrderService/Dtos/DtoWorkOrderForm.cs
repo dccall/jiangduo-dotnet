@@ -27,6 +27,10 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public WorkorderTypeEnum WorkorderType { get; set; }
         /// <summary>
+        /// 工单来源
+        /// </summary>
+        public WorkorderSourceEnum WorkorderSource { get; set; }
+        /// <summary>
         /// 选区id
         /// </summary>
         public long? SelectAreaId { get; set; }

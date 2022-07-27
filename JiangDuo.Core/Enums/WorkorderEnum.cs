@@ -19,9 +19,20 @@ namespace JiangDuo.Core.Enums
         [Description("码上说马上办")]
         OnlineLetters = 3
     }
+
+    public enum WorkorderSourceEnum
+    {
+        [Description("系统")]
+        System = 0,
+        [Description("居民")]
+        Resident = 1,
+        [Description("人大")]
+        Official = 2,
+    }
+
+
     public enum WorkorderStatusEnum
     {
-
         /// <summary>
         /// 默认
         /// </summary>
@@ -34,7 +45,11 @@ namespace JiangDuo.Core.Enums
         [Description("已反馈")]
         FedBack = 3,
         [Description("已完结")]
-        End =4
+        End =4,
+        [Description("已同意")]
+        Approve = 5,
+        [Description("已拒绝")]
+        Reject =6
     }
     
 }

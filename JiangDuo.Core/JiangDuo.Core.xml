@@ -641,6 +641,11 @@
             关联工单Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Service.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Servicetype">
             <summary>
             服务类型
@@ -1414,14 +1419,29 @@
             发起人
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.OriginatorName">
+            <summary>
+            发起人名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Workorder.ReceiverId">
             <summary>
             接收人
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.ReceiverName">
+            <summary>
+            接收人名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Workorder.WorkorderType">
             <summary>
             工单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.WorkorderSource">
+            <summary>
+            工单来源
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Workorder.RelationId">

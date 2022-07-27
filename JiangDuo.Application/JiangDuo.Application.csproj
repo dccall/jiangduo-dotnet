@@ -38,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppletAppService\OfficialApplet\Dtos\" />
     <Folder Include="AppletAppService\ResidentApplet\Filters\" />
   </ItemGroup>
 

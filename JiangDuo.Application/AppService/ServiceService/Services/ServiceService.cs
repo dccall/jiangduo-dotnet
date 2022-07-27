@@ -54,6 +54,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             var dto = entity.Adapt<DtoService>();
 
+
             //if (dto.WorkOrderId != null)
             //{
             //   var workOrderEntity=  _workOrderRepository.FindOrDefault(dto.WorkOrderId);

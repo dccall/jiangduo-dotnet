@@ -20,6 +20,12 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// 工单类型名称
         /// </summary>
         public string WorkorderTypeName => WorkorderType.GetDescription();
+
+        /// <summary>
+        /// 工单来源名称
+        /// </summary>
+        public string WorkorderSourceName => WorkorderSource.GetDescription();
+
         /// <summary>
         /// 工单状态名称
         /// </summary>
@@ -29,6 +35,16 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// 志愿者列表
         /// </summary>
         public List<DtoVolunteer> Volunteers { get; set; }
+
+        /// <summary>
+        /// 工单日志
+        /// </summary>
+        public List<Workorderlog> Workorderlogs { get; set; }
+
+        /// <summary>
+        /// 工单反馈
+        /// </summary>
+        public List<Workorderfeedback> WorkorderfeedbackList { get; set; }
 
         /// <summary>
         /// 有事好商量

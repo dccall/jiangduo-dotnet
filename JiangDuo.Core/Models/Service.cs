@@ -71,5 +71,10 @@ namespace JiangDuo.Core.Models
         /// 关联工单Id
         /// </summary>
         public long? WorkOrderId { get; set; }
+
+        /// <summary>
+        /// 附件
+        /// </summary>
+        public string Attachments { get; set; }
     }
 }

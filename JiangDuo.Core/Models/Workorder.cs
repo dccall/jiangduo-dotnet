@@ -40,6 +40,12 @@ namespace JiangDuo.Core.Models
         /// 工单类型
         /// </summary>
         public WorkorderTypeEnum WorkorderType { get; set; }
+
+        /// <summary>
+        /// 工单来源
+        /// </summary>
+        public WorkorderSourceEnum WorkorderSource { get; set; }
+        
         /// <summary>
         /// 引用的业务id
         /// </summary>

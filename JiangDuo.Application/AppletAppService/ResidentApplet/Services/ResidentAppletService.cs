@@ -264,6 +264,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public async Task<string> ApplyForServices(DtoWorkOrderForm model)
         {
+            model.WorkorderSource = WorkorderSourceEnum.Resident;
             var count= await _workOrderService.Insert(model);
             if (count > 0)
             {
@@ -278,6 +279,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
         {
+            model.WorkorderSource = WorkorderSourceEnum.Resident;
             var count = await _workOrderService.Insert(model);
             if (count > 0)
             {
