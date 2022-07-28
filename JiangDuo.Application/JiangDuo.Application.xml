@@ -3069,6 +3069,11 @@
             工单状态名称
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.SelectAreaName">
+            <summary>
+            所属选区
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Volunteers">
             <summary>
             志愿者列表

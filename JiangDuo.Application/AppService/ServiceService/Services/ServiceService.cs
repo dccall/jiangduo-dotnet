@@ -22,9 +22,9 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
     public class ServiceService:IServiceService, ITransient
     {
         private readonly ILogger<ServiceService> _logger;
-        private readonly IRepository<Service> _serviceRepository;
+        private readonly IRepository<Core.Models.Service> _serviceRepository;
         private readonly IRepository<Workorder> _workOrderRepository;
-        public ServiceService(ILogger<ServiceService> logger, IRepository<Service> serviceRepository, IRepository<Workorder> workOrderRepository)
+        public ServiceService(ILogger<ServiceService> logger, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -71,7 +71,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         public async Task<int> Insert(DtoServiceForm model)
         {
 
-            var entity = model.Adapt<Service>();
+            var entity = model.Adapt<Core.Models.Service>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
@@ -122,7 +122,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<int> FakeDelete(List<long> idList)
         {
-            var result = await _serviceRepository.Context.BatchUpdate<Service>()
+            var result = await _serviceRepository.Context.BatchUpdate<Core.Models.Service>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.IsDeleted, x => true)
                 .ExecuteAsync();

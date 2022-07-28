@@ -32,6 +32,11 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         public string StatusName=> Status.GetDescription();
 
         /// <summary>
+        /// 所属选区
+        /// </summary>
+        public string SelectAreaName { get; set; }
+
+        /// <summary>
         /// 志愿者列表
         /// </summary>
         public List<DtoVolunteer> Volunteers { get; set; }

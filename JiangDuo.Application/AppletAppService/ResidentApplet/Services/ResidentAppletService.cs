@@ -29,7 +29,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
     public class ResidentAppletService:IResidentAppletService, ITransient
     {
         private readonly ILogger<ResidentAppletService> _logger;
-        private readonly IRepository<Service> _serviceRepository;
+        private readonly IRepository<Core.Models.Service> _serviceRepository;
         private readonly IRepository<Workorder> _workOrderRepository;
         private readonly IRepository<Participant> _participantRepository;
         private readonly WeiXinService _weiXinService;
@@ -37,7 +37,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IWorkOrderService _workOrderService;
         private readonly IServiceService _serviceService;
 
-        public ResidentAppletService(ILogger<ResidentAppletService> logger, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
+        public ResidentAppletService(ILogger<ResidentAppletService> logger, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -265,6 +265,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<string> ApplyForServices(DtoWorkOrderForm model)
         {
             model.WorkorderSource = WorkorderSourceEnum.Resident;
+            var id = JwtHelper.GetAccountId();
+            //先根据id查询实体
+            var residEntentity = _residentRepository.FindOrDefault(id);
+            if (residEntentity != null)
+            {
+                model.SelectAreaId= residEntentity.SelectAreaId;
+            }
             var count= await _workOrderService.Insert(model);
             if (count > 0)
             {

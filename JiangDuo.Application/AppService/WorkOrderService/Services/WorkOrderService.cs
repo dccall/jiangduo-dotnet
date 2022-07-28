@@ -29,7 +29,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly ILogger<WorkOrderService> _logger;
         private readonly IRepository<Workorder> _workOrderRepository;
         private readonly IRepository<Reserve> _reserveRepository;
-        private readonly IRepository<Service> _serviceRepository;
+        private readonly IRepository<Core.Models.Service> _serviceRepository;
         private readonly IRepository<OnlineLetters> _onlineletterRepository;
         private readonly IRepository<Volunteer> _volunteerRepository;
         private readonly IRepository<Workordervolunteer> _workOrderVolunteerRepository;
@@ -39,11 +39,12 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<Official> _officialRepository;
         private readonly IRepository<SysUser> _userRepository;
         private readonly IRepository<Workorderfeedback> _workorderfeedbackRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
 
-        
+
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
-            IRepository<Service> serviceRepository,
+            IRepository<Core.Models.Service> serviceRepository,
             IRepository<OnlineLetters> onlineletterRepository,
             IRepository<Workordervolunteer> workOrderVolunteerRepository,
             IRepository<Volunteer> volunteerRepository,
@@ -52,7 +53,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             IRepository<Resident> residentRepository,
             IRepository<Official> officialRepository,
             IRepository<SysUser> userRepository,
-            IRepository<Workorderfeedback> workorderfeedbackRepository
+            IRepository<Workorderfeedback> workorderfeedbackRepository, 
+            IRepository<SelectArea> selectAreaRepository
             )
         {
             _logger = logger;
@@ -68,6 +70,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _officialRepository = officialRepository;
             _userRepository = userRepository;
             _workorderfeedbackRepository=workorderfeedbackRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
         /// <summary>
         /// 分页
@@ -80,8 +83,21 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
             query = query.Where(model.WorkorderSource != null, x => x.WorkorderSource == model.WorkorderSource);
             query = query.Where(model.Status!=null, x => x.Status == model.Status);
-            query = query.Where(model.StartTime!=null, x => x.StartTime>= model.StartTime);
-            query = query.Where(model.EndTime!=null, x => x.StartTime <= model.EndTime);
+            query = query.Where(model.StartTime!=null, x => x.CreatedTime>= model.StartTime);
+            query = query.Where(model.EndTime!=null, x => x.CreatedTime <= model.EndTime);
+
+            var pageList = query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+
+            if (pageList.Items.Count() > 0)
+            {
+                var idList = pageList.Items.Select(x => x.SelectAreaId).Distinct().ToList();
+                var list = _selectAreaRepository.Where(x => idList.Contains(x.Id)).ToList();
+                foreach (var item in pageList.Items)
+                {
+                    var entity = list.Where(x => x.Id == item.SelectAreaId).FirstOrDefault();
+                    item.SelectAreaName = entity?.SelectAreaName;
+                }
+            }
 
 
             //将数据映射到DtoWorkOrder中
@@ -106,7 +122,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 var serviceEntity = _serviceRepository.FindOrDefault(dto.RelationId);
                 dto.Service = serviceEntity.Adapt<DtoServiceForm>();
-                if (!string.IsNullOrEmpty(dto.Service.Attachments))
+                if (dto.Service!=null&&!string.IsNullOrEmpty(dto.Service.Attachments))
                 {
                     //附件处理
                     var fileIdList = dto.Service.Attachments.Split(",").ToList();
@@ -117,7 +133,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 var onlineletterEntity = _onlineletterRepository.FindOrDefault(dto.RelationId);
                 dto.OnlineLetters = onlineletterEntity.Adapt<DtoOnlineletterForm>();
-                if (!string.IsNullOrEmpty(dto.OnlineLetters.Attachments))
+                if (dto.OnlineLetters != null && !string.IsNullOrEmpty(dto.OnlineLetters.Attachments))
                 {
                     //附件处理
                     var fileIdList = dto.OnlineLetters.Attachments.Split(",").ToList();
@@ -151,6 +167,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             entityWorkOrder.OriginatorName = GetPersonnelName(entityWorkOrder.OriginatorId);
             entityWorkOrder.ReceiverName = GetPersonnelName(entityWorkOrder.ReceiverId);
             entityWorkOrder.Status = WorkorderStatusEnum.NotProcessed;//待处理
+            entityWorkOrder.StartTime = DateTime.Now;
             entityWorkOrder.CreatedTime = DateTime.Now;
             entityWorkOrder.Creator = JwtHelper.GetAccountId();
             // 引用的业务id
@@ -177,7 +194,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             //一老一少（服务活动）
             if (model.WorkorderType == WorkorderTypeEnum.Service)
             {
-                var reviceEntity = model.Service.Adapt<Service>();
+                var reviceEntity = model.Service.Adapt<Core.Models.Service>();
                 reviceEntity.Id = relationId;//与工单表关联
                 reviceEntity.CreatedTime = DateTime.Now;
                 reviceEntity.Creator = JwtHelper.GetAccountId();

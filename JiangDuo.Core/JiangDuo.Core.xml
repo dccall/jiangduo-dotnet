@@ -516,6 +516,11 @@
             所属村Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Resident.SelectAreaId">
+            <summary>
+            所属区域Id
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Resident.PhoneNumber">
             <summary>
             手机号

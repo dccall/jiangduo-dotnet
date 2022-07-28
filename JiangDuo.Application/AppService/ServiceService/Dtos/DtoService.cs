@@ -12,7 +12,7 @@ using JiangDuo.Application.AppService.WorkorderService.Dto;
 namespace JiangDuo.Application.AppService.ServiceService.Dto
 {
     [Manual]
-    public class DtoService : Service
+    public class DtoService : Core.Models.Service
     {
         /// <summary>
         /// 状态

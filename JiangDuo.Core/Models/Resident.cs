@@ -57,6 +57,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public long? VillageId { get; set; }
         /// <summary>
+        /// 所属区域Id
+        /// </summary>
+        public long? SelectAreaId { get; set; }
+        /// <summary>
         /// 手机号
         /// </summary>
         [MaxLength(11)]

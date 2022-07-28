@@ -29,7 +29,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
     public class OfficialAppletService:IOfficialAppletService, ITransient
     {
         private readonly ILogger<OfficialAppletService> _logger;
-        private readonly IRepository<Service> _serviceRepository;
+        private readonly IRepository<Core.Models.Service> _serviceRepository;
         private readonly IRepository<Workorder> _workOrderRepository;
         private readonly IRepository<Participant> _participantRepository;
         private readonly WeiXinService _weiXinService;
@@ -43,7 +43,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             IWorkOrderService workOrderService, 
             IRepository<Resident> residentRepository, 
             WeiXinService weiXinService, 
-            IRepository<Service> serviceRepository, 
+            IRepository<Core.Models.Service> serviceRepository, 
             IRepository<Workorder> workOrderRepository,
             IVerifyCodeService verifyCodeService,
             IAliyunSmsService aliyunSmsService,

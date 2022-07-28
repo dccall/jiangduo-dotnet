@@ -22,10 +22,12 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
     {
         private readonly ILogger<ResidentService> _logger;
         private readonly IRepository<Resident> _residentRepository;
-        public ResidentService(ILogger<ResidentService> logger, IRepository<Resident> residentRepository)
+        private readonly IRepository<Village> _villageRepository;
+        public ResidentService(ILogger<ResidentService> logger, IRepository<Resident> residentRepository,IRepository<Village> villageRepository)
         {
             _logger = logger;
             _residentRepository = residentRepository;
+            _villageRepository = villageRepository;
         }
         /// <summary>
         /// 分页
@@ -68,6 +70,14 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
+
+            if (entity.VillageId != null)
+            {
+               var village = _villageRepository.FindOrDefault(entity.VillageId);
+                entity.SelectAreaId = village?.SelectAreaId;
+            }
+
+
             _residentRepository.Insert(entity);
             return await _residentRepository.SaveNowAsync();
         }
@@ -89,6 +99,12 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+
+            if (entity.VillageId != null)
+            {
+                var village = _villageRepository.FindOrDefault(entity.VillageId);
+                entity.SelectAreaId = village?.SelectAreaId;
+            }
             _residentRepository.Update(entity);
             return await _residentRepository.SaveNowAsync();
         }
