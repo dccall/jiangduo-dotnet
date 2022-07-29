@@ -37,31 +37,12 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         public string SelectAreaName { get; set; }
 
         /// <summary>
-        /// 志愿者列表
-        /// </summary>
-        public List<DtoVolunteer> Volunteers { get; set; }
-
-        /// <summary>
         /// 工单日志
         /// </summary>
         public List<Workorderlog> Workorderlogs { get; set; }
-
         /// <summary>
         /// 工单反馈
         /// </summary>
         public List<Workorderfeedback> WorkorderfeedbackList { get; set; }
-
-        /// <summary>
-        /// 有事好商量
-        /// </summary>
-        public DtoReserveForm Reserve { get; set; }
-        /// <summary>
-        /// 一老一小(服务)
-        /// </summary>
-        public DtoServiceForm Service { get; set; }
-        /// <summary>
-        /// 码上说马上办
-        /// </summary>
-        public DtoOnlineletterForm OnlineLetters { get; set; }
     }
 }

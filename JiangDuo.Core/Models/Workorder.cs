@@ -31,29 +31,23 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 接收人
         /// </summary>
-        public long? ReceiverId { get; set; }
+        public long? RecipientId { get; set; }
         /// <summary>
         /// 接收人名称
         /// </summary>
-        public string ReceiverName { get; set; }
+        public string RecipientName { get; set; }
+        /// <summary>
+        /// 业务类型
+        /// </summary>
+        public long BusinessId { get; set; }
         /// <summary>
         /// 工单类型
         /// </summary>
         public WorkorderTypeEnum WorkorderType { get; set; }
-
         /// <summary>
         /// 工单来源
         /// </summary>
         public WorkorderSourceEnum WorkorderSource { get; set; }
-        
-        /// <summary>
-        /// 引用的业务id
-        /// </summary>
-        public long? RelationId { get; set; }
-        /// <summary>
-        /// 选区id
-        /// </summary>
-        public long? SelectAreaId { get; set; }
         /// <summary>
         /// 工单状态
         /// </summary>
@@ -71,5 +65,17 @@ namespace JiangDuo.Core.Models
         /// 完结时间
         /// </summary>
         public DateTime? OverTime { get; set; }
+        /// <summary>
+        /// 工单分数
+        /// </summary>
+        public double? Score { get; set; }
+        /// <summary>
+        /// 选区id
+        /// </summary>
+        public long? SelectAreaId { get; set; }
+        /// <summary>
+        /// 引用公共需求Id
+        /// </summary>
+        public long? PublicSentimentId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,18 +32,9 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public DateTime? HandlerTime { get; set; }
         /// <summary>
-        /// 发起人名称
+        /// 当前状态
         /// </summary>
-        [MaxLength(50)]
-        public string OriginatorName { get; set; }
-        /// <summary>
-        /// 发起人回复内容
-        /// </summary>
-        [MaxLength(300)]
-        public string OriginatorContent { get; set; }
-        /// <summary>
-        /// 发起人回复时间
-        /// </summary>
-        public DateTime? OriginatorTime { get; set; }
+        public WorkorderStatusEnum HandlerStatus { get; set; }
+
     }
 }

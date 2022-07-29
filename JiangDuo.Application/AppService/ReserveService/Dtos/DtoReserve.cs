@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
-
+using JiangDuo.Core.Enums;
 namespace JiangDuo.Application.AppService.ReserveService.Dto
 {
     [Manual]
@@ -14,8 +14,8 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
     {
 
         /// <summary>
-        /// 关联的工单
+        /// 状态名称
         /// </summary>
-        public DtoWorkOrder WorkOrder { get; set; }
+        public string StatusName => Status.GetDescription();
     }
 }

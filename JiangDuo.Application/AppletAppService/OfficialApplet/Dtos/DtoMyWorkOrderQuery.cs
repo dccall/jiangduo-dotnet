@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Dtos
 {
     public class DtoMyWorkOrderQuery:BaseRequest
     {
-
         /// <summary>
-        /// 状态:1.待处理2.待审核3.已完成
+        /// 工单状态
         /// </summary>
-        public int? Status { get; set; }
+        public WorkorderStatusEnum? Status { get; set; }
 
     }
 }

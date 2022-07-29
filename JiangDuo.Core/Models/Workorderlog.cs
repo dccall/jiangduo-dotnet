@@ -25,5 +25,9 @@ namespace JiangDuo.Core.Models
         /// 日志时间
         /// </summary>
         public DateTime LogTime { get; set; }
+        /// <summary>
+        /// 操作人
+        /// </summary>
+        public string Operator { get; set; }
     }
 }

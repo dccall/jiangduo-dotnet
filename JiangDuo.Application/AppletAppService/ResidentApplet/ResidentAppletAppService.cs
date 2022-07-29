@@ -111,44 +111,44 @@ public class ResidentAppletAppService : IDynamicApiController
     }
 
 
-    /// <summary>
-    /// 获取我的工单
-    /// </summary>
-    /// <param name="model">数据</param>
-    /// <returns></returns>
-    public PagedList<DtoWorkOrder> GetMyWorkOrderList([FromQuery] BaseRequest model)
-    {
-        return  _residentAppletService.GetMyWorkOrderList(model);
-    }
+    ///// <summary>
+    ///// 获取我的工单
+    ///// </summary>
+    ///// <param name="model">数据</param>
+    ///// <returns></returns>
+    //public PagedList<DtoWorkOrder> GetMyWorkOrderList([FromQuery] BaseRequest model)
+    //{
+    //    return  _residentAppletService.GetMyWorkOrderList(model);
+    //}
 
-    /// <summary>
-    /// 申请服务(工单)
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    public async Task<string> ApplyForServices(DtoWorkOrderForm model)
-    {
-        return await _residentAppletService.ApplyForServices(model);
-    }
+    ///// <summary>
+    ///// 申请服务(工单)
+    ///// </summary>
+    ///// <param name="model"></param>
+    ///// <returns></returns>
+    //public async Task<string> ApplyForServices(DtoWorkOrderForm model)
+    //{
+    //    return await _residentAppletService.ApplyForServices(model);
+    //}
 
-    /// <summary>
-    /// 码上说马上办(工单)
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
-    {
-        return await _residentAppletService.OnlineLettersServices(model);
-    }
+    ///// <summary>
+    ///// 码上说马上办(工单)
+    ///// </summary>
+    ///// <param name="model"></param>
+    ///// <returns></returns>
+    //public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
+    //{
+    //    return await _residentAppletService.OnlineLettersServices(model);
+    //}
 
-    /// <summary>
-    /// 查看工单详情
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<DtoWorkOrder> GetWorkOrderDetail([FromQuery]long id)
-    {
-        return await _residentAppletService.GetWorkOrderDetail(id);
-    }
+    ///// <summary>
+    ///// 查看工单详情
+    ///// </summary>
+    ///// <param name="id"></param>
+    ///// <returns></returns>
+    //public async Task<DtoWorkOrder> GetWorkOrderDetail([FromQuery]long id)
+    //{
+    //    return await _residentAppletService.GetWorkOrderDetail(id);
+    //}
 
 }

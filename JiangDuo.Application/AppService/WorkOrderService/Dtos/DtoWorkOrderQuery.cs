@@ -2,6 +2,7 @@
 using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
     public class DtoWorkOrderQuery : BaseRequest
     {
         /// <summary>
+        /// 工单编号
+        /// </summary>
+        [MaxLength(50)]
+        public string WorkOrderNo { get; set; }
+        /// <summary>
         /// 工单类型 1.有事好商量 2.一老一小 3.码上说马上办
         /// </summary>
         public WorkorderTypeEnum? WorkorderType { get; set; }
@@ -19,7 +25,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public long? SelectAreaId { get; set; }
         /// <summary>
-        /// 工单状态 1.未处理 2.进行中 3.已反馈 4.已完结 5.已同意 6已拒绝
+        /// 工单状态 1.未处理 2.进行中 3.已完成待审核 4.审核通过 5.已完结
         /// </summary>
         public WorkorderStatusEnum? Status { get; set; }
         /// <summary>

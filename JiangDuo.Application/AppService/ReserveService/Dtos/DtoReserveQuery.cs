@@ -13,5 +13,11 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// 主题
         /// </summary>
         public string Theme { get; set; }
+
+
+        /// <summary>
+        /// 创建人id
+        /// </summary>
+        public long? Creator { get; set; }
     }
 }

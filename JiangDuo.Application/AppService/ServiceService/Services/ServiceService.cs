@@ -24,11 +24,18 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         private readonly ILogger<ServiceService> _logger;
         private readonly IRepository<Core.Models.Service> _serviceRepository;
         private readonly IRepository<Workorder> _workOrderRepository;
-        public ServiceService(ILogger<ServiceService> logger, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
+        private readonly IRepository<Participant> _participantRepository;
+        private readonly IRepository<Resident> _residentRepository;
+        public ServiceService(ILogger<ServiceService> logger,
+            IRepository<Participant> participantRepository,
+            IRepository<Resident> residentRepository,
+            IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
             _workOrderRepository = workOrderRepository;
+            _participantRepository = participantRepository;
+            _residentRepository = residentRepository;
         }
         /// <summary>
         /// 分页
@@ -51,15 +58,11 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         public async Task<DtoService> GetById(long id)
         {
             var entity = await _serviceRepository.FindOrDefaultAsync(id);
-
             var dto = entity.Adapt<DtoService>();
+            var idList = _participantRepository.Where(x => !x.IsDeleted && x.ServiceId == id).Select(x => x.ResidentId).ToList();
 
-
-            //if (dto.WorkOrderId != null)
-            //{
-            //   var workOrderEntity=  _workOrderRepository.FindOrDefault(dto.WorkOrderId);
-            //    dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
-            //}
+            //获取服务参与人
+            dto.JoinList = _residentRepository.Where(x => idList.Contains(x.Id)).ToList();
 
             return dto;
         }
@@ -70,7 +73,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoServiceForm model)
         {
-
             var entity = model.Adapt<Core.Models.Service>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;

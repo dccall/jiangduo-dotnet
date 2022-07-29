@@ -19,38 +19,67 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public long? Id { get;  set; }
         /// <summary>
+        /// 工单编号
+        /// </summary>
+        [MaxLength(50)]
+        public string WorkOrderNo { get; set; }
+        /// <summary>
+        /// 发起人
+        /// </summary>
+        public long OriginatorId { get; set; }
+        /// <summary>
+        /// 发起人名称
+        /// </summary>
+        public string OriginatorName { get; set; }
+        /// <summary>
         /// 接收人
         /// </summary>
-        public long? ReceiverId { get; set; }
+        public long? RecipientId { get; set; }
+        /// <summary>
+        /// 接收人名称
+        /// </summary>
+        public string RecipientName { get; set; }
+        /// <summary>
+        /// 业务类型
+        /// </summary>
+        public long BusinessId { get; set; }
         /// <summary>
         /// 工单类型
         /// </summary>
-        public WorkorderTypeEnum WorkorderType { get; set; }
+        public WorkorderTypeEnum WorkorderType { get; set; } = WorkorderTypeEnum.Normal;
         /// <summary>
         /// 工单来源
         /// </summary>
-        public WorkorderSourceEnum WorkorderSource { get; set; }
+        public WorkorderSourceEnum WorkorderSource { get; set; } = WorkorderSourceEnum.System;
         /// <summary>
-        /// 选区id
+        /// 工单状态
         /// </summary>
-        public long? SelectAreaId { get; set; }
+        public WorkorderStatusEnum Status { get; set; } = WorkorderStatusEnum.NotProcessed;
         /// <summary>
         /// 工单内容
         /// </summary>
         [MaxLength(300)]
         public string Content { get; set; }
-         /// <summary>
-         /// 有事好商量
-         /// </summary>
-        public DtoReserveForm Reserve { get; set; }
         /// <summary>
-        /// 一老一小(服务)
+        /// 开始时间
         /// </summary>
-        public DtoServiceForm Service { get; set; }
+        public DateTime StartTime { get; set; }
         /// <summary>
-        /// 码上说马上办
+        /// 完结时间
         /// </summary>
-        public DtoOnlineletterForm OnlineLetters { get; set; }
+        public DateTime? OverTime { get; set; }
+        /// <summary>
+        /// 工单分数
+        /// </summary>
+        public double? Score { get; set; }= 1;
+        /// <summary>
+        /// 选区id
+        /// </summary>
+        public long? SelectAreaId { get; set; }
+        /// <summary>
+        /// 引用公共需求Id
+        /// </summary>
+        public long? PublicSentimentId { get; set; }
 
     }
 }

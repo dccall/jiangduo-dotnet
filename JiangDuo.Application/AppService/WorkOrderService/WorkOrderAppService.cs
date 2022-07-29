@@ -84,24 +84,34 @@ public class WorkOrderAppService : IDynamicApiController
     {
         return await _workOrderService.FakeDelete(idList);
     }
-
     /// <summary>
     /// 工单指派
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public async Task<string> WorkOrderOrderAssign(DtoWorkOrderAssign model)
+    public async Task<string> WorkOrderAssign(DtoWorkOrderAssign model)
     {
-        return await _workOrderService.WorkOrderOrderAssign(model);
+        return await _workOrderService.WorkOrderAssign(model);
     }
     /// <summary>
-    /// 工单状态变更
+    /// 工单完成
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public async Task<string> WorkOrderOrderHandel(DtoWorkOrderHandel model)
+    public async Task<string> WorkOrderCompleted(DtoWorkOrderCompletedHandel model)
     {
-        return await _workOrderService.WorkOrderOrderHandel(model);
+        return await _workOrderService.WorkOrderCompleted(model);
     }
+    /// <summary>
+    /// 工单完结
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> WorkOrderEnd(DtoWorkOrderEndHandel model)
+    {
+        return await _workOrderService.WorkOrderEnd(model);
+    }
+
+    
 
 }

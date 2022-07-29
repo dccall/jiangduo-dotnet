@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +44,15 @@ namespace JiangDuo.Core.Models
         [MaxLength(255)]
         public string Remarks { get; set; }
         /// <summary>
+        /// 状态
+        /// </summary>
+        public ReserveStatus Status { get; set; }
+        /// <summary>
+        /// 审核结果
+        /// </summary>
+        [MaxLength(255)]
+        public string AuditFindings { get; set; }
+        /// <summary>
         /// 会议结果
         /// </summary>
         [MaxLength(255)]
@@ -51,8 +61,6 @@ namespace JiangDuo.Core.Models
         /// 所属区域
         /// </summary>
         public long? SelectAreaId { get; set; }
-
-
         /// <summary>
         /// 关联工单Id
         /// </summary>

@@ -23,6 +23,9 @@ using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Core.Enums;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Core.Base;
+using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ReserveService.Services;
+using JiangDuo.Application.AppService.ReserveService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
 {
@@ -39,6 +42,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         private readonly IVerifyCodeService _verifyCodeService;
         private readonly IAliyunSmsService _aliyunSmsService;
         private readonly IRepository<Official> _officialRepository;
+        private readonly IRepository<Reserve> _reserveRepository;
+        private readonly IReserveService _reserveService;
         public OfficialAppletService(ILogger<OfficialAppletService> logger, 
             IWorkOrderService workOrderService, 
             IRepository<Resident> residentRepository, 
@@ -48,6 +53,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             IVerifyCodeService verifyCodeService,
             IAliyunSmsService aliyunSmsService,
             IRepository<Official> officialRepository,
+            IRepository<Reserve> reserveRepository,
+            IReserveService reserveService,
             IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -60,6 +67,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             _verifyCodeService = verifyCodeService;
             _aliyunSmsService = aliyunSmsService;
             _officialRepository = officialRepository;
+            _reserveRepository = reserveRepository;
+            _reserveService = reserveService;
         }
 
 
@@ -138,23 +147,108 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             return jwtTokenResult.AccessToken;
         }
 
+        /// <summary>
+        /// 我的服务列表(一老一小)
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoService> GetMyServices(DtoServiceQuery model)
+        {
+            var account = JwtHelper.GetAccountInfo();
+            var query = _serviceRepository.Where(x => !x.IsDeleted);
+            query = _serviceRepository.Where(x => x.Creator== account.Id); //创建人自己
+            query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
+            //将数据映射到DtoService中
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
+        }
 
         /// <summary>
-        /// 申请服务(工单)
+        /// 创建服务(一老一小）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<string> ApplyForServices(DtoWorkOrderForm model)
+        public async Task<string> AddServices(DtoServiceForm model)
         {
-            model.WorkorderSource = WorkorderSourceEnum.Official;
-            var count = await _workOrderService.Insert(model);
+            var count = await _serviceService.Insert(model);
             if (count > 0)
             {
-                return "申请已提交";
+                return "添加成功";
             }
-            return "申请提交失败";
+            return "添加失败";
+        }
+        /// <summary>
+        /// 删除服务(一老一小)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteServices(long id)
+        {
+            var count = await _serviceService.FakeDelete(id);
+            if (count > 0)
+            {
+                return "删除成功";
+            }
+            return "删除失败";
+        }
+        /// <summary>
+        /// 服务详情(一老一小)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<DtoService> GetServicesDetail(long id)
+        {
+            var dto= await _serviceService.GetById(id);
+            return dto;
         }
 
+        /// <summary>
+        /// 获取我的预约（有事好商量）
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoReserve> GetMyReserves(DtoReserveQuery model)
+        {
+            var account = JwtHelper.GetAccountInfo();
+            model.Creator= account.Id;
+            return _reserveService.GetList(model);
+        }
+        /// <summary>
+        /// 获取预约详情(有事好商量)
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public async Task<DtoReserve> GetReserveDetail(long id)
+        {
+            return await _reserveService.GetById(id);
+        }
+        /// <summary>
+        /// 添加预约(有事好商量)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> AddReserve(DtoReserveForm model)
+        {
+            var count = await _reserveService.Insert(model);
+            if (count > 0)
+            {
+                return "添加成功";
+            }
+            return "删除成功";
+        }
+        /// <summary>
+        /// 删除预约（有事好商量）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteReserve(long id)
+        {
+            var count = await _reserveService.FakeDelete(id);
+            if (count > 0)
+            {
+                return "删除成功";
+            }
+            return "删除失败";
+        }
 
         /// <summary>
         /// 获取我的工单
@@ -165,37 +259,21 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             var id = JwtHelper.GetAccountId();
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
-            query = query.Where(x => x.Creator == id||x.ReceiverId==id);//我创建的或指派给我的
-
-            if (model.Status != null)
-            {
-                if (model.Status == 1) //待处理
-                {
-                    var statusList = new List<WorkorderStatusEnum>() {
-                        WorkorderStatusEnum.NotProcessed,
-                    };
-                    query = query.Where(x => statusList.Contains( x.Status));
-                }
-                if (model.Status == 2) //待审核
-                {
-                    //var statusList = new List<WorkorderStatusEnum>() {
-                    //    WorkorderStatusEnum.NotProcessed,
-                    //};
-                    //query = query.Where(x => statusList.Contains(x.Status));
-                }
-                if (model.Status ==3)//已完成
-                {
-                    var statusList = new List<WorkorderStatusEnum>() {
-                        WorkorderStatusEnum.End,//已结束
-                        WorkorderStatusEnum.Approve,//已同意
-                        WorkorderStatusEnum.Reject,//已拒绝
-                    };
-                    query = query.Where(x => statusList.Contains(x.Status));
-                }
-            }
-
+            query = query.Where(x => x.RecipientId ==id);//派给我的
+            query = query.Where(model.Status!=null, x => x.Status==model.Status);
             //将数据映射到DtoWorkOrder中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+        }
+
+        /// <summary>
+        /// 工单完成
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderCompleted(DtoWorkOrderCompletedHandel model)
+        {
+            return  await _workOrderService.WorkOrderCompleted(model);
+           
         }
     }
 }

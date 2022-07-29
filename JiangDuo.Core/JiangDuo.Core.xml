@@ -41,6 +41,11 @@
             获取枚举的描述信息
             </summary>
         </member>
+        <member name="F:JiangDuo.Core.Enums.PublicSentimentStatus.Normal">
+            <summary>
+            默认
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Enums.ConfigType">
             <summary>
             系统配置类型
@@ -164,6 +169,16 @@
         <member name="P:JiangDuo.Core.Models.Building.SelectAreaId">
             <summary>
             所属选区
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Business">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Business.Name">
+            <summary>
+            业务名称
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.News">
@@ -391,6 +406,51 @@
             预约结束时间
             </summary>
         </member>
+        <member name="T:JiangDuo.Core.Models.PublicSentiment">
+            <summary>
+            公共需求
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.ResidentId">
+            <summary>
+            居民Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.FeedbackContent">
+            <summary>
+            反馈内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.FeedbackTime">
+            <summary>
+            反馈时间
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Regulation">
             <summary>
             规章制度
@@ -451,6 +511,16 @@
             描述
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reserve.AuditFindings">
+            <summary>
+            审核结果
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Reserve.MeetingResults">
             <summary>
             会议结果
@@ -464,6 +534,21 @@
         <member name="P:JiangDuo.Core.Models.Reserve.WorkOrderId">
             <summary>
             关联工单Id
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Core.Models.Reservevolunteer">
+            <summary>
+            有事好商量志愿者
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reservevolunteer.ReserveId">
+            <summary>
+            有事好商量预约Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Reservevolunteer.VolunteerId">
+            <summary>
+            志愿者Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Resident">
@@ -634,6 +719,11 @@
         <member name="P:JiangDuo.Core.Models.Service.Status">
             <summary>
             状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.AuditFindings">
+            <summary>
+            审核结果
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Service.OfficialsId">
@@ -1429,14 +1519,19 @@
             发起人名称
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.ReceiverId">
+        <member name="P:JiangDuo.Core.Models.Workorder.RecipientId">
             <summary>
             接收人
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.ReceiverName">
+        <member name="P:JiangDuo.Core.Models.Workorder.RecipientName">
             <summary>
             接收人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.BusinessId">
+            <summary>
+            业务类型
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Workorder.WorkorderType">
@@ -1447,16 +1542,6 @@
         <member name="P:JiangDuo.Core.Models.Workorder.WorkorderSource">
             <summary>
             工单来源
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.RelationId">
-            <summary>
-            引用的业务id
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workorder.SelectAreaId">
-            <summary>
-            选区id
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Workorder.Status">
@@ -1477,6 +1562,21 @@
         <member name="P:JiangDuo.Core.Models.Workorder.OverTime">
             <summary>
             完结时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.Score">
+            <summary>
+            工单分数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.PublicSentimentId">
+            <summary>
+            引用公共需求Id
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Workorderfeedback">
@@ -1504,19 +1604,9 @@
             处理时间
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorName">
+        <member name="P:JiangDuo.Core.Models.Workorderfeedback.HandlerStatus">
             <summary>
-            发起人名称
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorContent">
-            <summary>
-            发起人回复内容
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workorderfeedback.OriginatorTime">
-            <summary>
-            发起人回复时间
+            当前状态
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Workorderlog">
@@ -1539,19 +1629,9 @@
             日志时间
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.Workordervolunteer">
+        <member name="P:JiangDuo.Core.Models.Workorderlog.Operator">
             <summary>
-            工单志愿者
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workordervolunteer.WordOrderId">
-            <summary>
-            工单Id
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Workordervolunteer.VolunteerId">
-            <summary>
-            志愿者Id
+            操作人
             </summary>
         </member>
         <member name="M:JiangDuo.Core.Services.AliyunSmsService.SendSms(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">

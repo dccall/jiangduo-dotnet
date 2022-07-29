@@ -52,6 +52,7 @@ namespace JiangDuo.Core.Utils
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public long SelectAreaId { get; set; }
         public AccountType Type { get; set; }
     }
 

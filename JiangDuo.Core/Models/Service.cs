@@ -63,6 +63,11 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public ServiceStatusEnum? Status { get; set; }
         /// <summary>
+        /// 审核结果
+        /// </summary>
+        [MaxLength(255)]
+        public string AuditFindings { get; set; }
+        /// <summary>
         /// 人大名单id
         /// </summary>
         public long? OfficialsId { get; set; }

@@ -20,8 +20,8 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         public string StatusName => Status.GetDescription();
 
         /// <summary>
-        /// 关联的工单
+        /// 服务参加人员名单
         /// </summary>
-        //public DtoWorkOrder WorkOrder { get; set; }
+        public List<Resident> JoinList { get; set; }
     }
 }

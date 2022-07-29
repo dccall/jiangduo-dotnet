@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace JiangDuo.Core.Models
 {
     /// <summary>
-    /// 工单志愿者
+    /// 有事好商量志愿者
     /// </summary>
-    [Table("Workordervolunteer")]
-    public partial class Workordervolunteer : BaseEntity
+    [Table("Reservevolunteer")]
+    public partial class Reservevolunteer : BaseEntity
     {
         /// <summary>
-        /// 工单Id
+        /// 有事好商量预约Id
         /// </summary>
-        public long WordOrderId { get; set; }
+        public long ReserveId { get; set; }
         /// <summary>
         /// 志愿者Id
         /// </summary>

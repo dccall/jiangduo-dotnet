@@ -6,7 +6,7 @@
     <members>
         <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery.Status">
             <summary>
-            状态:1.待处理2.待审核3.已完成
+            工单状态
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin.Phone">
@@ -29,20 +29,6 @@
             人大小程序端
              </summary>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
-            <summary>
-            获取我的工单
-            </summary>
-            <param name="model">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
-            <summary>
-            申请服务(工单)
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
         <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.LoginWeiXin(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
             <summary>
             人大登录（微信code登录）
@@ -62,6 +48,76 @@
             获取验证码
             </summary>
             <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetMyServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
+            <summary>
+            我的服务列表(一老一小)
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetServicesDetail(System.Int64)">
+            <summary>
+            服务详情(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.AddServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            创建服务(一老一小）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.DeleteServices(System.Int64)">
+            <summary>
+            删除服务(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetMyReserves(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            获取我的预约（有事好商量）
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetReserveDetail(System.Int64)">
+            <summary>
+            获取预约详情(有事好商量)
+            </summary>
+            <param name="id">id</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.AddReserve(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            添加预约(有事好商量)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.DeleteReserve(System.Int64)">
+            <summary>
+            删除预约（有事好商量）
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
+            <summary>
+            获取我的工单
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
+            <summary>
+            工单完成
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetVerifyCode(System.String)">
@@ -85,11 +141,60 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetMyServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
             <summary>
-            申请服务(工单)
+            我的服务列表(一老一小)
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.AddServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            创建服务(一老一小）
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.DeleteServices(System.Int64)">
+            <summary>
+            删除服务(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetServicesDetail(System.Int64)">
+            <summary>
+            服务详情(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetMyReserves(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            获取我的预约（有事好商量）
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetReserveDetail(System.Int64)">
+            <summary>
+            获取预约详情(有事好商量)
+            </summary>
+            <param name="id">id</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.AddReserve(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            添加预约(有事好商量)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.DeleteReserve(System.Int64)">
+            <summary>
+            删除预约（有事好商量）
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
@@ -97,6 +202,13 @@
             获取我的工单
             </summary>
             <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
+            <summary>
+            工单完成
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService.ServiceId">
@@ -199,34 +311,6 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetMyWorkOrderList(JiangDuo.Core.Base.BaseRequest)">
-            <summary>
-            获取我的工单
-            </summary>
-            <param name="model">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
-            <summary>
-            申请服务(工单)
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.OnlineLettersServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
-            <summary>
-            码上说马上办(工单)
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetWorkOrderDetail(System.Int64)">
-            <summary>
-            查看工单详情
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
             <summary>
             居民端登录
@@ -310,20 +394,6 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
-            <summary>
-            获取我的工单
-            </summary>
-            <param name="model">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.ApplyForServices(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm)">
-            <summary>
-            申请服务(工单)
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
         <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.LoginWeiXin(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoOfficialLogin)">
             <summary>
             人大登录（微信code登录）
@@ -343,6 +413,76 @@
             获取验证码
             </summary>
             <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetMyServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery)">
+            <summary>
+            我的服务列表(一老一小)
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetServicesDetail(System.Int64)">
+            <summary>
+            服务详情(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.AddServices(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            创建服务(一老一小）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.DeleteServices(System.Int64)">
+            <summary>
+            删除服务(一老一小)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetMyReserves(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            获取我的预约（有事好商量）
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetReserveDetail(System.Int64)">
+            <summary>
+            获取预约详情(有事好商量)
+            </summary>
+            <param name="id">id</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.AddReserve(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
+            <summary>
+            添加预约(有事好商量)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.DeleteReserve(System.Int64)">
+            <summary>
+            删除预约（有事好商量）
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetMyWorkOrderList(JiangDuo.Application.AppletAppService.OfficialApplet.Dtos.DtoMyWorkOrderQuery)">
+            <summary>
+            获取我的工单
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
+            <summary>
+            工单完成
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.Login(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin)">
@@ -587,6 +727,145 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.BuildingService.Services.IBuildingService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.BusinessService.BusinessAppService">
+            <summary>
+            新闻管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Get(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Insert(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Update(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm.Name">
+            <summary>
+            业务名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessQuery.Name">
+            <summary>
+            业务名称
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.GetList(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.GetById(System.Int64)">
+            <summary>
+            根据id查询详情
+            </summary>
+            <param name="id">id</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.Insert(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.Update(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.BusinessService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.IBusinessService.GetList(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.IBusinessService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.IBusinessService.Insert(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.IBusinessService.Update(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.BusinessService.Services.IBusinessService.FakeDelete(System.Int64)">
             <summary>
             假删除
             </summary>
@@ -1473,6 +1752,170 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.ResidentId">
+            <summary>
+            居民Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.Status">
+            <summary>
+            需求状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery.BusinessId">
+            <summary>
+            业务类型
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService">
+            <summary>
+            民情民意
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Get(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Insert(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Update(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.GetList(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.Insert(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.Update(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.GetList(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.GetById(System.Int64)">
+            <summary>
+            根据id查询详情
+            </summary>
+            <param name="id">id</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.Insert(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.Update(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
         <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Id">
             <summary>
             主键
@@ -1761,9 +2204,9 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
-        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.WorkOrder">
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.StatusName">
             <summary>
-            关联的工单
+            状态名称
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Id">
@@ -1821,6 +2264,11 @@
             关联工单Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.VolunteerList">
             <summary>
             志愿者列表
@@ -1829,6 +2277,11 @@
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery.Theme">
             <summary>
             主题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery.Creator">
+            <summary>
+            创建人id
             </summary>
         </member>
         <member name="T:JiangDuo.Application.AppService.ReserveService.ReserveAppService">
@@ -2331,6 +2784,11 @@
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.StatusName">
             <summary>
             状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.JoinList">
+            <summary>
+            服务参加人员名单
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
@@ -3074,11 +3532,6 @@
             所属选区
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Volunteers">
-            <summary>
-            志愿者列表
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Workorderlogs">
             <summary>
             工单日志
@@ -3089,29 +3542,34 @@
             工单反馈
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Reserve">
-            <summary>
-            有事好商量
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.Service">
-            <summary>
-            一老一小(服务)
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.OnlineLetters">
-            <summary>
-            码上说马上办
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.Id">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.WorkOrderId">
             <summary>
             工单id
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.ReceiverId">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign.RecipientId">
             <summary>
             接收人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel.WordOrderId">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel.FeedbackContent">
+            <summary>
+            反馈内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderEndHandel.WordOrderId">
+            <summary>
+            工单id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderEndHandel.FeedbackContent">
+            <summary>
+            反馈内容
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Id">
@@ -3119,9 +3577,34 @@
             主键
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.ReceiverId">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkOrderNo">
+            <summary>
+            工单编号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OriginatorId">
+            <summary>
+            发起人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OriginatorName">
+            <summary>
+            发起人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.RecipientId">
             <summary>
             接收人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.RecipientName">
+            <summary>
+            接收人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.BusinessId">
+            <summary>
+            业务类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.WorkorderType">
@@ -3134,9 +3617,9 @@
             工单来源
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.SelectAreaId">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Status">
             <summary>
-            选区id
+            工单状态
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Content">
@@ -3144,19 +3627,29 @@
             工单内容
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Reserve">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.StartTime">
             <summary>
-            有事好商量
+            开始时间
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Service">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OverTime">
             <summary>
-            一老一小(服务)
+            完结时间
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.OnlineLetters">
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Score">
             <summary>
-            码上说马上办
+            工单分数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.PublicSentimentId">
+            <summary>
+            引用公共需求Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel.WordOrderId">
@@ -3167,6 +3660,11 @@
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel.Status">
             <summary>
             工单状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkOrderNo">
+            <summary>
+            工单编号
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkorderType">
@@ -3181,7 +3679,7 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.Status">
             <summary>
-            工单状态 1.未处理 2.进行中 3.已反馈 4.已完结 5.已同意 6已拒绝
+            工单状态 1.未处理 2.进行中 3.已完成待审核 4.审核通过 5.已完结
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderQuery.WorkorderSource">
@@ -3234,14 +3732,28 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
             <summary>
             工单指派
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
+            <summary>
+            工单完成
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderEnd(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderEndHandel)">
+            <summary>
+            工单完结（已完成待审核 工单【管理员】）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.IWorkOrderService.WorkOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
             <summary>
             工单状态变更
             </summary>
@@ -3290,16 +3802,23 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
             <summary>
-            工单指派（待处理工单【管理员】）
+            工单指派
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
             <summary>
-            工单状态变更
+            工单完成
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.Services.WorkOrderService.WorkOrderEnd(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderEndHandel)">
+            <summary>
+            工单完结（已完成待审核 工单【管理员】）
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -3358,16 +3877,23 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderAssign(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderAssign)">
             <summary>
             工单指派
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderOrderHandel(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderHandel)">
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderCompleted(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderCompletedHandel)">
             <summary>
-            工单状态变更
+            工单完成
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.WorkOrderService.WorkOrderAppService.WorkOrderEnd(JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderEndHandel)">
+            <summary>
+            工单完结
             </summary>
             <param name="model"></param>
             <returns></returns>

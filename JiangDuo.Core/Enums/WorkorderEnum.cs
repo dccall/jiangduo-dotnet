@@ -42,14 +42,13 @@ namespace JiangDuo.Core.Enums
         NotProcessed = 1,
         [Description("进行中")]
         InProgress = 2,
-        [Description("已反馈")]
-        FedBack = 3,
+        [Description("已完成待审核")]
+        Completed =3,
+        [Description("审核通过")]
+        Audited = 4,
         [Description("已完结")]
-        End =4,
-        [Description("已同意")]
-        Approve = 5,
-        [Description("已拒绝")]
-        Reject =6
+        End =5,
+       
     }
     
 }
