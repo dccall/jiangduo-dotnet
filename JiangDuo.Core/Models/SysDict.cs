@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace JiangDuo.Core.Models
 {
@@ -12,6 +13,7 @@ namespace JiangDuo.Core.Models
     /// 字典表
     /// </summary>
     [Table("sys_dict")]
+    [Index(nameof(DictName))]
     public partial class SysDict: Base.BaseEntity
     {
         /// <summary>

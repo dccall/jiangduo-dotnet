@@ -62,6 +62,16 @@ public class ReserveAppService : IDynamicApiController
         return await _reserveService.Update(model);
     }
     /// <summary>
+    /// 修改状态
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("UpdateStatus")]
+    public async Task<int> UpdateStatus(DtoReserveQueryStatus model)
+    {
+        return await _reserveService.UpdateStatus(model);
+    }
+    /// <summary>
     /// 根据id删除
     /// </summary>
     /// <param name="id"></param>

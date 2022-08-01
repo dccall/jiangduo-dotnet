@@ -396,6 +396,11 @@
             居民id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Participant.RegistTime">
+            <summary>
+            报名时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Participant.StartTime">
             <summary>
             预约开始时间

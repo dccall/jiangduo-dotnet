@@ -15,6 +15,8 @@ using JiangDuo.Core.Utils;
 using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
+using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.PublicSentimentService.Services
 {
@@ -92,7 +94,27 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             _publicSentimentRepository.Update(entity);
             return await _publicSentimentRepository.SaveNowAsync();
         }
-     
+
+        /// <summary>
+        /// 完结反馈
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> Feedback(DtoPublicSentimentFedBack model)
+        {
+            //先根据id查询实体
+            var entity = _publicSentimentRepository.FindOrDefault(model.PublicSentimentId);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.FeedbackContent = model.FeedbackContent;
+            entity.FeedbackTime = DateTime.Now;
+            entity.Status = PublicSentimentStatus.Feedback;
+            _publicSentimentRepository.Update(entity);
+            return await _publicSentimentRepository.SaveNowAsync();
+        }
+        
         /// <summary>
         /// 假删除
         /// </summary>

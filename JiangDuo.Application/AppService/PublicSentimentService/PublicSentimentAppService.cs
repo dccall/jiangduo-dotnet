@@ -1,5 +1,6 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
+using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
 using JiangDuo.Application.AppService.PublicSentimentService.Services;
 using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,16 @@ public class PublicSentimentAppService : IDynamicApiController
     public async Task<int> Update(DtoPublicSentimentForm model)
     {
         return await _publicSentimentService.Update(model);
+    }
+    /// <summary>
+    /// 完结反馈
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("Feedback")]
+    public async Task<int> Feedback(DtoPublicSentimentFedBack model)
+    {
+        return await _publicSentimentService.Feedback(model);
     }
     /// <summary>
     /// 根据id删除

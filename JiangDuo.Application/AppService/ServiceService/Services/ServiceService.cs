@@ -16,10 +16,11 @@ using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
-    public class ServiceService:IServiceService, ITransient
+    public class ServiceService : IServiceService, ITransient
     {
         private readonly ILogger<ServiceService> _logger;
         private readonly IRepository<Core.Models.Service> _serviceRepository;
@@ -48,7 +49,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
 
             //将数据映射到DtoService中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -59,10 +60,18 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         {
             var entity = await _serviceRepository.FindOrDefaultAsync(id);
             var dto = entity.Adapt<DtoService>();
-            var idList = _participantRepository.Where(x => !x.IsDeleted && x.ServiceId == id).Select(x => x.ResidentId).ToList();
-
+          
+            var result= _participantRepository
+                .Where(x => !x.IsDeleted && x.ServiceId == id)
+                .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
+                {
+                    Resident = y,
+                    RegistTime = x.RegistTime,
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                }).ToList();
             //获取服务参与人
-            dto.JoinList = _residentRepository.Where(x => idList.Contains(x.Id)).ToList();
+            dto.JoinServiceResident = result;
 
             return dto;
         }
@@ -73,14 +82,16 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoServiceForm model)
         {
+            var account = JwtHelper.GetAccountInfo();
             var entity = model.Adapt<Core.Models.Service>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
-            entity.Creator = JwtHelper.GetAccountId();
+            entity.Creator = account.Id;
+            entity.SelectAreaId = account.Id;
             _serviceRepository.Insert(entity);
             return await _serviceRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -94,14 +105,34 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             {
                 throw Oops.Oh("数据不存在");
             }
+            var account = JwtHelper.GetAccountInfo();
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
-            entity.Updater = JwtHelper.GetAccountId();
+            entity.Updater = account.Id;
+            entity.SelectAreaId = account.Id;
             _serviceRepository.Update(entity);
             return await _serviceRepository.SaveNowAsync();
         }
-     
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateStatus(DtoUpdateServiceStatus model)
+        {
+            //先根据id查询实体
+            var entity = _serviceRepository.FindOrDefault(model.ServiceId);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.Status = model.Status;
+            _serviceRepository.Update(entity);
+            return await _serviceRepository.SaveNowAsync();
+        }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -130,7 +161,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
                 .ExecuteAsync();
             return result;
         }
-    
+
 
     }
 }

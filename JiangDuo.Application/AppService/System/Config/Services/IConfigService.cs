@@ -21,6 +21,13 @@ namespace JiangDuo.Application.System.Config.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ConfigDto> GetById(long id);
+
+        /// <summary>
+        /// 根据key查询详情
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        public  Task<ConfigDto> GetByKey(string key);
         /// <summary>
         /// 新增
         /// </summary>
@@ -41,6 +48,9 @@ namespace JiangDuo.Application.System.Config.Services
         public Task<int> FakeDelete(long id);
         //批量假删除
         public Task<int> FakeDelete(List<long> idList);
+
+
+
      
     }
 }

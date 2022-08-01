@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using JiangDuo.Core.Enums;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 
 namespace JiangDuo.Application.AppService.ServiceService.Dto
 {
@@ -22,6 +23,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// <summary>
         /// 服务参加人员名单
         /// </summary>
-        public List<Resident> JoinList { get; set; }
+        public List<DtoJoinServiceResident> JoinServiceResident { get; set; }
     }
 }

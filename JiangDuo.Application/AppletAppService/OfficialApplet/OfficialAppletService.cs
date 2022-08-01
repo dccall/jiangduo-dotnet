@@ -57,6 +57,7 @@ public class OfficialAppletService : IDynamicApiController
     /// </summary>
     /// <param name="phone"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet("GetVerifyCode")]
     public async Task<bool> GetVerifyCode([FromQuery]string phone)
     {

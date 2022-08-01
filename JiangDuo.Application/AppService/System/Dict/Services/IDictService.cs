@@ -24,6 +24,12 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         Task<DictDto> GetById(long id);
         /// <summary>
+        /// 根据名称查询详情
+        /// </summary>
+        /// <param name="dictName">dictName</param>
+        /// <returns></returns>
+        public  Task<DictDto> GetByDictName(string dictName);
+        /// <summary>
         /// 新增
         /// </summary>
         /// <param name="model"></param>

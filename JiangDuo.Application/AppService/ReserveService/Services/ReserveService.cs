@@ -93,7 +93,23 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _reserveRepository.Update(entity);
             return await _reserveRepository.SaveNowAsync();
         }
-     
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateStatus(DtoReserveQueryStatus model)
+        {
+            //先根据id查询实体
+            var entity = _reserveRepository.FindOrDefault(model.ReserveId);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.Status = model.Status;
+            _reserveRepository.Update(entity);
+            return await _reserveRepository.SaveNowAsync();
+        }
         /// <summary>
         /// 假删除
         /// </summary>

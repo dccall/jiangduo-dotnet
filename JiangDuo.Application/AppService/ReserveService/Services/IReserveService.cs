@@ -36,6 +36,13 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         /// <param name="model"></param>
         /// <returns></returns>
         Task<int> Update(DtoReserveForm model);
+
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<int> UpdateStatus(DtoReserveQueryStatus model);
         /// <summary>
         /// 假删除
         /// </summary>

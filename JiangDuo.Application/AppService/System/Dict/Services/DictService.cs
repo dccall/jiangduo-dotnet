@@ -70,6 +70,19 @@ namespace JiangDuo.Application.System.Dict.Services
             return dto;
         }
         /// <summary>
+        /// 根据名称查询详情
+        /// </summary>
+        /// <param name="dictName">dictName</param>
+        /// <returns></returns>
+        public async Task<DictDto> GetByDictName(string dictName)
+        {
+            var entity = await _dictRepository.Where(x=>x.DictName== dictName).Include(u => u.SysDictItem).FirstOrDefaultAsync();
+
+            var dto = entity.Adapt<DictDto>();
+
+            return dto;
+        }
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>

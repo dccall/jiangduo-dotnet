@@ -1,7 +1,6 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,10 +18,10 @@ namespace JiangDuo.Application.AppService.ServiceService;
 public class ServiceAppService : IDynamicApiController
 {
  
-    private readonly IServiceService _newsService;
-    public ServiceAppService(IServiceService newsService)
+    private readonly IServiceService _serviceService;
+    public ServiceAppService(IServiceService serviceService)
     {
-        _newsService = newsService;
+        _serviceService = serviceService;
     }
     /// <summary>
     /// 获取列表（分页）
@@ -31,7 +30,7 @@ public class ServiceAppService : IDynamicApiController
     /// <returns></returns>
     public PagedList<DtoService> Get([FromQuery] DtoServiceQuery model)
     {
-        return _newsService.GetList(model);
+        return _serviceService.GetList(model);
     }
 
     /// <summary>
@@ -41,7 +40,7 @@ public class ServiceAppService : IDynamicApiController
     /// <returns></returns>
     public async Task<DtoService> Get(long id)
     {
-        return await _newsService.GetById(id);
+        return await _serviceService.GetById(id);
     }
     /// <summary>
     /// 新增
@@ -50,7 +49,7 @@ public class ServiceAppService : IDynamicApiController
     /// <returns></returns>
     public async Task<int> Insert(DtoServiceForm model)
     {
-        return await _newsService.Insert(model);
+        return await _serviceService.Insert(model);
     }
     /// <summary>
     /// 修改
@@ -59,8 +58,21 @@ public class ServiceAppService : IDynamicApiController
     /// <returns></returns>
     public async Task<int> Update(DtoServiceForm model)
     {
-        return await _newsService.Update(model);
+        return await _serviceService.Update(model);
     }
+
+
+    /// <summary>
+    /// 修改状态
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("UpdateStatus")]
+    public async Task<int> UpdateStatus(DtoUpdateServiceStatus model)
+    {
+        return await _serviceService.UpdateStatus(model);
+    }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -68,7 +80,7 @@ public class ServiceAppService : IDynamicApiController
     /// <returns></returns>
     public async Task<int> Delete(long id)
     {
-        return await _newsService.FakeDelete(id);
+        return await _serviceService.FakeDelete(id);
     }
     /// <summary>
     /// 批量删除
@@ -78,6 +90,6 @@ public class ServiceAppService : IDynamicApiController
     [HttpPost("Delete")]
     public async Task<int> Delete([FromBody] List<long> idList)
     {
-        return await _newsService.FakeDelete(idList);
+        return await _serviceService.FakeDelete(idList);
     }
 }

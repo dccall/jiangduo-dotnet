@@ -21,6 +21,11 @@ namespace JiangDuo.Core.Models
         public long? ResidentId { get; set; }
 
         /// <summary>
+        /// 报名时间
+        /// </summary>
+        public DateTime? RegistTime { get; set; }
+
+        /// <summary>
         /// 预约开始时间
         /// </summary>
         public DateTime? StartTime { get; set; }

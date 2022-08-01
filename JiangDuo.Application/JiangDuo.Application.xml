@@ -735,7 +735,7 @@
         </member>
         <member name="T:JiangDuo.Application.AppService.BusinessService.BusinessAppService">
             <summary>
-            新闻管理
+            业务类型
             </summary>
         </member>
         <member name="M:JiangDuo.Application.AppService.BusinessService.BusinessAppService.Get(JiangDuo.Application.AppService.BusinessService.Dto.DtoBusinessQuery)">
@@ -1792,6 +1792,11 @@
             业务类型
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dtos.DtoPublicSentimentFedBack.FeedbackContent">
+            <summary>
+            反馈内容
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService">
             <summary>
             民情民意
@@ -1821,6 +1826,13 @@
         <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Update(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
             <summary>
             修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.PublicSentimentAppService.Feedback(JiangDuo.Application.AppService.PublicSentimentService.Dtos.DtoPublicSentimentFedBack)">
+            <summary>
+            完结反馈
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -1867,6 +1879,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.Feedback(JiangDuo.Application.AppService.PublicSentimentService.Dtos.DtoPublicSentimentFedBack)">
+            <summary>
+            完结反馈
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.IPublicSentimentService.FakeDelete(System.Int64)">
             <summary>
             假删除
@@ -1898,6 +1917,13 @@
         <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.Update(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm)">
             <summary>
             修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.Feedback(JiangDuo.Application.AppService.PublicSentimentService.Dtos.DtoPublicSentimentFedBack)">
+            <summary>
+            完结反馈
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -2284,6 +2310,11 @@
             创建人id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQueryStatus.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppService.ReserveService.ReserveAppService">
             <summary>
             有事好商量（场地预约）
@@ -2313,6 +2344,13 @@
         <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.Update(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
             <summary>
             修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.UpdateStatus(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQueryStatus)">
+            <summary>
+            修改状态
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -2359,6 +2397,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.UpdateStatus(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQueryStatus)">
+            <summary>
+            修改状态
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.FakeDelete(System.Int64)">
             <summary>
             假删除
@@ -2390,6 +2435,13 @@
         <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.Update(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm)">
             <summary>
             修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.Services.ReserveService.UpdateStatus(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQueryStatus)">
+            <summary>
+            修改状态
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -2781,12 +2833,27 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dtos.DtoJoinServiceResident.Resident">
+            <summary>
+            居民
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dtos.DtoJoinServiceResident.StartTime">
+            <summary>
+            预约开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dtos.DtoJoinServiceResident.EndTime">
+            <summary>
+            预约结束时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.StatusName">
             <summary>
             状态
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.JoinList">
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.JoinServiceResident">
             <summary>
             服务参加人员名单
             </summary>
@@ -2876,6 +2943,16 @@
             服务类型
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus.ServiceId">
+            <summary>
+            服务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppService.ServiceService.ServiceAppService">
             <summary>
             服务管理
@@ -2905,6 +2982,13 @@
         <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.Update(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
             <summary>
             修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.ServiceAppService.UpdateStatus(JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus)">
+            <summary>
+            修改状态
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -2951,6 +3035,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.UpdateStatus(JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.FakeDelete(System.Int64)">
             <summary>
             假删除
@@ -2980,6 +3071,13 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.Update(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.UpdateStatus(JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus)">
             <summary>
             修改
             </summary>
@@ -4028,6 +4126,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.System.Config.ConfigAppService.GetByKey(System.String)">
+            <summary>
+            根据key查询详情
+            </summary>
+            <param name="key">key</param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.System.Config.ConfigAppService.Insert(JiangDuo.Application.System.Config.Dto.DtoConfigForm)">
             <summary>
             配置新增
@@ -4122,6 +4227,13 @@
             <param name="id">编号</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.System.Config.Services.ConfigService.GetByKey(System.String)">
+            <summary>
+            根据key查询详情
+            </summary>
+            <param name="key">key</param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.System.Config.Services.ConfigService.Insert(JiangDuo.Application.System.Config.Dto.DtoConfigForm)">
             <summary>
             添加
@@ -4162,6 +4274,13 @@
             根据id查询
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.System.Config.Services.IConfigService.GetByKey(System.String)">
+            <summary>
+            根据key查询详情
+            </summary>
+            <param name="key">key</param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.System.Config.Services.IConfigService.Insert(JiangDuo.Application.System.Config.Dto.DtoConfigForm)">
@@ -4687,6 +4806,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.System.Dict.DictAppService.GetByDictName(System.String)">
+            <summary>
+            根据名称查询详情
+            </summary>
+            <param name="dictName">dictName</param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.System.Dict.DictAppService.Insert(JiangDuo.Application.System.Dict.Dto.DtoDictForm)">
             <summary>
             字典新增
@@ -4778,6 +4904,13 @@
             <param name="id">编号</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.System.Dict.Services.DictService.GetByDictName(System.String)">
+            <summary>
+            根据名称查询详情
+            </summary>
+            <param name="dictName">dictName</param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.System.Dict.Services.DictService.Insert(JiangDuo.Application.System.Dict.Dto.DtoDictForm)">
             <summary>
             添加
@@ -4818,6 +4951,13 @@
             根据id查询
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.System.Dict.Services.IDictService.GetByDictName(System.String)">
+            <summary>
+            根据名称查询详情
+            </summary>
+            <param name="dictName">dictName</param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.System.Dict.Services.IDictService.Insert(JiangDuo.Application.System.Dict.Dto.DtoDictForm)">

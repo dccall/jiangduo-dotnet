@@ -198,6 +198,9 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             return result;
         }
 
+
+
+
         /// <summary>
         /// 工单指派
         /// </summary>
@@ -267,6 +270,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 psEntity.FeedbackContent = model.FeedbackContent;//反馈内容
                 psEntity.FeedbackTime = DateTime.Now;//反馈时间
+                psEntity.Status = PublicSentimentStatus.Feedback;
             }
 
             return "已完结";

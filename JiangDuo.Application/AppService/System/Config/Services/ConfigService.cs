@@ -63,6 +63,21 @@ namespace JiangDuo.Application.System.Config.Services
             return dto;
         }
         /// <summary>
+        /// 根据key查询详情
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        public async Task<ConfigDto> GetByKey(string key)
+        {
+
+            var entity = await _configRepository.FirstOrDefaultAsync(x => x.ConfigKey == key);
+
+            var dto = entity.Adapt<ConfigDto>();
+
+            return dto;
+        }
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>

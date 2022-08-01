@@ -45,6 +45,16 @@ namespace JiangDuo.Application.System.Dict
             return await _dictService.GetById(id);
         }
         /// <summary>
+        /// 根据名称查询详情
+        /// </summary>
+        /// <param name="dictName">dictName</param>
+        /// <returns></returns>
+        [HttpGet("GetByDictName")]
+        public async Task<DictDto> GetByDictName([FromQuery] string dictName)
+        {
+            return await _dictService.GetByDictName(dictName);
+        }
+        /// <summary>
         /// 字典新增
         /// </summary>
         /// <param name="model"></param>

@@ -43,6 +43,17 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.GetById(id);
         }
+
+        /// <summary>
+        /// 根据key查询详情
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        public async Task<ConfigDto> GetByKey(string key)
+        {
+            return await _configService.GetByKey(key);
+        }
+
         /// <summary>
         /// 配置新增
         /// </summary>
@@ -80,5 +91,6 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.FakeDelete(idList);
         }
+
     }
 }

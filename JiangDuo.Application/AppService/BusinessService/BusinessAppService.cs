@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 namespace JiangDuo.Application.AppService.BusinessService;
 
 /// <summary>
-/// 新闻管理
+/// 业务类型
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings("Default", "新闻管理")]
+[ApiDescriptionSettings("Default", "民情民意")]
 public class BusinessAppService : IDynamicApiController
 {
  

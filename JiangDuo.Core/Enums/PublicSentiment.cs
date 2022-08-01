@@ -19,6 +19,6 @@ namespace JiangDuo.Core.Enums
         [Description("进行中")]
         InProgress = 2,
         [Description("完结已反馈")]
-        FedBack = 3
+        Feedback = 3
     }
 }

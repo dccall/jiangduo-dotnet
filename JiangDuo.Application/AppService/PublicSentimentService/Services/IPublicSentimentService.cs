@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Application.AppService.PublicSentimentService.Dto;
+using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,13 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
         /// <param name="model"></param>
         /// <returns></returns>
         Task<int> Update(DtoPublicSentimentForm model);
+
+        /// <summary>
+        /// 完结反馈
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<int> Feedback(DtoPublicSentimentFedBack model);
         /// <summary>
         /// 假删除
         /// </summary>

@@ -192,6 +192,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             Participant entity = new Participant();
             entity.ServiceId = model.ServiceId;
             entity.ResidentId = JwtHelper.GetAccountId();
+            entity.RegistTime = DateTime.Now;
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             await _participantRepository.InsertNowAsync(entity);

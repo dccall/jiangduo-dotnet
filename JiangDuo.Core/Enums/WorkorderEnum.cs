@@ -12,9 +12,9 @@ namespace JiangDuo.Core.Enums
 
         [Description("默认")]
         Normal = 0,
-        [Description("有事好商量(预约设施)")]
+        [Description("有事好商量")]
         Reserve = 1,
-        [Description("一老一小（活动/服务）")]
+        [Description("一老一小")]
         Service = 2,
         [Description("码上说马上办")]
         OnlineLetters = 3

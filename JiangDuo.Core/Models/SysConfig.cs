@@ -1,5 +1,6 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,7 @@ namespace JiangDuo.Core.Models
     /// 参数配置表
     /// </summary>
     [Table("sys_config")]
+    [Index(nameof(ConfigName), nameof(ConfigKey))]
     public partial class SysConfig: BaseEntity
     {
         /// <summary>

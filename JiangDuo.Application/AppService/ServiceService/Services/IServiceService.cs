@@ -36,6 +36,13 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <param name="model"></param>
         /// <returns></returns>
         Task<int> Update(DtoServiceForm model);
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<int> UpdateStatus(DtoUpdateServiceStatus model);
         /// <summary>
         /// 假删除
         /// </summary>
