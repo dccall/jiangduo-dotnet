@@ -13,5 +13,11 @@ namespace JiangDuo.Application.AppService.VillageService.Dto
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 选区
+        /// </summary>
+        public long? SelectAreaId { get; set; }
+
     }
 }

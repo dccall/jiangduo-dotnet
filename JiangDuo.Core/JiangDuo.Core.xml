@@ -446,6 +446,16 @@
             所属选区Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.FeedbackPersonId">
+            <summary>
+            反馈人Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.FeedbackPerson">
+            <summary>
+            反馈人
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.PublicSentiment.FeedbackContent">
             <summary>
             反馈内容
@@ -681,7 +691,17 @@
             面向群体
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Service.ServiceTypeId">
+        <member name="P:JiangDuo.Core.Models.Service.VenueDeviceId">
+            <summary>
+            场地设备Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.ServiceClassifyId">
+            <summary>
+            服务分类
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Service.ServiceType">
             <summary>
             服务类型
             </summary>
@@ -736,24 +756,19 @@
             人大名单id
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Service.WorkOrderId">
-            <summary>
-            关联工单Id
-            </summary>
-        </member>
         <member name="P:JiangDuo.Core.Models.Service.Attachments">
             <summary>
             附件
             </summary>
         </member>
-        <member name="T:JiangDuo.Core.Models.Servicetype">
+        <member name="T:JiangDuo.Core.Models.ServiceClassify">
             <summary>
-            服务类型
+            服务分类
             </summary>
         </member>
-        <member name="P:JiangDuo.Core.Models.Servicetype.Name">
+        <member name="P:JiangDuo.Core.Models.ServiceClassify.ClassifyName">
             <summary>
-            类型名称
+            分类名称
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.SysConfig">
@@ -1584,6 +1599,11 @@
             引用公共需求Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Workorderfeedback">
             <summary>
             工单反馈
@@ -1639,6 +1659,159 @@
             操作人
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.District">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Longitude">
+            <summary>
+            经度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Latitude">
+            <summary>
+            纬度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Adcode">
+            <summary>
+            城市编码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.Typecode">
+            <summary>
+            类型编码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.DtoAddressInfo.City">
+            <summary>
+            城市名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationRequestModel.Keywords">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationRequestModel.Location">
+            <summary>
+            坐标
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationRequestModel.CityCode">
+            <summary>
+            城市编号
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationResultModel.Tips">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Id">
+            <summary>
+            返回数据ID
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Name">
+            <summary>
+            tip名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.District">
+            <summary>
+            所属区域
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Adcode">
+            <summary>
+            区域编码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Location">
+            <summary>
+            tip中心点坐标
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Address">
+            <summary>
+            详细地址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.Typecode">
+            <summary>
+            typecode
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Services.GaoDe.Dtos.TipsModel.City">
+            <summary>
+            city 城市
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.GaoDeService.#ctor(JiangDuo.Core.Services.GaoDe.IGaoDeHttp)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="gaoDeHttp">高德请求</param>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.GaoDeService.SearchLocation(JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationRequestModel)">
+            <summary>
+            根据关键词查询地点
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.IGaoDeHttp.SearchLocation(System.String,System.String,System.String)">
+            <summary>
+            根据关键词搜索地点
+            </summary>
+            <param name="keywords">关键词</param>
+            <param name="location">位置</param>
+            <param name="cityCode">城市编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.IGaoDeHttp.GetNearbyLocations(System.String,System.String,System.String)">
+            <summary>
+            获取附近地点
+            </summary>
+            <param name="location">坐标中心点经纬度 12.000,23.000</param>
+            <param name="types">类型编码 090100为医院</param>
+            <param name="radius">当前坐标半径</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.IGaoDeHttp.GetLocationInfo(System.String)">
+            <summary>
+            获取当前地点信息
+            </summary>
+            <param name="location">坐标中心点经纬度 0.000,0.000</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.IGaoDeHttp.GetDistance(System.String,System.String,System.String)">
+            <summary>
+            根据起始地的坐标和目的地坐标获取两地距离
+            </summary>
+            <param name="origins">目的地经纬度</param>
+            <param name="destination">起始地经纬度</param>
+            <param name="type">类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.GaoDe.IGaoDeHttp.OnRequesting1(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            全局拦截，类中每一个方法都会触发
+            </summary>
+            <param name="req"></param>
+        </member>
         <member name="M:JiangDuo.Core.Services.AliyunSmsService.SendSms(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             发送短信
@@ -1675,15 +1848,6 @@
             <param name="code">代码</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Core.Services.IWeiXinHttp.WeiXinLogin(System.String,System.String,System.String)">
-            <summary>
-            通过 code 换取网页授权access_token 和openid
-            </summary>
-            <param name="appid"></param>
-            <param name="secret"></param>
-            <param name="code"></param>
-            <returns></returns>
-        </member>
         <member name="F:JiangDuo.Core.Services.VerifyCodeService._rnd">
             <summary>
             随机数
@@ -1708,6 +1872,15 @@
             </summary>
             <param name="phone">手机号</param>
             <param name="code">代码</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Services.IWeiXinHttp.WeiXinLogin(System.String,System.String,System.String)">
+            <summary>
+            通过 code 换取网页授权access_token 和openid
+            </summary>
+            <param name="appid"></param>
+            <param name="secret"></param>
+            <param name="code"></param>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Core.Utils.JwtTokenResult.AccessToken">

@@ -14,7 +14,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// 服务名称
         /// </summary>
         public string ServiceName { get; set; }
-
         /// <summary>
         /// 状态
         /// </summary>
@@ -23,6 +22,11 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// <summary>
         /// 服务类型
         /// </summary>
-        public long? ServiceTypeId { get; set; }
+        public ServiceTypeEnum? ServiceType { get; set; }
+
+        /// <summary>
+        /// 服务分类
+        /// </summary>
+        public long? ServiceClassifyId { get; set; }
     }
 }

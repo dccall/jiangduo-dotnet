@@ -39,6 +39,14 @@ namespace JiangDuo.Core.Models
         public long? SelectAreaId { get; set; }
 
         /// <summary>
+        /// 反馈人Id
+        /// </summary>
+        public long? FeedbackPersonId { get; set; }
+        /// <summary>
+        /// 反馈人
+        /// </summary>
+        public string FeedbackPerson { get; set; }
+        /// <summary>
         /// 反馈内容
         /// </summary>
         public string FeedbackContent { get; set; }

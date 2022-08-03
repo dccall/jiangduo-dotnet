@@ -45,8 +45,12 @@ namespace JiangDuo.Application.System.DictItem.Services
         /// <returns></returns>
         public PagedList<DictItemDto> GetList(DictItemRequest model)
         {
+            var query = _dictItemRepository.Where(x => !x.IsDeleted);
+            query= query.Where(model.DictId!=null ,x => x.SysDictId==model.DictId);
+            query= query.Where(model.Status!=null ,x => x.Status == model.Status);
+
             //将数据映射到DictItemDto中
-            return _dictItemRepository.Where(x => !x.IsDeleted).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderBy(x=>x.Order).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

@@ -1,6 +1,7 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
 using JiangDuo.Application.AppletService.ResidentApplet.Services;
+using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
@@ -33,16 +34,16 @@ public class ResidentAppletAppService : IDynamicApiController
         _residentAppletService = residentAppletService;
     }
 
-    /// <summary>
-    /// 居民端登录
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    [AllowAnonymous]
-    public async Task<string> Login(DtoResidentLogin model)
-    {
-       return await _residentAppletService.Login(model);
-    }
+    ///// <summary>
+    ///// 居民端登录
+    ///// </summary>
+    ///// <param name="model"></param>
+    ///// <returns></returns>
+    //[AllowAnonymous]
+    //public async Task<string> Login(DtoResidentLogin model)
+    //{
+    //   return await _residentAppletService.Login(model);
+    //}
     /// <summary>
     /// 获取账号信息
     /// </summary>
@@ -85,7 +86,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="id">编号</param>
     /// <returns></returns>
-    public async Task<DtoServiceInfo> GetServiceById([FromQuery] long id)
+    public async Task<DtoService> GetServiceById([FromQuery] long id)
     {
         return await _residentAppletService.GetServiceById(id);
     }
@@ -95,7 +96,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
-    public PagedList<DtoServiceInfo> GetMyServiceList([FromQuery] DtoMyServiceQuery model)
+    public PagedList<DtoService> GetMyServiceList([FromQuery] DtoMyServiceQuery model)
     {
         return _residentAppletService.GetMyServiceList(model);
     }
@@ -111,44 +112,34 @@ public class ResidentAppletAppService : IDynamicApiController
     }
 
 
-    ///// <summary>
-    ///// 获取我的工单
-    ///// </summary>
-    ///// <param name="model">数据</param>
-    ///// <returns></returns>
-    //public PagedList<DtoWorkOrder> GetMyWorkOrderList([FromQuery] BaseRequest model)
-    //{
-    //    return  _residentAppletService.GetMyWorkOrderList(model);
-    //}
+    /// <summary>
+    /// 获取我的需求列表（码上说马上办）
+    /// </summary>
+    /// <param name="model">数据</param>
+    /// <returns></returns>
+    public PagedList<DtoPublicSentiment> GetMyPublicSentiment(DtoPublicSentimentQuery model)
+    {
+        return  _residentAppletService.GetMyPublicSentiment(model);
+    }
 
-    ///// <summary>
-    ///// 申请服务(工单)
-    ///// </summary>
-    ///// <param name="model"></param>
-    ///// <returns></returns>
-    //public async Task<string> ApplyForServices(DtoWorkOrderForm model)
-    //{
-    //    return await _residentAppletService.ApplyForServices(model);
-    //}
-
-    ///// <summary>
-    ///// 码上说马上办(工单)
-    ///// </summary>
-    ///// <param name="model"></param>
-    ///// <returns></returns>
-    //public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
-    //{
-    //    return await _residentAppletService.OnlineLettersServices(model);
-    //}
-
-    ///// <summary>
-    ///// 查看工单详情
-    ///// </summary>
-    ///// <param name="id"></param>
-    ///// <returns></returns>
-    //public async Task<DtoWorkOrder> GetWorkOrderDetail([FromQuery]long id)
-    //{
-    //    return await _residentAppletService.GetWorkOrderDetail(id);
-    //}
+    /// <summary>
+    /// 根据id查询需求详情
+    /// </summary>
+    /// <param name="id">id</param>
+    /// <returns></returns>
+    public Task<DtoPublicSentiment> GetPublicSentimentDetail([FromQuery] long id)
+    {
+        return _residentAppletService.GetPublicSentimentDetail(id);
+    }
+    /// <summary>
+    /// 新增公共需求（码上说马上办）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> AddPublicSentiment(DtoPublicSentimentForm model)
+    {
+        return await _residentAppletService.AddPublicSentiment(model);
+    }
+  
 
 }

@@ -44,5 +44,12 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// 工单反馈
         /// </summary>
         public List<Workorderfeedback> WorkorderfeedbackList { get; set; }
+
+
+
+        /// <summary>
+        /// 附件列表
+        /// </summary>
+        public List<SysUploadFile> AttachmentsList { get; set; } = new List<SysUploadFile>();
     }
 }

@@ -3,6 +3,7 @@ using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -81,5 +82,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public long? PublicSentimentId { get; set; }
 
+
+
+        /// <summary>
+        /// 附件列表
+        /// </summary>
+        public List<SysUploadFile> AttachmentsList { get; set; } = new List<SysUploadFile>();
     }
 }

@@ -5,6 +5,8 @@ using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Application.Filters;
+using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,6 +22,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet;
 /// </summary>
 [Route("api/[controller]")]
 [ApiDescriptionSettings("Default", "人大小程序端接口")]
+[AppletRoleFilter(AccountType.Official)]//只允许人大账号类型访问
 public class OfficialAppletService : IDynamicApiController
 {
  
@@ -31,38 +34,41 @@ public class OfficialAppletService : IDynamicApiController
 
 
 
-    /// <summary>
-    /// 人大登录（微信code登录）
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    [AllowAnonymous]
-    public async Task<string> LoginWeiXin(DtoOfficialLogin model)
-    {
-        return await _officialAppletService.LoginWeiXin(model);
-    }
+    ///// <summary>
+    ///// 人大登录（微信code登录）
+    ///// </summary>
+    ///// <param name="model"></param>
+    ///// <returns></returns>
+    //[AllowAnonymous]
+    //public async Task<string> LoginWeiXin(DtoOfficialLogin model)
+    //{
+    //    return await _officialAppletService.LoginWeiXin(model);
+    //}
 
-    /// <summary>
-    /// 人大登录(手机号登录)
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    [AllowAnonymous]
-    public async Task<string> LoginByPhone(DtoOfficialLogin model)
-    {
-        return await _officialAppletService.LoginByPhone(model);
-    }
-    /// <summary>
-    /// 获取验证码
-    /// </summary>
-    /// <param name="phone"></param>
-    /// <returns></returns>
-    [AllowAnonymous]
-    [HttpGet("GetVerifyCode")]
-    public async Task<bool> GetVerifyCode([FromQuery]string phone)
-    {
-        return await _officialAppletService.GetVerifyCode(phone);
-    }
+    ///// <summary>
+    ///// 人大登录(手机号登录)
+    ///// </summary>
+    ///// <param name="model"></param>
+    ///// <returns></returns>
+    //[AllowAnonymous]
+    //public async Task<string> LoginByPhone(DtoOfficialLogin model)
+    //{
+    //    return await _officialAppletService.LoginByPhone(model);
+    //}
+    ///// <summary>
+    ///// 获取验证码
+    ///// </summary>
+    ///// <param name="phone"></param>
+    ///// <returns></returns>
+    //[AllowAnonymous]
+    //[HttpGet("GetVerifyCode")]
+    //public async Task<bool> GetVerifyCode([FromQuery]string phone)
+    //{
+    //    return await _officialAppletService.GetVerifyCode(phone);
+    //}
+
+
+
     /// <summary>
     /// 我的服务列表(一老一小)
     /// </summary>
@@ -153,7 +159,15 @@ public class OfficialAppletService : IDynamicApiController
     {
         return _officialAppletService.GetMyWorkOrderList(model);
     }
-
+    /// <summary>
+    /// 根据id查询工单详情
+    /// </summary>
+    /// <param name="id">id</param>
+    /// <returns></returns>
+    public async Task<DtoWorkOrder> GetWorkOrderDetail([FromQuery] long id)
+    {
+        return await _officialAppletService.GetWorkOrderDetail(id);
+    }
     /// <summary>
     /// 工单完成
     /// </summary>

@@ -103,7 +103,12 @@ namespace JiangDuo.Application.AppletService.OfficialApplet.Services
         /// <returns></returns>
         public PagedList<DtoWorkOrder> GetMyWorkOrderList(DtoMyWorkOrderQuery model);
 
-
+        /// <summary>
+        /// 根据id查询工单详情
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public  Task<DtoWorkOrder> GetWorkOrderDetail(long id);
         /// <summary>
         /// 工单完成
         /// </summary>

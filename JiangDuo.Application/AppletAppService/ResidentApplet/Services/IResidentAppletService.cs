@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
+using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
@@ -51,14 +52,14 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public  Task<DtoServiceInfo> GetServiceById(long id);
+        public  Task<DtoService> GetServiceById(long id);
 
         /// <summary>
         /// 查询我的参与和预约的服务
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model);
+        public PagedList<DtoService> GetMyServiceList(DtoMyServiceQuery model);
 
         /// <summary>
         /// 预约服务
@@ -67,33 +68,25 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <returns></returns>
         public Task<string> SubscribeService(DtoSubscribeService model);
 
+
         /// <summary>
-        /// 获取我的工单
+        /// 获取我的需求列表（码上说马上办）
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoWorkOrder> GetMyWorkOrderList(BaseRequest model);
+        public PagedList<DtoPublicSentiment> GetMyPublicSentiment(DtoPublicSentimentQuery model);
 
         /// <summary>
-        /// 申请服务(工单)
+        /// 根据id查询详情
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public  Task<DtoPublicSentiment> GetPublicSentimentDetail(long id);
+        /// <summary>
+        /// 新增需求（码上说马上办）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<string> ApplyForServices(DtoWorkOrderForm model);
-
-        /// <summary>
-        /// 码上说马上办(工单)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public  Task<string> OnlineLettersServices(DtoWorkOrderForm model);
-
-        /// <summary>
-        /// 查看工单详情
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public  Task<DtoWorkOrder> GetWorkOrderDetail(long id);
+        public Task<string> AddPublicSentiment(DtoPublicSentimentForm model);
     }
 }

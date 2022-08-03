@@ -23,11 +23,18 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(50)]
         public string GroupOriented { get; set; }
-        
+        /// <summary>
+        /// 场地设备Id
+        /// </summary>
+        public long? VenueDeviceId { get; set; }
+        /// <summary>
+        /// 服务分类
+        /// </summary>
+        public long? ServiceClassifyId { get; set; }
         /// <summary>
         /// 服务类型
         /// </summary>
-        public long ServiceTypeId { get; set; }
+        public ServiceTypeEnum ServiceType { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
@@ -71,11 +78,6 @@ namespace JiangDuo.Core.Models
         /// 人大名单id
         /// </summary>
         public long? OfficialsId { get; set; }
-
-        /// <summary>
-        /// 关联工单Id
-        /// </summary>
-        public long? WorkOrderId { get; set; }
 
         /// <summary>
         /// 附件

@@ -22,9 +22,22 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         [MaxLength(100)]
         public string ServiceName { get; set; } = null!;
         /// <summary>
+        /// 面向群体
+        /// </summary>
+        [MaxLength(50)]
+        public string GroupOriented { get; set; }
+        /// <summary>
+        /// 场地设备Id
+        /// </summary>
+        public long? VenueDeviceId { get; set; }
+        /// <summary>
+        /// 服务分类
+        /// </summary>
+        public long? ServiceClassifyId { get; set; }
+        /// <summary>
         /// 服务类型
         /// </summary>
-        public long ServiceTypeId { get; set; }
+        public ServiceTypeEnum ServiceType { get; set; }
         /// <summary>
         /// 描述
         /// </summary>

@@ -7,12 +7,16 @@
 
 	<ItemGroup>
 		<Compile Remove="Controllers\**" />
+		<Compile Remove="logs\**" />
 		<Compile Remove="wwwroot\**" />
 		<Content Remove="Controllers\**" />
+		<Content Remove="logs\**" />
 		<Content Remove="wwwroot\**" />
 		<EmbeddedResource Remove="Controllers\**" />
+		<EmbeddedResource Remove="logs\**" />
 		<EmbeddedResource Remove="wwwroot\**" />
 		<None Remove="Controllers\**" />
+		<None Remove="logs\**" />
 		<None Remove="wwwroot\**" />
 	</ItemGroup>
 
@@ -36,9 +40,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\JiangDuo.Web.Core\JiangDuo.Web.Core.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="logs\" />
 	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>

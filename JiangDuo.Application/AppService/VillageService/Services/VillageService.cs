@@ -36,7 +36,8 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         {
             var query = _villageRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
-
+            query = query.Where(!(model.SelectAreaId==null||model.SelectAreaId==-1), x => x.SelectAreaId==model.SelectAreaId);
+            
             //将数据映射到DtoVillage中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVillage>().ToPagedList(model.PageIndex, model.PageSize);
         }

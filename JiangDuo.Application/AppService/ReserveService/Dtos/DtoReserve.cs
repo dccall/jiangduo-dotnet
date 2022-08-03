@@ -17,5 +17,10 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// 状态名称
         /// </summary>
         public string StatusName => Status.GetDescription();
+
+        /// <summary>
+        /// 场地/设备名称
+        /// </summary>
+        public string VenueDeviceName { get; set; }
     }
 }

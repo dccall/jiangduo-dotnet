@@ -39,7 +39,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 业务类型
         /// </summary>
-        public long BusinessId { get; set; }
+        public long? BusinessId { get; set; }
         /// <summary>
         /// 工单类型
         /// </summary>
@@ -77,5 +77,10 @@ namespace JiangDuo.Core.Models
         /// 引用公共需求Id
         /// </summary>
         public long? PublicSentimentId { get; set; }
+
+        /// <summary>
+        /// 附件
+        /// </summary>
+        public string Attachments { get; set; }
     }
 }

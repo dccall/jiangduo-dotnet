@@ -21,6 +21,10 @@
     "AsLowerCamelCase": true,
     "CamelCaseSeparator": ""
   },
+  "Gaode": {
+    "Address": "https://restapi.amap.com/",
+    "AppKey": "a6c119bf48b1937191f91410ada7638c"
+  },
   "Oss": {
     "Endpoint": "https://oss-cn-hangzhou.aliyuncs.com/",
     "AccessKeyId": "",

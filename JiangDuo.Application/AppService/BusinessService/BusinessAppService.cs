@@ -15,7 +15,7 @@ namespace JiangDuo.Application.AppService.BusinessService;
 /// 业务类型
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings("Default", "民情民意")]
+[ApiDescriptionSettings("Default", "民情民意", "业务类型")]
 public class BusinessAppService : IDynamicApiController
 {
  

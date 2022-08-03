@@ -7,15 +7,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace JiangDuo.Core.Models
 {
     /// <summary>
-    /// 服务类型
+    /// 服务分类
     /// </summary>
-    [Table("Servicetype")]
-    public partial class Servicetype:BaseEntity
+    [Table("serviceclassify")]
+    public partial class ServiceClassify:BaseEntity
     {
         /// <summary>
-        /// 类型名称
+        /// 分类名称
         /// </summary>
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string ClassifyName { get; set; }
     }
 }

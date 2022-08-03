@@ -55,6 +55,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             IRepository<Official> officialRepository,
             IRepository<Reserve> reserveRepository,
             IReserveService reserveService,
+            IServiceService serviceService,
             IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -69,6 +70,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             _officialRepository = officialRepository;
             _reserveRepository = reserveRepository;
             _reserveService = reserveService;
+            _serviceService = serviceService;
         }
 
 
@@ -120,6 +122,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             accountModel.Id = officialEntity.Id;
             accountModel.Name = officialEntity.Name;
             accountModel.Type = AccountType.Official;//账号类型
+            accountModel.SelectAreaId = officialEntity.SelectAreaId ?? 0;
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }
@@ -143,6 +146,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             accountModel.Id = officialEntity.Id;
             accountModel.Name = officialEntity.Name;
             accountModel.Type = AccountType.Official;//账号类型
+            accountModel.SelectAreaId = officialEntity.SelectAreaId ?? 0;
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }
@@ -264,7 +268,15 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             //将数据映射到DtoWorkOrder中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
         }
-
+        /// <summary>
+        /// 根据id查询工单详情
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public async Task<DtoWorkOrder> GetWorkOrderDetail(long id)
+        {
+            return await _workOrderService.GetById(id);
+        }
         /// <summary>
         /// 工单完成
         /// </summary>

@@ -17,19 +17,34 @@ using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
 using JiangDuo.Core.Enums;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace JiangDuo.Application.AppService.PublicSentimentService.Services
 {
-    public class PublicSentimentService:IPublicSentimentService, ITransient
+    public class PublicSentimentService : IPublicSentimentService, ITransient
     {
         private readonly ILogger<PublicSentimentService> _logger;
         private readonly IRepository<PublicSentiment> _publicSentimentRepository;
+        private readonly IRepository<Resident> _residentRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        private readonly IRepository<SysUploadFile> _uploadFileRepository;
+        private readonly IRepository<Business> _businessRepository;
 
-        
-        public PublicSentimentService(ILogger<PublicSentimentService> logger, IRepository<PublicSentiment> publicSentimentRepository)
+
+        public PublicSentimentService(ILogger<PublicSentimentService> logger,
+            IRepository<PublicSentiment> publicSentimentRepository,
+            IRepository<Resident> residentRepository,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<SysUploadFile> uploadFileRepository,
+            IRepository<Business> businessRepository
+
+            )
         {
             _logger = logger;
             _publicSentimentRepository = publicSentimentRepository;
+            _residentRepository = residentRepository;
+            _selectAreaRepository = selectAreaRepository;
+            _businessRepository = businessRepository;
         }
         /// <summary>
         /// 分页
@@ -39,10 +54,33 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
         public PagedList<DtoPublicSentiment> GetList(DtoPublicSentimentQuery model)
         {
             var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
-            query = query.Where(model.BusinessId!=null, x => x.BusinessId==model.BusinessId);
+            query = query.Where(model.BusinessId != null, x => x.BusinessId == model.BusinessId);
+            query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
 
-            //将数据映射到DtoPublicSentiment中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoPublicSentiment>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.Join(_residentRepository.Entities, x => x.ResidentId, r => r.Id, (x, r) => new { PublicSentiment = x, Resident = r })
+                .Join(_selectAreaRepository.Entities, x => x.PublicSentiment.SelectAreaId,y => y.Id,(x, y) => new DtoPublicSentiment()
+                {
+                    Id = x.PublicSentiment.Id,
+                    ResidentId = x.PublicSentiment.Id,
+                    ResidentName = x.Resident.Name,
+                    Content = x.PublicSentiment.Content,
+                    FeedbackContent = x.PublicSentiment.FeedbackContent,
+                    FeedbackTime = x.PublicSentiment.FeedbackTime,
+                    IsDeleted = x.PublicSentiment.IsDeleted,
+                    Status = x.PublicSentiment.Status,
+                    UpdatedTime = x.PublicSentiment.UpdatedTime,
+                    Updater = x.PublicSentiment.Updater,
+                    Creator = x.PublicSentiment.Creator,
+                    BusinessId = x.PublicSentiment.BusinessId,
+                    SelectAreaId = x.PublicSentiment.SelectAreaId,
+                    SelectAreaName =y.SelectAreaName,
+                    Attachments = x.PublicSentiment.Attachments,
+                    CreatedTime = x.PublicSentiment.CreatedTime,
+                    FeedbackPersonId = x.PublicSentiment.FeedbackPersonId,
+                    FeedbackPerson= x.PublicSentiment.FeedbackPerson,
+                }).OrderBy(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+
         }
         /// <summary>
         /// 根据id查询详情
@@ -54,6 +92,13 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             var entity = await _publicSentimentRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoPublicSentiment>();
+
+            if (!string.IsNullOrEmpty(dto.Attachments))
+            {
+                var idList = dto.Attachments.Split(',').ToList();
+                dto.AttachmentsList = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+            }
+
 
             return dto;
         }
@@ -69,11 +114,18 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = account.Id;
-            entity.SelectAreaId = account.SelectAreaId;
+            entity.Status = PublicSentimentStatus.NotProcessed; //待处理
+            //如果传了选区，用传的选区id，否则用账号带的选区
+            entity.SelectAreaId = model.SelectAreaId.HasValue? model.SelectAreaId.Value: account.SelectAreaId;
+
+            if (model.AttachmentsList!= null && model.AttachmentsList.Any())
+            {
+                entity.Attachments = String.Join(",", model.AttachmentsList.Select(x => x.FileId));
+            }
             _publicSentimentRepository.Insert(entity);
             return await _publicSentimentRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -91,6 +143,12 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+
+            if (model.AttachmentsList != null && model.AttachmentsList.Any())
+            {
+                entity.Attachments = String.Join(",", model.AttachmentsList.Select(x => x.FileId));
+            }
+
             _publicSentimentRepository.Update(entity);
             return await _publicSentimentRepository.SaveNowAsync();
         }
@@ -114,7 +172,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             _publicSentimentRepository.Update(entity);
             return await _publicSentimentRepository.SaveNowAsync();
         }
-        
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -144,7 +202,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             return result;
         }
 
-    
+
 
     }
 }

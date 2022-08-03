@@ -17,6 +17,6 @@ public class DtoResidentServiceQuery : BaseRequest
     /// <summary>
     /// 服务类型
     /// </summary>
-    public long? ServiceTypeId { get; set; }
+    public ServiceTypeEnum? ServiceType { get; set; }
 }
 

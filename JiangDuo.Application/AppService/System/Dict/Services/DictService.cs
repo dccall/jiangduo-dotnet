@@ -51,7 +51,7 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public PagedList<DictDto> GetList(DictRequest model)
         {
-            var query = _dictRepository.Where(x => !x.IsDeleted);
+            var query = _dictRepository.Where(x => !x.IsDeleted&&x.Status== DictStatus.Normal);
             query = query.Where(!string.IsNullOrEmpty(model.DictName), x => x.DictName.Contains(model.DictName));
             //将数据映射到DictDto中
             return query.Include(u => u.SysDictItem).ProjectToType<DictDto>().ToPagedList(model.PageIndex, model.PageSize);
@@ -76,7 +76,7 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public async Task<DictDto> GetByDictName(string dictName)
         {
-            var entity = await _dictRepository.Where(x=>x.DictName== dictName).Include(u => u.SysDictItem).FirstOrDefaultAsync();
+            var entity = await _dictRepository.Where(x=>!x.IsDeleted && x.Status == DictStatus.Normal && x.DictName== dictName).Include(u => u.SysDictItem.Where(x=>!x.IsDeleted && x.Status == DictStatus.Normal)).FirstOrDefaultAsync();
 
             var dto = entity.Adapt<DictDto>();
 

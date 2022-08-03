@@ -47,7 +47,10 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         {
             var query = _serviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
-
+            query = query.Where(model.ServiceType!=null, x => x.ServiceType==model.ServiceType);
+            query = query.Where(model.ServiceClassifyId!=null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
+            
             //将数据映射到DtoService中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
         }

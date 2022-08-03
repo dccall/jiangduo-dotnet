@@ -20,16 +20,20 @@ using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.ReserveService.Services
 {
-    public class ReserveService:IReserveService, ITransient
+    public class ReserveService : IReserveService, ITransient
     {
         private readonly ILogger<ReserveService> _logger;
         private readonly IRepository<Reserve> _reserveRepository;
         private readonly IRepository<Workorder> _workOrderRepository;
-        public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository, IRepository<Workorder> workOrderRepository)
+        private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository,
+            IRepository<Venuedevice> venuedeviceRepository,
+            IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _reserveRepository = reserveRepository;
             _workOrderRepository = workOrderRepository;
+            _venuedeviceRepository = venuedeviceRepository;
         }
         /// <summary>
         /// 分页
@@ -40,9 +44,34 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         {
             var query = _reserveRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Theme), x => x.Theme.Contains(model.Theme));
+            query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
+            query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
+            query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
+            query = query.Where(model.StartTime != null, x => x.ReserveDate <= model.EndTime);
 
-            //将数据映射到DtoReserve中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoReserve>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.Join(_venuedeviceRepository.Entities, x => x.VenueDeviceId, y => y.Id, (x, y) => new DtoReserve()
+            {
+                Id = x.Id,
+                Theme = x.Theme,
+                Number = x.Number,
+                ReserveDate = x.ReserveDate,
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                MeetingResults = x.MeetingResults,
+                Remarks = x.Remarks,
+                VenueDeviceId = x.VenueDeviceId,
+                VenueDeviceName=y.Name,
+                AuditFindings = x.AuditFindings,
+                WorkOrderId = x.WorkOrderId,
+                IsDeleted = x.IsDeleted,
+                Status = x.Status,
+                UpdatedTime = x.UpdatedTime,
+                Updater = x.Updater,
+                Creator = x.Creator,
+                SelectAreaId = x.SelectAreaId,
+                CreatedTime = x.CreatedTime
+            }).OrderBy(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -51,8 +80,29 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         /// <returns></returns>
         public async Task<DtoReserve> GetById(long id)
         {
-            var entity = await _reserveRepository.FindOrDefaultAsync(id);
-            var dto = entity.Adapt<DtoReserve>();
+            var query = _reserveRepository.Where(x=>x.Id== id);
+            var dto= query.Join(_venuedeviceRepository.Entities, x => x.VenueDeviceId, y => y.Id, (x, y) => new DtoReserve()
+            {
+                Id = x.Id,
+                Theme = x.Theme,
+                Number = x.Number,
+                ReserveDate = x.ReserveDate,
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                MeetingResults = x.MeetingResults,
+                Remarks = x.Remarks,
+                VenueDeviceId = x.VenueDeviceId,
+                VenueDeviceName = y.Name,
+                AuditFindings = x.AuditFindings,
+                WorkOrderId = x.WorkOrderId,
+                IsDeleted = x.IsDeleted,
+                Status = x.Status,
+                UpdatedTime = x.UpdatedTime,
+                Updater = x.Updater,
+                Creator = x.Creator,
+                SelectAreaId = x.SelectAreaId,
+                CreatedTime = x.CreatedTime
+            }).FirstOrDefault();
             //志愿者
 
             return dto;
@@ -72,7 +122,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _reserveRepository.Insert(entity);
             return await _reserveRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -138,7 +188,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                 .ExecuteAsync();
             return result;
         }
-    
+
 
     }
 }

@@ -21,4 +21,13 @@ namespace JiangDuo.Core.Enums
         [Description("已结束")]
         Ended =4
     }
+    public enum ServiceTypeEnum
+    {
+        [Description("默认")]
+        Normal = 0,
+        [Description("常规")]
+        General = 1,
+        [Description("长期")]
+        LongTerm = 2,
+    }
 }

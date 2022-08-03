@@ -22,6 +22,7 @@ namespace JiangDuo.Core.Models
         /// 场地设备
         /// </summary>
         public long VenueDeviceId { get; set; }
+
         /// <summary>
         /// 人数
         /// </summary>

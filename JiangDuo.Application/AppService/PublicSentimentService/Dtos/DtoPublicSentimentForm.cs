@@ -1,5 +1,6 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,6 +36,11 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Dto
         /// 附件
         /// </summary>
         public string Attachments { get; set; }
+
+        /// <summary>
+        /// 附件列表
+        /// </summary>
+        public List<SysUploadFile> AttachmentsList { get; set; } = new List<SysUploadFile>();
         /// <summary>
         /// 所属选区Id
         /// </summary>

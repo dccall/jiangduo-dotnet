@@ -23,6 +23,8 @@ using JiangDuo.Application.AppService.WorkOrderService.Services;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Services;
 using JiangDuo.Core.Base;
+using JiangDuo.Application.AppService.PublicSentimentService.Services;
+using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -36,8 +38,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IRepository<Resident> _residentRepository;
         private readonly IWorkOrderService _workOrderService;
         private readonly IServiceService _serviceService;
-
-        public ResidentAppletService(ILogger<ResidentAppletService> logger, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
+        private readonly IPublicSentimentService _publicSentimentService;
+     
+        public ResidentAppletService(ILogger<ResidentAppletService> logger, IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -46,17 +49,18 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _weiXinService = weiXinService;
             _residentRepository = residentRepository;
             _workOrderService = workOrderService;
+            _publicSentimentService = publicSentimentService;
         }
 
-        /// <summary>
-        /// 居民端登录
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        ///// <summary>
+        ///// 居民端登录
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
         public async Task<string> Login(DtoResidentLogin model)
         {
             var result = await _weiXinService.WeiXinLogin(model.Code);
-            var residentEntity =  _residentRepository.Where(x => x.OpenId == result.OpenId).FirstOrDefault();
+            var residentEntity = _residentRepository.Where(x => x.OpenId == result.OpenId).FirstOrDefault();
             if (residentEntity == null)
             {
                 residentEntity = new Resident();
@@ -65,11 +69,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 residentEntity.Creator = JwtHelper.GetAccountId();
                 _residentRepository.InsertNow(residentEntity);
             }
-          
             AccountModel accountModel = new AccountModel();
             accountModel.Id = residentEntity.Id;
             accountModel.Name = residentEntity.Name;
             accountModel.Type = AccountType.Resident;
+            accountModel.SelectAreaId = residentEntity.SelectAreaId??0;
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }
@@ -99,6 +103,10 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 throw Oops.Oh("数据不存在");
             }
+
+            //这里进行信息校验（确保）
+
+
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
@@ -107,10 +115,18 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
              var count=  await _residentRepository.SaveNowAsync();
             if (count > 0)
             {
-                return "保存成功";
+                //完善信息后，刷新token，主要为了增加SelectAreaId选区。
+                //防止从扫码注册后，信息不完善
+                return JwtHelper.GetJwtToken(new AccountModel()
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    SelectAreaId = entity.SelectAreaId ?? entity.SelectAreaId.Value,
+                    Type = AccountType.Resident//账号类型居民
+                }).AccessToken;
             }
 
-            return "保存失败";
+            return "修改失败";
         }
 
         /// <summary>
@@ -124,7 +140,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var query = _serviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(x =>x.Status== ServiceStatusEnum.Published);//只查询已发布的服务
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
-            query = query.Where(model.ServiceTypeId!=null, x => x.ServiceTypeId== model.ServiceTypeId);
+            query = query.Where(model.ServiceType!=null, x => x.ServiceType == model.ServiceType);
 
             //将数据映射到DtoServiceInfo中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoServiceInfo>().ToPagedList(model.PageIndex, model.PageSize);
@@ -136,13 +152,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public async Task<DtoServiceInfo> GetServiceById(long id)
+        public async Task<DtoService> GetServiceById(long id)
         {
-            var entity = await _serviceRepository.FindOrDefaultAsync(id);
-
-            var dto = entity.Adapt<DtoServiceInfo>();
-
-        
+            var dto = await _serviceService.GetById(id);
             return dto;
         }
 
@@ -152,7 +164,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
+        public PagedList<DtoService> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
             var serviceIdList= _participantRepository.Where(x => !x.IsDeleted&&x.ResidentId== id).Select(x=>x.ServiceId).ToList();
@@ -161,9 +173,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 //只查询自己的参与的所有服务/活动
                 var query = _serviceRepository.Where(x => !x.IsDeleted);
                 query = query.Where(x =>serviceIdList.Contains(x.Id));
-                return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoServiceInfo>().ToPagedList(model.PageIndex, model.PageSize);
+                return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
             }
-            return new PagedList<DtoServiceInfo>() { PageIndex= model.PageIndex, PageSize = model.PageSize };
+            return new PagedList<DtoService>() { PageIndex= model.PageIndex, PageSize = model.PageSize };
 
         }
         /// <summary>
@@ -246,63 +258,44 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         }
 
         /// <summary>
-        /// 获取我的工单
+        /// 获取我的需求列表（码上说马上办）
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoWorkOrder> GetMyWorkOrderList(BaseRequest model)
+        public PagedList<DtoPublicSentiment> GetMyPublicSentiment(DtoPublicSentimentQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var query = _workOrderRepository.Where(x => !x.IsDeleted);
-            query = query.Where(x => x.Creator == id);
-            //将数据映射到DtoWorkOrder中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+            model.ResidentId = id;//查询我的需求
+            return  _publicSentimentService.GetList(model);
+
         }
         /// <summary>
-        /// 申请服务(工单)
+        /// 根据id查询详情
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public async Task<DtoPublicSentiment> GetPublicSentimentDetail(long id)
+        {
+            return await _publicSentimentService.GetById(id);
+        }
+
+        /// <summary>
+        /// 新增公共需求（码上说马上办）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<string> ApplyForServices(DtoWorkOrderForm model)
+        public async Task<string> AddPublicSentiment(DtoPublicSentimentForm model)
         {
-            model.WorkorderSource = WorkorderSourceEnum.Resident;
-            var id = JwtHelper.GetAccountId();
-            //先根据id查询实体
-            var residEntentity = _residentRepository.FindOrDefault(id);
-            if (residEntentity != null)
-            {
-                model.SelectAreaId= residEntentity.SelectAreaId;
-            }
-            var count= await _workOrderService.Insert(model);
+            var account = JwtHelper.GetAccountInfo();
+            model.ResidentId = account.Id;  //居民是自己
+            var count= await _publicSentimentService.Insert(model);
             if (count > 0)
             {
-                return "申请已提交";
+                return "提交成功";
             }
-            return "申请提交失败";
+            return "提交失败";
         }
-        /// <summary>
-        /// 码上说马上办(工单)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<string> OnlineLettersServices(DtoWorkOrderForm model)
-        {
-            model.WorkorderSource = WorkorderSourceEnum.Resident;
-            var count = await _workOrderService.Insert(model);
-            if (count > 0)
-            {
-                return "工单已提交";
-            }
-            return "工单提交失败";
-        }
-        /// <summary>
-        /// 查看工单详情
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<DtoWorkOrder> GetWorkOrderDetail(long id)
-        {
-            return await _workOrderService.GetById(id);
-        }
+
+
     }
 }
