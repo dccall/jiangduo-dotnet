@@ -45,7 +45,7 @@ namespace JiangDuo.Application.Menu.Services
         {
             var query = _menuRepository.Where(x => !x.IsDeleted);
              query = query.Where(!string.IsNullOrEmpty( model.Title), x => x.Title.Contains(model.Title));
-            var menulist = query.OrderBy(x => x.Order).ProjectToType<MenuTreeDto>().ToList();
+            var menulist = query.OrderByDescending(x => x.Order).ProjectToType<MenuTreeDto>().ToList();
             var roots = GetRoots(menulist);
             foreach (var root in roots)
             {
@@ -61,7 +61,7 @@ namespace JiangDuo.Application.Menu.Services
         public PagedList<MenuDto> GetList(MenuRequest model)
         {
             var query = _menuRepository.Where(x => !x.IsDeleted);
-            return query.OrderBy(x => x.Order).ProjectToType<MenuDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(x => x.Order).ProjectToType<MenuDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
 
         public async Task<MenuDto> GetById(long id)

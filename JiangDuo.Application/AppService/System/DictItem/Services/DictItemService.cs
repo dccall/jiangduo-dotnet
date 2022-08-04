@@ -50,7 +50,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             query= query.Where(model.Status!=null ,x => x.Status == model.Status);
 
             //将数据映射到DictItemDto中
-            return query.OrderBy(x=>x.Order).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(x=>x.Order).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

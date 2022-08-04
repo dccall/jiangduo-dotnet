@@ -79,7 +79,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                     CreatedTime = x.PublicSentiment.CreatedTime,
                     FeedbackPersonId = x.PublicSentiment.FeedbackPersonId,
                     FeedbackPerson= x.PublicSentiment.FeedbackPerson,
-                }).OrderBy(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+                }).OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
 
         }
         /// <summary>

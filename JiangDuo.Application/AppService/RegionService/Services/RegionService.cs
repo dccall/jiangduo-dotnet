@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.RegionService.Services
             query = query.Where(model.RegionLevel!=null,x=>x.RegionLevel==model.RegionLevel);
             query = query.Where(model.RegionParentId!=null,x=>x.RegionParentId == model.RegionParentId);
             //将数据映射到DtoRegion中
-            return query.OrderBy(s=>s.RegionName).ProjectToType<DtoRegion>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.RegionName).ProjectToType<DtoRegion>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

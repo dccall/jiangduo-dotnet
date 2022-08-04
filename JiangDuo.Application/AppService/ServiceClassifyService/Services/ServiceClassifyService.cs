@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.ServiceClassifyService.Services
             query = query.Where(!string.IsNullOrEmpty(model.ClassifyName), x => x.ClassifyName.Contains(model.ClassifyName));
 
             //将数据映射到DtoServiceClassify中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoServiceClassify>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoServiceClassify>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

@@ -52,7 +52,7 @@ namespace JiangDuo.Application.System.Dept.Services
         {
             var query = _deptRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.DeptName), x => x.DeptName.Contains(model.DeptName));
-            return query.OrderBy(x => x.Order).ProjectToType<DeptDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(x => x.Order).ProjectToType<DeptDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
       
         /// <summary>

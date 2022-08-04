@@ -16,5 +16,6 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 性别
         /// </summary>
         public string SexName => Sex.GetDescription();
+
     }
 }

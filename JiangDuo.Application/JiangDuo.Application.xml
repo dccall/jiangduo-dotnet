@@ -9,6 +9,13 @@
             小程序端统一登录
              </summary>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.AppletLogin.AppletLoginAppService.GetVerifyCode(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletAppService.AppletLogin.AppletLoginAppService.LoginByPhone(JiangDuo.Application.AppletAppService.AppletLogin.Dtos.DtoAppletLogin)">
             <summary>
             登录(手机号登录)
@@ -2340,6 +2347,11 @@
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.VenueDeviceName">
             <summary>
             场地/设备名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.VolunteerList">
+            <summary>
+            志愿者列表
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Id">

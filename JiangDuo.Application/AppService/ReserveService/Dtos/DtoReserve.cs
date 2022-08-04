@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Core.Enums;
+using JiangDuo.Application.AppService.VolunteerService.Dto;
+
 namespace JiangDuo.Application.AppService.ReserveService.Dto
 {
     [Manual]
@@ -22,5 +24,10 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// 场地/设备名称
         /// </summary>
         public string VenueDeviceName { get; set; }
+
+        /// <summary>
+        /// 志愿者列表
+        /// </summary>
+        public List<DtoVolunteer> VolunteerList { get; set; }
     }
 }

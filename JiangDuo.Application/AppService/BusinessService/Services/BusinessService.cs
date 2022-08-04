@@ -35,7 +35,7 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoBusiness中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoBusiness>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoBusiness>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据id查询详情

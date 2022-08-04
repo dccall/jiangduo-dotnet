@@ -38,7 +38,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Title), x => x.Title.Contains(model.Title));
 
             //将数据映射到DtoNews中
-            return query.OrderBy(s=>s.CreatedTime).ProjectToType<DtoNews>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoNews>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

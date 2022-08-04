@@ -93,6 +93,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             entity.SelectAreaId = account.Id;
             _serviceRepository.Insert(entity);
             return await _serviceRepository.SaveNowAsync();
+
         }
 
         /// <summary>
@@ -113,7 +114,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = account.Id;
-            entity.SelectAreaId = account.Id;
             _serviceRepository.Update(entity);
             return await _serviceRepository.SaveNowAsync();
         }

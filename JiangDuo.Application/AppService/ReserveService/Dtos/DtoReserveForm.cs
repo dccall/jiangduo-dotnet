@@ -67,6 +67,6 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// <summary>
         /// 志愿者列表
         /// </summary>
-        public List<DtoVolunteerForm> VolunteerList { get; set; }
+        public List<DtoVolunteer> VolunteerList { get; set; }
     }
 }
