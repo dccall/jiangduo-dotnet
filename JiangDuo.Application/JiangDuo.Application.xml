@@ -353,6 +353,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            取消参与服务(服务/活动)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetServiceById(System.Int64)">
             <summary>
             根据Id获取服务详情
@@ -432,6 +439,13 @@
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
             <summary>
             参与服务(服务/活动)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            取消参与服务(服务/活动)
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -592,6 +606,13 @@
         <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.JoinService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
             <summary>
             参与服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+            <summary>
+            取消参与服务(服务/活动)
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -1254,6 +1275,11 @@
             性别
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.OfficialRoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
             主键
@@ -1342,6 +1368,11 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OfficialsstructId">
             <summary>
             人大结构Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OfficialRole">
+            <summary>
+            角色
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.SelectAreaId">
@@ -3131,9 +3162,29 @@
             状态
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.ServiceTypeName">
+            <summary>
+            服务类型名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.VenueDeviceName">
+            <summary>
+            场地名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.OfficialsName">
+            <summary>
+            人大人员名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.JoinServiceResident">
             <summary>
             服务参加人员名单
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.AttachmentsFiles">
+            <summary>
+            附件文件对象
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
@@ -3239,6 +3290,21 @@
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.ServiceClassifyId">
             <summary>
             服务分类
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.SelectAreaId">
+            <summary>
+            所属区域
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.Creator">
+            <summary>
+            创建人id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceQuery.PageSource">
+            <summary>
+            页面来源0.服务申请，1服务发布
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus.ServiceId">

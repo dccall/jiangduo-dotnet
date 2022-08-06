@@ -81,6 +81,17 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.JoinService(model);
     }
+
+    /// <summary>
+    /// 取消参与服务(服务/活动)
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> CancelService(DtoJoinService model)
+    {
+        return await _residentAppletService.CancelService(model);
+    }
+
     /// <summary>
     /// 根据Id获取服务详情
     /// </summary>

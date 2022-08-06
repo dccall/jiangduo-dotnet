@@ -41,6 +41,11 @@
             获取枚举的描述信息
             </summary>
         </member>
+        <member name="T:JiangDuo.Core.Enums.OfficialRoleEnum">
+            <summary>
+            用户类型
+            </summary>
+        </member>
         <member name="F:JiangDuo.Core.Enums.PublicSentimentStatus.Normal">
             <summary>
             默认
@@ -319,6 +324,11 @@
         <member name="P:JiangDuo.Core.Models.Official.OfficialsstructId">
             <summary>
             人大结构Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.OfficialRole">
+            <summary>
+            角色
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Officialsstruct">

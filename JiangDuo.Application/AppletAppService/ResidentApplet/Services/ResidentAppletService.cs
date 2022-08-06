@@ -40,7 +40,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IServiceService _serviceService;
         private readonly IPublicSentimentService _publicSentimentService;
      
-        public ResidentAppletService(ILogger<ResidentAppletService> logger, IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
+        public ResidentAppletService(ILogger<ResidentAppletService> logger,
+            IServiceService serviceService,
+            IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -50,6 +52,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _residentRepository = residentRepository;
             _workOrderService = workOrderService;
             _publicSentimentService = publicSentimentService;
+            _serviceService = serviceService;
         }
 
         ///// <summary>
@@ -209,6 +212,31 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             entity.Creator = JwtHelper.GetAccountId();
             await _participantRepository.InsertNowAsync(entity);
             return "已参与";
+        }
+        /// <summary>
+        /// 取消参与服务(服务/活动)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> CancelService(DtoJoinService model)
+        {
+            var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
+            if (service == null)
+            {
+                throw Oops.Oh("服务不存在");
+            }
+            if (service.Status != ServiceStatusEnum.Published)
+            {
+                throw Oops.Oh("服务状态异常，无法取消");
+            }
+            var id = JwtHelper.GetAccountId();
+            var entity = _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId).FirstOrDefault();
+            if (entity==null)
+            {
+                throw Oops.Oh("你没有参过该服务");
+            }
+            await _participantRepository.DeleteNowAsync(entity);
+            return "已取消";
         }
         /// <summary>
         /// 预约服务(服务/活动)

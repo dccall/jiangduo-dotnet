@@ -72,7 +72,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// <summary>
         /// 工单分数
         /// </summary>
-        public double? Score { get; set; }= 1;
+        public int? Score { get; set; }= 1;
         /// <summary>
         /// 选区id
         /// </summary>

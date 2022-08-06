@@ -94,5 +94,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public long? OfficialsstructId { get; set; }
 
+        /// <summary>
+        /// 角色
+        /// </summary>
+        public OfficialRoleEnum OfficialRole { get; set; }
+
     }
 }

@@ -92,5 +92,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 人大结构Id
         /// </summary>
         public long? OfficialsstructId { get; set; }
+
+        /// <summary>
+        /// 角色
+        /// </summary>
+        public OfficialRoleEnum OfficialRole { get; set; }
     }
 }

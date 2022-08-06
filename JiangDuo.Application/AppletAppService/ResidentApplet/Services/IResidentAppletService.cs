@@ -48,6 +48,13 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         public  Task<string> JoinService(DtoJoinService model);
 
         /// <summary>
+        /// 取消参与服务(服务/活动)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> CancelService(DtoJoinService model);
+
+        /// <summary>
         /// 根据Id获取服务详情
         /// </summary>
         /// <param name="id">编号</param>

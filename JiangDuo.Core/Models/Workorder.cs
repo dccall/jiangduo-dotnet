@@ -68,7 +68,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 工单分数
         /// </summary>
-        public double? Score { get; set; }
+        public int? Score { get; set; }
         /// <summary>
         /// 选区id
         /// </summary>

@@ -82,7 +82,7 @@ public class AccountService : IAccountService, ITransient
         //获取角色所有菜单权限id去重复
         var menuIdList =  _roleMenuRepository.Entities .Where(s =>  roleIdList.Contains(s.RoleId)).Select(s=>s.MenuId).Distinct(); 
         //获取角色对应的所有菜单
-        var menulist = _menuRepository.Where(x => !x.IsDeleted&& menuIdList.Contains(x.Id)).OrderByDescending(x=>x.Order).ProjectToType<MenuTreeDto>().ToList();
+        var menulist = _menuRepository.Where(x => !x.IsDeleted&& menuIdList.Contains(x.Id)).OrderBy(x=>x.Order).ProjectToType<MenuTreeDto>().ToList();
         var allMenuList = menulist.Where(s => s.Type == MenuType.Menu).ToList();
         var codeList = menulist.Where(s=>!string.IsNullOrEmpty(s.Code)).Select(s => s.Code).ToList();
         var roots = GetRoots(allMenuList);
@@ -105,7 +105,7 @@ public class AccountService : IAccountService, ITransient
         //获取角色所有菜单权限id去重复
         var menuIdList = _roleMenuRepository.Entities.Where(s => roleIdList.Contains(s.RoleId)).Select(s => s.MenuId).Distinct();
         //获取角色对应的所有菜单
-        var menulist = _menuRepository.Where(x => !x.IsDeleted && menuIdList.Contains(x.Id)).OrderByDescending(x => x.Order).ProjectToType<MenuTreeDto>().ToList();
+        var menulist = _menuRepository.Where(x => !x.IsDeleted && menuIdList.Contains(x.Id)).OrderBy(x => x.Order).ProjectToType<MenuTreeDto>().ToList();
         var codeList = menulist.Where(s => !string.IsNullOrEmpty(s.Code)).Select(s => s.Code).ToList();
         return codeList;
     }

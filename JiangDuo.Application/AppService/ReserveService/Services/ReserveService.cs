@@ -53,34 +53,38 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         {
             var query = _reserveRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Theme), x => x.Theme.Contains(model.Theme));
-            query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
+            query = query.Where(!(model.SelectAreaId == null|| model.SelectAreaId==-1), x => x.SelectAreaId == model.SelectAreaId);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
             query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
             query = query.Where(model.StartTime != null, x => x.ReserveDate <= model.EndTime);
-
-            return query.Join(_venuedeviceRepository.Entities, x => x.VenueDeviceId, y => y.Id, (x, y) => new DtoReserve()
-            {
-                Id = x.Id,
-                Theme = x.Theme,
-                Number = x.Number,
-                ReserveDate = x.ReserveDate,
-                StartTime = x.StartTime,
-                EndTime = x.EndTime,
-                MeetingResults = x.MeetingResults,
-                Remarks = x.Remarks,
-                VenueDeviceId = x.VenueDeviceId,
-                VenueDeviceName = y.Name,
-                AuditFindings = x.AuditFindings,
-                WorkOrderId = x.WorkOrderId,
-                IsDeleted = x.IsDeleted,
-                Status = x.Status,
-                UpdatedTime = x.UpdatedTime,
-                Updater = x.Updater,
-                Creator = x.Creator,
-                SelectAreaId = x.SelectAreaId,
-                CreatedTime = x.CreatedTime
-            }).OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            var query2 = from x in query
+                         join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
+                         from rv in result1.DefaultIfEmpty()
+                         orderby x.CreatedTime descending
+                         select new DtoReserve()
+                         {
+                             Id = x.Id,
+                             Theme = x.Theme,
+                             Number = x.Number,
+                             ReserveDate = x.ReserveDate,
+                             StartTime = x.StartTime,
+                             EndTime = x.EndTime,
+                             MeetingResults = x.MeetingResults,
+                             Remarks = x.Remarks,
+                             VenueDeviceId = x.VenueDeviceId,
+                             VenueDeviceName = rv.Name,
+                             AuditFindings = x.AuditFindings,
+                             WorkOrderId = x.WorkOrderId,
+                             IsDeleted = x.IsDeleted,
+                             Status = x.Status,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             Creator = x.Creator,
+                             SelectAreaId = x.SelectAreaId,
+                             CreatedTime = x.CreatedTime
+                         };
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情

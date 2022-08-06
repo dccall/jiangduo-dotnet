@@ -17,6 +17,7 @@ using JiangDuo.Application.AppService.ServiceService.Dto;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
+using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -27,9 +28,15 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         private readonly IRepository<Workorder> _workOrderRepository;
         private readonly IRepository<Participant> _participantRepository;
         private readonly IRepository<Resident> _residentRepository;
+        private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        private readonly IRepository<Official> _officialRepository;
+        private readonly IRepository<SysUploadFile> _uploadFileRepository;
         public ServiceService(ILogger<ServiceService> logger,
             IRepository<Participant> participantRepository,
             IRepository<Resident> residentRepository,
+             IRepository<Official> officialRepository,
+             IRepository<Venuedevice> venuedeviceRepository,
+             IRepository<SysUploadFile> uploadFileRepository,
             IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
@@ -37,7 +44,13 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             _workOrderRepository = workOrderRepository;
             _participantRepository = participantRepository;
             _residentRepository = residentRepository;
+            _venuedeviceRepository = venuedeviceRepository;
+            _officialRepository = officialRepository;
+            _uploadFileRepository = uploadFileRepository;
         }
+
+
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -47,12 +60,66 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         {
             var query = _serviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
-            query = query.Where(model.ServiceType!=null, x => x.ServiceType==model.ServiceType);
-            query = query.Where(model.ServiceClassifyId!=null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
+            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+            query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
+            query = query.Where(model.ServiceClassifyId != null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
-            
-            //将数据映射到DtoService中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
+            query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
+            if (model.Status==null&& model.PageSource == 0)
+            {
+                var statusList=new List<ServiceStatusEnum>() { 
+                 ServiceStatusEnum.Normal,
+                 ServiceStatusEnum.Audit, //待审核
+                 ServiceStatusEnum.AuditFailed,//审核未通过
+                };
+                query = query.Where(x=> statusList.Contains(x.Status.Value));
+            }
+            if (model.Status == null && model.PageSource == 1)
+            {
+                var statusList = new List<ServiceStatusEnum>() {
+                 ServiceStatusEnum.Audited,//审核通过
+                 ServiceStatusEnum.Published,//发布
+                 ServiceStatusEnum.Ended,//结束
+                };
+                query = query.Where(x => statusList.Contains(x.Status.Value));
+            }
+
+
+            var query2 = from service in query
+                         join official in _officialRepository.Entities on service.OfficialsId equals official.Id  into result1
+                         from so in result1.DefaultIfEmpty()
+                         join venuedevice in _venuedeviceRepository.Entities on service.VenueDeviceId equals venuedevice.Id into result2
+                         from sv in result2.DefaultIfEmpty()
+                         orderby  service.CreatedTime descending
+                         select new DtoService()
+                         {
+                             Id = service.Id,
+                             ServiceType = service.ServiceType,
+                             Address = service.Address,
+                             GroupOriented = service.GroupOriented,
+                             OfficialsId = service.OfficialsId,
+                             OfficialsName = so.Name,
+                             PlanEndTime = service.PlanEndTime,
+                             PlanNumber = service.PlanNumber,
+                             VillagesRange = service.VillagesRange,
+                             PlanStartTime = service.PlanStartTime,
+                             ServiceClassifyId = service.ServiceClassifyId,
+                             ServiceName = service.ServiceName,
+                             Attachments = service.Attachments,
+                             Remarks = service.Remarks,
+                             VenueDeviceId = service.VenueDeviceId,
+                             VenueDeviceName = sv.Name,
+                             AuditFindings = service.AuditFindings,
+                             IsDeleted = service.IsDeleted,
+                             Status = service.Status,
+                             UpdatedTime = service.UpdatedTime,
+                             Updater = service.Updater,
+                             Creator = service.Creator,
+                             SelectAreaId = service.SelectAreaId,
+                             CreatedTime = service.CreatedTime
+                         };
+
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -61,10 +128,42 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<DtoService> GetById(long id)
         {
-            var entity = await _serviceRepository.FindOrDefaultAsync(id);
-            var dto = entity.Adapt<DtoService>();
-          
-            var result= _participantRepository
+
+            var query = from service in _serviceRepository.Where(x => x.Id == id)
+                        join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
+                        from so in result1.DefaultIfEmpty()
+                        join venuedevice in _venuedeviceRepository.Entities on service.VenueDeviceId equals venuedevice.Id into result2
+                        from sv in result2.DefaultIfEmpty()
+                        where service.Id == id
+                        select new DtoService()
+                        {
+                            Id = service.Id,
+                            ServiceType = service.ServiceType,
+                            Address = service.Address,
+                            GroupOriented = service.GroupOriented,
+                            OfficialsId = service.OfficialsId,
+                            OfficialsName = so.Name,
+                            PlanEndTime = service.PlanEndTime,
+                            PlanNumber = service.PlanNumber,
+                            VillagesRange = service.VillagesRange,
+                            PlanStartTime = service.PlanStartTime,
+                            ServiceClassifyId = service.ServiceClassifyId,
+                            ServiceName = service.ServiceName,
+                            Attachments = service.Attachments,
+                            Remarks = service.Remarks,
+                            VenueDeviceId = service.VenueDeviceId,
+                            VenueDeviceName = sv.Name,
+                            AuditFindings = service.AuditFindings,
+                            IsDeleted = service.IsDeleted,
+                            Status = service.Status,
+                            UpdatedTime = service.UpdatedTime,
+                            Updater = service.Updater,
+                            Creator = service.Creator,
+                            SelectAreaId = service.SelectAreaId,
+                            CreatedTime = service.CreatedTime
+                        };
+            var dto = query.FirstOrDefault();
+            var result = _participantRepository
                 .Where(x => !x.IsDeleted && x.ServiceId == id)
                 .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
                 {
@@ -76,7 +175,14 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             //获取服务参与人
             dto.JoinServiceResident = result;
 
-            return dto;
+            if (!string.IsNullOrEmpty(dto.Attachments))
+            {
+                var idList = dto.Attachments.Split(',').ToList();
+                dto.AttachmentsFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+            }
+            
+
+            return await Task.FromResult(dto);
         }
         /// <summary>
         /// 添加
@@ -90,7 +196,13 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = account.Id;
-            entity.SelectAreaId = account.Id;
+            entity.Status = ServiceStatusEnum.Audit;
+
+            if (model.AttachmentsFiles != null && model.AttachmentsFiles.Any())
+            {
+                entity.Attachments = String.Join(",", model.AttachmentsFiles.Select(x => x.FileId));
+            }
+
             _serviceRepository.Insert(entity);
             return await _serviceRepository.SaveNowAsync();
 
@@ -114,6 +226,11 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = account.Id;
+
+            if (model.AttachmentsFiles != null && model.AttachmentsFiles.Any())
+            {
+                entity.Attachments = String.Join(",", model.AttachmentsFiles.Select(x => x.FileId));
+            }
             _serviceRepository.Update(entity);
             return await _serviceRepository.SaveNowAsync();
         }
@@ -147,6 +264,10 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             if (entity == null)
             {
                 throw Oops.Oh("数据不存在");
+            }
+            if (entity.Status != ServiceStatusEnum.AuditFailed)
+            {
+                throw Oops.Oh("当前状态无法删除");
             }
             entity.IsDeleted = true;
             return await _serviceRepository.SaveNowAsync();
