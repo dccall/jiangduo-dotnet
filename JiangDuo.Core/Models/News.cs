@@ -47,5 +47,8 @@ namespace JiangDuo.Core.Models
         /// 引用的id
         /// </summary>
         public long? RelationId { get; set; }
+
+        //是否推荐
+        public int IsRecommend { get; set; }
     }
 }

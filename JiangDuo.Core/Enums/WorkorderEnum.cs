@@ -46,6 +46,8 @@ namespace JiangDuo.Core.Enums
         Completed =3,
         [Description("审核通过")]
         Audited = 4,
+        [Description("审核未通过")]
+        AuditFailed = -1,
         [Description("已完结")]
         End =5,
        

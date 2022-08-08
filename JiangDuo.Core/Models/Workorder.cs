@@ -73,7 +73,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         /// <summary>
         /// 完结时间
         /// </summary>

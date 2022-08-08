@@ -22,10 +22,14 @@ namespace JiangDuo.Application.AppService.NewsService.Services
     {
         private readonly ILogger<NewsService> _logger;
         private readonly IRepository<News> _newsRepository;
-        public NewsService(ILogger<NewsService> logger, IRepository<News> newsRepository)
+        private readonly IRepository<SysUploadFile> _uploadFileRepository;
+        public NewsService(ILogger<NewsService> logger,
+             IRepository<SysUploadFile> uploadFileRepository,
+            IRepository<News> newsRepository)
         {
             _logger = logger;
             _newsRepository = newsRepository;
+            _uploadFileRepository = uploadFileRepository;
         }
         /// <summary>
         /// 分页
@@ -36,6 +40,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         {
             var query = _newsRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Title), x => x.Title.Contains(model.Title));
+            query = query.Where(model.IsRecommend!=null, x => x.IsRecommend==model.IsRecommend);
 
             //将数据映射到DtoNews中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoNews>().ToPagedList(model.PageIndex, model.PageSize);
@@ -51,6 +56,12 @@ namespace JiangDuo.Application.AppService.NewsService.Services
 
             var dto = entity.Adapt<DtoNews>();
 
+            if (!string.IsNullOrEmpty(dto.CoverPhoto))
+            {
+                var idList = dto.CoverPhoto.Split(',').ToList();
+                dto.CoverPhotoFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+            }
+
             return dto;
         }
         /// <summary>
@@ -60,11 +71,14 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoNewsForm model)
         {
-
             var entity = model.Adapt<News>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
+            if (model.CoverPhotoFiles != null && model.CoverPhotoFiles.Any())
+            {
+                entity.CoverPhoto = String.Join(",", model.CoverPhotoFiles.Select(x => x.FileId));
+            }
             _newsRepository.Insert(entity);
             return await _newsRepository.SaveNowAsync();
         }
@@ -86,6 +100,10 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+            if (model.CoverPhotoFiles != null && model.CoverPhotoFiles.Any())
+            {
+                entity.CoverPhoto = String.Join(",", model.CoverPhotoFiles.Select(x => x.FileId));
+            }
             _newsRepository.Update(entity);
             return await _newsRepository.SaveNowAsync();
         }

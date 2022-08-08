@@ -367,6 +367,20 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetNewsList(JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetNewsById(System.Int64)">
+            <summary>
+            根据id查询新闻详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
             <summary>
             查询已发布的服务
@@ -441,6 +455,20 @@
             修改/完善个人信息
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetNewsList(JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetNewsById(System.Int64)">
+            <summary>
+            根据id查询新闻详情
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
@@ -636,6 +664,20 @@
             修改/完善个人信息
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetNewsList(JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetNewsById(System.Int64)">
+            <summary>
+            根据id查询新闻详情
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetPublishedList(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentServiceQuery)">
@@ -1143,6 +1185,11 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNews.CoverPhotoFiles">
+            <summary>
+            文件对象
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsForm.Id">
             <summary>
             主键
@@ -1161,6 +1208,11 @@
         <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsForm.CoverPhoto">
             <summary>
             封面
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsForm.CoverPhotoFiles">
+            <summary>
+            文件对象
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsForm.Content">

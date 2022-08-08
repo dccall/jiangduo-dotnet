@@ -25,6 +25,8 @@ using JiangDuo.Application.AppService.ServiceService.Services;
 using JiangDuo.Core.Base;
 using JiangDuo.Application.AppService.PublicSentimentService.Services;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
+using JiangDuo.Application.AppService.NewsService.Services;
+using JiangDuo.Application.AppService.NewsService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -41,10 +43,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IPublicSentimentService _publicSentimentService;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<Official> _officialRepository;
+        private readonly INewsService _newService;
+
         public ResidentAppletService(ILogger<ResidentAppletService> logger,
             IServiceService serviceService,
                  IRepository<Official> officialRepository,
              IRepository<Venuedevice> venuedeviceRepository,
+             INewsService newService,
             IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -58,6 +63,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _serviceService = serviceService;
             _venuedeviceRepository = venuedeviceRepository;
             _officialRepository = officialRepository;
+            _newService = newService;
         }
 
         ///// <summary>
@@ -136,6 +142,24 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 
             return "修改失败";
         }
+        /// <summary>
+        /// 获取新闻列表
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoNews> GetNewsList(DtoNewsQuery model)
+        {
+            return _newService.GetList(model);
+        }
+        /// <summary>
+        /// 根据id查询新闻详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<DtoNews> GetNewsById(long id)
+        {
+            return await _newService.GetById(id);
+        }
 
         /// <summary>
         /// 查询已发布的服务
@@ -149,7 +173,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var query = _serviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(x => x.Status == ServiceStatusEnum.Published);//只查询已发布的服务
             //只查询在活动时间 在范围内的
-            query = query.Where(x => x.PlanStartTime>= currentDateTime&& currentDateTime<=x.PlanEndTime);
+            query = query.Where(x =>currentDateTime<=x.PlanEndTime);
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
             query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
 

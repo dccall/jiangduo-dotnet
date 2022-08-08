@@ -11,5 +11,9 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
     [Manual]
     public class DtoNews : News
     {
+        /// <summary>
+        /// 文件对象
+        /// </summary>
+        public List<SysUploadFile> CoverPhotoFiles { get; set; }
     }
 }

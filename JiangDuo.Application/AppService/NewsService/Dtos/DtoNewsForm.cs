@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,6 +31,10 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         [MaxLength(255)]
         public string CoverPhoto { get; set; }
         /// <summary>
+        /// 文件对象
+        /// </summary>
+        public List<SysUploadFile> CoverPhotoFiles { get; set; }
+        /// <summary>
         /// 内容
         /// </summary>
         public string Content { get; set; }
@@ -46,5 +51,7 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// 引用的id
         /// </summary>
         public long? RelationId { get; set; }
+
+
     }
 }

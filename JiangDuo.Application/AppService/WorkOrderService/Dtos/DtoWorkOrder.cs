@@ -45,7 +45,10 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// </summary>
         public List<Workorderfeedback> WorkorderfeedbackList { get; set; }
 
-
+        /// <summary>
+        /// 是否为协助工单
+        /// </summary>
+        public bool IsHelper { get; set; }
 
         /// <summary>
         /// 附件列表

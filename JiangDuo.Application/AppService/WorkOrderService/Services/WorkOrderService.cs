@@ -91,7 +91,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
-
+            query = query.Where(!(model.SelectAreaId==null||model.SelectAreaId==-1), x => x.SelectAreaId== model.SelectAreaId);
 
             if (model.Status == null && model.PageSource == 0)
             {
@@ -107,6 +107,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 var statusList = new List<WorkorderStatusEnum>() {
                  WorkorderStatusEnum.Completed,//已完成待审核
                  WorkorderStatusEnum.Audited,//审核通过
+                 WorkorderStatusEnum.AuditFailed,//审核未通过
                  WorkorderStatusEnum.End,//结束
                 };
                 query = query.Where(x => statusList.Contains(x.Status));
@@ -164,9 +165,9 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 dto.AttachmentsList = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
             }
             //工单日志
-            dto.Workorderlogs = _workOrderLog.Where(x => x.WordOrderId == dto.Id).OrderByDescending(x => x.LogTime).ToList();
+            dto.Workorderlogs = _workOrderLog.Where(x => x.WordOrderId == dto.Id).OrderBy(x => x.LogTime).ToList();
             //工单反馈信息
-            dto.WorkorderfeedbackList = _workorderfeedbackRepository.Where(x => x.WordOrderId == dto.Id).OrderByDescending(x => x.CreatedTime).ToList();
+            dto.WorkorderfeedbackList = _workorderfeedbackRepository.Where(x => x.WordOrderId == dto.Id).OrderBy(x => x.CreatedTime).ToList();
 
             return dto;
         }

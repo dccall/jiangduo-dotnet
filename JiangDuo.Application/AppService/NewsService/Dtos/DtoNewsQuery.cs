@@ -13,5 +13,8 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// 新闻标题
         /// </summary>
         public string Title { get; set; }
+
+        //是否推荐
+        public int? IsRecommend { get; set; }
     }
 }

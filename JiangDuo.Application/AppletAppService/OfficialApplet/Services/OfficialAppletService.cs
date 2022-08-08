@@ -46,6 +46,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         private readonly IRepository<Reserve> _reserveRepository;
         private readonly IReserveService _reserveService;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
         public OfficialAppletService(ILogger<OfficialAppletService> logger, 
             IWorkOrderService workOrderService, 
             IRepository<Resident> residentRepository, 
@@ -58,6 +59,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             IRepository<Reserve> reserveRepository,
             IReserveService reserveService,
             IServiceService serviceService,
+            IRepository<SelectArea> selectAreaRepository,
             IRepository<Venuedevice> venuedeviceRepositor,
             IRepository<Participant> participantRepository)
         {
@@ -75,6 +77,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             _reserveService = reserveService;
             _serviceService = serviceService;
             _venuedeviceRepository = venuedeviceRepositor;
+            _selectAreaRepository= selectAreaRepository;
         }
 
 
@@ -341,20 +344,60 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             var id = JwtHelper.GetAccountId();
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
-            if(model.Status== WorkorderStatusEnum.Completed)
+            query = query.Where(x => x.RecipientId == id || x.AssistantId == id);//派给我的/或者我协助的
+            if (model.Status== WorkorderStatusEnum.Completed)
             {
 
-                query = query.Where(x => x.RecipientId == id);//派给我的
-                List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() { WorkorderStatusEnum.Completed, WorkorderStatusEnum.End };
+                List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() {
+                    WorkorderStatusEnum.Completed,//完成
+                    WorkorderStatusEnum.Audited,//审核通过
+                    WorkorderStatusEnum.End };//完结
                 query = query.Where( x => statusList.Contains(x.Status));
             }
             else
             {
-                query = query.Where(x => x.RecipientId == id || x.AssistantId == id);//派给我的/或者我协助的
+                List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() { 
+                    WorkorderStatusEnum.InProgress,//进行中
+                    WorkorderStatusEnum.AuditFailed//审核未通过
+                };
                 query = query.Where(model.Status != null, x => x.Status == model.Status);
             }
-            //将数据映射到DtoWorkOrder中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+
+            var query2 = from w in query
+                         join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
+                         from wa in result1.DefaultIfEmpty()
+                         select new DtoWorkOrder
+                         {
+                             Id = w.Id,
+                             AssistantId = w.AssistantId,
+                             AssistantName = w.AssistantName,
+                             Attachments = w.Attachments,
+                             BusinessId = w.BusinessId,
+                             Content = w.Content,
+                             CreatedTime = w.CreatedTime,
+                             Creator = w.Creator,
+                             IsDeleted = w.IsDeleted,
+                             OriginatorId = w.OriginatorId,
+                             OriginatorName = w.OriginatorName,
+                             PublicSentimentId = w.PublicSentimentId,
+                             RecipientId = w.RecipientId,
+                             RecipientName = w.RecipientName,
+                             OverTime = w.OverTime,
+                             Score = w.Score,
+                             SelectAreaId = w.SelectAreaId,
+                             StartTime = w.StartTime,
+                             Status = w.Status,
+                             WorkOrderNo = w.WorkOrderNo,
+                             UpdatedTime = w.UpdatedTime,
+                             Updater = w.Updater,
+                             SelectAreaName = wa.SelectAreaName,
+                             WorkorderSource = w.WorkorderSource,
+                             WorkorderType = w.WorkorderType,
+                             IsHelper =w.AssistantId==id,//是否是协助订单
+                         };
+
+            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+
         }
         /// <summary>
         /// 根据id查询工单详情

@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
+using JiangDuo.Application.AppService.NewsService.Dto;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
@@ -33,6 +34,21 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> UpdateAccountInfo(DtoResidentForm model);
+
+        /// <summary>
+        /// 获取新闻列表
+        /// </summary>
+        /// <param name="model">数据</param>
+        /// <returns></returns>
+        public PagedList<DtoNews> GetNewsList(DtoNewsQuery model);
+
+        /// <summary>
+        /// 根据id查询新闻详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public  Task<DtoNews> GetNewsById(long id);
+
         /// <summary>
         /// 查询已发布的服务
         /// </summary>
