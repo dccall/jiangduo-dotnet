@@ -62,10 +62,16 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         /// <returns></returns>
         public  Task<string> WorkOrderEnd(DtoWorkOrderEndHandel model);
         /// <summary>
-        /// 工单状态变更
+        /// 工单处理（不变更状态）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> WorkOrderHandel(DtoWorkOrderHandel model);
+        /// <summary>
+        /// 工单处理（状态变更）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> WorkOrderUpdateStatus(DtoWorkOrderUpdateStatus model);
     }
 }

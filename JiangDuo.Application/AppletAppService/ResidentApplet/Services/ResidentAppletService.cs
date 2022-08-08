@@ -28,7 +28,7 @@ using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
-    public class ResidentAppletService:IResidentAppletService, ITransient
+    public class ResidentAppletService : IResidentAppletService, ITransient
     {
         private readonly ILogger<ResidentAppletService> _logger;
         private readonly IRepository<Core.Models.Service> _serviceRepository;
@@ -39,9 +39,12 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IWorkOrderService _workOrderService;
         private readonly IServiceService _serviceService;
         private readonly IPublicSentimentService _publicSentimentService;
-     
+        private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        private readonly IRepository<Official> _officialRepository;
         public ResidentAppletService(ILogger<ResidentAppletService> logger,
             IServiceService serviceService,
+                 IRepository<Official> officialRepository,
+             IRepository<Venuedevice> venuedeviceRepository,
             IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -53,6 +56,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _workOrderService = workOrderService;
             _publicSentimentService = publicSentimentService;
             _serviceService = serviceService;
+            _venuedeviceRepository = venuedeviceRepository;
+            _officialRepository = officialRepository;
         }
 
         ///// <summary>
@@ -76,7 +81,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             accountModel.Id = residentEntity.Id;
             accountModel.Name = residentEntity.Name;
             accountModel.Type = AccountType.Resident;
-            accountModel.SelectAreaId = residentEntity.SelectAreaId??0;
+            accountModel.SelectAreaId = residentEntity.SelectAreaId ?? 0;
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }
@@ -88,7 +93,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public async Task<DtoResident> GetAccountInfo()
         {
-            var id= JwtHelper.GetAccountId();
+            var id = JwtHelper.GetAccountId();
             var entity = await _residentRepository.FindOrDefaultAsync(id);
             var dto = entity.Adapt<DtoResident>();
             return dto;
@@ -115,7 +120,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _residentRepository.Update(entity);
-             var count=  await _residentRepository.SaveNowAsync();
+            var count = await _residentRepository.SaveNowAsync();
             if (count > 0)
             {
                 //完善信息后，刷新token，主要为了增加SelectAreaId选区。
@@ -140,10 +145,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetPublishedList(DtoResidentServiceQuery model)
         {
             var userid = JwtHelper.GetAccountId();
+            var currentDateTime=DateTime.Now;
             var query = _serviceRepository.Where(x => !x.IsDeleted);
-            query = query.Where(x =>x.Status== ServiceStatusEnum.Published);//只查询已发布的服务
+            query = query.Where(x => x.Status == ServiceStatusEnum.Published);//只查询已发布的服务
+            //只查询在活动时间 在范围内的
+            query = query.Where(x => x.PlanStartTime>= currentDateTime&& currentDateTime<=x.PlanEndTime);
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
-            query = query.Where(model.ServiceType!=null, x => x.ServiceType == model.ServiceType);
+            query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
 
             //将数据映射到DtoServiceInfo中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoServiceInfo>().ToPagedList(model.PageIndex, model.PageSize);
@@ -160,8 +168,6 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var dto = await _serviceService.GetById(id);
             return dto;
         }
-
-
         /// <summary>
         /// 查询我的参与和预约的服务
         /// </summary>
@@ -170,16 +176,45 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoService> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var serviceIdList= _participantRepository.Where(x => !x.IsDeleted&&x.ResidentId== id).Select(x=>x.ServiceId).ToList();
-            if (serviceIdList.Any())
-            {
-                //只查询自己的参与的所有服务/活动
-                var query = _serviceRepository.Where(x => !x.IsDeleted);
-                query = query.Where(x =>serviceIdList.Contains(x.Id));
-                return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoService>().ToPagedList(model.PageIndex, model.PageSize);
-            }
-            return new PagedList<DtoService>() { PageIndex= model.PageIndex, PageSize = model.PageSize };
+            var serviceIdList = _participantRepository.Where(x => !x.IsDeleted && x.ResidentId == id).Select(x => x.ServiceId).ToList();
 
+            var query = from p in _participantRepository.Entities
+                        join s in _serviceRepository.Entities on p.ServiceId equals s.Id
+                        join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result1
+                        from so in result1.DefaultIfEmpty()
+                        join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result2
+                        from sv in result2.DefaultIfEmpty()
+                        where p.ResidentId == id
+                        //根据报名时间排序、活动状态、活动开始时间
+                        orderby p.CreatedTime descending, s.Status, s.PlanStartTime ascending 
+                        select new DtoService
+                        {
+                            Id = s.Id,
+                            Address = s.Address,
+                            Attachments = s.Attachments,
+                            AuditFindings = s.AuditFindings,
+                            GroupOriented = s.GroupOriented,
+                            CreatedTime = s.CreatedTime,
+                            Creator = s.Creator,
+                            IsDeleted = s.IsDeleted,
+                            OfficialsId = s.OfficialsId,
+                            OfficialsName = so.Name,
+                            PlanNumber = s.PlanNumber,
+                            PlanStartTime = s.PlanStartTime,
+                            PlanEndTime = s.PlanEndTime,
+                            Remarks = s.Remarks,
+                            ServiceName = s.ServiceName,
+                            ServiceType = s.ServiceType,
+                            Status = s.Status,
+                            UpdatedTime = s.UpdatedTime,
+                            VenueDeviceId = s.VenueDeviceId,
+                            VenueDeviceName = sv.Name,
+                            ServiceClassifyId = s.ServiceClassifyId,
+                            SelectAreaId = s.SelectAreaId,
+                            Updater = s.Updater,
+                            VillagesRange = s.VillagesRange
+                        };
+            return query.ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 参与服务(服务/活动)
@@ -188,7 +223,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public async Task<string> JoinService(DtoJoinService model)
         {
-            var service = await  _serviceRepository.FindOrDefaultAsync(model.ServiceId);
+            var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
             if (service == null)
             {
                 throw Oops.Oh("服务不存在");
@@ -198,7 +233,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 throw Oops.Oh("服务状态异常，无法参加");
             }
             var id = JwtHelper.GetAccountId();
-            var exists=  _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId).Any();
+            var exists = _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId).Any();
             if (exists)
             {
                 throw Oops.Oh("已参与，请勿重复提交");
@@ -231,7 +266,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             var id = JwtHelper.GetAccountId();
             var entity = _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId).FirstOrDefault();
-            if (entity==null)
+            if (entity == null)
             {
                 throw Oops.Oh("你没有参过该服务");
             }
@@ -277,8 +312,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             Participant entity = new Participant();
             entity.ServiceId = model.ServiceId;
             entity.ResidentId = JwtHelper.GetAccountId();
-            entity.StartTime =model.StartTime;//预约开始时间
-            entity.EndTime =model.EndTime;//预约结束时间
+            entity.StartTime = model.StartTime;//预约开始时间
+            entity.EndTime = model.EndTime;//预约结束时间
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             await _participantRepository.InsertNowAsync(entity);
@@ -294,7 +329,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         {
             var id = JwtHelper.GetAccountId();
             model.ResidentId = id;//查询我的需求
-            return  _publicSentimentService.GetList(model);
+            return _publicSentimentService.GetList(model);
 
         }
         /// <summary>
@@ -316,7 +351,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         {
             var account = JwtHelper.GetAccountInfo();
             model.ResidentId = account.Id;  //居民是自己
-            var count= await _publicSentimentService.Insert(model);
+            var count = await _publicSentimentService.Insert(model);
             if (count > 0)
             {
                 return "提交成功";

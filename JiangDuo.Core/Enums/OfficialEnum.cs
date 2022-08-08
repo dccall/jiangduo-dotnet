@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace JiangDuo.Core.Enums
 {
     /// <summary>
-    /// 用户类型
+    /// 人大角色类型
     /// </summary>
     public enum OfficialRoleEnum
     {

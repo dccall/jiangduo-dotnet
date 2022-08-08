@@ -341,14 +341,16 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             var id = JwtHelper.GetAccountId();
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
-            query = query.Where(x => x.RecipientId ==id);//派给我的
             if(model.Status== WorkorderStatusEnum.Completed)
             {
+
+                query = query.Where(x => x.RecipientId == id);//派给我的
                 List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() { WorkorderStatusEnum.Completed, WorkorderStatusEnum.End };
                 query = query.Where( x => statusList.Contains(x.Status));
             }
             else
             {
+                query = query.Where(x => x.RecipientId == id || x.AssistantId == id);//派给我的/或者我协助的
                 query = query.Where(model.Status != null, x => x.Status == model.Status);
             }
             //将数据映射到DtoWorkOrder中
@@ -371,7 +373,30 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         public async Task<string> WorkOrderCompleted(DtoWorkOrderCompletedHandel model)
         {
             return  await _workOrderService.WorkOrderCompleted(model);
-           
         }
+
+        /// <summary>
+        /// 工单指派（接收人/协助人）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderAssign(DtoWorkOrderAssign model)
+        {
+            return await _workOrderService.WorkOrderAssign(model);
+        }
+
+        /// <summary>
+        /// 工单处理（不变更状态）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderHandel(DtoWorkOrderHandel model)
+        {
+            return await _workOrderService.WorkOrderHandel(model);
+        }
+
+       
+
+
     }
 }

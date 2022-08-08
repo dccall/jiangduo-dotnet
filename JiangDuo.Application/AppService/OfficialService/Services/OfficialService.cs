@@ -35,7 +35,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
             //不传或者传-1查询全部
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
-
+            query = query.Where(model.OfficialRole!=null, x => x.OfficialRole == model.OfficialRole);
 
             //将数据映射到DtoOfficial中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);

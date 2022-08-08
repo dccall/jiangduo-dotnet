@@ -42,7 +42,6 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(255)]
         public string Remarks { get; set; }
         /// <summary>
         /// 状态
@@ -51,12 +50,12 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 审核结果
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string AuditFindings { get; set; }
         /// <summary>
         /// 会议结果
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string MeetingResults { get; set; }
         /// <summary>
         /// 所属区域

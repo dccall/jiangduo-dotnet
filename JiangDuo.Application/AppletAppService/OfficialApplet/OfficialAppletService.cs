@@ -178,4 +178,24 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.WorkOrderCompleted(model);
     }
+
+    /// <summary>
+    /// 工单指派（接收人/协助人）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> WorkOrderAssign(DtoWorkOrderAssign model)
+    {
+        return await _officialAppletService.WorkOrderAssign(model);
+    }
+
+    /// <summary>
+    /// 工单处理（不变更状态）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> WorkOrderHandel(DtoWorkOrderHandel model)
+    {
+        return await _officialAppletService.WorkOrderHandel(model);
+    }
 }

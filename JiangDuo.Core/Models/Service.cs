@@ -72,7 +72,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 审核结果
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string AuditFindings { get; set; }
         /// <summary>
         /// 人大名单id

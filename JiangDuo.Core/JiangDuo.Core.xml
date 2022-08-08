@@ -43,7 +43,7 @@
         </member>
         <member name="T:JiangDuo.Core.Enums.OfficialRoleEnum">
             <summary>
-            用户类型
+            人大角色类型
             </summary>
         </member>
         <member name="F:JiangDuo.Core.Enums.PublicSentimentStatus.Normal">
@@ -1557,6 +1557,16 @@
         <member name="P:JiangDuo.Core.Models.Workorder.RecipientName">
             <summary>
             接收人名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.AssistantId">
+            <summary>
+            协助人
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.AssistantName">
+            <summary>
+            协助人名称
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Workorder.BusinessId">

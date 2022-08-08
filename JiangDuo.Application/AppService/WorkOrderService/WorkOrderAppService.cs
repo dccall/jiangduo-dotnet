@@ -111,7 +111,24 @@ public class WorkOrderAppService : IDynamicApiController
     {
         return await _workOrderService.WorkOrderEnd(model);
     }
+    /// <summary>
+    /// 工单处理（不变更状态）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> WorkOrderHandel(DtoWorkOrderHandel model)
+    {
+        return await _workOrderService.WorkOrderHandel(model);
+    }
+    /// <summary>
+    /// 工单处理（状态变更）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> WorkOrderUpdateStatus(DtoWorkOrderUpdateStatus model)
+    {
+        return await _workOrderService.WorkOrderUpdateStatus(model);
+    }
 
-    
 
 }

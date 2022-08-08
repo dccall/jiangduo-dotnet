@@ -19,8 +19,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public long WorkOrderId { get;  set; }
         /// <summary>
-        /// 接收人
+        /// 指派接收人
         /// </summary>
-        public long RecipientId { get; set; }
+        public long? RecipientId { get; set; }
+        /// <summary>
+        /// 指派协助人
+        /// </summary>
+        public long? AssistantId { get; set; }
+
     }
 }

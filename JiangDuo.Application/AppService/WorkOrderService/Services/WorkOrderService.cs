@@ -86,25 +86,66 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.WorkOrderNo), x => x.WorkOrderNo == model.WorkOrderNo);
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
+            query = query.Where(model.BusinessId != null, x => x.BusinessId == model.BusinessId);
             query = query.Where(model.WorkorderSource != null, x => x.WorkorderSource == model.WorkorderSource);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
 
-            var pageList = query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
 
-            if (pageList.Items.Count() > 0)
+            if (model.Status == null && model.PageSource == 0)
             {
-                var idList = pageList.Items.Select(x => x.SelectAreaId).Distinct().ToList();
-                var list = _selectAreaRepository.Where(x => idList.Contains(x.Id)).ToList();
-                foreach (var item in pageList.Items)
-                {
-                    var entity = list.Where(x => x.Id == item.SelectAreaId).FirstOrDefault();
-                    item.SelectAreaName = entity?.SelectAreaName;
-                }
+                var statusList = new List<WorkorderStatusEnum>() {
+                 WorkorderStatusEnum.Normal,
+                 WorkorderStatusEnum.NotProcessed, //待处理
+                 WorkorderStatusEnum.InProgress,//进行中
+                };
+                query = query.Where(x => statusList.Contains(x.Status));
             }
-            //将数据映射到DtoWorkOrder中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoWorkOrder>().ToPagedList(model.PageIndex, model.PageSize);
+            if (model.Status == null && model.PageSource == 1)
+            {
+                var statusList = new List<WorkorderStatusEnum>() {
+                 WorkorderStatusEnum.Completed,//已完成待审核
+                 WorkorderStatusEnum.Audited,//审核通过
+                 WorkorderStatusEnum.End,//结束
+                };
+                query = query.Where(x => statusList.Contains(x.Status));
+            }
+
+            var query2 = from w in query
+                         join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
+                         from wa in result1.DefaultIfEmpty()
+                         select new DtoWorkOrder
+                         {
+                             Id = w.Id,
+                             AssistantId = w.AssistantId,
+                             AssistantName = w.AssistantName,
+                             Attachments = w.Attachments,
+                             BusinessId = w.BusinessId,
+                             Content = w.Content,
+                             CreatedTime = w.CreatedTime,
+                             Creator = w.Creator,
+                             IsDeleted = w.IsDeleted,
+                             OriginatorId = w.OriginatorId,
+                             OriginatorName = w.OriginatorName,
+                             PublicSentimentId = w.PublicSentimentId,
+                             RecipientId = w.RecipientId,
+                             RecipientName = w.RecipientName,
+                             OverTime = w.OverTime,
+                             Score = w.Score,
+                             SelectAreaId = w.SelectAreaId,
+                             StartTime = w.StartTime,
+                             Status = w.Status,
+                             WorkOrderNo = w.WorkOrderNo,
+                             UpdatedTime = w.UpdatedTime,
+                             Updater = w.Updater,
+                             SelectAreaName = wa.SelectAreaName,
+                             WorkorderSource = w.WorkorderSource,
+                             WorkorderType = w.WorkorderType,
+                         };
+
+           return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+
         }
         /// <summary>
         /// 根据id查询详情
@@ -226,7 +267,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
 
         /// <summary>
-        /// 工单指派
+        /// 工单指派（接收人/协助人）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -237,15 +278,24 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             {
                 throw Oops.Oh("工单不存在");
             }
-            workOrderEntity.RecipientId = model.RecipientId;
-            workOrderEntity.RecipientName = GetPersonnelName(model.RecipientId);
-            if (workOrderEntity.Status == WorkorderStatusEnum.NotProcessed)
+            if (model.RecipientId.HasValue)//指派给处理人
             {
-                workOrderEntity.StartTime = DateTime.Now; //工单开始时间
-                workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
-            }
+                workOrderEntity.RecipientId = model.RecipientId;
+                workOrderEntity.RecipientName = GetPersonnelName(model.RecipientId);
+                if (workOrderEntity.Status == WorkorderStatusEnum.NotProcessed)
+                {
+                    workOrderEntity.StartTime = DateTime.Now; //工单开始时间
+                    workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
+                }
 
-            await _workOrderRepository.UpdateNowAsync(workOrderEntity);
+                await _workOrderRepository.UpdateNowAsync(workOrderEntity);
+            }
+            if (model.AssistantId.HasValue) //指派给协助人
+            {
+                workOrderEntity.AssistantId = model.AssistantId;
+                workOrderEntity.AssistantName = GetPersonnelName(model.AssistantId);
+                await _workOrderRepository.UpdateNowAsync(workOrderEntity);
+            }
 
             //添加日志
             AddWordOrderLog(workOrderEntity.Id, "工单指派给了" + workOrderEntity.RecipientName);
@@ -309,14 +359,59 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return "已完结";
         }
-        public Task<string> WorkOrderHandel(DtoWorkOrderHandel model)
+        /// <summary>
+        /// 工单处理（不变更状态）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderHandel(DtoWorkOrderHandel model)
         {
-            throw new NotImplementedException();
+            var workOrderEntity = await _workOrderRepository.FindOrDefaultAsync(model.WordOrderId);
+            if (workOrderEntity == null)
+            {
+                throw Oops.Oh("工单不存在");
+            }
+            //状态不变
+
+            var account = JwtHelper.GetAccountInfo();
+            //添加处理内容
+            AddWordOrderFeedback(workOrderEntity.Id, model.HandelContent, workOrderEntity.Status);
+
+            //添加日志
+            AddWordOrderLog(workOrderEntity.Id, account.Name + "处理了工单");
+
+            return "操作成功!";
+        }
+        /// <summary>
+        /// 工单处理（状态变更）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> WorkOrderUpdateStatus(DtoWorkOrderUpdateStatus model)
+        {
+            var workOrderEntity = await _workOrderRepository.FindOrDefaultAsync(model.WordOrderId);
+            if (workOrderEntity == null)
+            {
+                throw Oops.Oh("工单不存在");
+            }
+
+            var account = JwtHelper.GetAccountInfo();
+            //变更状态
+            workOrderEntity.Status = model.Status;
+            _workOrderRepository.UpdateNow(workOrderEntity);
+
+            //添加处理内容
+            AddWordOrderFeedback(workOrderEntity.Id, model.HandelContent, workOrderEntity.Status);
+
+            //添加日志
+            AddWordOrderLog(workOrderEntity.Id, account.Name + "处理了工单，工单状态变为:"+model.Status.GetDescription());
+
+            return "操作成功!";
         }
 
 
         /// <summary>
-        /// 添加工单日志
+        /// 添加工单处理记录
         /// </summary>
         /// <param name="workOrderId"></param>
         /// <param name="content"></param>

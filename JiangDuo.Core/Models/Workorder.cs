@@ -27,6 +27,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 发起人名称
         /// </summary>
+        [MaxLength(50)]
         public string OriginatorName{ get; set; }
         /// <summary>
         /// 接收人
@@ -35,7 +36,19 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 接收人名称
         /// </summary>
+        [MaxLength(50)]
         public string RecipientName { get; set; }
+
+        /// <summary>
+        /// 协助人
+        /// </summary>
+        public long? AssistantId { get; set; }
+        /// <summary>
+        /// 协助人名称
+        /// </summary>
+        [MaxLength(50)]
+        public string AssistantName { get; set; }
+
         /// <summary>
         /// 业务类型
         /// </summary>
@@ -77,6 +90,7 @@ namespace JiangDuo.Core.Models
         /// 引用公共需求Id
         /// </summary>
         public long? PublicSentimentId { get; set; }
+
 
         /// <summary>
         /// 附件

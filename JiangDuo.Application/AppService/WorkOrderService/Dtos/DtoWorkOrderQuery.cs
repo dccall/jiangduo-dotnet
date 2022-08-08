@@ -29,6 +29,15 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// </summary>
         public WorkorderStatusEnum? Status { get; set; }
         /// <summary>
+        /// 业务类型
+        /// </summary>
+        public long? BusinessId { get; set; }
+
+        /// <summary>
+        /// 页面来源0.待处理，1.待审核
+        /// </summary>
+        public int PageSource { get; set; } = 0;
+        /// <summary>
         /// 工单来源 0系统1居民 2.人大
         /// </summary>
         public WorkorderSourceEnum? WorkorderSource { get; set; }

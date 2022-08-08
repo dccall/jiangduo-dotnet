@@ -15,6 +15,8 @@ namespace JiangDuo.Core.Enums
         [Description("审核中")]
         Audit = 1,
         [Description("审核通过")]
-        Audited = 2
+        Audited = 2,
+        [Description("审核未通过")]
+        AuditFailed = -1,
     }
 }

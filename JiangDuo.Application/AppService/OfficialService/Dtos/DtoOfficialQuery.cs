@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 姓名
         /// </summary>
         public string Name { get; set; } = null!;
+
+        /// <summary>
+        /// 人大角色
+        /// </summary>
+        public OfficialRoleEnum? OfficialRole { get; set; }
     }
 }

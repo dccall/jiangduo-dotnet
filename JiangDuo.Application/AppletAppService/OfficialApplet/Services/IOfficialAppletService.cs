@@ -115,5 +115,21 @@ namespace JiangDuo.Application.AppletService.OfficialApplet.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> WorkOrderCompleted(DtoWorkOrderCompletedHandel model);
+
+
+        /// <summary>
+        /// 工单指派（接收人/协助人）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> WorkOrderAssign(DtoWorkOrderAssign model);
+
+
+        /// <summary>
+        /// 工单处理（不变更状态）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<string> WorkOrderHandel(DtoWorkOrderHandel model);
     }
 }
