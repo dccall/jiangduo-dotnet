@@ -21,12 +21,17 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
     {
         private readonly ILogger<VenuedeviceService> _logger;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        private readonly IRepository<Regulation> _regulationRepository;
+        
         private readonly IRepository<Building> _buiildingRepository;
-        public VenuedeviceService(ILogger<VenuedeviceService> logger, IRepository<Venuedevice> venuedeviceRepository, IRepository<Building> buiildingRepository)
+        public VenuedeviceService(ILogger<VenuedeviceService> logger,
+            IRepository<Regulation> regulationRepository,
+            IRepository<Venuedevice> venuedeviceRepository, IRepository<Building> buiildingRepository)
         {
             _logger = logger;
             _venuedeviceRepository = venuedeviceRepository;
             _buiildingRepository = buiildingRepository;
+            _regulationRepository = regulationRepository;
         }
         /// <summary>
         /// 分页
@@ -65,7 +70,11 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             var entity = await _venuedeviceRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoVenuedevice>();
-
+            if (dto!=null)
+            {
+                //获取规章制度
+                dto.Regulation = _regulationRepository.FindOrDefault(dto.RegulationId);
+            }
             return dto;
         }
         /// <summary>

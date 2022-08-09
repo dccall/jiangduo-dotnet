@@ -27,6 +27,7 @@ using JiangDuo.Application.AppService.PublicSentimentService.Services;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.NewsService.Services;
 using JiangDuo.Application.AppService.NewsService.Dto;
+using Furion.DataValidation;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -105,22 +106,67 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             return dto;
         }
         /// <summary>
-        /// 修改/完善个人信息
+        /// 用户实名认证
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<string> UpdateAccountInfo(DtoResidentForm model)
+        public async Task<string> AccountCertified(DtoAccountCertified model)
         {
+            var id = JwtHelper.GetAccountId();
             //先根据id查询实体
-            var entity = _residentRepository.FindOrDefault(model.Id);
+            var entity = _residentRepository.FindOrDefault(id);
             if (entity == null)
             {
                 throw Oops.Oh("数据不存在");
             }
-
             //这里进行信息校验（确保）
+            var cardInfo= IdCardHelper.GetBirthdayAgeSex(model.Idnumber);
+            if (cardInfo == null)
+            {
+                throw Oops.Oh("身份证号码不正确");
+            }
+            entity.Age= cardInfo.Age;
+            entity.Sex = (SexEnum)cardInfo.Sex;
+            entity.Birthday = DateTime.Parse(cardInfo.Birthday);
 
+            //将模型数据映射给实体属性
+            entity = model.Adapt(entity);
+            entity.UpdatedTime = DateTime.Now;
+            entity.Updater = JwtHelper.GetAccountId();
 
+            //状态改为已认证（暂时只做简单认证，只要调用了这个接口就已认证）
+            entity.Status = ResidentStatus.Certified;
+
+            _residentRepository.Update(entity);
+            var count = await _residentRepository.SaveNowAsync();
+            if (count > 0)
+            {
+                //完善信息后，刷新token，主要为了增加SelectAreaId选区。
+                //防止从扫码注册后，信息不完善
+                return JwtHelper.GetJwtToken(new AccountModel()
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    SelectAreaId = entity.SelectAreaId ?? entity.SelectAreaId.Value,
+                    Type = AccountType.Resident//账号类型居民
+                }).AccessToken;
+            }
+            return "修改失败";
+        }
+        /// <summary>
+        /// 用户信息修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> UpdateAccountInfo(DtoUpdateAccountInfo model)
+        {
+            var id = JwtHelper.GetAccountId();
+            //先根据id查询实体
+            var entity = _residentRepository.FindOrDefault(id);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
@@ -139,9 +185,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                     Type = AccountType.Resident//账号类型居民
                 }).AccessToken;
             }
-
             return "修改失败";
         }
+
         /// <summary>
         /// 获取新闻列表
         /// </summary>
@@ -169,16 +215,51 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetPublishedList(DtoResidentServiceQuery model)
         {
             var userid = JwtHelper.GetAccountId();
-            var currentDateTime=DateTime.Now;
+            var currentDateTime = DateTime.Now;
             var query = _serviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(x => x.Status == ServiceStatusEnum.Published);//只查询已发布的服务
             //只查询在活动时间 在范围内的
-            query = query.Where(x =>currentDateTime<=x.PlanEndTime);
+            query = query.Where(x => currentDateTime <= x.PlanEndTime);
             query = query.Where(!string.IsNullOrEmpty(model.ServiceName), x => x.ServiceName.Contains(model.ServiceName));
             query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
 
-            //将数据映射到DtoServiceInfo中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoServiceInfo>().ToPagedList(model.PageIndex, model.PageSize);
+            var query2=  from s in query
+            join p in _participantRepository.Entities on s.Id equals p.ServiceId into result1
+            from sp in result1.DefaultIfEmpty()
+            join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result2
+            from so in result2.DefaultIfEmpty()
+            join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result3
+            from sv in result3.DefaultIfEmpty()
+            select new DtoServiceInfo
+            {
+                Id = s.Id,
+                Address = s.Address,
+                Attachments = s.Attachments,
+                AuditFindings = s.AuditFindings,
+                GroupOriented = s.GroupOriented,
+                CreatedTime = s.CreatedTime,
+                Creator = s.Creator,
+                IsDeleted = s.IsDeleted,
+                OfficialsId = s.OfficialsId,
+                OfficialsName = so.Name,
+                PlanNumber = s.PlanNumber,
+                PlanStartTime = s.PlanStartTime,
+                PlanEndTime = s.PlanEndTime,
+                Remarks = s.Remarks,
+                ServiceName = s.ServiceName,
+                ServiceType = s.ServiceType,
+                Status = s.Status,
+                UpdatedTime = s.UpdatedTime,
+                VenueDeviceId = s.VenueDeviceId,
+                VenueDeviceName = sv.Name,
+                ServiceClassifyId = s.ServiceClassifyId,
+                SelectAreaId = s.SelectAreaId,
+                Updater = s.Updater,
+                VillagesRange = s.VillagesRange,
+                IsSignUp= sp.ResidentId== userid //报名人如果和当前账号id相同显示已报名
+            };
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
+
         }
 
 
@@ -197,7 +278,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoService> GetMyServiceList(DtoMyServiceQuery model)
+        public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
             var serviceIdList = _participantRepository.Where(x => !x.IsDeleted && x.ResidentId == id).Select(x => x.ServiceId).ToList();
@@ -210,8 +291,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                         from sv in result2.DefaultIfEmpty()
                         where p.ResidentId == id
                         //根据报名时间排序、活动状态、活动开始时间
-                        orderby p.CreatedTime descending, s.Status, s.PlanStartTime ascending 
-                        select new DtoService
+                        orderby p.CreatedTime descending, s.Status, s.PlanStartTime ascending
+                        select new DtoServiceInfo
                         {
                             Id = s.Id,
                             Address = s.Address,
@@ -236,7 +317,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             ServiceClassifyId = s.ServiceClassifyId,
                             SelectAreaId = s.SelectAreaId,
                             Updater = s.Updater,
-                            VillagesRange = s.VillagesRange
+                            VillagesRange = s.VillagesRange,
+                            IsSignUp=p.ResidentId==id,
+                            RegistTime=p.RegistTime,
+                            StartTime=p.StartTime,
+                            EndTime=p.EndTime,
                         };
             return query.ToPagedList(model.PageIndex, model.PageSize);
         }

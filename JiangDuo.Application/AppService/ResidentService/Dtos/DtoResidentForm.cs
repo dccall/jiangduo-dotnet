@@ -1,4 +1,5 @@
-﻿using JiangDuo.Core.Base;
+﻿using Furion.DataValidation;
+using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace JiangDuo.Application.AppService.ResidentService.Dto
         /// <summary>
         /// 姓名
         /// </summary>
-        [MaxLength(50)]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [Display(Name = "姓名")]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 年龄
@@ -31,7 +33,8 @@ namespace JiangDuo.Application.AppService.ResidentService.Dto
         /// <summary>
         /// 身份证号码
         /// </summary>
-        [MaxLength(18)]
+        [DataValidation(ValidationTypes.IDCard, ErrorMessage = "请输入正确的身份证号码")]
+        [Display(Name = "身份证号码")]
         public string Idnumber { get; set; }
         /// <summary>
         /// 户籍
@@ -59,7 +62,6 @@ namespace JiangDuo.Application.AppService.ResidentService.Dto
         /// <summary>
         /// 手机号
         /// </summary>
-        [MaxLength(11)]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// 微信openid

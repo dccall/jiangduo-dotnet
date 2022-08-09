@@ -29,11 +29,17 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         public  Task<DtoResident> GetAccountInfo();
 
         /// <summary>
+        /// 用户实名认证
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<string> AccountCertified(DtoAccountCertified model);
+        /// <summary>
         /// 修改/完善个人信息
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<string> UpdateAccountInfo(DtoResidentForm model);
+        public Task<string> UpdateAccountInfo(DtoUpdateAccountInfo model);
 
         /// <summary>
         /// 获取新闻列表
@@ -82,7 +88,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoService> GetMyServiceList(DtoMyServiceQuery model);
+        public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model);
 
         /// <summary>
         /// 预约服务

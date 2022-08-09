@@ -18,6 +18,7 @@ using Furion.FriendlyException;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
 using JiangDuo.Core.Enums;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -29,6 +30,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         private readonly IRepository<Participant> _participantRepository;
         private readonly IRepository<Resident> _residentRepository;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
+        private readonly IVenuedeviceService _venuedeviceService;
         private readonly IRepository<Official> _officialRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
         public ServiceService(ILogger<ServiceService> logger,
@@ -37,7 +39,8 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
              IRepository<Official> officialRepository,
              IRepository<Venuedevice> venuedeviceRepository,
              IRepository<SysUploadFile> uploadFileRepository,
-            IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
+             IVenuedeviceService venuedeviceService,
+        IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _serviceRepository = serviceRepository;
@@ -47,6 +50,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             _venuedeviceRepository = venuedeviceRepository;
             _officialRepository = officialRepository;
             _uploadFileRepository = uploadFileRepository;
+            _venuedeviceService = venuedeviceService;
         }
 
 
@@ -180,7 +184,10 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
                 var idList = dto.Attachments.Split(',').ToList();
                 dto.AttachmentsFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
             }
-            
+            if (dto.VenueDeviceId != null)
+            {
+                dto.Venuedevice = await _venuedeviceService.GetById(dto.VenueDeviceId.Value);
+            }
 
             return await Task.FromResult(dto);
         }

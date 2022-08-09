@@ -15,5 +15,11 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
         /// 所属建筑名称
         /// </summary>
         public string BuildingName{ get; set; }
+
+
+        /// <summary>
+        /// 规章制度
+        /// </summary>
+        public Regulation Regulation { get; set; }
     }
 }

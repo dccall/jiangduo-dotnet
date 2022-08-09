@@ -50,9 +50,21 @@ namespace JiangDuo.Core.Utils
 
     public class AccountModel
     {
+        /// <summary>
+        /// id
+        /// </summary>
         public long Id { get; set; }
+        /// <summary>
+        /// 姓名
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 选区
+        /// </summary>
         public long SelectAreaId { get; set; }
+        /// <summary>
+        /// 账号类型
+        /// </summary>
         public AccountType Type { get; set; }
     }
 

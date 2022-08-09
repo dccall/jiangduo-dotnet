@@ -646,6 +646,11 @@
             政治面貌
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.SelectArea">
             <summary>
             选区
@@ -1902,6 +1907,38 @@
             <param name="secret"></param>
             <param name="code"></param>
             <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.Utils.IdCardHelper.CalculateAge(System.String)">
+            <summary>
+            根据出生日期，计算精确的年龄
+            </summary>
+            <param name="birthDate">生日</param>
+            <returns></returns>
+        </member>
+        <member name="T:JiangDuo.Core.Utils.BirthdayAgeSex">
+            <summary>
+            定义 生日年龄性别 实体
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.AccountModel.Id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.AccountModel.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.AccountModel.SelectAreaId">
+            <summary>
+            选区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Utils.AccountModel.Type">
+            <summary>
+            账号类型
+            </summary>
         </member>
         <member name="P:JiangDuo.Core.Utils.JwtTokenResult.AccessToken">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppletAppService.AppletLogin.Dtos;
 using JiangDuo.Application.AppletAppService.AppletLogin.Services;
+using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -46,6 +47,15 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin
             return await _appletLoginService.LoginByPhone(model);
         }
 
-
+        /// <summary>
+        /// 获取登录信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet("GetLoginInfo")]
+        public async Task<AccountModel> GetLoginInfo()
+        {
+            return JwtHelper.GetAccountInfo();
+        }
     }
 }

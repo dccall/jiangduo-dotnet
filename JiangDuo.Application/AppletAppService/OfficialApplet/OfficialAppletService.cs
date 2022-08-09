@@ -21,7 +21,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet;
 ///人大小程序端
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings("Default", "人大小程序端接口")]
+[ApiDescriptionSettings("Default", "小程序人大端接口")]
 [AppletRoleFilter(AccountType.Official)]//只允许人大账号类型访问
 public class OfficialAppletService : IDynamicApiController
 {

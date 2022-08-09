@@ -357,7 +357,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 psEntity.FeedbackTime = DateTime.Now;//反馈时间
                 psEntity.Status = PublicSentimentStatus.Feedback;
             }
-
+            var officialEntity= _officialRepository.FindOrDefault(workOrderEntity.RecipientId);
+            //处理积分（后期可增加积分记录报表）
+            if (officialEntity != null)
+            {
+                officialEntity.Score += workOrderEntity.Score ?? 1;
+                _officialRepository.UpdateNow(officialEntity);
+            }
             return "已完结";
         }
         /// <summary>

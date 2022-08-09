@@ -24,7 +24,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet;
 ///居民小程序端
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings("Default", "居民小程序端接口")]
+[ApiDescriptionSettings("Default", "小程序居民端接口")]
 [AppletRoleFilter(AccountType.Resident)]//只允许居民账号类型访问
 public class ResidentAppletAppService : IDynamicApiController
 {
@@ -53,13 +53,21 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.GetAccountInfo();
     }
-
+    /// <summary>
+    /// 用户实名认证
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> AccountCertified(DtoAccountCertified model)
+    {
+        return await _residentAppletService.AccountCertified(model);
+    }
     /// <summary>
     /// 修改/完善个人信息
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public async Task<string> UpdateAccountInfo(DtoResidentForm model)
+    public async Task<string> UpdateAccountInfo(DtoUpdateAccountInfo model)
     {
         return await _residentAppletService.UpdateAccountInfo(model);
     }
@@ -127,7 +135,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
-    public PagedList<DtoService> GetMyServiceList([FromQuery] DtoMyServiceQuery model)
+    public PagedList<DtoServiceInfo> GetMyServiceList([FromQuery] DtoMyServiceQuery model)
     {
         return _residentAppletService.GetMyServiceList(model);
     }

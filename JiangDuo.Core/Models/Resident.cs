@@ -75,5 +75,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(50)]
         public string PoliticalOutlook { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public ResidentStatus Status { get; set; }
     }
 }

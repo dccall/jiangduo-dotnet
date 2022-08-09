@@ -18,6 +18,7 @@ using Furion.FriendlyException;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Core.Enums;
 using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
 
 namespace JiangDuo.Application.AppService.ReserveService.Services
 {
@@ -29,12 +30,13 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<Reservevolunteer> _reservevolunteerRepository;
         private readonly IRepository<Volunteer> _volunteerRepository;
-
+        private readonly IVenuedeviceService _venuedeviceService;
 
         public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository,
             IRepository<Venuedevice> venuedeviceRepository,
             IRepository<Reservevolunteer> reservevolunteerRepository,
             IRepository<Volunteer> volunteerRepository,
+            IVenuedeviceService venuedeviceService,
             IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
@@ -43,6 +45,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _venuedeviceRepository = venuedeviceRepository;
             _reservevolunteerRepository = reservevolunteerRepository;
             _volunteerRepository =volunteerRepository;
+            _venuedeviceService = venuedeviceService;
         }
         /// <summary>
         /// 分页
@@ -120,6 +123,11 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             var volunteerList=  _reservevolunteerRepository.Where(x => x.ReserveId == id)
                 .Join(_volunteerRepository.Entities, x => x.VolunteerId, y => y.Id, (x, y) =>y).ProjectToType<DtoVolunteer>().ToList();
             dto.VolunteerList = volunteerList;
+
+            if (dto.VenueDeviceId != null)
+            {
+                dto.Venuedevice = await _venuedeviceService.GetById(dto.VenueDeviceId);
+            }
             return dto;
         }
         /// <summary>

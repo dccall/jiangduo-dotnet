@@ -88,7 +88,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 积分
         /// </summary>
-        public int Score { get; set; }
+        public long Score { get; set; }
         /// <summary>
         /// 人大结构Id
         /// </summary>

@@ -23,6 +23,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.AppletLogin.AppletLoginAppService.GetLoginInfo">
+            <summary>
+            获取登录信息
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.AppletLogin.Dtos.DtoAppletLogin.Phone">
             <summary>
             手机号
@@ -309,6 +316,21 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService.ServiceId">
             <summary>
             服务id
@@ -334,6 +356,51 @@
             状态
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.ServiceTypeName">
+            <summary>
+            服务类型名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.VenueDeviceName">
+            <summary>
+            场地名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.OfficialsName">
+            <summary>
+            人大人员名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.JoinServiceResident">
+            <summary>
+            服务参加人员名单
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.AttachmentsFiles">
+            <summary>
+            附件文件对象
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.IsSignUp">
+            <summary>
+            是否报名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.RegistTime">
+            <summary>
+            报名时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.StartTime">
+            <summary>
+            预约开始时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.EndTime">
+            <summary>
+            预约结束时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.ServiceId">
             <summary>
             服务id
@@ -349,6 +416,31 @@
             预约结束时间
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.Origin">
+            <summary>
+            户籍
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService">
              <summary>
             居民小程序端
@@ -360,7 +452,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.AccountCertified(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified)">
+            <summary>
+            用户实名认证
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.UpdateAccountInfo(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo)">
             <summary>
             修改/完善个人信息
             </summary>
@@ -450,9 +549,16 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.AccountCertified(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified)">
             <summary>
-            修改/完善个人信息
+            用户实名认证
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo)">
+            <summary>
+            用户信息修改
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -659,7 +765,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm)">
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.AccountCertified(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoAccountCertified)">
+            <summary>
+            用户实名认证
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.UpdateAccountInfo(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo)">
             <summary>
             修改/完善个人信息
             </summary>
@@ -2484,6 +2597,11 @@
             志愿者列表
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserve.Venuedevice">
+            <summary>
+            场地/设备
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Id">
             <summary>
             主键
@@ -3286,6 +3404,11 @@
             附件文件对象
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.Venuedevice">
+            <summary>
+            场地/设备
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm.Id">
             <summary>
             主键
@@ -3564,6 +3687,11 @@
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.BuildingName">
             <summary>
             所属建筑名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.Regulation">
+            <summary>
+            规章制度
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Type">
@@ -4106,6 +4234,11 @@
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.WorkorderfeedbackList">
             <summary>
             工单反馈
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.IsHelper">
+            <summary>
+            是否为协助工单
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.AttachmentsList">
