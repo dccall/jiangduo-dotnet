@@ -123,7 +123,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
                 residentEntity = new Resident();
                 residentEntity.Id = YitIdHelper.NextId();
                 residentEntity.CreatedTime = DateTime.Now;
-                residentEntity.Creator = JwtHelper.GetAccountId();
+                residentEntity.Creator = 0;
                 await _residentRepository.InsertNowAsync(residentEntity);
             }
 

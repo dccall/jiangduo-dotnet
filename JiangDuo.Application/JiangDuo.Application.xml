@@ -3684,6 +3684,21 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.System.User.Dtos.DtoResetPassword.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.System.User.Dtos.DtoUpdateStatus.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.System.User.Dtos.DtoUpdateStatus.Status">
+            <summary>
+            帐号状态（0正常 1停用）
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.BuildingName">
             <summary>
             所属建筑名称
@@ -6651,6 +6666,20 @@
             昵称
             </summary>
         </member>
+        <member name="M:JiangDuo.Application.User.Services.IUserService.ResetPassword(JiangDuo.Application.AppService.System.User.Dtos.DtoResetPassword)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.Services.IUserService.UpdateStatus(JiangDuo.Application.AppService.System.User.Dtos.DtoUpdateStatus)">
+            <summary>
+            修改用户状态
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:JiangDuo.Application.User.Services.UserService">
             <summary>
             用户管理
@@ -6669,6 +6698,26 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.Services.UserService.ResetPassword(JiangDuo.Application.AppService.System.User.Dtos.DtoResetPassword)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.Services.UserService.UpdateStatus(JiangDuo.Application.AppService.System.User.Dtos.DtoUpdateStatus)">
+            <summary>
+            修改用户状态
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.Services.UserService.InsertUpdateChecked(JiangDuo.Application.User.Dtos.DtoUserForm)">
+            <summary>
+            新增/修改前校验
+            </summary>
+            <param name="model"></param>
         </member>
         <member name="T:JiangDuo.Application.User.UserAppService">
             <summary>
@@ -6715,6 +6764,20 @@
             批量删除用户
             </summary>
             <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.UserAppService.ResetPassword(JiangDuo.Application.AppService.System.User.Dtos.DtoResetPassword)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.User.UserAppService.UpdateStatus(JiangDuo.Application.AppService.System.User.Dtos.DtoUpdateStatus)">
+            <summary>
+            修改用户状态
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="T:JiangDuo.Application.CommonAppService.GaoAppDeService.GaoDeAppService">

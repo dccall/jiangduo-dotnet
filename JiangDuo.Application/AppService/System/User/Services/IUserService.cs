@@ -1,4 +1,5 @@
-﻿using JiangDuo.Application.User.Dtos;
+﻿using JiangDuo.Application.AppService.System.User.Dtos;
+using JiangDuo.Application.User.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,4 +14,17 @@ public interface IUserService
     public Task<int> FakeDelete(long id);
     public Task<int> FakeDelete(List<long> idList);
 
+
+    /// <summary>
+    /// 重置密码
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public Task<string> ResetPassword(DtoResetPassword model);
+    /// <summary>
+    /// 修改用户状态
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public Task<string> UpdateStatus(DtoUpdateStatus model);
 }

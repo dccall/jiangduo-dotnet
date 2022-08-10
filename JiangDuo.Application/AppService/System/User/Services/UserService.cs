@@ -18,6 +18,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 using JiangDuo.Core.Utils;
+using Furion;
+using JiangDuo.Application.AppService.System.User.Dtos;
 
 namespace JiangDuo.Application.User.Services;
 
@@ -55,16 +57,16 @@ public class UserService : IUserService, ITransient
     /// <returns></returns>
     public async Task<PagedList<DtoUser>> GetList(DtoUserRequert model)
     {
-        var query = _userRepository.Where(x => !x.IsDeleted).AsQueryable();
-
+        var query = _userRepository.Where(x => !x.IsDeleted && x.Id != 1).AsQueryable();
         query = query.Where(!string.IsNullOrEmpty(model.UserName), x => x.UserName.Contains(model.UserName));
-        query = query.Where(model.DeptId!=null, x => x.DeptId== model.DeptId);
+        query = query.Where(!string.IsNullOrEmpty(model.NickName), x => x.NickName.Contains(model.NickName));
+        query = query.Where(model.DeptId != null, x => x.DeptId == model.DeptId);
 
         var list = await query.OrderByDescending(x => x.CreatedTime).Select(user => new DtoUser
         {
             Id = user.Id,
             UserName = user.UserName,
-            PassWord = user.PassWord,
+            PassWord = null, //密码不展示
             DeptId = user.DeptId,
             NickName = user.NickName,
             Type = user.Type,
@@ -100,7 +102,7 @@ public class UserService : IUserService, ITransient
             var dto = entity.Adapt<DtoUser>();
 
             dto.RoleIdList = _userRoleRepository.Entities.Where(s => s.UserId == id).Join(_roleRepository.Entities, x => x.RoleId, y => y.Id, (x, y) => x.RoleId).ToList();
-
+            dto.PassWord = null;//密码不展示
             return dto;
         }
         return null;
@@ -108,6 +110,7 @@ public class UserService : IUserService, ITransient
 
     public async Task<int> Insert(DtoUserForm model)
     {
+        InsertUpdateChecked(model);
         var entity = model.Adapt<SysUser>();
         entity.Id = YitIdHelper.NextId();
         entity.CreatedTime = DateTime.Now;
@@ -127,7 +130,7 @@ public class UserService : IUserService, ITransient
                 UserId = entity.Id,
                 RoleId = roleId
             }).ToList();
-            _userRoleRepository.Insert(urList);//
+            _userRoleRepository.Insert(urList);
         }
 
         return await _userRoleRepository.SaveNowAsync();
@@ -135,6 +138,7 @@ public class UserService : IUserService, ITransient
 
     public async Task<int> Update(DtoUserForm model)
     {
+        InsertUpdateChecked(model);
         //先根据id查询实体
         var entity = _userRepository.FindOrDefault(model.Id);
         if (entity == null)
@@ -180,5 +184,63 @@ public class UserService : IUserService, ITransient
             .ExecuteAsync();
         return result;
     }
+    /// <summary>
+    /// 重置密码
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> ResetPassword(DtoResetPassword model)
+    {
+        //先根据id查询实体
+        var entity = await _userRepository.FindOrDefaultAsync(model.Id);
+        if (entity == null)
+        {
+            throw Oops.Oh("数据不存在");
+        }
+        var defaultPassword = App.Configuration["UserDefaultPassword"];
+        var salt = $"${entity.UserName}-${defaultPassword}";
+        var md5 = MD5Encryption.Encrypt(salt, true);
+        entity.PassWord = md5;
+        //只更新密码属性
+        _userRepository.UpdateInclude(entity, new[] { nameof(SysUser.PassWord) });
+        _userRepository.SaveNow();
+        return "密码已重置"+ defaultPassword;
+    }
+    /// <summary>
+    /// 修改用户状态
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<string> UpdateStatus(DtoUpdateStatus model)
+    {
+        //先根据id查询实体
+        var entity = await _userRepository.FindOrDefaultAsync(model.Id);
+        if (entity == null)
+        {
+            throw Oops.Oh("数据不存在");
+        }
+        entity.Status = model.Status;
+        //只更状态属性
+        _userRepository.UpdateInclude(entity, new[] { nameof(SysUser.Status) });
+        _userRepository.SaveNow();
+        return "操作成功";
+    }
 
+    /// <summary>
+    /// 新增/修改前校验
+    /// </summary>
+    /// <param name="model"></param>
+    private void InsertUpdateChecked(DtoUserForm model)
+    {
+        var query = _userRepository.AsQueryable();
+        query = query.Where(s => s.UserName == model.UserName);
+        if (model.Id != null)
+        {
+            query = query.Where(s => s.Id != model.Id);
+        }
+        if (query.Count() > 0)
+        {
+            throw Oops.Oh("[{0}]用户名重复", model.UserName);
+        }
+    }
 }

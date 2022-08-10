@@ -34,7 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npoi.Mapper" Version="4.1.0" />
-    <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
+    <PackageReference Include="Yitter.IdGenerator" Version="1.0.12" />
   </ItemGroup>
 
   <ItemGroup>

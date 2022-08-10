@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Yitter.IdGenerator;
+using JiangDuo.Application.AppService.System.User.Dtos;
 
 namespace JiangDuo.Application.User;
 
@@ -90,5 +91,24 @@ public class UserAppService : IDynamicApiController
 		return await _userService.FakeDelete(idList);
 	}
 
-	
+	/// <summary>
+	/// 重置密码
+	/// </summary>
+	/// <param name="model"></param>
+	/// <returns></returns>
+	[HttpPost("ResetPassword")]
+	public async Task<string> ResetPassword([FromBody] DtoResetPassword model)
+    {
+		return await _userService.ResetPassword(model);
+	}
+	/// <summary>
+	/// 修改用户状态
+	/// </summary>
+	/// <param name="model"></param>
+	/// <returns></returns>
+	[HttpPost("UpdateStatus")]
+	public async Task<string> UpdateStatus([FromBody] DtoUpdateStatus model)
+    {
+		return await _userService.UpdateStatus(model);
+	}
 }
