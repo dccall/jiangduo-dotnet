@@ -38,7 +38,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Remarks { get; set; }
         /// <summary>
         /// 计划人数
@@ -55,7 +55,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 地址
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Address { get; set; }
         /// <summary>
         /// 选区id

@@ -49,7 +49,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Dto
         /// <summary>
         /// 住址
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Address { get; set; }
         /// <summary>
         /// 生日

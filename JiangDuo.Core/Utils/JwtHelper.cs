@@ -17,7 +17,7 @@ namespace JiangDuo.Core.Utils
             var accessToken = JWTEncryption.Encrypt(new Dictionary<string, object>()
             {
                 { "Id", model.Id }, // 存储Id
-                { "Name", model.Name }, // 存储Id
+                { "Name", model.Name }, // 存储名称
                 { "AccountModel",model }
             });
             // 获取刷新 token
@@ -76,6 +76,8 @@ namespace JiangDuo.Core.Utils
         Resident = 1,
         [Description("人大")]
         Official = 2,
+        [Description("志愿者")]
+        Volunteer = 3,
     }
 
     public class JwtTokenResult

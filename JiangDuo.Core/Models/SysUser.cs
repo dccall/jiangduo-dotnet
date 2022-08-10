@@ -50,7 +50,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 头像地址
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Avatar { get; set; }
         /// <summary>
         /// 密码

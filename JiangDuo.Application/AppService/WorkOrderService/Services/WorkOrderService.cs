@@ -288,18 +288,24 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                     workOrderEntity.StartTime = DateTime.Now; //工单开始时间
                     workOrderEntity.Status = WorkorderStatusEnum.InProgress; //进行中
                 }
-
+                //清空协助人
+                workOrderEntity.AssistantId = null;
+                workOrderEntity.AssistantName = null;
                 await _workOrderRepository.UpdateNowAsync(workOrderEntity);
+
+                //添加日志
+                AddWordOrderLog(workOrderEntity.Id, "工单指派给了" + workOrderEntity.RecipientName);
             }
             if (model.AssistantId.HasValue) //指派给协助人
             {
                 workOrderEntity.AssistantId = model.AssistantId;
                 workOrderEntity.AssistantName = GetPersonnelName(model.AssistantId);
                 await _workOrderRepository.UpdateNowAsync(workOrderEntity);
+
+                //添加日志
+                AddWordOrderLog(workOrderEntity.Id, "工单指派协助人" + workOrderEntity.RecipientName);
             }
 
-            //添加日志
-            AddWordOrderLog(workOrderEntity.Id, "工单指派给了" + workOrderEntity.RecipientName);
             return "已指派";
         }
         /// <summary>

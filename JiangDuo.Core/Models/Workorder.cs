@@ -49,7 +49,6 @@ namespace JiangDuo.Core.Models
         [MaxLength(50)]
         public string AssistantName { get; set; }
 
-
         /// <summary>
         /// 业务类型
         /// </summary>

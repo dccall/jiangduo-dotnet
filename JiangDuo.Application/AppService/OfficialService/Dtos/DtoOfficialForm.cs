@@ -77,7 +77,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 住址
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Address { get; set; }
         /// <summary>
         /// 政治面貌

@@ -27,7 +27,7 @@ namespace JiangDuo.Application.AppService.RegionService.Dto
         /// <summary>
         /// 封面
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string CoverPhoto { get; set; }
         /// <summary>
         /// 内容

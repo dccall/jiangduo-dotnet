@@ -41,7 +41,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 请求URL
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string OperUrl { get; set; }
         /// <summary>
         /// 主机地址
@@ -51,7 +51,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 操作来源
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string OperSource { get; set; }
         /// <summary>
         /// 请求参数

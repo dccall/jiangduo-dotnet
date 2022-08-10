@@ -77,7 +77,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
-            entity.Status = DictStatus.Normal;
+            //entity.Status = DictStatus.Normal;
             _dictItemRepository.Insert(entity);
             return await _dictItemRepository.SaveNowAsync();
         }

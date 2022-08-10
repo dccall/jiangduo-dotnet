@@ -28,7 +28,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 登录地点
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string LoginLocation { get; set; }
         /// <summary>
         /// 浏览器类型
@@ -47,7 +47,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 提示消息
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Msg { get; set; }
         /// <summary>
         /// 访问时间

@@ -28,7 +28,7 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// <summary>
         /// 封面
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string CoverPhoto { get; set; }
         /// <summary>
         /// 文件对象

@@ -44,12 +44,12 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Remarks { get; set; }
         /// <summary>
         /// 会议结果
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string MeetingResults { get; set; }
         /// <summary>
         /// 所属区域

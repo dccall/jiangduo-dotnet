@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 using JiangDuo.Core.Utils;
+using Furion.FriendlyException;
 
 namespace JiangDuo.Application.System.Dict.Services
 {
@@ -94,7 +95,7 @@ namespace JiangDuo.Application.System.Dict.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
-            entity.Status = DictStatus.Normal;
+            //entity.Status = DictStatus.Normal;
             _dictRepository.Insert(entity);
             return await _dictRepository.SaveNowAsync();
         }
@@ -106,7 +107,14 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public async Task<int> Update(DtoDictForm model)
         {
-            var entity = model.Adapt<SysDict>();
+            //先根据id查询实体
+            var entity = _dictRepository.FindOrDefault(model.Id);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            //将模型数据映射给实体属性
+            entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             _dictRepository.Update(entity);

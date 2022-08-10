@@ -23,7 +23,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 建筑地址
         /// </summary>
-        [MaxLength(255)]
+        [MaxLength(300)]
         public string Address { get; set; }
         /// <summary>
         /// 建筑位置
@@ -38,7 +38,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 建筑图片
         /// </summary>
-        //[MaxLength(255)]
+        //[MaxLength(300)]
         public string Images { get; set; }
         /// <summary>
         /// 所属选区
