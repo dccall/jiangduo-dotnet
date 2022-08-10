@@ -11,10 +11,9 @@ public class Startup : AppStartup
     {
         services.AddDatabaseAccessor(options =>
         {
-            options.AddDbPool<MysqlDbContext>(providerName: default, optionBuilder: opt =>
+            options.AddDbPool<MysqlDbContext>(providerName: default, (IServiceProvider, DbContextOptionsBuilder) =>
             {
-                //批量操作
-                opt.UseBatchEF_MySQLPomelo();
+                DbContextOptionsBuilder.UseBatchEF_MySQLPomelo();
             });
         }, "JiangDuo.Database.Migrations");
     }

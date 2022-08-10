@@ -76,7 +76,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
-    public  PagedList<DtoNews> GetNewsList(DtoNewsQuery model)
+    public  PagedList<DtoNews> GetNewsList([FromQuery] DtoNewsQuery model)
     {
         return  _residentAppletService.GetNewsList(model);
     }
@@ -85,7 +85,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<DtoNews> GetNewsById(long id)
+    public async Task<DtoNews> GetNewsById([FromQuery] long id)
     {
         return await _residentAppletService.GetNewsById(id);
     }
@@ -156,7 +156,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
-    public PagedList<DtoPublicSentiment> GetMyPublicSentiment(DtoPublicSentimentQuery model)
+    public PagedList<DtoPublicSentiment> GetMyPublicSentiment([FromQuery] DtoPublicSentimentQuery model)
     {
         return  _residentAppletService.GetMyPublicSentiment(model);
     }

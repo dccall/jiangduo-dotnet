@@ -125,15 +125,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 throw Oops.Oh("身份证号码不正确");
             }
-            entity.Age= cardInfo.Age;
-            entity.Sex = (SexEnum)cardInfo.Sex;
-            entity.Birthday = DateTime.Parse(cardInfo.Birthday);
-
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
-
+            entity.Age = cardInfo.Age;
+            entity.Sex = (SexEnum)cardInfo.Sex;
+            entity.Birthday = DateTime.Parse(cardInfo.Birthday);
             //状态改为已认证（暂时只做简单认证，只要调用了这个接口就已认证）
             entity.Status = ResidentStatus.Certified;
 
