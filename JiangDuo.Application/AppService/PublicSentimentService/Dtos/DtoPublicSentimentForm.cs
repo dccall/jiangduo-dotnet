@@ -33,6 +33,10 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Dto
         /// </summary>
         public PublicSentimentStatus Status { get; set; }
         /// <summary>
+        /// 工单类型
+        /// </summary>
+        public WorkorderTypeEnum WorkorderType { get; set; }
+        /// <summary>
         /// 附件
         /// </summary>
         public string Attachments { get; set; }

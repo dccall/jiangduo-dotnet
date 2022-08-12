@@ -13,6 +13,8 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Dto
     {
         //状态名称
         public string StatusName =>Status.GetDescription();
+        //工单类型名称
+        public string WorkorderTypeName => WorkorderType.GetDescription();
         /// <summary>
         /// 居民名称
         /// </summary>

@@ -45,6 +45,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             _residentRepository = residentRepository;
             _selectAreaRepository = selectAreaRepository;
             _businessRepository = businessRepository;
+            _uploadFileRepository = uploadFileRepository;
         }
         /// <summary>
         /// 分页
@@ -57,29 +58,43 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             query = query.Where(model.BusinessId != null, x => x.BusinessId == model.BusinessId);
             query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
+            query = query.Where(model.ResidentId != null, x => x.ResidentId == model.ResidentId);
+            query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
+            
 
-            return query.Join(_residentRepository.Entities, x => x.ResidentId, r => r.Id, (x, r) => new { PublicSentiment = x, Resident = r })
-                .Join(_selectAreaRepository.Entities, x => x.PublicSentiment.SelectAreaId,y => y.Id,(x, y) => new DtoPublicSentiment()
-                {
-                    Id = x.PublicSentiment.Id,
-                    ResidentId = x.PublicSentiment.Id,
-                    ResidentName = x.Resident.Name,
-                    Content = x.PublicSentiment.Content,
-                    FeedbackContent = x.PublicSentiment.FeedbackContent,
-                    FeedbackTime = x.PublicSentiment.FeedbackTime,
-                    IsDeleted = x.PublicSentiment.IsDeleted,
-                    Status = x.PublicSentiment.Status,
-                    UpdatedTime = x.PublicSentiment.UpdatedTime,
-                    Updater = x.PublicSentiment.Updater,
-                    Creator = x.PublicSentiment.Creator,
-                    BusinessId = x.PublicSentiment.BusinessId,
-                    SelectAreaId = x.PublicSentiment.SelectAreaId,
-                    SelectAreaName =y.SelectAreaName,
-                    Attachments = x.PublicSentiment.Attachments,
-                    CreatedTime = x.PublicSentiment.CreatedTime,
-                    FeedbackPersonId = x.PublicSentiment.FeedbackPersonId,
-                    FeedbackPerson= x.PublicSentiment.FeedbackPerson,
-                }).OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            var query2 = from p in query
+                         join r in _residentRepository.Entities on p.ResidentId equals r.Id into result1
+                         from pr in result1.DefaultIfEmpty()
+                         join s in _selectAreaRepository.Entities on p.SelectAreaId equals s.Id into result2
+                         from ps in result2.DefaultIfEmpty()
+                         join b in _businessRepository.Entities on p.BusinessId equals b.Id into result3
+                         from pb in result3.DefaultIfEmpty()
+                         orderby p.CreatedTime descending
+                         select new DtoPublicSentiment
+                         {
+                             Id = p.Id,
+                             ResidentId = p.Id,
+                             ResidentName = pr.Name,
+                             Content = p.Content,
+                             FeedbackContent = p.FeedbackContent,
+                             FeedbackTime = p.FeedbackTime,
+                             IsDeleted = p.IsDeleted,
+                             Status = p.Status,
+                             UpdatedTime = p.UpdatedTime,
+                             Updater = p.Updater,
+                             Creator = p.Creator,
+                             BusinessId = p.BusinessId,
+                             BusinessName = pb.Name,
+                             WorkorderType=p.WorkorderType,
+                             SelectAreaId = p.SelectAreaId,
+                             SelectAreaName = ps.SelectAreaName,
+                             Attachments = p.Attachments,
+                             CreatedTime = p.CreatedTime,
+                             FeedbackPersonId = p.FeedbackPersonId,
+                             FeedbackPerson = p.FeedbackPerson,
+                         };
+
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
 
         }
         /// <summary>
@@ -89,18 +104,43 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
         /// <returns></returns>
         public async Task<DtoPublicSentiment> GetById(long id)
         {
-            var entity = await _publicSentimentRepository.FindOrDefaultAsync(id);
-
-            var dto = entity.Adapt<DtoPublicSentiment>();
-
-            if (!string.IsNullOrEmpty(dto.Attachments))
+            var query = from p in _publicSentimentRepository.Where(x => x.Id == id)
+                        join r in _residentRepository.Entities on p.ResidentId equals r.Id into result1
+                        from pr in result1.DefaultIfEmpty()
+                        join s in _selectAreaRepository.Entities on p.SelectAreaId equals s.Id into result2
+                        from ps in result2.DefaultIfEmpty()
+                        join b in _businessRepository.Entities on p.BusinessId equals b.Id into result3
+                        from pb in result3.DefaultIfEmpty()
+                        orderby p.CreatedTime descending
+                        select new DtoPublicSentiment
+                        {
+                            Id = p.Id,
+                            ResidentId = p.Id,
+                            ResidentName = pr.Name,
+                            Content = p.Content,
+                            FeedbackContent = p.FeedbackContent,
+                            FeedbackTime = p.FeedbackTime,
+                            IsDeleted = p.IsDeleted,
+                            Status = p.Status,
+                            UpdatedTime = p.UpdatedTime,
+                            Updater = p.Updater,
+                            Creator = p.Creator,
+                            BusinessId = p.BusinessId,
+                            BusinessName = pb.Name,
+                            SelectAreaId = p.SelectAreaId,
+                            SelectAreaName = ps.SelectAreaName,
+                            Attachments = p.Attachments,
+                            CreatedTime = p.CreatedTime,
+                            FeedbackPersonId = p.FeedbackPersonId,
+                            FeedbackPerson = p.FeedbackPerson,
+                        };
+            var dto = query.FirstOrDefault();
+            if (dto != null && !string.IsNullOrEmpty(dto.Attachments))
             {
                 var idList = dto.Attachments.Split(',').ToList();
                 dto.AttachmentsList = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
             }
-
-
-            return dto;
+            return await Task.FromResult(dto);
         }
         /// <summary>
         /// 添加
@@ -116,9 +156,9 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             entity.Creator = account.Id;
             entity.Status = PublicSentimentStatus.NotProcessed; //待处理
             //如果传了选区，用传的选区id，否则用账号带的选区
-            entity.SelectAreaId = model.SelectAreaId.HasValue? model.SelectAreaId.Value: account.SelectAreaId;
+            entity.SelectAreaId = model.SelectAreaId.HasValue ? model.SelectAreaId.Value : account.SelectAreaId;
 
-            if (model.AttachmentsList!= null && model.AttachmentsList.Any())
+            if (model.AttachmentsList != null && model.AttachmentsList.Any())
             {
                 entity.Attachments = String.Join(",", model.AttachmentsList.Select(x => x.FileId));
             }

@@ -253,7 +253,7 @@
         </member>
         <member name="P:JiangDuo.Core.Models.Official.CategoryId">
             <summary>
-            类别
+            类别 1.区人大，2.镇人大
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.Birthday">
@@ -444,6 +444,11 @@
         <member name="P:JiangDuo.Core.Models.PublicSentiment.Attachments">
             <summary>
             附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.WorkorderType">
+            <summary>
+            工单类型
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.PublicSentiment.Status">

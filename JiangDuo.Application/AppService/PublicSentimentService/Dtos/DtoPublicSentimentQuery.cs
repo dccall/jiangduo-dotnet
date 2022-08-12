@@ -19,7 +19,10 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Dto
         /// 居民Id
         /// </summary>
         public long? ResidentId { get; set; }
-
+        /// <summary>
+        /// 工单类型
+        /// </summary>
+        public WorkorderTypeEnum? WorkorderType { get; set; }
         /// <summary>
         /// 状态
         /// </summary>

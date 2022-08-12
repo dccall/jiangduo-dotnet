@@ -10,7 +10,7 @@ namespace JiangDuo.Core.Enums
     public enum WorkorderTypeEnum
     {
 
-        [Description("默认")]
+        [Description("")]
         Normal = 0,
         [Description("有事好商量")]
         Reserve = 1,

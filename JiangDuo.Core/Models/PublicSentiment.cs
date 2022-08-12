@@ -30,6 +30,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public string Attachments { get; set; }
         /// <summary>
+        /// 工单类型
+        /// </summary>
+        public WorkorderTypeEnum WorkorderType { get; set; }
+        /// <summary>
         /// 状态
         /// </summary>
         public PublicSentimentStatus Status { get; set; }

@@ -26,7 +26,7 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public SexEnum Sex { get; set; }
        /// <summary>
-       /// 类别
+       /// 类别 1.区人大，2.镇人大
        /// </summary>
         public long? CategoryId { get; set; }
         /// <summary>

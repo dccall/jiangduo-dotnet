@@ -2109,6 +2109,11 @@
             需求状态
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.WorkorderType">
+            <summary>
+            工单类型
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentForm.Attachments">
             <summary>
             附件
@@ -2132,6 +2137,11 @@
         <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery.ResidentId">
             <summary>
             居民Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery.WorkorderType">
+            <summary>
+            工单类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery.Status">
@@ -2292,6 +2302,274 @@
             批量假删除
             </summary>
             <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.TotalCount">
+            <summary>
+            总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.NotProcessedCount">
+            <summary>
+            待处理数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.InProgressCount">
+            <summary>
+            进行中数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.FeedbackCount">
+            <summary>
+            已完结数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoBusinessStatistics.BusinessName">
+            <summary>
+            业务分类名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoBusinessStatistics.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoBusinessStatistics.Percentage">
+            <summary>
+            百分比
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoBusinessStatistics.PercentageStr">
+            <summary>
+            百分比
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.TotalCount">
+            <summary>
+            总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.AuditCount">
+            <summary>
+            审核中总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.AuditedCount">
+            <summary>
+            审核通过总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.AuditFailedCount">
+            <summary>
+            审核未通过总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.CompletedCount">
+            <summary>
+            已完成总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.SelectArea">
+            <summary>
+            选区信息
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.VillageCount">
+            <summary>
+            村总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.OfficialCount">
+            <summary>
+            人大数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.ResidentCount">
+            <summary>
+            居民数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.TotalCount">
+            <summary>
+            总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.AuditCount">
+            <summary>
+            待审核数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.AuditFailedCount">
+            <summary>
+            审核未通过数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.AuditedCount">
+            <summary>
+            审核通过数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.PublishedCount">
+            <summary>
+            已发布数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.EndCount">
+            <summary>
+            已结束数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TotalCount">
+            <summary>
+            选区总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.AreaTotalCount">
+            <summary>
+            区选区总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TownTotalCount">
+            <summary>
+            镇选区总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.VillageTotalCount">
+            <summary>
+            村总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.ResidentTotalCount">
+            <summary>
+            居民总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.OfficialTotalCount">
+            <summary>
+            人大总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.AreaOfficialCount">
+            <summary>
+            区人大数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TownOfficialCount">
+            <summary>
+            镇人大数量
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService">
+            <summary>
+            查询统计
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetSelectAreaInfoList">
+            <summary>
+            获取选区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetBaseTotalCount">
+            <summary>
+            获取基本数据总数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetBusinessStatistics">
+            <summary>
+            获取业务分类统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentStatistics">
+            <summary>
+            获取用户需求数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetServiceTotalStatistics">
+            <summary>
+            获取服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetReserveTotalStatistics">
+            <summary>
+            获取预约服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetSelectAreaInfoList">
+            <summary>
+            获取选区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetBaseTotalCount">
+            <summary>
+            获取基本数据总数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetBusinessStatistics">
+            <summary>
+            获取用户需求业务分类统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentStatistics">
+            <summary>
+            获取用户需求数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetServiceTotalStatistics">
+            <summary>
+            获取服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetReserveTotalStatistics">
+            <summary>
+            获取预约服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetSelectAreaInfoList">
+            <summary>
+            获取选区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetBaseTotalCount">
+            <summary>
+            获取基本数据总数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetBusinessStatistics">
+            <summary>
+            获取用户需求业务分类统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentStatistics">
+            <summary>
+            获取用户需求数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetServiceTotalStatistics">
+            <summary>
+            获取服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetReserveTotalStatistics">
+            <summary>
+            获取预约服务数量统计
+            </summary>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Id">

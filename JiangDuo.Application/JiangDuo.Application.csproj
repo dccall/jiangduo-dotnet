@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <None Remove="applicationsettings.json" />
+    <None Remove="AppService\QueryStatistics\Services\QueryStatistics.Xml" />
     <None Remove="JiangDuo.Application.xml" />
   </ItemGroup>
 

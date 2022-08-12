@@ -222,12 +222,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
 
             var query2=  from s in query
-            join p in _participantRepository.Entities on s.Id equals p.ServiceId into result1
-            from sp in result1.DefaultIfEmpty()
             join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result2
             from so in result2.DefaultIfEmpty()
             join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result3
             from sv in result3.DefaultIfEmpty()
+            orderby s.CreatedTime descending
             select new DtoServiceInfo
             {
                 Id = s.Id,
@@ -254,7 +253,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 SelectAreaId = s.SelectAreaId,
                 Updater = s.Updater,
                 VillagesRange = s.VillagesRange,
-                IsSignUp= sp.ResidentId== userid //报名人如果和当前账号id相同显示已报名
+                IsSignUp = _participantRepository.Entities.Where(x=>x.ResidentId== userid&&x.ServiceId==s.Id).Any()
             };
             return query2.ToPagedList(model.PageIndex, model.PageSize);
 
