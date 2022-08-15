@@ -122,6 +122,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             {
                 residentEntity = new Resident();
                 residentEntity.Id = YitIdHelper.NextId();
+                residentEntity.Birthday = DateTime.Now;
                 residentEntity.CreatedTime = DateTime.Now;
                 residentEntity.Creator = 0;
                 await _residentRepository.InsertNowAsync(residentEntity);
@@ -141,7 +142,6 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
                 RefreshToken = jwt.RefreshToken,
                 Type = AccountType.Resident
             };
-           
         }
 
 

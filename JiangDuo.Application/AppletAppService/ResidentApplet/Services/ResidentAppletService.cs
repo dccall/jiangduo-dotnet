@@ -45,12 +45,13 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<Official> _officialRepository;
         private readonly INewsService _newService;
-
+        private readonly IRepository<Village> _villageRepository;
         public ResidentAppletService(ILogger<ResidentAppletService> logger,
             IServiceService serviceService,
                  IRepository<Official> officialRepository,
              IRepository<Venuedevice> venuedeviceRepository,
              INewsService newService,
+             IRepository<Village> villageRepository,
             IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -65,6 +66,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _venuedeviceRepository = venuedeviceRepository;
             _officialRepository = officialRepository;
             _newService = newService;
+            _villageRepository = villageRepository;
         }
 
         ///// <summary>
@@ -134,7 +136,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             entity.Birthday = DateTime.Parse(cardInfo.Birthday);
             //状态改为已认证（暂时只做简单认证，只要调用了这个接口就已认证）
             entity.Status = ResidentStatus.Certified;
-
+            if (entity.VillageId != null)
+            {
+                var village = _villageRepository.FindOrDefault(entity.VillageId);
+                entity.SelectAreaId = village?.SelectAreaId;
+            }
             _residentRepository.Update(entity);
             var count = await _residentRepository.SaveNowAsync();
             if (count > 0)
@@ -145,7 +151,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 {
                     Id = entity.Id,
                     Name = entity.Name,
-                    SelectAreaId = entity.SelectAreaId ?? entity.SelectAreaId.Value,
+                    SelectAreaId = entity.SelectAreaId ?? 0,
                     Type = AccountType.Resident//账号类型居民
                 }).AccessToken;
             }
@@ -169,6 +175,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+            if (entity.VillageId != null)
+            {
+                var village = _villageRepository.FindOrDefault(entity.VillageId);
+                entity.SelectAreaId = village?.SelectAreaId;
+            }
             _residentRepository.Update(entity);
             var count = await _residentRepository.SaveNowAsync();
             if (count > 0)
@@ -179,7 +190,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                 {
                     Id = entity.Id,
                     Name = entity.Name,
-                    SelectAreaId = entity.SelectAreaId ?? entity.SelectAreaId.Value,
+                    SelectAreaId = entity.SelectAreaId ??0,
                     Type = AccountType.Resident//账号类型居民
                 }).AccessToken;
             }

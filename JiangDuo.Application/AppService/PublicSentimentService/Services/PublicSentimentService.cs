@@ -73,7 +73,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                          select new DtoPublicSentiment
                          {
                              Id = p.Id,
-                             ResidentId = p.Id,
+                             ResidentId = p.ResidentId,
                              ResidentName = pr.Name,
                              Content = p.Content,
                              FeedbackContent = p.FeedbackContent,
@@ -115,7 +115,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                         select new DtoPublicSentiment
                         {
                             Id = p.Id,
-                            ResidentId = p.Id,
+                            ResidentId = p.ResidentId,
                             ResidentName = pr.Name,
                             Content = p.Content,
                             FeedbackContent = p.FeedbackContent,
@@ -133,6 +133,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                             CreatedTime = p.CreatedTime,
                             FeedbackPersonId = p.FeedbackPersonId,
                             FeedbackPerson = p.FeedbackPerson,
+                            WorkorderType = p.WorkorderType
                         };
             var dto = query.FirstOrDefault();
             if (dto != null && !string.IsNullOrEmpty(dto.Attachments))

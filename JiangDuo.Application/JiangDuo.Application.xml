@@ -1298,6 +1298,16 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNews.StatusName">
+            <summary>
+            状态名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNews.NewsClassifyName">
+            <summary>
+            分类名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNews.CoverPhotoFiles">
             <summary>
             文件对象
@@ -1348,9 +1358,24 @@
             引用的id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsForm.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery.Title">
             <summary>
             新闻标题
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.NewsService.Dto.DtoNewsQuery.IsRecommend">
+            <summary>
+            是否推荐
             </summary>
         </member>
         <member name="T:JiangDuo.Application.AppService.NewsService.NewsAppService">
@@ -2344,6 +2369,16 @@
             百分比
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatistics.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatistics.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.TotalCount">
             <summary>
             总数量
@@ -2488,6 +2523,24 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(月)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(年)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetServiceTotalStatistics">
             <summary>
             获取服务数量统计
@@ -2524,6 +2577,24 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetServiceTotalStatistics">
             <summary>
             获取服务数量统计
@@ -2557,6 +2628,24 @@
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentStatistics">
             <summary>
             获取用户需求数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(月)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(年)
             </summary>
             <returns></returns>
         </member>
@@ -3982,9 +4071,24 @@
             所属建筑名称
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.SelectAreaName">
+            <summary>
+            所属选区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.TypeName">
+            <summary>
+            类型名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.Regulation">
             <summary>
             规章制度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedevice.ImageList">
+            <summary>
+            图片列表
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Type">
@@ -4012,9 +4116,24 @@
             规则制度id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.Images">
+            <summary>
+            建筑图片
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceForm.SelectAreaId">
+            <summary>
+            所属选区
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery.VenuedeviceName">
             <summary>
-            建筑名称
+            名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery.SelectAreaId">
+            <summary>
+            所属选区
             </summary>
         </member>
         <member name="M:JiangDuo.Application.AppService.VenuedeviceService.Services.IVenuedeviceService.GetList(JiangDuo.Application.AppService.VenuedeviceService.Dto.DtoVenuedeviceQuery)">
@@ -4512,6 +4631,11 @@
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.StatusName">
             <summary>
             工单状态名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.BusinessName">
+            <summary>
+            业务类型名称
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkorderService.Dto.DtoWorkOrder.SelectAreaName">

@@ -62,6 +62,33 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetPublicSentimentStatistics();
         }
+        /// <summary>
+        /// 获取用户需求数量统计(日)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPublicSentimentDayStatistics")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentDayStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        {
+            return _queryStatisticsService.GetPublicSentimentDayStatistics(model);
+        }
+        /// <summary>
+        /// 获取用户需求数量统计(月)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPublicSentimentMonthStatistics")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentMonthStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        {
+            return _queryStatisticsService.GetPublicSentimentMonthStatistics(model);
+        }
+        /// <summary>
+        /// 获取用户需求数量统计(年)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPublicSentimentYearStatistics")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentYearStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        {
+            return _queryStatisticsService.GetPublicSentimentYearStatistics(model);
+        }
 
         /// <summary>
         /// 获取服务数量统计

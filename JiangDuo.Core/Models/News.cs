@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using JiangDuo.Core.Enums;
 namespace JiangDuo.Core.Models
 {
     /// <summary>
@@ -50,5 +50,10 @@ namespace JiangDuo.Core.Models
 
         //是否推荐
         public int IsRecommend { get; set; }
+
+       /// <summary>
+       /// 状态
+       /// </summary>
+        public NewsStatus Status { get; set; }
     }
 }

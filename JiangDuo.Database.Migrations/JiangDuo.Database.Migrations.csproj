@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JiangDuo.Core\JiangDuo.Core.csproj" />
     <ProjectReference Include="..\JiangDuo.EntityFramework.Core\JiangDuo.EntityFramework.Core.csproj" />
   </ItemGroup>
 

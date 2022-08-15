@@ -17,21 +17,27 @@ using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.VenuedeviceService.Services
 {
-    public class VenuedeviceService:IVenuedeviceService, ITransient
+    public class VenuedeviceService : IVenuedeviceService, ITransient
     {
         private readonly ILogger<VenuedeviceService> _logger;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<Regulation> _regulationRepository;
-        
+        private readonly IRepository<SysUploadFile> _uploadRepository;
         private readonly IRepository<Building> _buiildingRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
         public VenuedeviceService(ILogger<VenuedeviceService> logger,
             IRepository<Regulation> regulationRepository,
-            IRepository<Venuedevice> venuedeviceRepository, IRepository<Building> buiildingRepository)
+            IRepository<SysUploadFile> uploadRepository,
+            IRepository<Venuedevice> venuedeviceRepository,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<Building> buiildingRepository)
         {
             _logger = logger;
             _venuedeviceRepository = venuedeviceRepository;
             _buiildingRepository = buiildingRepository;
             _regulationRepository = regulationRepository;
+            _uploadRepository = uploadRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
         /// <summary>
         /// 分页
@@ -42,23 +48,37 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         {
             var query = _venuedeviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.VenuedeviceName), x => x.Name.Contains(model.VenuedeviceName));
-            var pageList = query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
-            if (pageList.Items.Count() > 0)
-            {
-                var buildingIdList= pageList.Items.Select(x => x.BuildingId).Distinct().ToList();
-                var buildingList= _buiildingRepository.Where(x => buildingIdList.Contains(x.Id)).ToList();
-                foreach (var item in pageList.Items)
-                {
-                    var entity= buildingList.Where(x => x.Id == item.BuildingId).FirstOrDefault();
-                    item.BuildingName = entity?.BuildingName;
-                }
-            }
+            query = query.Where(model.SelectAreaId!=null, x => x.SelectAreaId == model.SelectAreaId);
             
+            var query2 = from v in query
+                         join b in _buiildingRepository.Entities on v.BuildingId equals b.Id into result1
+                         from vb in result1.DefaultIfEmpty()
+                         join s in _selectAreaRepository.Entities on v.SelectAreaId equals s.Id into result2
+                         from vs in result2.DefaultIfEmpty()
+                         join r in _regulationRepository.Entities on v.RegulationId equals r.Id into result3
+                         from vr in result3.DefaultIfEmpty()
+
+                         select new DtoVenuedevice
+                         {
+                             Id = v.Id,
+                             Name = v.Name,
+                             SelectAreaId = v.SelectAreaId,
+                             SelectAreaName = vs.SelectAreaName,
+                             BuildingId = v.BuildingId,
+                             Images = v.Images,
+                             RegulationId = v.RegulationId,
+                             Remarks = v.Remarks,
+                             Type = v.Type,
+                             BuildingName = vb.BuildingName,
+                             Regulation = vr,
+                             CreatedTime = v.CreatedTime,
+                             Creator = v.Creator,
+                             UpdatedTime = v.UpdatedTime,
+                             Updater = v.Updater,
+                             IsDeleted = v.IsDeleted,
+                         };
+            var pageList = query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
             return pageList;
-
-
-            //将数据映射到DtoVenuedevice中
-            //return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVenuedevice>().ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -67,13 +87,43 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         /// <returns></returns>
         public async Task<DtoVenuedevice> GetById(long id)
         {
-            var entity = await _venuedeviceRepository.FindOrDefaultAsync(id);
+            var query = _venuedeviceRepository.Where(x => !x.IsDeleted&&x.Id==id);
+            var query2 = from v in query
+                         join b in _buiildingRepository.Entities on v.BuildingId equals b.Id into result1
+                         from vb in result1.DefaultIfEmpty()
+                         join s in _selectAreaRepository.Entities on v.SelectAreaId equals s.Id into result2
+                         from vs in result2.DefaultIfEmpty()
+                         join r in _regulationRepository.Entities on v.RegulationId equals r.Id into result3
+                         from vr in result3.DefaultIfEmpty()
 
-            var dto = entity.Adapt<DtoVenuedevice>();
-            if (dto!=null)
+                         select new DtoVenuedevice
+                         {
+                             Id = v.Id,
+                             Name = v.Name,
+                             SelectAreaId = v.SelectAreaId,
+                             SelectAreaName=vs.SelectAreaName,
+                             BuildingId = v.BuildingId,
+                             Images = v.Images,
+                             RegulationId = v.RegulationId,
+                             Remarks = v.Remarks,
+                             Type = v.Type,
+                             BuildingName = vb.BuildingName,
+                             Regulation = vr,
+                             CreatedTime = v.CreatedTime,
+                             Creator = v.Creator,
+                             UpdatedTime = v.UpdatedTime,
+                             Updater = v.Updater,
+                             IsDeleted = v.IsDeleted,
+                         };
+
+            var dto = query2.FirstOrDefault();
+            if (dto != null)
             {
-                //获取规章制度
-                dto.Regulation = _regulationRepository.FindOrDefault(dto.RegulationId);
+                if (!string.IsNullOrEmpty(dto.Images))
+                {
+                    var idList = dto.Images.Split(',').ToList();
+                    dto.ImageList = _uploadRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+                }
             }
             return dto;
         }
@@ -88,10 +138,22 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
+
+            if (model.ImageList != null && model.ImageList.Any())
+            {
+                entity.Images = String.Join(",", model.ImageList.Select(x => x.FileId));
+            }
+            if (model.BuildingId != null)
+            {
+                var buiilding = _buiildingRepository.FindOrDefault(model.BuildingId);
+                entity.SelectAreaId = buiilding?.SelectAreaId;
+            }
+
+
             _venuedeviceRepository.Insert(entity);
             return await _venuedeviceRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -100,19 +162,28 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         public async Task<int> Update(DtoVenuedeviceForm model)
         {
             //先根据id查询实体
-            var entity= _venuedeviceRepository.FindOrDefault(model.Id);
+            var entity = _venuedeviceRepository.FindOrDefault(model.Id);
             if (entity == null)
             {
                 throw Oops.Oh("数据不存在");
             }
             //将模型数据映射给实体属性
-            entity= model.Adapt(entity);
+            entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+            if (model.ImageList != null && model.ImageList.Any())
+            {
+                entity.Images = String.Join(",", model.ImageList.Select(x => x.FileId));
+            }
+            if (model.BuildingId != null)
+            {
+                var buiilding = _buiildingRepository.FindOrDefault(model.BuildingId);
+                entity.SelectAreaId = buiilding?.SelectAreaId;
+            }
             _venuedeviceRepository.Update(entity);
             return await _venuedeviceRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -141,7 +212,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
                 .ExecuteAsync();
             return result;
         }
-    
+
 
     }
 }

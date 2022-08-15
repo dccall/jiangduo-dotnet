@@ -36,5 +36,15 @@ namespace JiangDuo.Core.Models
         /// 规则制度id
         /// </summary>
         public long? RegulationId { get; set; }
+
+        /// <summary>
+        /// 建筑图片
+        /// </summary>
+        //[MaxLength(300)]
+        public string Images { get; set; }
+        /// <summary>
+        /// 所属选区
+        /// </summary>
+        public long? SelectAreaId { get; set; }
     }
 }

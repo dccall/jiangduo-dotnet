@@ -116,7 +116,66 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             dto.FeedbackCount= _publicSentimentRepository.Where(x => !x.IsDeleted&& x.Status== PublicSentimentStatus.Feedback).Count();
             return dto;
         }
-        
+        /// <summary>
+        /// 获取用户需求数量统计(日)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentDayStatistics(DtoYearMonthDayStatisticsQuery model)
+        {
+
+            var query= _publicSentimentRepository.Where(x => !x.IsDeleted);
+            query=query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
+            query = query.Where(model.EndTime != null, x => x.CreatedTime<= model.EndTime);
+
+            //            var sql = @"
+            //select 
+            //count(0) as count,
+            //DATE_FORMAT(CreatedTime,'%Y-%m-%d') as date
+            //from publicsentiment
+            //group by DATE_FORMAT(CreatedTime,'%Y-%m-%d')
+            //";
+            var list = query.OrderBy(x=>x.CreatedTime).GroupBy(x =>new {year= x.CreatedTime.Year,month=x.CreatedTime.Month,day=x.CreatedTime.Day }).Select(x => new DtoYearMonthDayStatistics
+            {
+                Date = x.Key.year+"-"+ x.Key.month + "-" + x.Key.day,
+                Count = x.Count()
+            }).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 获取用户需求数量统计(月)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentMonthStatistics(DtoYearMonthDayStatisticsQuery model)
+        {
+
+            var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
+            query = query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
+            query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
+            var list = query.OrderBy(x => x.CreatedTime).GroupBy(x => new { year = x.CreatedTime.Year, month = x.CreatedTime.Month }).Select(x => new DtoYearMonthDayStatistics
+            {
+                Date = x.Key.year + "-" + x.Key.month,
+                Count = x.Count()
+            }).ToList();
+            return list;
+        }
+        /// <summary>
+        /// 获取用户需求数量统计(年)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentYearStatistics(DtoYearMonthDayStatisticsQuery model)
+        {
+
+            var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
+            query = query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
+            query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
+            var list = query.OrderBy(x => x.CreatedTime).GroupBy(x => new { year = x.CreatedTime.Year }).Select(x => new DtoYearMonthDayStatistics
+            {
+                Date = x.Key.year+"",
+                Count = x.Count()
+            }).ToList();
+            return list;
+        }
 
         /// <summary>
         /// 获取服务数量统计

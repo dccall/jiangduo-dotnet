@@ -18,18 +18,21 @@ using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.NewsService.Services
 {
-    public class NewsService:INewsService, ITransient
+    public class NewsService : INewsService, ITransient
     {
         private readonly ILogger<NewsService> _logger;
         private readonly IRepository<News> _newsRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
+        private readonly IRepository<Newsclassify> _newsclassifyRepository;
         public NewsService(ILogger<NewsService> logger,
              IRepository<SysUploadFile> uploadFileRepository,
+             IRepository<Newsclassify> newsclassifyRepository,
             IRepository<News> newsRepository)
         {
             _logger = logger;
             _newsRepository = newsRepository;
             _uploadFileRepository = uploadFileRepository;
+            _newsclassifyRepository = newsclassifyRepository;
         }
         /// <summary>
         /// 分页
@@ -40,10 +43,32 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         {
             var query = _newsRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Title), x => x.Title.Contains(model.Title));
-            query = query.Where(model.IsRecommend!=null, x => x.IsRecommend==model.IsRecommend);
+            query = query.Where(model.IsRecommend != null, x => x.IsRecommend == model.IsRecommend);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
 
-            //将数据映射到DtoNews中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoNews>().ToPagedList(model.PageIndex, model.PageSize);
+            var query2 = from x in query
+                         join c in _newsclassifyRepository.Entities on x.NewsClassifyId equals c.Id into result1
+                         from xc in result1.DefaultIfEmpty()
+                         select new DtoNews
+                         {
+                             Id = x.Id,
+                             Author = x.Author,
+                             Content = x.Content,
+                             CoverPhoto = x.CoverPhoto,
+                             NewsClassifyId = x.NewsClassifyId,
+                             NewsClassifyName=xc.ClassifyName,
+                             IsRecommend = x.IsRecommend,
+                             Subtitle = x.Subtitle,
+                             Title = x.Title,
+                             CreatedTime = x.CreatedTime,
+                             Creator = x.Creator,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             IsDeleted = x.IsDeleted,
+                         };
+            var pageList = query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            return pageList;
+
         }
         /// <summary>
         /// 根据编号查询详情
@@ -52,16 +77,34 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         public async Task<DtoNews> GetById(long id)
         {
-            var entity = await _newsRepository.FindOrDefaultAsync(id);
+            var query = _newsRepository.Where(x => !x.IsDeleted&&x.Id==id);
+         
+            var query2 = from x in query
+                         join c in _newsclassifyRepository.Entities on x.NewsClassifyId equals c.Id into result1
+                         from nc in result1.DefaultIfEmpty()
+                         select new DtoNews
+                         {
+                             Id = x.Id,
+                             Author = x.Author,
+                             Content = x.Content,
+                             CoverPhoto = x.CoverPhoto,
+                             NewsClassifyId = x.NewsClassifyId,
+                             IsRecommend = x.IsRecommend,
+                             Subtitle = x.Subtitle,
+                             Title = x.Title,
+                             CreatedTime = x.CreatedTime,
+                             Creator = x.Creator,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             IsDeleted = x.IsDeleted,
+                         };
 
-            var dto = entity.Adapt<DtoNews>();
-
-            if (!string.IsNullOrEmpty(dto.CoverPhoto))
+            var dto = query2.FirstOrDefault();
+            if (dto!=null&&!string.IsNullOrEmpty(dto.CoverPhoto))
             {
                 var idList = dto.CoverPhoto.Split(',').ToList();
                 dto.CoverPhotoFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
             }
-
             return dto;
         }
         /// <summary>
@@ -82,7 +125,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             _newsRepository.Insert(entity);
             return await _newsRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -107,7 +150,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             _newsRepository.Update(entity);
             return await _newsRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -136,7 +179,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                 .ExecuteAsync();
             return result;
         }
-    
+
 
     }
 }

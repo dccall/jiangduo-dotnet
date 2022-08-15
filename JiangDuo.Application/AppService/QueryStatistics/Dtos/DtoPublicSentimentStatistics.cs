@@ -53,4 +53,24 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
             }
         }
     }
+
+
+    public class DtoYearMonthDayStatisticsQuery
+    {
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
+    }
+
+    public class DtoYearMonthDayStatistics
+    {
+        /// <summary>
+        /// 日期
+        /// </summary>
+
+        public string Date { get; set; }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public int Count { get; set; }
+    }
 }

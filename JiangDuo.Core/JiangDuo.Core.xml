@@ -226,6 +226,11 @@
             引用的id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.News.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Newsclassify">
             <summary>
             新闻分类
@@ -1452,6 +1457,16 @@
         <member name="P:JiangDuo.Core.Models.Venuedevice.RegulationId">
             <summary>
             规则制度id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.Images">
+            <summary>
+            建筑图片
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Venuedevice.SelectAreaId">
+            <summary>
+            所属选区
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Village">

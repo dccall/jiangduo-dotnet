@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,12 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// </summary>
         public long? RelationId { get; set; }
 
+        //是否推荐
+        public int IsRecommend { get; set; }
 
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public NewsStatus Status { get; set; }
     }
 }

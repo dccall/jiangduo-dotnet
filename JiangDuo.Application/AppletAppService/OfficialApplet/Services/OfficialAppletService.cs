@@ -47,6 +47,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         private readonly IReserveService _reserveService;
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<SelectArea> _selectAreaRepository;
+        private readonly IRepository<Business> _businessRepository;
         public OfficialAppletService(ILogger<OfficialAppletService> logger, 
             IWorkOrderService workOrderService, 
             IRepository<Resident> residentRepository, 
@@ -61,6 +62,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             IServiceService serviceService,
             IRepository<SelectArea> selectAreaRepository,
             IRepository<Venuedevice> venuedeviceRepositor,
+            IRepository<Business> businessRepository,
             IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -78,6 +80,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             _serviceService = serviceService;
             _venuedeviceRepository = venuedeviceRepositor;
             _selectAreaRepository= selectAreaRepository;
+            _businessRepository = businessRepository;
         }
 
 
@@ -362,10 +365,12 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                 };
                 query = query.Where(model.Status != null, x => x.Status == model.Status);
             }
-
+         
             var query2 = from w in query
                          join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
                          from wa in result1.DefaultIfEmpty()
+                         join b in _businessRepository.Entities on w.BusinessId equals b.Id into result3
+                         from wb in result3.DefaultIfEmpty()
                          select new DtoWorkOrder
                          {
                              Id = w.Id,
@@ -373,6 +378,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                              AssistantName = w.AssistantName,
                              Attachments = w.Attachments,
                              BusinessId = w.BusinessId,
+                             BusinessName = wb.Name,
                              Content = w.Content,
                              CreatedTime = w.CreatedTime,
                              Creator = w.Creator,

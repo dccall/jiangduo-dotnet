@@ -38,5 +38,17 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
         /// 规则制度id
         /// </summary>
         public long? RegulationId { get; set; }
+
+        /// <summary>
+        /// 建筑图片
+        /// </summary>
+        //[MaxLength(500)]
+        public string Images { get; set; }
+
+        public List<SysUploadFile> ImageList { get; set; } = new List<SysUploadFile>();
+        /// <summary>
+        /// 所属选区
+        /// </summary>
+        public long? SelectAreaId { get; set; }
     }
 }

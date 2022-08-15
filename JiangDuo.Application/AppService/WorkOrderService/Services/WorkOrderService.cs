@@ -42,6 +42,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<SelectArea> _selectAreaRepository;
         private readonly IRepository<PublicSentiment> _publicSentimentRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
+        private readonly IRepository<Business> _businessRepository;
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
             IRepository<Core.Models.Service> serviceRepository,
@@ -55,11 +56,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             IRepository<SysUser> userRepository,
             IRepository<Workorderfeedback> workorderfeedbackRepository,
             IRepository<SelectArea> selectAreaRepository,
+            IRepository<Business> businessRepository,
             IRepository<PublicSentiment> publicSentimentRepository,
             IRepository<SysUploadFile> uploadFileRepository
             )
         {
             _logger = logger;
+            _businessRepository = businessRepository;
             _workOrderRepository = workOrderRepository;
             _reserveRepository = reserveRepository;
             _serviceRepository = serviceRepository;
@@ -93,7 +96,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
             query = query.Where(!(model.SelectAreaId==null||model.SelectAreaId==-1), x => x.SelectAreaId== model.SelectAreaId);
 
-            if (model.Status == null && model.PageSource == 0)
+            if (model.Status == null && model.PageSource == 1)
             {
                 var statusList = new List<WorkorderStatusEnum>() {
                  WorkorderStatusEnum.Normal,
@@ -102,13 +105,13 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 };
                 query = query.Where(x => statusList.Contains(x.Status));
             }
-            if (model.Status == null && model.PageSource == 1)
+            if (model.Status == null && model.PageSource == 2)
             {
                 var statusList = new List<WorkorderStatusEnum>() {
                  WorkorderStatusEnum.Completed,//已完成待审核
-                 WorkorderStatusEnum.Audited,//审核通过
-                 WorkorderStatusEnum.AuditFailed,//审核未通过
-                 WorkorderStatusEnum.End,//结束
+                 //WorkorderStatusEnum.Audited,//审核通过
+                 //WorkorderStatusEnum.AuditFailed,//审核未通过
+                 //WorkorderStatusEnum.End,//结束
                 };
                 query = query.Where(x => statusList.Contains(x.Status));
             }
@@ -116,6 +119,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             var query2 = from w in query
                          join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
                          from wa in result1.DefaultIfEmpty()
+                         join b in _businessRepository.Entities on w.BusinessId equals b.Id into result3
+                         from wb in result3.DefaultIfEmpty()
                          select new DtoWorkOrder
                          {
                              Id = w.Id,
@@ -123,6 +128,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                              AssistantName = w.AssistantName,
                              Attachments = w.Attachments,
                              BusinessId = w.BusinessId,
+                             BusinessName = wb.Name,
                              Content = w.Content,
                              CreatedTime = w.CreatedTime,
                              Creator = w.Creator,
@@ -155,10 +161,42 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         /// <returns></returns>
         public async Task<DtoWorkOrder> GetById(long id)
         {
-            var entity = await _workOrderRepository.FindOrDefaultAsync(id);
-
-            var dto = entity.Adapt<DtoWorkOrder>();
-
+            var query= _workOrderRepository.Where(x => !x.IsDeleted && x.Id == id);
+            var query2 = from w in query
+                         join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
+                         from wa in result1.DefaultIfEmpty()
+                         join b in _businessRepository.Entities on w.BusinessId equals b.Id into result3
+                         from wb in result3.DefaultIfEmpty()
+                         select new DtoWorkOrder
+                         {
+                             Id = w.Id,
+                             AssistantId = w.AssistantId,
+                             AssistantName = w.AssistantName,
+                             Attachments = w.Attachments,
+                             BusinessId = w.BusinessId,
+                             BusinessName = wb.Name,
+                             Content = w.Content,
+                             CreatedTime = w.CreatedTime,
+                             Creator = w.Creator,
+                             IsDeleted = w.IsDeleted,
+                             OriginatorId = w.OriginatorId,
+                             OriginatorName = w.OriginatorName,
+                             PublicSentimentId = w.PublicSentimentId,
+                             RecipientId = w.RecipientId,
+                             RecipientName = w.RecipientName,
+                             OverTime = w.OverTime,
+                             Score = w.Score,
+                             SelectAreaId = w.SelectAreaId,
+                             StartTime = w.StartTime,
+                             Status = w.Status,
+                             WorkOrderNo = w.WorkOrderNo,
+                             UpdatedTime = w.UpdatedTime,
+                             Updater = w.Updater,
+                             SelectAreaName = wa.SelectAreaName,
+                             WorkorderSource = w.WorkorderSource,
+                             WorkorderType = w.WorkorderType,
+                         };
+            var dto = query2.FirstOrDefault();
             if (!string.IsNullOrEmpty(dto.Attachments))
             {
                 var idList = dto.Attachments.Split(',').ToList();

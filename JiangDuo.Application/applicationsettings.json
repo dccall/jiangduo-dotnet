@@ -34,8 +34,8 @@
   },
   "WeiXin": {
     "BaseAddress": "https://api.weixin.qq.com/",
-    "Appid": "wx846f0de9b0fddde1",
-    "Secret": "87d7031778836ccb50b23e4e8d855312",
+    "Appid": "wx39081469af6f0cd1",
+    "Secret": "5d2d1f0585b6c92e3e844513288c4b21",
     "OAuthRedirectUri": {
       "Client": "",
       "Driver": ""

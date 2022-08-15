@@ -30,8 +30,21 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public DtoPublicSentimentStatistics GetPublicSentimentStatistics();
-
-
+        /// <summary>
+        /// 获取用户需求数量统计(日)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentDayStatistics(DtoYearMonthDayStatisticsQuery model);
+        /// <summary>
+        /// 获取用户需求数量统计(日)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentMonthStatistics(DtoYearMonthDayStatisticsQuery model);
+        /// <summary>
+        /// 获取用户需求数量统计(日)
+        /// </summary>
+        /// <returns></returns>
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentYearStatistics(DtoYearMonthDayStatisticsQuery model);
         /// <summary>
         /// 获取服务数量统计
         /// </summary>
