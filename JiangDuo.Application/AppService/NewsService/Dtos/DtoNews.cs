@@ -23,6 +23,6 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// <summary>
         /// 文件对象
         /// </summary>
-        public List<SysUploadFile> CoverPhotoFiles { get; set; }
+        public List<SysUploadFile> CoverPhotoFiles { get; set; } = new List<SysUploadFile>();
     }
 }

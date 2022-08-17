@@ -45,6 +45,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Title), x => x.Title.Contains(model.Title));
             query = query.Where(model.IsRecommend != null, x => x.IsRecommend == model.IsRecommend);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
+            query = query.Where(model.NewsClassifyId != null, x => x.NewsClassifyId == model.NewsClassifyId);
 
             var query2 = from x in query
                          join c in _newsclassifyRepository.Entities on x.NewsClassifyId equals c.Id into result1
@@ -56,7 +57,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                              Content = x.Content,
                              CoverPhoto = x.CoverPhoto,
                              NewsClassifyId = x.NewsClassifyId,
-                             NewsClassifyName=xc.ClassifyName,
+                             NewsClassifyName = xc.ClassifyName,
                              IsRecommend = x.IsRecommend,
                              Subtitle = x.Subtitle,
                              Title = x.Title,
@@ -65,6 +66,8 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                              UpdatedTime = x.UpdatedTime,
                              Updater = x.Updater,
                              IsDeleted = x.IsDeleted,
+                             Status = x.Status,
+                             RelationId = x.RelationId,
                          };
             var pageList = query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
             return pageList;
@@ -77,8 +80,8 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         public async Task<DtoNews> GetById(long id)
         {
-            var query = _newsRepository.Where(x => !x.IsDeleted&&x.Id==id);
-         
+            var query = _newsRepository.Where(x => !x.IsDeleted && x.Id == id);
+
             var query2 = from x in query
                          join c in _newsclassifyRepository.Entities on x.NewsClassifyId equals c.Id into result1
                          from nc in result1.DefaultIfEmpty()
@@ -97,10 +100,12 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                              UpdatedTime = x.UpdatedTime,
                              Updater = x.Updater,
                              IsDeleted = x.IsDeleted,
+                             Status = x.Status,
+                             RelationId = x.RelationId,
                          };
 
             var dto = query2.FirstOrDefault();
-            if (dto!=null&&!string.IsNullOrEmpty(dto.CoverPhoto))
+            if (dto != null && !string.IsNullOrEmpty(dto.CoverPhoto))
             {
                 var idList = dto.CoverPhoto.Split(',').ToList();
                 dto.CoverPhotoFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
@@ -114,8 +119,10 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoNewsForm model)
         {
+            var account = JwtHelper.GetAccountInfo();
             var entity = model.Adapt<News>();
             entity.Id = YitIdHelper.NextId();
+            entity.Author = account.Name;
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             if (model.CoverPhotoFiles != null && model.CoverPhotoFiles.Any())
@@ -148,6 +155,24 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                 entity.CoverPhoto = String.Join(",", model.CoverPhotoFiles.Select(x => x.FileId));
             }
             _newsRepository.Update(entity);
+            return await _newsRepository.SaveNowAsync();
+        }
+        /// <summary>
+        /// 更新状态
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateStatus(DtoNewsUpdateStatus model)
+        {
+            //先根据id查询实体
+            var entity = _newsRepository.FindOrDefault(model.Id);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.Status = model.Status;
+            _newsRepository.UpdateInclude(entity, new string[] { nameof(entity.Status) });
+
             return await _newsRepository.SaveNowAsync();
         }
 

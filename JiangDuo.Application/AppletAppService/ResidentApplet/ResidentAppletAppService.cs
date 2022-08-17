@@ -125,7 +125,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="id">编号</param>
     /// <returns></returns>
-    public async Task<DtoService> GetServiceById([FromQuery] long id)
+    public async Task<DtoServiceInfo> GetServiceById([FromQuery] long id)
     {
         return await _residentAppletService.GetServiceById(id);
     }

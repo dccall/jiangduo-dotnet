@@ -272,10 +272,10 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             {
                 throw Oops.Oh("数据不存在");
             }
-            if (entity.Status != ServiceStatusEnum.AuditFailed)
-            {
-                throw Oops.Oh("当前状态无法删除");
-            }
+            //if (entity.Status != ServiceStatusEnum.AuditFailed)
+            //{
+            //    throw Oops.Oh("当前状态无法删除");
+            //}
             entity.IsDeleted = true;
             return await _serviceRepository.SaveNowAsync();
         }

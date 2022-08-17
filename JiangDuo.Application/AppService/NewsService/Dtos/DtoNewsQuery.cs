@@ -19,6 +19,10 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// </summary>
         public string Title { get; set; }
         /// <summary>
+        /// 新闻分类
+        /// </summary>
+        public long? NewsClassifyId { get; set; }
+        /// <summary>
         /// 是否推荐
         /// </summary>
         public int? IsRecommend { get; set; }

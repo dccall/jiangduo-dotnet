@@ -81,7 +81,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public  Task<DtoService> GetServiceById(long id);
+        public  Task<DtoServiceInfo> GetServiceById(long id);
 
         /// <summary>
         /// 查询我的参与和预约的服务

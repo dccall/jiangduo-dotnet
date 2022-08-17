@@ -37,6 +37,12 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         /// <returns></returns>
         Task<int> Update(DtoNewsForm model);
         /// <summary>
+        /// 更新状态
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<int> UpdateStatus(DtoNewsUpdateStatus model);
+        /// <summary>
         /// 假删除
         /// </summary>
         /// <param name="id"></param>

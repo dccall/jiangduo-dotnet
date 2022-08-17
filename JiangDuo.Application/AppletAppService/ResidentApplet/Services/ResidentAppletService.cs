@@ -204,6 +204,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public PagedList<DtoNews> GetNewsList(DtoNewsQuery model)
         {
+            //只查询已发布的新闻
+            model.Status = NewsStatus.Publish;
             return _newService.GetList(model);
         }
         /// <summary>
@@ -276,10 +278,44 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public async Task<DtoService> GetServiceById(long id)
+        public async Task<DtoServiceInfo> GetServiceById(long id)
         {
-            var dto = await _serviceService.GetById(id);
-            return dto;
+            var userid = JwtHelper.GetAccountId();
+            var query = from s in _serviceRepository.Entities.Where(x=>x.Id==id)
+                         join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result2
+                         from so in result2.DefaultIfEmpty()
+                         join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result3
+                         from sv in result3.DefaultIfEmpty()
+                         orderby s.CreatedTime descending
+                         select new DtoServiceInfo
+                         {
+                             Id = s.Id,
+                             Address = s.Address,
+                             Attachments = s.Attachments,
+                             AuditFindings = s.AuditFindings,
+                             GroupOriented = s.GroupOriented,
+                             CreatedTime = s.CreatedTime,
+                             Creator = s.Creator,
+                             IsDeleted = s.IsDeleted,
+                             OfficialsId = s.OfficialsId,
+                             OfficialsName = so.Name,
+                             PlanNumber = s.PlanNumber,
+                             PlanStartTime = s.PlanStartTime,
+                             PlanEndTime = s.PlanEndTime,
+                             Remarks = s.Remarks,
+                             ServiceName = s.ServiceName,
+                             ServiceType = s.ServiceType,
+                             Status = s.Status,
+                             UpdatedTime = s.UpdatedTime,
+                             VenueDeviceId = s.VenueDeviceId,
+                             VenueDeviceName = sv.Name,
+                             ServiceClassifyId = s.ServiceClassifyId,
+                             SelectAreaId = s.SelectAreaId,
+                             Updater = s.Updater,
+                             VillagesRange = s.VillagesRange,
+                             IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid && x.ServiceId == s.Id).Any()
+                         };
+            return query.FirstOrDefault();
         }
         /// <summary>
         /// 查询我的参与和预约的服务

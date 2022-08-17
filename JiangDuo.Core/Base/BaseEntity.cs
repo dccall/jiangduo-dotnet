@@ -21,6 +21,7 @@ namespace JiangDuo.Core.Base
 		/// 创建者
 		/// </summary>
 		public long Creator { get; set; }
+		/// <summary>
 		/// 创建时间
 		/// </summary>
 		public DateTime CreatedTime { get; set; }=new DateTime();

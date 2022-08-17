@@ -10,7 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using Furion.DatabaseAccessor;
-
+using Mapster;
+using JiangDuo.Application.Tools;
 namespace JiangDuo.Application.AppService.WorkOrderService;
 
 /// <summary>
@@ -35,7 +36,19 @@ public class WorkOrderAppService : IDynamicApiController
     {
         return _workOrderService.GetList(model);
     }
-
+    /// <summary>
+    /// 工单导出
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet,NonUnify]
+    public IActionResult Export([FromQuery] DtoWorkOrderQuery model)
+    {
+        //查询数据
+        var list= _workOrderService.GetList(model).Items.ToList();
+        var list2= list.Adapt<List<DtoWorkOrderExportExcel>>();
+        return ExcelHelp.ExportExcel("工单列表.xlsx", list2);
+    }
     /// <summary>
     /// 根据id获取详情
     /// </summary>

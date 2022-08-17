@@ -25,15 +25,12 @@ public class Startup : AppStartup
 		});
 		services.AddJwt<JwtHandler>(enableGlobalAuthorize: true);
 		services.AddCorsAccessor();
-		// 添加即时通讯
-		services.AddSignalR();
 		services.AddControllers().AddDynamicApiControllers().AddInjectWithUnifyResult()
 			.AddNewtonsoftJson(option => {
 				//忽略循环引用
 				option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 				option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 			});
-		
 		services.AddStackExchangeRedisCache(options =>
 		{
 			// 连接字符串，这里也可以读取配置文件
@@ -50,11 +47,14 @@ public class Startup : AppStartup
 				c.BaseAddress = new Uri(App.Configuration["WeiXin:BaseAddress"]);
 			});
 		});
+
+
+		// 添加即时通讯
+		services.AddSignalR();
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 	{
-	
 		if (env.IsDevelopment())
 		{
 			app.UseDeveloperExceptionPage();

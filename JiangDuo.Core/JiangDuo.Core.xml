@@ -19,7 +19,11 @@
             创建者
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Base.BaseEntity.CreatedTime" -->
+        <member name="P:JiangDuo.Core.Base.BaseEntity.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Base.BaseEntity.UpdatedTime">
             <summary>
             更新时间
@@ -224,6 +228,11 @@
         <member name="P:JiangDuo.Core.Models.News.RelationId">
             <summary>
             引用的id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.News.IsRecommend">
+            <summary>
+            是否推荐0否，1是
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.News.Status">
@@ -1926,6 +1935,20 @@
             <param name="appid"></param>
             <param name="secret"></param>
             <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Core.TaskScheduler.JobWorker.CheckServiceStatus(Furion.TaskScheduler.SpareTimer,System.Int64)">
+            <summary>
+            每分钟执行
+            </summary>
+            <param name="timer"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:JiangDuo.Core.TaskScheduler.SpareTimeListener.OnListener(Furion.TaskScheduler.SpareTimerExecuter)">
+            <summary>
+            监听所有任务
+            </summary>
+            <param name="executer"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Core.Utils.IdCardHelper.CalculateAge(System.String)">

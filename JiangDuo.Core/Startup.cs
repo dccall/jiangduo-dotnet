@@ -23,5 +23,7 @@ public class Startup : AppStartup
                 c.BaseAddress = new Uri(App.Configuration["WeiXin:Address"]);
             });
         });
+
+        services.AddTaskScheduler();
     }
 }

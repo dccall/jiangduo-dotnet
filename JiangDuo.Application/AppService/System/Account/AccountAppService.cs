@@ -73,7 +73,7 @@ public class AccountAppService : IDynamicApiController
 		return await _accountService.GetById(userId);
 	}
 	/// <summary>
-	/// 获取登录用户获取路由
+	/// 获取登录用户路由
 	/// </summary>
 	/// <returns></returns>
 	[ApiDescriptionSettings(KeepVerb = true)]
@@ -83,7 +83,7 @@ public class AccountAppService : IDynamicApiController
 		return await _accountService.GetUserRoutes(userId);
 	}
 	/// <summary>
-	/// 获取根据用户id获取路由
+	/// 根据用户id获取路由
 	/// </summary>
 	/// <returns></returns>
 	[ApiDescriptionSettings(KeepVerb = true)]

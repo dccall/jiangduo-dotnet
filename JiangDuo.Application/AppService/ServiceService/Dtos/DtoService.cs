@@ -44,7 +44,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Dto
         /// <summary>
         /// 附件文件对象
         /// </summary>
-        public List<SysUploadFile> AttachmentsFiles { get; set; }
+        public List<SysUploadFile> AttachmentsFiles { get; set; } = new List<SysUploadFile>();
 
         /// <summary>
         /// 场地/设备

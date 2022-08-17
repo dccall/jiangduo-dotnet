@@ -62,6 +62,17 @@ public class NewsAppService : IDynamicApiController
         return await _newsService.Update(model);
     }
     /// <summary>
+    /// 更新状态
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("UpdateStatus")]
+    public async Task<int> UpdateStatus(DtoNewsUpdateStatus model)
+    {
+        return await _newsService.UpdateStatus(model);
+    }
+
+    /// <summary>
     /// 根据id删除
     /// </summary>
     /// <param name="id"></param>

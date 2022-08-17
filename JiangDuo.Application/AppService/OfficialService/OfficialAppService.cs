@@ -80,4 +80,6 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.FakeDelete(idList);
     }
+
+   
 }

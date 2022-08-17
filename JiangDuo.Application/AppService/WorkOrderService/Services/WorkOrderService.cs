@@ -154,12 +154,14 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
 
         }
-        /// <summary>
-        /// 根据id查询详情
-        /// </summary>
-        /// <param name="id">id</param>
-        /// <returns></returns>
-        public async Task<DtoWorkOrder> GetById(long id)
+
+
+            /// <summary>
+            /// 根据id查询详情
+            /// </summary>
+            /// <param name="id">id</param>
+            /// <returns></returns>
+            public async Task<DtoWorkOrder> GetById(long id)
         {
             var query= _workOrderRepository.Where(x => !x.IsDeleted && x.Id == id);
             var query2 = from w in query
