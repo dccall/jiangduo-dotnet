@@ -12,6 +12,10 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
     public class DtoWorkOrderQuery : BaseRequest
     {
         /// <summary>
+        /// 接收人名称
+        /// </summary>
+        public string RecipientName { get; set; }
+        /// <summary>
         /// 工单编号
         /// </summary>
         [MaxLength(50)]

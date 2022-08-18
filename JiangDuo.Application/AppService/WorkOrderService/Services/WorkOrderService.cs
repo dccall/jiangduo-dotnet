@@ -87,6 +87,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         public PagedList<DtoWorkOrder> GetList([FromQuery] DtoWorkOrderQuery model)
         {
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
+            query = query.Where(!string.IsNullOrEmpty(model.RecipientName), x => x.RecipientName == model.RecipientName);
             query = query.Where(!string.IsNullOrEmpty(model.WorkOrderNo), x => x.WorkOrderNo == model.WorkOrderNo);
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
             query = query.Where(model.BusinessId != null, x => x.BusinessId == model.BusinessId);
