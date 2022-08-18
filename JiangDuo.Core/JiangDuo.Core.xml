@@ -1937,20 +1937,6 @@
             <param name="code"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Core.TaskScheduler.JobWorker.CheckServiceStatus(Furion.TaskScheduler.SpareTimer,System.Int64)">
-            <summary>
-            每分钟执行
-            </summary>
-            <param name="timer"></param>
-            <param name="count"></param>
-        </member>
-        <member name="M:JiangDuo.Core.TaskScheduler.SpareTimeListener.OnListener(Furion.TaskScheduler.SpareTimerExecuter)">
-            <summary>
-            监听所有任务
-            </summary>
-            <param name="executer"></param>
-            <returns></returns>
-        </member>
         <member name="M:JiangDuo.Core.Utils.IdCardHelper.CalculateAge(System.String)">
             <summary>
             根据出生日期，计算精确的年龄

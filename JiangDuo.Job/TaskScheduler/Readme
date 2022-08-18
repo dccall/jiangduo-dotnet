@@ -1,0 +1,46 @@
+﻿表达式	表达式代表含义	格式化
+* * * * *	每分钟	CronFormat.Standard
+*/1 * * * *	每分钟	CronFormat.Standard
+0 0/1 * * * ?	每分钟	CronFormat.IncludeSeconds
+0 0 * * * ?	每小时	CronFormat.IncludeSeconds
+0 0 0/1 * * ?	每小时	CronFormat.IncludeSeconds
+0 23 ? * MON-FRI	晚上 11:00，周一至周五	CronFormat.Standard
+* * * * * *	每秒	CronFormat.IncludeSeconds
+*/45 * * * * *	每 45 秒	CronFormat.IncludeSeconds
+*/5 * * * *	每 5 分钟	CronFormat.Standard
+0 0/10 * * * ?	每 10 分钟	CronFormat.IncludeSeconds
+0 */5 * * * *	每 5 分钟	CronFormat.IncludeSeconds
+30 11 * * 1-5	周一至周五上午 11:30	CronFormat.Standard
+30 11 * * *	11:30	CronFormat.Standard
+0-10 11 * * *	上午 11:00 至 11:10 之间的每一分钟	CronFormat.Standard
+* * * 3 *	每分钟，只在 3 月份	CronFormat.Standard
+* * * 3,6 *	每分钟，只在 3 月和 6 月	CronFormat.Standard
+30 14,16 * * *	下午 02:30 分和 04:30 分	CronFormat.Standard
+30 6,14,16 * * *	早上 06:30，下午 02:30 和 04:30	CronFormat.Standard
+46 9 * * 1	早上 09:46，只在星期一	CronFormat.Standard
+23 12 15 * *	下午 12:23，在本月的第 15 天	CronFormat.Standard
+23 12 * JAN *	下午 12:23，只在 1 月份	CronFormat.Standard
+23 12 ? JAN *	下午 12:23，只在 1 月份	CronFormat.Standard
+23 12 * JAN-FEB *	下午 12:23，1 月至 2 月	CronFormat.Standard
+23 12 * JAN-MAR *	下午 12:23，1 月至 3 月	CronFormat.Standard
+23 12 * * SUN	下午 12:23，仅在星期天	CronFormat.Standard
+*/5 15 * * MON-FRI	每 5 分钟，下午 0:00 至 03:59，周一至周五	CronFormat.Standard
+* * * * MON#3	每分钟，在月的第三个星期一	CronFormat.Standard
+* * * * 4L	每一分钟，在本月的最后一天	CronFormat.Standard
+*/5 * L JAN *	每月一次每月 5 分钟，只在 1 月份	CronFormat.Standard
+30 02 14 * * *	下午在 02:02:30	CronFormat.IncludeSeconds
+5-10 * * * * *	每分钟的 5-10 秒	CronFormat.IncludeSeconds
+5-10 30-35 10-12 * * *	10:00 至 12:00 之间的每分钟 5-10 秒，每小时 30-35 分钟	CronFormat.IncludeSeconds
+30 */5 * * * *	每分钟的 30 秒，每五分钟	CronFormat.IncludeSeconds
+0 30 10-13 ? * WED,FRI	每小时的 30 分钟，下午 10:00 至 01:00 之间，仅在周三和周五	CronFormat.IncludeSeconds
+10 0/5 * * * ?	每分钟的 10 秒，每 05 分钟	CronFormat.IncludeSeconds
+0 0 6 1/1 * ?	下午 06:00	CronFormat.IncludeSeconds
+0 5 0/1 * * ?	一个小时的 05 分	CronFormat.IncludeSeconds
+0 0 L * *	每月最后一天上午 00：00	CronFormat.Standard
+0 0 L-1 * *	每月最后一天的凌晨 00：00	CronFormat.Standard
+0 0 3W * *	每月第 3 个工作日上午 00：00	CronFormat.Standard
+0 0 LW * *	在每月的最后一个工作日，上午 00：00	CronFormat.Standard
+0 0 * * 2L	本月最后一个星期二上午 00：00	CronFormat.Standard
+0 0 * * 6#3	每月第三个星期六上午 00：00	CronFormat.Standard
+0 0 ? 1 MON#1	1 月第一个星期一上午 00：00	CronFormat.Standard
+0 0 3 * * ?	每天几点执行一次	CronFormat.IncludeSeconds

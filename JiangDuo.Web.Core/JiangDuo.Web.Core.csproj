@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JiangDuo.Application\JiangDuo.Application.csproj" />
     <ProjectReference Include="..\JiangDuo.Database.Migrations\JiangDuo.Database.Migrations.csproj" />
+    <ProjectReference Include="..\JiangDuo.Job\JiangDuo.Jobs.csproj" />
     <ProjectReference Include="..\JiangDuo.SignalR\JiangDuo.SignalR.csproj" />
   </ItemGroup>
 

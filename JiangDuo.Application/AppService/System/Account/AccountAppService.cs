@@ -23,6 +23,7 @@ using JiangDuo.Application.User.Dtos;
 using JiangDuo.Core.Attributes;
 using JiangDuo.Core.Utils;
 using JiangDuo.Core.Filters;
+using Furion.Logging;
 
 namespace JiangDuo.Application.Account;
 
@@ -51,6 +52,7 @@ public class AccountAppService : IDynamicApiController
 	    var user = await _accountService.GetUserByUserNameAndPwd(model);
 		if (user == null)
 		{
+			Log.Error($"用户不存在或密码错误");
 			throw Oops.Oh($"用户不存在或密码错误");
 		}
 		user.PassWord = null;
