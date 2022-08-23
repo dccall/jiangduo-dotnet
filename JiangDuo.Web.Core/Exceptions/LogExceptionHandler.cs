@@ -24,8 +24,6 @@ namespace JiangDuo.Web.Core.Exceptions
 
         public Task OnExceptionAsync(ExceptionContext context)
         {
-            var requestPath = context.HttpContext.Request.Path.Value;
-            var method = context.HttpContext.Request.Method;
             _log4Net.Error( context.Exception);
             return Task.CompletedTask;
         }

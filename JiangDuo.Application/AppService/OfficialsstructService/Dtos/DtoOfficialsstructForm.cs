@@ -13,7 +13,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Dto
         /// <summary>
         /// 主键
         /// </summary>
-        public long? Id { get; internal set; }
+        public long? Id { get;  set; }
         /// <summary>
         /// 人大结构名称
         /// </summary>

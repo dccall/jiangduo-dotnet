@@ -51,6 +51,10 @@ public class Startup : AppStartup
 
 		// 添加即时通讯
 		services.AddSignalR();
+		//添加任务调度
+		services.AddTaskScheduler();
+
+       
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

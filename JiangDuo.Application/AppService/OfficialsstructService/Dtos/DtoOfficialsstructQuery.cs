@@ -12,6 +12,6 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Dto
         /// <summary>
         /// 人大结构名称
         /// </summary>
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
     }
 }

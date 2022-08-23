@@ -1159,172 +1159,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcode.AttachmentsFiles">
-            <summary>
-            附件文件对象
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Content">
-            <summary>
-            内容
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Attachments">
-            <summary>
-            附件
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.AttachmentsFiles">
-            <summary>
-            附件文件对象
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="T:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService">
-            <summary>
-            二维码管理
-            </summary>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Get(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
-            <summary>
-            获取列表（分页）
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Get(System.Int64)">
-            <summary>
-            根据id获取详情
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            新增
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            修改
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Delete(System.Int64)">
-            <summary>
-            根据id删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Delete(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            批量删除
-            </summary>
-            <param name="idList"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.GetList(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
-            <summary>
-            分页
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.GetById(System.Int64)">
-            <summary>
-            根据id查询
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            新增
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            修改
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.FakeDelete(System.Int64)">
-            <summary>
-            假删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.FakeDelete(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            批量假删除
-            </summary>
-            <param name="idList"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.GetList(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
-            <summary>
-            分页
-            </summary>
-            <param name="model">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.GetById(System.Int64)">
-            <summary>
-            根据id查询详情
-            </summary>
-            <param name="id">编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            添加
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
-            <summary>
-            修改
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.FakeDelete(System.Int64)">
-            <summary>
-            假删除
-            </summary>
-            <param name="id">编号</param>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.FakeDelete(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            批量假删除
-            </summary>
-            <param name="idList">编号</param>
-            <returns></returns>
-        </member>
         <member name="P:JiangDuo.Application.AppService.NewsclassifyService.Dto.DtoNewsclassifyForm.Id">
             <summary>
             主键
@@ -2525,6 +2359,172 @@
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.PublicSentimentService.Services.PublicSentimentService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcode.AttachmentsFiles">
+            <summary>
+            附件文件对象
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.Attachments">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm.AttachmentsFiles">
+            <summary>
+            附件文件对象
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService">
+            <summary>
+            二维码管理
+            </summary>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Get(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
+            <summary>
+            获取列表（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Get(System.Int64)">
+            <summary>
+            根据id获取详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Delete(System.Int64)">
+            <summary>
+            根据id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.QrcodeAppService.Delete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.GetList(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.GetById(System.Int64)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.IQrcodeService.FakeDelete(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量假删除
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.GetList(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeQuery)">
+            <summary>
+            分页
+            </summary>
+            <param name="model">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.GetById(System.Int64)">
+            <summary>
+            根据id查询详情
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.Insert(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.Update(JiangDuo.Application.AppService.QrcodeService.Dto.DtoQrcodeForm)">
+            <summary>
+            修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.FakeDelete(System.Int64)">
+            <summary>
+            假删除
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QrcodeService.Services.QrcodeService.FakeDelete(System.Collections.Generic.List{System.Int64})">
             <summary>
             批量假删除
             </summary>

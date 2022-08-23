@@ -1,3 +1,5 @@
+using Furion.Logging;
+using Furion.Templates;
 using Serilog;
 using Serilog.Events;
 
@@ -9,12 +11,13 @@ var builder = WebApplication.CreateBuilder(args).Inject();
 //        .WriteTo.File("logs/log.log", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true,
 //            fileSizeLimitBytes: 4194304, restrictedToMinimumLevel: LogEventLevel.Error);
 //});
-//builder.Services.AddFileLogging("logs/application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
+//builder.Services.AddFileLogging("logs/Information/{0:yyyy}-{0:MM}-{0:dd}.log", options =>
 //{
 //    options.FileNameRule = fileName =>
 //    {
 //        return string.Format(fileName, DateTime.UtcNow);
 //    };
+//    options.MinimumLevel = LogLevel.Information;
 //});
 
 Array.ForEach(new[] { LogLevel.Information, LogLevel.Warning, LogLevel.Error }, logLevel =>
@@ -23,6 +26,28 @@ Array.ForEach(new[] { LogLevel.Information, LogLevel.Warning, LogLevel.Error }, 
     {
         options.FileNameRule = fileName => string.Format(fileName, DateTime.UtcNow);
         options.WriteFilter = logMsg => logMsg.LogLevel == logLevel;
+        options.HandleWriteError = (writeError) =>
+        {
+            writeError.UseRollbackFileName(Path.GetFileNameWithoutExtension(writeError.CurrentFileName) + "-oops" + Path.GetExtension(writeError.CurrentFileName));
+        };
+        //options.MessageFormat = (logMsg) =>
+        // {
+        //     return TP.Wrapper(logMsg.LogLevel, logMsg.Message,
+        //"##记录时间## " + DateTime.Now.ToString("o"),
+        //"##日志级别## " + logMsg.LogLevel,
+        //"##线程编号## " + logMsg.EventId.Id,
+        //"##堆栈信息## " + logMsg.Exception?.ToString());
+        // // 高性能写入
+        // //return logMsg.WriteArray(writer =>
+        // //        {
+        // //            writer.WriteStringValue(DateTime.Now.ToString("o"));
+        // //            writer.WriteStringValue(logMsg.LogLevel.ToString());
+        // //            writer.WriteStringValue(logMsg.LogName);
+        // //            writer.WriteNumberValue(logMsg.EventId.Id);
+        // //            writer.WriteStringValue(logMsg.Message);
+        // //            writer.WriteStringValue(logMsg.Exception?.ToString());
+        // //        });
+        //};
     });
 });
 

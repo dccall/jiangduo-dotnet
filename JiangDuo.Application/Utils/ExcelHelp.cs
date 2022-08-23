@@ -17,6 +17,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
+using JiangDuo.Core.Utils;
+using JiangDuo.Core.Attributes;
+
 namespace JiangDuo.Application.Tools
 {
     public static class ExcelHelp
@@ -87,10 +90,10 @@ namespace JiangDuo.Application.Tools
     }
     public class Test
     {
-        [Ignore]
+        [ExportProperty("编号")]
         public int Id { get; set; }
 
-        [Column("名称")]
+        [ExportProperty("名称")]
         public string Name { get; set; }
     }
 

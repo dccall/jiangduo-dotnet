@@ -20,8 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion.Extras.DatabaseAccessor.MongoDB" Version="4.1.12" />
-    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="4.1.12" />
+    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="4.2.5" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />

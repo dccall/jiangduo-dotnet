@@ -24,6 +24,6 @@ public class Startup : AppStartup
             });
         });
 
-        services.AddTaskScheduler();
+       
     }
 }

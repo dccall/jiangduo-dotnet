@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 using JiangDuo.Application.AppService.System.FileServices.Services;
 using JiangDuo.Application.System.FileServices.Dtos;
 using JiangDuo.Application.AppService.System.FileServices.Dtos;
+using JiangDuo.Core.Utils;
 
 namespace JiangDuo.Application.System.FileServices
 {
@@ -113,7 +114,14 @@ namespace JiangDuo.Application.System.FileServices
             {
                 list.Add(new Test() { Id = i, Name = "名称"+ i });
             }
-            return ExcelHelp.ExportExcel("测试文件.xlsx", list);
+
+            var file = NPOIHelper.ExportXlsFile("测试文件", list);
+            return new FileStreamResult(new MemoryStream(file.ToArray()), "application/octet-stream")
+            {
+                FileDownloadName = "测试文件.xls" // 配置文件下载显示名
+            };
+
+            //return ExcelHelp.ExportExcel("测试文件.xlsx", list);
         }
         /// <summary>
         /// 导入Excel
