@@ -28,6 +28,9 @@ using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.NewsService.Services;
 using JiangDuo.Application.AppService.NewsService.Dto;
 using Furion.DataValidation;
+using JiangDuo.Application.AppService.ResidentService.Services;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -45,13 +48,22 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<Official> _officialRepository;
         private readonly INewsService _newService;
+        private readonly IResidentService _residentService;
         private readonly IRepository<Village> _villageRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        private readonly IVenuedeviceService _venuedeviceService;
+
+        private readonly IRepository<SysUploadFile> _uploadFileRepository;
         public ResidentAppletService(ILogger<ResidentAppletService> logger,
             IServiceService serviceService,
                  IRepository<Official> officialRepository,
              IRepository<Venuedevice> venuedeviceRepository,
+             IVenuedeviceService venuedeviceService,
+             IRepository<SysUploadFile> uploadFileRepository,
              INewsService newService,
              IRepository<Village> villageRepository,
+             IResidentService residentService,
+             IRepository<SelectArea> selectAreaRepository,
             IPublicSentimentService publicSentimentService, IWorkOrderService workOrderService, IRepository<Resident> residentRepository, WeiXinService weiXinService, IRepository<Core.Models.Service> serviceRepository, IRepository<Workorder> workOrderRepository, IRepository<Participant> participantRepository)
         {
             _logger = logger;
@@ -67,6 +79,10 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             _officialRepository = officialRepository;
             _newService = newService;
             _villageRepository = villageRepository;
+            _selectAreaRepository = selectAreaRepository;
+            _residentService = residentService;
+            _uploadFileRepository = uploadFileRepository;
+            _venuedeviceService = venuedeviceService;
         }
 
         ///// <summary>
@@ -103,8 +119,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<DtoResident> GetAccountInfo()
         {
             var id = JwtHelper.GetAccountId();
-            var entity = await _residentRepository.FindOrDefaultAsync(id);
-            var dto = entity.Adapt<DtoResident>();
+           
+            var dto = await _residentService.GetById(id);
             return dto;
         }
         /// <summary>
@@ -266,12 +282,12 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                              SelectAreaId = s.SelectAreaId,
                              Updater = s.Updater,
                              VillagesRange = s.VillagesRange,
-                             IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid && x.ServiceId == s.Id).Any()
+                             IsSignUp = _participantRepository.Entities.Where(x => x.Status == ParticipantStatus.Normal&& x.ResidentId == userid && x.ServiceId == s.Id).Any()
                          };
             return query2.ToPagedList(model.PageIndex, model.PageSize);
 
         }
-
+       
 
         /// <summary>
         /// 根据Id获取服务详情
@@ -313,9 +329,31 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             SelectAreaId = s.SelectAreaId,
                             Updater = s.Updater,
                             VillagesRange = s.VillagesRange,
-                            IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid && x.ServiceId == s.Id).Any()
+                            IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid&& x.Status == ParticipantStatus.Normal && x.ServiceId == s.Id).Any()
                         };
-            return query.FirstOrDefault();
+            var dto = query.FirstOrDefault();
+            var result = _participantRepository
+              .Where(x => !x.IsDeleted&& x.Status == ParticipantStatus.Normal && x.ServiceId == id)
+              .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
+              {
+                  Resident = y,
+                  RegistTime = x.RegistTime,
+                  StartTime = x.StartTime,
+                  EndTime = x.EndTime,
+              }).ToList();
+            //获取服务参与人
+            dto.JoinServiceResident = result;
+
+            if (!string.IsNullOrEmpty(dto.Attachments))
+            {
+                var idList = dto.Attachments.Split(',').ToList();
+                dto.AttachmentsFiles = _uploadFileRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+            }
+            if (dto.VenueDeviceId != null)
+            {
+                dto.Venuedevice = await _venuedeviceService.GetById(dto.VenueDeviceId.Value);
+            }
+            return dto;
         }
         /// <summary>
         /// 查询我的参与和预约的服务
@@ -325,7 +363,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var serviceIdList = _participantRepository.Where(x => !x.IsDeleted && x.ResidentId == id).Select(x => x.ServiceId).ToList();
+            var serviceIdList = _participantRepository.Where(x => !x.IsDeleted&&x.Status==ParticipantStatus.Normal && x.ResidentId == id).Select(x => x.ServiceId).ToList();
 
             var query = from p in _participantRepository.Entities
                         join s in _serviceRepository.Entities on p.ServiceId equals s.Id
@@ -426,14 +464,81 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             await _participantRepository.DeleteNowAsync(entity);
             return "已取消";
         }
+
         /// <summary>
-        /// 预约服务(服务/活动)
+        /// 获取服务/活动预约记录(占用记录)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<string> SubscribeService(DtoSubscribeService model)
+        public async Task<List<DtoParticipant>> GetServiceOccupancyList(DtoServiceSubscribeQuery model)
         {
-            var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
+            //只查询当前服务，自己的报名记录
+            model.ResidentId = JwtHelper.GetAccountId();
+            model.Status = ParticipantStatus.Occupancy;
+            var list = await _serviceService.GetServiceRegistList(model);
+
+            //刷新当前服务占用预约的创建时间
+            var currentDate = DateTime.Now;
+            var idList = list.Select(x => x.Id);
+            _participantRepository.Context.BatchUpdate<Participant>()
+                .Where(x => idList.Contains(x.Id))
+                .Set(x => x.CreatedTime, x => currentDate)
+                .Execute();
+
+            return list;
+        }
+        /// <summary>
+        /// 确认占位服务
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<DtoParticipant> ConfirmOccupancyService(DtoSubscribeService model)
+        {
+            ChckedServiceStatus(model.ServiceId, model.StartTime, model.EndTime);
+
+            var id = JwtHelper.GetAccountId();
+            var exists = _participantRepository.Where(x =>
+            //x.ResidentId == id &&
+            x.ServiceId == model.ServiceId
+            && model.StartTime == x.StartTime 
+            && model.EndTime == x.EndTime).Any();
+            if (exists)
+            {
+                throw Oops.Oh("预约失败，当前时间段已有预约");
+            }
+            Participant entity = new Participant();
+            entity.Id = YitIdHelper.NextId();
+            entity.ServiceId = model.ServiceId;
+            entity.ResidentId = JwtHelper.GetAccountId();
+            entity.RegistTime = model.RegistTime;//预约时间
+            entity.StartTime = model.StartTime;//预约开始时间
+            entity.EndTime = model.EndTime;//预约结束时间
+            entity.CreatedTime = DateTime.Now;
+            entity.Status = ParticipantStatus.Occupancy;//状态为占用
+            entity.Creator = JwtHelper.GetAccountId();
+            await _participantRepository.InsertNowAsync(entity);
+            var dto = entity.Adapt<DtoParticipant>();
+            return dto;
+        }
+        /// <summary>
+        /// 取消占位服务
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> CancelOccupancyService(DtoSubscribeService model)
+        {
+            var id = JwtHelper.GetAccountId();
+            var query= _participantRepository.Where(x =>x.ResidentId == id&& x.ServiceId == model.ServiceId);
+            query = query.Where(model.StartTime!=null,x=> model.StartTime == x.StartTime);
+            query = query.Where(model.EndTime != null,x=> model.EndTime == x.EndTime);
+            var list = query.ToList();
+            _participantRepository.DeleteNow(list);
+            return "取消成功";
+        }
+
+        private  void ChckedServiceStatus(long serviceId,DateTime? startTime=null,DateTime? endTime = null)
+        {
+            var service =  _serviceRepository.FindOrDefault(serviceId);
             if (service == null)
             {
                 throw Oops.Oh("服务不存在");
@@ -443,45 +548,34 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 throw Oops.Oh("服务状态异常，无法预约");
             }
-            //判断预约时间是 在服务范围内
-            if (!(service.PlanStartTime <= model.StartTime && model.EndTime <= service.PlanEndTime))
+            if(startTime!=null&& endTime != null)
             {
-                throw Oops.Oh("预约时间不在服务范围内");
+                //判断预约时间是 在服务范围内
+                if (!(service.PlanStartTime <= startTime && endTime <= service.PlanEndTime))
+                {
+                    throw Oops.Oh("{0}~{1}预约时间不在服务范围内", startTime.Value.ToString("yyyy-MM-dd HH:mm:ss"), endTime.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                }
             }
-            var id = JwtHelper.GetAccountId();
-            var exists = _participantRepository.Where(x => x.ResidentId == id
-            && x.ServiceId == model.ServiceId
-            && x.StartTime == model.StartTime
-            && x.EndTime == model.EndTime
-            ).Any();
-            if (exists)
-            {
-                throw Oops.Oh("已预约，请勿重复提交");
-            }
-            //时间段校验
-            //var exists2 = _participantRepository.Where(x => !(model.StartTime>= x.EndTime || model.EndTime <=x.StartTime)).Any();
-            //if (exists2)
-            //{
-            //    throw Oops.Oh("预约失败，当前时间段已有预约");
-            //}
-            //时间段校验
-            var exists2 = _participantRepository.Where(x => model.StartTime == x.StartTime && model.EndTime == x.EndTime).Any();
-            if (exists2)
-            {
-                throw Oops.Oh("预约失败，当前时间段已被预约");
-            }
-
-            Participant entity = new Participant();
-            entity.ServiceId = model.ServiceId;
-            entity.ResidentId = JwtHelper.GetAccountId();
-            entity.StartTime = model.StartTime;//预约开始时间
-            entity.EndTime = model.EndTime;//预约结束时间
-            entity.CreatedTime = DateTime.Now;
-            entity.Creator = JwtHelper.GetAccountId();
-            await _participantRepository.InsertNowAsync(entity);
-            return "预约成功";
+           
         }
-
+        /// <summary>
+        /// 预约服务(服务/活动)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<string> SubscribeService(List<DtoParticipant> modelList)
+        {
+            if (modelList != null && modelList.Any())
+            {
+                ChckedServiceStatus(modelList[0].ServiceId.Value);
+            }
+            var idList= modelList.Select(x => x.Id).ToList();
+            var count= await _participantRepository.Context.BatchUpdate<Participant>()
+                .Where(x => idList.Contains(x.Id))
+                .Set(x => x.Status, x => ParticipantStatus.Normal) //将占用改为默认状态
+                .ExecuteAsync();
+            return count>0?"预约成功":"预约失败";
+        }
         /// <summary>
         /// 获取我的需求列表（码上说马上办）
         /// </summary>
@@ -492,7 +586,6 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var id = JwtHelper.GetAccountId();
             model.ResidentId = id;//查询我的需求
             return _publicSentimentService.GetList(model);
-
         }
         /// <summary>
         /// 根据id查询详情

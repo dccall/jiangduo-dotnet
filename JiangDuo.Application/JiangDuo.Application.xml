@@ -176,6 +176,13 @@
             <param name="model">数据</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetHelpers(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            获取协助人（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.OfficialAppletService.GetWorkOrderDetail(System.Int64)">
             <summary>
             根据id查询工单详情
@@ -288,6 +295,13 @@
             <param name="model">数据</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetHelpers(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            获取协助人（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletAppService.OfficialApplet.Services.OfficialAppletService.GetWorkOrderDetail(System.Int64)">
             <summary>
             根据id查询工单详情
@@ -381,6 +395,11 @@
             附件文件对象
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.Venuedevice">
+            <summary>
+            场地/设备
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.IsSignUp">
             <summary>
             是否报名
@@ -406,6 +425,11 @@
             服务id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.RegistTime">
+            <summary>
+            预约时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.StartTime">
             <summary>
             预约开始时间
@@ -414,6 +438,16 @@
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService.EndTime">
             <summary>
             预约结束时间
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeSubmit.ServiceId">
+            <summary>
+            服务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeSubmit.List">
+            <summary>
+            预约时间段
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoUpdateAccountInfo.Origin">
@@ -515,11 +549,32 @@
             <param name="model">数据</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetServiceOccupancyList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery)">
             <summary>
-            预约服务
+            获取服务/活动预约记录(占用记录)
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.ConfirmOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            确认占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.CancelOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            取消占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.SubscribeService(System.Collections.Generic.List{JiangDuo.Application.AppService.ServiceService.Dtos.DtoParticipant})">
+            <summary>
+            预约服务（占位）提交
+            </summary>
+            <param name="modelList"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.GetMyPublicSentiment(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
@@ -612,7 +667,28 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetServiceOccupancyList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery)">
+            <summary>
+            获取服务/活动预约记录(占用记录)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.ConfirmOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            确认占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.CancelOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            取消占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.SubscribeService(System.Collections.Generic.List{JiangDuo.Application.AppService.ServiceService.Dtos.DtoParticipant})">
             <summary>
             预约服务(服务/活动)
             </summary>
@@ -724,6 +800,13 @@
             <param name="model">数据</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetHelpers(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            获取协助人（分页）
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppletService.OfficialApplet.Services.IOfficialAppletService.GetWorkOrderDetail(System.Int64)">
             <summary>
             根据id查询工单详情
@@ -828,9 +911,30 @@
             <param name="model">数据</param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.SubscribeService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetServiceOccupancyList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery)">
             <summary>
-            预约服务
+            获取服务/活动预约记录(占用记录)
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.ConfirmOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            确认占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.CancelOccupancyService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoSubscribeService)">
+            <summary>
+            取消占位服务
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.SubscribeService(System.Collections.Generic.List{JiangDuo.Application.AppService.ServiceService.Dtos.DtoParticipant})">
+            <summary>
+            预约服务（占位）提交
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -3416,9 +3520,24 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResident.StatusName">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResident.SexName">
             <summary>
             性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResident.VillageName">
+            <summary>
+            所属村
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResident.SelectAreaName">
+            <summary>
+            输入选区Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm.Id">
@@ -3943,6 +4062,11 @@
             预约结束时间
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dtos.DtoParticipant.ResidentName">
+            <summary>
+            居民名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoService.StatusName">
             <summary>
             状态
@@ -4098,6 +4222,26 @@
             页面来源0.服务申请，1服务发布
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery.RegistTime">
+            <summary>
+            登记日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery.ServiceId">
+            <summary>
+            服务id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery.ResidentId">
+            <summary>
+            居民id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ServiceService.Dto.DtoUpdateServiceStatus.ServiceId">
             <summary>
             服务id
@@ -4176,6 +4320,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.GetServiceRegistList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery)">
+            <summary>
+            根据服务/活动Id和日期 查询报名/预约情况
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.ServiceService.Services.IServiceService.Insert(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">
             <summary>
             新增
@@ -4216,6 +4367,13 @@
             根据编号查询详情
             </summary>
             <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.GetServiceRegistList(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceSubscribeQuery)">
+            <summary>
+            根据服务/活动Id和日期 查询报名/预约情况
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.ServiceService.Services.ServiceService.Insert(JiangDuo.Application.AppService.ServiceService.Dto.DtoServiceForm)">

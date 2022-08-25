@@ -5,6 +5,7 @@ using JiangDuo.Application.AppService.NewsService.Dto;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.Filters;
@@ -141,15 +142,45 @@ public class ResidentAppletAppService : IDynamicApiController
     }
 
     /// <summary>
-    /// 预约服务
+    /// 获取服务/活动预约记录(占用记录)
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public async Task<string> SubscribeService(DtoSubscribeService model)
+    [HttpGet("GetServiceOccupancyList")]
+    public Task<List<DtoParticipant>> GetServiceOccupancyList([FromQuery]DtoServiceSubscribeQuery model)
     {
-        return await _residentAppletService.SubscribeService(model);
+        return _residentAppletService.GetServiceOccupancyList(model);
     }
-
+    /// <summary>
+    /// 确认占位服务
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("ConfirmOccupancyService")]
+    public Task<DtoParticipant> ConfirmOccupancyService(DtoSubscribeService model)
+    {
+        return _residentAppletService.ConfirmOccupancyService(model);
+    }
+    /// <summary>
+    /// 取消占位服务
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("CancelOccupancyService")]
+    public Task<string> CancelOccupancyService(DtoSubscribeService model)
+    {
+        return _residentAppletService.CancelOccupancyService(model);
+    }
+    /// <summary>
+    /// 预约服务（占位）提交
+    /// </summary>
+    /// <param name="modelList"></param>
+    /// <returns></returns>
+    [HttpPost("SubscribeService")]
+    public Task<string> SubscribeService(List<DtoParticipant> modelList)
+    {
+        return _residentAppletService.SubscribeService(modelList);
+    }
 
     /// <summary>
     /// 获取我的需求列表（码上说马上办）

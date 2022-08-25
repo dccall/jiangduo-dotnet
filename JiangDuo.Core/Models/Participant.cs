@@ -1,4 +1,5 @@
 ﻿using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,5 +34,10 @@ namespace JiangDuo.Core.Models
         /// 预约结束时间
         /// </summary>
         public DateTime? EndTime { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public ParticipantStatus Status { get; set; }
     }
 }

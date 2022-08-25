@@ -12,7 +12,10 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
         /// 服务id
         /// </summary>
         public long ServiceId { get; set; }
-
+        /// <summary>
+        /// 预约时间
+        /// </summary>
+        public DateTime? RegistTime { get; set; }
         /// <summary>
         /// 预约开始时间
         /// </summary>

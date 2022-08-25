@@ -1,8 +1,10 @@
 ﻿using JiangDuo.Application.AppletAppService.OfficialApplet.Dtos;
+using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Core.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +104,12 @@ namespace JiangDuo.Application.AppletService.OfficialApplet.Services
         /// <param name="model">数据</param>
         /// <returns></returns>
         public PagedList<DtoWorkOrder> GetMyWorkOrderList(DtoMyWorkOrderQuery model);
-
+        /// <summary>
+        /// 获取协助人（分页）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PagedList<DtoOfficial> GetHelpers(BaseRequest model);
         /// <summary>
         /// 根据id查询工单详情
         /// </summary>

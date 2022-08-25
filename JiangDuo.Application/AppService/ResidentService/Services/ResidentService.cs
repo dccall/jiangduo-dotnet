@@ -23,11 +23,15 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
         private readonly ILogger<ResidentService> _logger;
         private readonly IRepository<Resident> _residentRepository;
         private readonly IRepository<Village> _villageRepository;
-        public ResidentService(ILogger<ResidentService> logger, IRepository<Resident> residentRepository,IRepository<Village> villageRepository)
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        public ResidentService(ILogger<ResidentService> logger,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<Resident> residentRepository,IRepository<Village> villageRepository)
         {
             _logger = logger;
             _residentRepository = residentRepository;
             _villageRepository = villageRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
         /// <summary>
         /// 分页
@@ -42,8 +46,39 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             //不传或者传-1查询全部
             query = query.Where(!(model.VillageId == null || model.VillageId == -1), x => x.VillageId == model.VillageId);
 
+            var query2 = from x in query
+                         join v in _villageRepository.Entities on x.VillageId equals v.Id into result1
+                         from xv in result1.DefaultIfEmpty()
+                         join s in _selectAreaRepository.Entities on x.SelectAreaId equals s.Id into result2
+                         from xs in result2.DefaultIfEmpty()
+                         select new DtoResident()
+                         {
+                             Id = x.Id,
+                             SelectAreaId = x.SelectAreaId,
+                             SelectAreaName = xs.SelectAreaName,
+                             VillageId = x.VillageId,
+                             VillageName = xv.Name,
+                             Address = x.Address,
+                             Age = x.Age,
+                             Birthday = x.Birthday,
+                             Idnumber = x.Idnumber,
+                             Name = x.Name,
+                             Nationality = x.Nationality,
+                             Origin = x.Origin,
+                             PhoneNumber = x.PhoneNumber,
+                             OpenId = x.OpenId,
+                             PoliticalOutlook = x.PoliticalOutlook,
+                             Sex = x.Sex,
+                             Status = x.Status,
+                             IsDeleted = x.IsDeleted,
+                             Creator = x.Creator,
+                             CreatedTime = x.CreatedTime,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                         };
+
             //将数据映射到DtoResident中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoResident>().ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(s=>s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 根据编号查询详情
@@ -52,9 +87,40 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
         /// <returns></returns>
         public async Task<DtoResident> GetById(long id)
         {
-            var entity = await _residentRepository.FindOrDefaultAsync(id);
+            var query =  _residentRepository.Where(x=>x.Id==id);
 
-            var dto = entity.Adapt<DtoResident>();
+            var query2 = from x in query
+                         join v in _villageRepository.Entities on x.VillageId equals v.Id into result1
+                         from xv in result1.DefaultIfEmpty()
+                         join s in _selectAreaRepository.Entities on x.SelectAreaId equals s.Id into result2
+                         from xs in result2.DefaultIfEmpty()
+                         select new DtoResident()
+                         {
+                             Id = x.Id,
+                             SelectAreaId = x.SelectAreaId,
+                             SelectAreaName = xs.SelectAreaName,
+                             VillageId = x.VillageId,
+                             VillageName = xv.Name,
+                             Address = x.Address,
+                             Age = x.Age,
+                             Birthday = x.Birthday,
+                             Idnumber = x.Idnumber,
+                             Name = x.Name,
+                             Nationality = x.Nationality,
+                             Origin = x.Origin,
+                             PhoneNumber = x.PhoneNumber,
+                             OpenId = x.OpenId,
+                             PoliticalOutlook = x.PoliticalOutlook,
+                             Sex = x.Sex,
+                             Status = x.Status,
+                             IsDeleted = x.IsDeleted,
+                             Creator = x.Creator,
+                             CreatedTime = x.CreatedTime,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                         };
+
+            var dto = query2.FirstOrDefault();
 
             return dto;
         }

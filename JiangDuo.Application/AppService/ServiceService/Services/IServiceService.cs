@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JiangDuo.Core.Models;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -24,6 +26,13 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<DtoService> GetById(long id);
+
+        /// <summary>
+        /// 根据服务/活动Id和日期 查询报名/预约情况
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<List<DtoParticipant>> GetServiceRegistList(DtoServiceSubscribeQuery model);
         /// <summary>
         /// 新增
         /// </summary>

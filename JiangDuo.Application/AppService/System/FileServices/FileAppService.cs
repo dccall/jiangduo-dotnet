@@ -115,7 +115,7 @@ namespace JiangDuo.Application.System.FileServices
                 list.Add(new Test() { Id = i, Name = "名称"+ i });
             }
 
-            var file = NPOIHelper.ExportXlsFile("测试文件", list);
+            var file = NPOIHelper.ExportXlsFile(list, "测试文件");
             return new FileStreamResult(new MemoryStream(file.ToArray()), "application/octet-stream")
             {
                 FileDownloadName = "测试文件.xls" // 配置文件下载显示名

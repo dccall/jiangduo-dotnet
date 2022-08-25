@@ -29,9 +29,10 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         private readonly IRepository<Workorder> _workOrderRepository;
         private readonly IRepository<Participant> _participantRepository;
         private readonly IRepository<Resident> _residentRepository;
-        private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IVenuedeviceService _venuedeviceService;
         private readonly IRepository<Official> _officialRepository;
+
+        private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
         public ServiceService(ILogger<ServiceService> logger,
             IRepository<Participant> participantRepository,
@@ -69,14 +70,14 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             query = query.Where(model.ServiceClassifyId != null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
-            if (model.Status==null&& model.PageSource == 0)
+            if (model.Status == null && model.PageSource == 0)
             {
-                var statusList=new List<ServiceStatusEnum>() { 
+                var statusList = new List<ServiceStatusEnum>() {
                  ServiceStatusEnum.Normal,
                  ServiceStatusEnum.Audit, //待审核
                  ServiceStatusEnum.AuditFailed,//审核未通过
                 };
-                query = query.Where(x=> statusList.Contains(x.Status.Value));
+                query = query.Where(x => statusList.Contains(x.Status.Value));
             }
             if (model.Status == null && model.PageSource == 1)
             {
@@ -90,11 +91,11 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
 
             var query2 = from service in query
-                         join official in _officialRepository.Entities on service.OfficialsId equals official.Id  into result1
+                         join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
                          from so in result1.DefaultIfEmpty()
                          join venuedevice in _venuedeviceRepository.Entities on service.VenueDeviceId equals venuedevice.Id into result2
                          from sv in result2.DefaultIfEmpty()
-                         orderby  service.CreatedTime descending
+                         orderby service.CreatedTime descending
                          select new DtoService()
                          {
                              Id = service.Id,
@@ -168,7 +169,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
                         };
             var dto = query.FirstOrDefault();
             var result = _participantRepository
-                .Where(x => !x.IsDeleted && x.ServiceId == id)
+                .Where(x => !x.IsDeleted && x.Status == ParticipantStatus.Normal && x.ServiceId == id)
                 .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
                 {
                     Resident = y,
@@ -191,6 +192,44 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             return await Task.FromResult(dto);
         }
+
+        /// <summary>
+        /// 根据服务/活动Id和日期 查询报名/预约情况
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<DtoParticipant>> GetServiceRegistList(DtoServiceSubscribeQuery model)
+        {
+            //查询服务当前日期的所有预约记录 
+            var query = _participantRepository.AsQueryable(false);
+            query = query.Where(model.RegistTime != null, x => x.RegistTime == model.RegistTime);
+            query = query.Where(model.ResidentId != null, x => x.ResidentId == model.ResidentId);
+            query = query.Where(model.ServiceId != null, x => x.ServiceId == model.ServiceId);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
+            var query2 = from x in query
+                         join r in _residentRepository.Entities on x.ResidentId equals r.Id into result1
+                         from xr in result1.DefaultIfEmpty()
+                         orderby x.CreatedTime descending
+                         select new DtoParticipant()
+                         {
+                             Id = x.Id,
+                             RegistTime = x.RegistTime,
+                             ResidentId = x.ResidentId,
+                             ResidentName = xr.Name,
+                             ServiceId = x.ServiceId,
+                             StartTime = x.StartTime,
+                             EndTime = x.EndTime,
+                             Status = x.Status,
+                             IsDeleted = x.IsDeleted,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             Creator = x.Creator,
+                             CreatedTime = x.CreatedTime
+                         };
+            return query2.ToList();
+        }
+
+
         /// <summary>
         /// 添加
         /// </summary>

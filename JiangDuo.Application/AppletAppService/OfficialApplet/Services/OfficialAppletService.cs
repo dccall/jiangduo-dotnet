@@ -27,6 +27,7 @@ using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Services;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using Microsoft.AspNetCore.Mvc;
+using JiangDuo.Application.AppService.OfficialService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
 {
@@ -405,6 +406,20 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
 
         }
+        /// <summary>
+        /// 获取协助人（分页）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PagedList<DtoOfficial> GetHelpers(BaseRequest model)
+        {
+            var id = JwtHelper.GetAccountId();
+            var query = _officialRepository.Where(x => !x.IsDeleted);
+            query = query.Where(x=>x.Id!= id);
+            //将数据映射到DtoOfficial中
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+        }
+
         /// <summary>
         /// 根据id查询工单详情
         /// </summary>

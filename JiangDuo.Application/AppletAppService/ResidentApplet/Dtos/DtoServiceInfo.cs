@@ -1,5 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
+using JiangDuo.Application.AppService.VenuedeviceService.Dto;
 using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
@@ -44,6 +45,12 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
         /// 附件文件对象
         /// </summary>
         public List<SysUploadFile> AttachmentsFiles { get; set; }
+
+        /// <summary>
+        /// 场地/设备
+        /// </summary>
+        public DtoVenuedevice Venuedevice { get; set; }
+
         /// <summary>
         /// 是否报名
         /// </summary>

@@ -32,4 +32,12 @@ namespace JiangDuo.Core.Enums
         [Description("长期")]
         LongTerm = 2,
     }
+    public enum ParticipantStatus
+    {
+        [Description("默认")]
+        Normal = 0,
+        [Description("占位")]
+        Occupancy = 1
+    }
+    
 }

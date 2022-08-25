@@ -1,11 +1,13 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppletAppService.OfficialApplet.Dtos;
 using JiangDuo.Application.AppletService.OfficialApplet.Services;
+using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.Filters;
+using JiangDuo.Core.Base;
 using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -158,6 +160,17 @@ public class OfficialAppletService : IDynamicApiController
     public PagedList<DtoWorkOrder> GetMyWorkOrderList([FromQuery] DtoMyWorkOrderQuery model)
     {
         return _officialAppletService.GetMyWorkOrderList(model);
+    }
+
+    /// <summary>
+    /// 获取协助人（分页）
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("GetHelpers")]
+    public PagedList<DtoOfficial> GetHelpers([FromQuery] BaseRequest model)
+    {
+        return _officialAppletService.GetHelpers(model);
     }
     /// <summary>
     /// 根据id查询工单详情

@@ -435,6 +435,11 @@
             预约结束时间
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Participant.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.PublicSentiment">
             <summary>
             公共需求

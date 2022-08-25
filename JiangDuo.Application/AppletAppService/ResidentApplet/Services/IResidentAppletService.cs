@@ -3,6 +3,7 @@ using JiangDuo.Application.AppService.NewsService.Dto;
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
 using JiangDuo.Application.AppService.WorkorderService.Dto;
 using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Core.Base;
@@ -90,13 +91,31 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <returns></returns>
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model);
 
+
         /// <summary>
-        /// 预约服务
+        /// 获取服务/活动预约记录(占用记录)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<string> SubscribeService(DtoSubscribeService model);
-
+        public Task<List<DtoParticipant>> GetServiceOccupancyList(DtoServiceSubscribeQuery model);
+        /// <summary>
+        /// 确认占位服务
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<DtoParticipant> ConfirmOccupancyService(DtoSubscribeService model);
+        /// <summary>
+        /// 取消占位服务
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<string> CancelOccupancyService(DtoSubscribeService model);
+        /// <summary>
+        /// 预约服务（占位）提交
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<string> SubscribeService(List<DtoParticipant> modelList);
 
         /// <summary>
         /// 获取我的需求列表（码上说马上办）

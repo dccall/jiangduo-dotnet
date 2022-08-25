@@ -98,11 +98,12 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             //{
             //    throw Oops.Oh($"验证码不正确或已失效。");
             //}
-            var weixinResult = await _weiXinService.WeiXinLogin(model.JsCode);
             //先判人大账号是否存在
             var officialEntity = _officialRepository.Where(x => !x.IsDeleted && x.PhoneNumber == model.Phone).FirstOrDefault();
             if (officialEntity != null)
             {
+
+                var weixinResult = await _weiXinService.WeiXinLogin(model.JsCode);
                 officialEntity.OpenId = weixinResult.OpenId;
                 _officialRepository.UpdateNow(officialEntity);
                 var jwtToken = JwtHelper.GetJwtToken(new AccountModel()
@@ -123,6 +124,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             var residentEntity = _residentRepository.Where(x => x.PhoneNumber == model.Phone).FirstOrDefault();
             if (residentEntity == null)//没有就新增
             {
+                var weixinResult = await _weiXinService.WeiXinLogin(model.JsCode);
                 residentEntity =new Resident();
                 residentEntity.PhoneNumber = model.Phone;
                 residentEntity.OpenId = weixinResult.OpenId;
