@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
 {
-    public class DtoPublicSentimentStatistics
+    public class DtoPublicSentimentStatisticsQuery
     {
         /// <summary>
         /// 总数量

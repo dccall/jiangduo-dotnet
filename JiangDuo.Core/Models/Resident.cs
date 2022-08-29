@@ -80,5 +80,11 @@ namespace JiangDuo.Core.Models
         /// 状态
         /// </summary>
         public ResidentStatus Status { get; set; }
+
+        /// <summary>
+        /// 肖像
+        /// </summary>
+        [MaxLength(255)]
+        public string Avatar { get; set; }
     }
 }

@@ -60,7 +60,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
             query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
-            query = query.Where(model.StartTime != null, x => x.ReserveDate <= model.EndTime);
+            query = query.Where(model.EndTime != null, x => x.ReserveDate <= model.EndTime);
             var query2 = from x in query
                          join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
                          from rv in result1.DefaultIfEmpty()
@@ -124,7 +124,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                 .Join(_volunteerRepository.Entities, x => x.VolunteerId, y => y.Id, (x, y) =>y).ProjectToType<DtoVolunteer>().ToList();
             dto.VolunteerList = volunteerList;
 
-            if (dto.VenueDeviceId != null)
+            if (dto.VenueDeviceId != 0)
             {
                 dto.Venuedevice = await _venuedeviceService.GetById(dto.VenueDeviceId);
             }

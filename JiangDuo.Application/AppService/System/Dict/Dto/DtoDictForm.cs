@@ -15,6 +15,8 @@ namespace JiangDuo.Application.System.Dict.Dto
         /// 主键
         /// </summary>
         public long? Id { get;  set; }
+
+        /// <summary>
         /// 字典名称
         /// </summary>
         [MaxLength(100)]

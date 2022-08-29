@@ -19,6 +19,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// </summary>
         public long? OfficialsstructId { get; set; }
         /// <summary>
+        /// 类别 1.区人大，2.镇人大
+        /// </summary>
+        public long? CategoryId { get; set; }
+        /// <summary>
         /// 姓名
         /// </summary>
         public string Name { get; set; } = null!;

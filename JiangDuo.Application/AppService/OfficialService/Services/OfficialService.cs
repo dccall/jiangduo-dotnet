@@ -19,10 +19,14 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
     {
         private readonly ILogger<OfficialService> _logger;
         private readonly IRepository<Official> _officialRepository;
-        public OfficialService(ILogger<OfficialService> logger, IRepository<Official> officialRepository)
+        private readonly IRepository<SysUploadFile> _uploadRepository;
+        public OfficialService(ILogger<OfficialService> logger,
+            IRepository<SysUploadFile> uploadRepository,
+            IRepository<Official> officialRepository)
         {
             _logger = logger;
             _officialRepository = officialRepository;
+            _uploadRepository = uploadRepository;
         }
         /// <summary>
         /// 分页
@@ -35,7 +39,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
             //不传或者传-1查询全部
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
-            query = query.Where(model.OfficialRole!=null, x => x.OfficialRole == model.OfficialRole);
+            query = query.Where(model.OfficialRole!=null, x => x.OfficialRole == model.OfficialRole); 
+            query = query.Where(!(model.CategoryId == null || model.CategoryId == -1), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
@@ -51,6 +56,13 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var dto = entity.Adapt<DtoOfficial>();
 
+            if (dto != null && !string.IsNullOrEmpty(dto.Avatar))
+            {
+                var idList = dto.Avatar.Split(',').ToList();
+                dto.AvatarList = _uploadRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
+            }
+
+
             return dto;
         }
         /// <summary>
@@ -65,6 +77,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
+
+            if (model.AvatarList != null && model.AvatarList.Any())
+            {
+                entity.Avatar = String.Join(",", model.AvatarList.Select(x => x.FileId));
+            }
+
             _officialRepository.Insert(entity);
             return await _officialRepository.SaveNowAsync();
         }
@@ -86,6 +104,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
+            if (model.AvatarList != null && model.AvatarList.Any())
+            {
+                entity.Avatar = String.Join(",", model.AvatarList.Select(x => x.FileId));
+            }
             _officialRepository.Update(entity);
             return await _officialRepository.SaveNowAsync();
         }

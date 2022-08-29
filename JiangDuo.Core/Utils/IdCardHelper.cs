@@ -51,7 +51,7 @@ namespace JiangDuo.Core.Utils
         /// <summary>
         /// 根据出生日期，计算精确的年龄
         /// </summary>
-        /// <param name="birthDate">生日</param>
+        /// <param name="birthDay">生日</param>
         /// <returns></returns>
         public static int CalculateAge(string birthDay)
         {

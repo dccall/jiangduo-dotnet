@@ -20,5 +20,9 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 角色名称
         /// </summary>
         public string OfficialRoleName => OfficialRole.GetDescription();
+        /// <summary>
+        /// 肖像
+        /// </summary>
+        public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
     }
 }

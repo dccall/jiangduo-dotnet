@@ -42,7 +42,7 @@ namespace JiangDuo.Core.Enums
         NotProcessed = 1,
         [Description("进行中")]
         InProgress = 2,
-        [Description("待审核")]///已完成待审核
+        [Description("待审核")]//已完成待审核
         Completed = 3,
         [Description("审核通过")]
         Audited = 4,

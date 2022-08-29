@@ -54,7 +54,7 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
 
             var dto = entity.Adapt<DtoBuilding>();
 
-            if (!string.IsNullOrEmpty(dto.Images))
+            if (dto!=null&&!string.IsNullOrEmpty(dto.Images))
             {
                 var idList = dto.Images.Split(',').ToList();
                 dto.ImageList = _uploadRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();

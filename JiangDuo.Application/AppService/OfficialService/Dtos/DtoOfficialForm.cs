@@ -1,5 +1,6 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -97,5 +98,17 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 角色
         /// </summary>
         public OfficialRoleEnum OfficialRole { get; set; }
+
+
+        /// <summary>
+        /// 肖像
+        /// </summary>
+        [MaxLength(255)]
+        public string Avatar { get; set; }
+        /// <summary>
+        /// 肖像
+        /// </summary>
+
+        public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
     }
 }

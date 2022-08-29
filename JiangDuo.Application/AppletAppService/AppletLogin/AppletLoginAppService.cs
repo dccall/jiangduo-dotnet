@@ -50,7 +50,6 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin
         /// <summary>
         /// 获取登录信息
         /// </summary>
-        /// <param name="model"></param>
         /// <returns></returns>
         [HttpGet("GetLoginInfo")]
         public async Task<AccountModel> GetLoginInfo()

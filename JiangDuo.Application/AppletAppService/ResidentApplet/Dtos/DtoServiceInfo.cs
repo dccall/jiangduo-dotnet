@@ -55,6 +55,12 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
         /// 是否报名
         /// </summary>
         public bool IsSignUp { get; set; } = false;
+
+        /// <summary>
+        /// 参与id
+        /// </summary>
+        public long? ParticipantId { get; set; }
+
         /// <summary>
         /// 报名时间
         /// </summary>

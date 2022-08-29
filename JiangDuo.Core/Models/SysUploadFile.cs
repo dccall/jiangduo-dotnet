@@ -59,6 +59,7 @@ namespace JiangDuo.Core.Models
 		/// 创建者
 		/// </summary>
 		public long Creator { get; set; }
+        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreatedTime { get; set; }
@@ -70,7 +71,6 @@ namespace JiangDuo.Core.Models
         /// 更新者
         /// </summary>
         public long? Updater { get; set; }
-        /// <summary>
         /// <summary>
         /// 是否删除
         /// </summary>

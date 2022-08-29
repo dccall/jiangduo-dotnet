@@ -73,5 +73,11 @@ namespace JiangDuo.Application.AppService.ResidentService.Dto
         /// </summary>
         [MaxLength(50)]
         public string PoliticalOutlook { get; set; }
+
+        /// <summary>
+        /// 肖像
+        /// </summary>
+        [MaxLength(255)]
+        public string Avatar { get; set; }
     }
 }

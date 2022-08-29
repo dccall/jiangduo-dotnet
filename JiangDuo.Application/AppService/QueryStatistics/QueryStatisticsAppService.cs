@@ -1,6 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.QueryStatistics.Services;
+using JiangDuo.Application.AppService.ReserveService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -58,7 +60,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPublicSentimentStatistics")]
-        public DtoPublicSentimentStatistics GetPublicSentimentStatistics()
+        public DtoPublicSentimentStatisticsQuery GetPublicSentimentStatistics()
         {
             return _queryStatisticsService.GetPublicSentimentStatistics();
         }
@@ -108,6 +110,26 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         public DtoReserveTotal GetReserveTotalStatistics()
         {
             return _queryStatisticsService.GetReserveTotalStatistics();
+        }
+
+        /// <summary>
+        /// 获取有事好商量预约场地列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetReserveVenuedevice")]
+        public PagedList<DtoReserve> GetReserveVenuedevice([FromQuery]DtoReserveVenuedeviceQuery model)
+        {
+            return _queryStatisticsService.GetReserveVenuedevice(model);
+        }
+
+        /// <summary>
+        /// 获取活动预约场地列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetServiceVenuedevice")]
+        public PagedList<DtoService> GetServiceVenuedevice([FromQuery] DtoReserveVenuedeviceQuery model)
+        {
+            return _queryStatisticsService.GetServiceVenuedevice(model);
         }
     }
 }

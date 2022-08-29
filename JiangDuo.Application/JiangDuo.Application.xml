@@ -27,7 +27,6 @@
             <summary>
             获取登录信息
             </summary>
-            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.AppletLogin.Dtos.DtoAppletLogin.Phone">
@@ -345,6 +344,11 @@
             所属村Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoCancelService.ParticipantId">
+            <summary>
+            参与id
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService.ServiceId">
             <summary>
             服务id
@@ -403,6 +407,11 @@
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.IsSignUp">
             <summary>
             是否报名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.ParticipantId">
+            <summary>
+            参与id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoServiceInfo.RegistTime">
@@ -528,7 +537,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.ResidentAppletAppService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoCancelService)">
             <summary>
             取消参与服务(服务/活动)
             </summary>
@@ -660,7 +669,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+        <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoCancelService)">
             <summary>
             取消参与服务(服务/活动)
             </summary>
@@ -692,7 +701,7 @@
             <summary>
             预约服务(服务/活动)
             </summary>
-            <param name="model"></param>
+            <param name="modelList"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletAppService.ResidentApplet.Services.ResidentAppletService.GetMyPublicSentiment(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
@@ -890,7 +899,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoJoinService)">
+        <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.CancelService(JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoCancelService)">
             <summary>
             取消参与服务(服务/活动)
             </summary>
@@ -936,7 +945,7 @@
             <summary>
             预约服务（占位）提交
             </summary>
-            <param name="model"></param>
+            <param name="modelList"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppletService.ResidentApplet.Services.IResidentAppletService.GetMyPublicSentiment(JiangDuo.Application.AppService.PublicSentimentService.Dto.DtoPublicSentimentQuery)">
@@ -1652,6 +1661,11 @@
             角色名称
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.AvatarList">
+            <summary>
+            肖像
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
             主键
@@ -1747,6 +1761,16 @@
             角色
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Avatar">
+            <summary>
+            肖像
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.AvatarList">
+            <summary>
+            肖像
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.SelectAreaId">
             <summary>
             所属选区Id
@@ -1755,6 +1779,11 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.OfficialsstructId">
             <summary>
             人大结构Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.CategoryId">
+            <summary>
+            类别 1.区人大，2.镇人大
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Name">
@@ -2635,22 +2664,22 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
-        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.TotalCount">
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatisticsQuery.TotalCount">
             <summary>
             总数量
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.NotProcessedCount">
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatisticsQuery.NotProcessedCount">
             <summary>
             待处理数量
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.InProgressCount">
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatisticsQuery.InProgressCount">
             <summary>
             进行中数量
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatistics.FeedbackCount">
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatisticsQuery.FeedbackCount">
             <summary>
             已完结数量
             </summary>
@@ -2710,6 +2739,11 @@
             已完成总数量
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery.ReserveDate">
+            <summary>
+            预约日期
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.SelectArea">
             <summary>
             选区信息
@@ -2758,6 +2792,16 @@
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.EndCount">
             <summary>
             已结束数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TotalPopulation">
+            <summary>
+            （所有选区）总人口
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TotalGrossArea">
+            <summary>
+            （所有选区）总面积
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoTotal.TotalCount">
@@ -2859,6 +2903,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取有事好商量预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取活动预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
@@ -2913,6 +2969,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取有事好商量预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取活动预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
@@ -2964,6 +3032,18 @@
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetReserveTotalStatistics">
             <summary>
             获取预约服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取有事好商量预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取活动预约场地列表
             </summary>
             <returns></returns>
         </member>
@@ -3605,6 +3685,11 @@
             政治面貌
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentForm.Avatar">
+            <summary>
+            肖像
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ResidentService.Dto.DtoResidentQuery.VillageId">
             <summary>
             所属村Id
@@ -3779,9 +3864,24 @@
             选区范围(坐标集合)
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaForm.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaForm.GrossArea">
+            <summary>
+            总面积
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaQuery.SelectAreaName">
             <summary>
             选区名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaQuery.SelectAreaType">
+            <summary>
+            区域类型
             </summary>
         </member>
         <member name="T:JiangDuo.Application.AppService.SelectAreaService.SelectAreaAppService">
@@ -6515,7 +6615,11 @@
             主键
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Application.System.Dict.Dto.DtoDictForm.DictName" -->
+        <member name="P:JiangDuo.Application.System.Dict.Dto.DtoDictForm.DictName">
+            <summary>
+            字典名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.System.Dict.Dto.DtoDictForm.DictType">
             <summary>
             字典类型

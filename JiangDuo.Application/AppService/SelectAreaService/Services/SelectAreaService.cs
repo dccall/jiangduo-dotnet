@@ -35,7 +35,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
         {
             var query = _selectAreaRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.SelectAreaName), x => x.SelectAreaName.Contains(model.SelectAreaName));
-
+            query = query.Where(model.SelectAreaType!=null, x => x.SelectAreaType==model.SelectAreaType);
             //将数据映射到DtoSelectArea中
             return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoSelectArea>().ToPagedList(model.PageIndex, model.PageSize);
         }

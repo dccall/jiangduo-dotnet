@@ -363,18 +363,16 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var serviceIdList = _participantRepository.Where(x => !x.IsDeleted&&x.Status==ParticipantStatus.Normal && x.ResidentId == id).Select(x => x.ServiceId).ToList();
-
-            var query = from p in _participantRepository.Entities
+            var query = from p in _participantRepository.Entities.Where(p=> p.Status == ParticipantStatus.Normal && p.ResidentId == id)
                         join s in _serviceRepository.Entities on p.ServiceId equals s.Id
                         join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result1
                         from so in result1.DefaultIfEmpty()
                         join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result2
                         from sv in result2.DefaultIfEmpty()
-                        where p.ResidentId == id
                         //根据报名时间排序、活动状态、活动开始时间
                         orderby p.CreatedTime descending, s.Status, s.PlanStartTime ascending
-                        select new DtoServiceInfo
+                        
+                        select  new DtoServiceInfo
                         {
                             Id = s.Id,
                             Address = s.Address,
@@ -404,8 +402,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             RegistTime = p.RegistTime,
                             StartTime = p.StartTime,
                             EndTime = p.EndTime,
+                            ParticipantId=p.Id
                         };
-            return query.ToPagedList(model.PageIndex, model.PageSize);
+            return query .ToPagedList(model.PageIndex, model.PageSize);
         }
         /// <summary>
         /// 参与服务(服务/活动)
@@ -444,19 +443,19 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<string> CancelService(DtoJoinService model)
+        public async Task<string> CancelService(DtoCancelService model)
         {
-            var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
-            if (service == null)
-            {
-                throw Oops.Oh("服务不存在");
-            }
-            if (service.Status != ServiceStatusEnum.Published)
-            {
-                throw Oops.Oh("服务状态异常，无法取消");
-            }
-            var id = JwtHelper.GetAccountId();
-            var entity = _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId).FirstOrDefault();
+            //var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
+            //if (service == null)
+            //{
+            //    throw Oops.Oh("服务不存在");
+            //}
+            //if (service.Status != ServiceStatusEnum.Published)
+            //{
+            //    throw Oops.Oh("服务状态异常，无法取消");
+            //}
+            //var id = JwtHelper.GetAccountId();
+            var entity = _participantRepository.FindOrDefault(model.ParticipantId);
             if (entity == null)
             {
                 throw Oops.Oh("你没有参过该服务");
@@ -528,7 +527,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<string> CancelOccupancyService(DtoSubscribeService model)
         {
             var id = JwtHelper.GetAccountId();
-            var query= _participantRepository.Where(x =>x.ResidentId == id&& x.ServiceId == model.ServiceId);
+            var query= _participantRepository.Where(x =>x.ResidentId == id&& x.ServiceId == model.ServiceId&&x.Status== ParticipantStatus.Occupancy);
             query = query.Where(model.StartTime!=null,x=> model.StartTime == x.StartTime);
             query = query.Where(model.EndTime != null,x=> model.EndTime == x.EndTime);
             var list = query.ToList();
@@ -561,7 +560,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <summary>
         /// 预约服务(服务/活动)
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="modelList"></param>
         /// <returns></returns>
         public async Task<string> SubscribeService(List<DtoParticipant> modelList)
         {

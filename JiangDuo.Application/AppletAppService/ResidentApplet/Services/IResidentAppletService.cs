@@ -75,7 +75,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<string> CancelService(DtoJoinService model);
+        public  Task<string> CancelService(DtoCancelService model);
 
         /// <summary>
         /// 根据Id获取服务详情
@@ -113,7 +113,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <summary>
         /// 预约服务（占位）提交
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="modelList"></param>
         /// <returns></returns>
         public Task<string> SubscribeService(List<DtoParticipant> modelList);
 

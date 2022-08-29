@@ -9,6 +9,15 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
     public class DtoTotal
     {
         /// <summary>
+        /// （所有选区）总人口
+        /// </summary>
+        public long TotalPopulation { get; set; }
+        /// <summary>
+        /// （所有选区）总面积
+        /// </summary>
+        public double TotalGrossArea { get; set; }
+
+        /// <summary>
         /// 选区总数量
         /// </summary>
         public int TotalCount { get; set; }

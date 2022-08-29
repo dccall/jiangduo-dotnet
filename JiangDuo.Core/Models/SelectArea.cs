@@ -45,5 +45,14 @@ namespace JiangDuo.Core.Models
         /// 选区范围(坐标集合)
         /// </summary>
         public string SelectAreaRange { get; set; }
+
+        /// <summary>
+        /// 人口数
+        /// </summary>
+        public long Population { get; set; }
+        /// <summary>
+        /// 总面积
+        /// </summary>
+        public double GrossArea { get; set; }
     }
 }

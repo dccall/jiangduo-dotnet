@@ -99,5 +99,10 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public OfficialRoleEnum OfficialRole { get; set; }
 
+        /// <summary>
+        /// 肖像
+        /// </summary>
+        [MaxLength(255)]
+        public string Avatar { get; set; }
     }
 }

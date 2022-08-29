@@ -34,7 +34,11 @@
             更新者
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Base.BaseEntity.IsDeleted" -->
+        <member name="P:JiangDuo.Core.Base.BaseEntity.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Enums.EnumExtension">
             <summary>
             枚举扩展类
@@ -343,6 +347,11 @@
         <member name="P:JiangDuo.Core.Models.Official.OfficialRole">
             <summary>
             角色
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Avatar">
+            <summary>
+            肖像
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Officialsstruct">
@@ -695,6 +704,11 @@
             状态
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Resident.Avatar">
+            <summary>
+            肖像
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.SelectArea">
             <summary>
             选区
@@ -733,6 +747,16 @@
         <member name="P:JiangDuo.Core.Models.SelectArea.SelectAreaRange">
             <summary>
             选区范围(坐标集合)
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.SelectArea.GrossArea">
+            <summary>
+            总面积
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Service">
@@ -1343,7 +1367,11 @@
             创建者
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Models.SysUploadFile.CreatedTime" -->
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.SysUploadFile.UpdatedTime">
             <summary>
             更新时间
@@ -1354,7 +1382,11 @@
             更新者
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:JiangDuo.Core.Models.SysUploadFile.IsDeleted" -->
+        <member name="P:JiangDuo.Core.Models.SysUploadFile.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.SysUser">
             <summary>
             用户信息表
@@ -1966,7 +1998,7 @@
             <summary>
             根据出生日期，计算精确的年龄
             </summary>
-            <param name="birthDate">生日</param>
+            <param name="birthDay">生日</param>
             <returns></returns>
         </member>
         <member name="T:JiangDuo.Core.Utils.BirthdayAgeSex">

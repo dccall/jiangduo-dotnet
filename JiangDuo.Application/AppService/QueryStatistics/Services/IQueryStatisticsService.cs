@@ -1,4 +1,6 @@
 ﻿using JiangDuo.Application.AppService.QueryStatistics.Dtos;
+using JiangDuo.Application.AppService.ReserveService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// 获取用户需求数量统计
         /// </summary>
         /// <returns></returns>
-        public DtoPublicSentimentStatistics GetPublicSentimentStatistics();
+        public DtoPublicSentimentStatisticsQuery GetPublicSentimentStatistics();
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
@@ -56,5 +58,17 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public DtoReserveTotal GetReserveTotalStatistics();
+
+        /// <summary>
+        /// 获取有事好商量预约场地列表
+        /// </summary>
+        /// <returns></returns>
+        public PagedList<DtoReserve> GetReserveVenuedevice(DtoReserveVenuedeviceQuery model);
+
+        /// <summary>
+        /// 获取活动预约场地列表
+        /// </summary>
+        /// <returns></returns>
+        public PagedList<DtoService> GetServiceVenuedevice(DtoReserveVenuedeviceQuery model);
     }
 }

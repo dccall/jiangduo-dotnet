@@ -116,7 +116,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public async Task<string> CancelService(DtoJoinService model)
+    public async Task<string> CancelService(DtoCancelService model)
     {
         return await _residentAppletService.CancelService(model);
     }

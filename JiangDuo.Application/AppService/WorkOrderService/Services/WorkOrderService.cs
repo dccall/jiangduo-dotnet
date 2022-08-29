@@ -95,7 +95,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
-            query = query.Where(!(model.SelectAreaId==null||model.SelectAreaId==-1), x => x.SelectAreaId== model.SelectAreaId);
+            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
 
             if (model.Status == null && model.PageSource == 1)
             {
@@ -152,19 +152,19 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                              WorkorderType = w.WorkorderType,
                          };
 
-           return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
 
         }
 
 
-            /// <summary>
-            /// 根据id查询详情
-            /// </summary>
-            /// <param name="id">id</param>
-            /// <returns></returns>
-            public async Task<DtoWorkOrder> GetById(long id)
+        /// <summary>
+        /// 根据id查询详情
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public async Task<DtoWorkOrder> GetById(long id)
         {
-            var query= _workOrderRepository.Where(x => !x.IsDeleted && x.Id == id);
+            var query = _workOrderRepository.Where(x => !x.IsDeleted && x.Id == id);
             var query2 = from w in query
                          join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
                          from wa in result1.DefaultIfEmpty()
@@ -404,7 +404,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 psEntity.FeedbackTime = DateTime.Now;//反馈时间
                 psEntity.Status = PublicSentimentStatus.Feedback;
             }
-            var officialEntity= _officialRepository.FindOrDefault(workOrderEntity.RecipientId);
+            var officialEntity = _officialRepository.FindOrDefault(workOrderEntity.RecipientId);
             //处理积分（后期可增加积分记录报表）
             if (officialEntity != null)
             {
@@ -458,7 +458,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             AddWordOrderFeedback(workOrderEntity.Id, model.HandelContent, workOrderEntity.Status);
 
             //添加日志
-            AddWordOrderLog(workOrderEntity.Id, account.Name + "处理了工单，工单状态变为:"+model.Status.GetDescription());
+            AddWordOrderLog(workOrderEntity.Id, account.Name + "处理了工单，工单状态变为:" + model.Status.GetDescription());
 
             return "操作成功!";
         }

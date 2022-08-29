@@ -24,18 +24,10 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
     {
 
         private readonly ILogger<AppletLoginService> _logger;
-        private readonly IRepository<Core.Models.Service> _serviceRepository;
-        private readonly IRepository<Workorder> _workOrderRepository;
-        private readonly IRepository<Participant> _participantRepository;
         private readonly WeiXinService _weiXinService;
         private readonly IRepository<Resident> _residentRepository;
-        private readonly IWorkOrderService _workOrderService;
-        private readonly IServiceService _serviceService;
         private readonly IVerifyCodeService _verifyCodeService;
-        private readonly IAliyunSmsService _aliyunSmsService;
         private readonly IRepository<Official> _officialRepository;
-        private readonly IRepository<Reserve> _reserveRepository;
-        private readonly IReserveService _reserveService;
         public AppletLoginService(ILogger<AppletLoginService> logger,
             IWorkOrderService workOrderService,
             IRepository<Resident> residentRepository,
@@ -50,17 +42,10 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             IRepository<Participant> participantRepository)
         {
             _logger = logger;
-            _serviceRepository = serviceRepository;
-            _workOrderRepository = workOrderRepository;
-            _participantRepository = participantRepository;
             _weiXinService = weiXinService;
             _residentRepository = residentRepository;
-            _workOrderService = workOrderService;
             _verifyCodeService = verifyCodeService;
-            _aliyunSmsService = aliyunSmsService;
             _officialRepository = officialRepository;
-            _reserveRepository = reserveRepository;
-            _reserveService = reserveService;
         }
 
         /// <summary>
