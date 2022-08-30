@@ -2714,6 +2714,16 @@
             数量
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveCount.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveCount.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.TotalCount">
             <summary>
             总数量
@@ -2762,6 +2772,16 @@
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoSelectAreaInfo.ResidentCount">
             <summary>
             居民数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceCount.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceCount.Count">
+            <summary>
+            数量
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoServiceTotal.TotalCount">
@@ -2844,204 +2864,240 @@
             镇人大数量
             </summary>
         </member>
-        <member name="T:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService">
+        <member name="T:JiangDuo.Application.AppService.QueryStatistics.HomeAppService">
             <summary>
             查询统计
             </summary>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetSelectAreaInfoList">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetBaseTotalCount">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetBaseTotalCount">
             <summary>
             获取基本数据总数统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetBusinessStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetBusiness">
             <summary>
             获取业务分类统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetPublicSentiment">
             <summary>
             获取用户需求数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetPublicSentimentDay(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(日)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetPublicSentimentMonth(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(月)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetPublicSentimentYear(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(年)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetServiceTotalStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetServiceTotal">
             <summary>
             获取服务数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetReserveTotalStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetReserveTotal">
             <summary>
             获取预约服务数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetReserveCount">
+            <summary>
+            获取有事好商量预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
             <summary>
             获取有事好商量预约场地列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.QueryStatisticsAppService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetServiceCount">
+            <summary>
+            获取活动预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
             <summary>
             获取活动预约场地列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetSelectAreaInfoList">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetBaseTotalCount">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetBaseTotalCount">
             <summary>
             获取基本数据总数统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetBusinessStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetBusiness">
             <summary>
             获取用户需求业务分类统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetPublicSentiment">
             <summary>
             获取用户需求数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetPublicSentimentDay(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(日)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
-            <summary>
-            获取用户需求数量统计(日)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
-            <summary>
-            获取用户需求数量统计(日)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetServiceTotalStatistics">
-            <summary>
-            获取服务数量统计
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetReserveTotalStatistics">
-            <summary>
-            获取预约服务数量统计
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
-            <summary>
-            获取有事好商量预约场地列表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IQueryStatisticsService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
-            <summary>
-            获取活动预约场地列表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetSelectAreaInfoList">
-            <summary>
-            获取选区信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetBaseTotalCount">
-            <summary>
-            获取基本数据总数统计
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetBusinessStatistics">
-            <summary>
-            获取用户需求业务分类统计
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentStatistics">
-            <summary>
-            获取用户需求数量统计
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentDayStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
-            <summary>
-            获取用户需求数量统计(日)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentMonthStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetPublicSentimentMonth(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(月)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetPublicSentimentYearStatistics(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetPublicSentimentYear(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
             <summary>
             获取用户需求数量统计(年)
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetServiceTotalStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetServiceTotal">
             <summary>
             获取服务数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetReserveTotalStatistics">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetReserveTotal">
             <summary>
             获取预约服务数量统计
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetReserveCount">
+            <summary>
+            获取有事好商量预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetServiceCount">
+            <summary>
+            获取活动预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
             <summary>
             获取有事好商量预约场地列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.QueryStatisticsService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取活动预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetSelectAreaInfoList">
+            <summary>
+            获取选区信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetBaseTotalCount">
+            <summary>
+            获取基本数据总数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetBusiness">
+            <summary>
+            获取用户需求业务分类统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetPublicSentiment">
+            <summary>
+            获取用户需求数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetPublicSentimentDay(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetPublicSentimentMonth(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetPublicSentimentYear(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoYearMonthDayStatisticsQuery)">
+            <summary>
+            获取用户需求数量统计(日)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetServiceTotal">
+            <summary>
+            获取服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetReserveTotal">
+            <summary>
+            获取预约服务数量统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetReserveCount">
+            <summary>
+            获取有事好商量预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetReserveVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
+            <summary>
+            获取有事好商量预约场地列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetServiceCount">
+            <summary>
+            获取活动预约数量（30天）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetServiceVenuedevice(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery)">
             <summary>
             获取活动预约场地列表
             </summary>

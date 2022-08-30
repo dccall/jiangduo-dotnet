@@ -4,6 +4,8 @@ using Serilog;
 using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args).Inject();
+
+
 //builder.Host.UseSerilogDefault(config =>
 //{
 //    config.WriteTo

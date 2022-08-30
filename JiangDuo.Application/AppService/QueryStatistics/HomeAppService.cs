@@ -17,10 +17,10 @@ namespace JiangDuo.Application.AppService.QueryStatistics
     /// </summary>
     [Route("api/[controller]")]
     [ApiDescriptionSettings("Default", "查询统计")]
-    public class QueryStatisticsAppService : IDynamicApiController
+    public class HomeAppService : IDynamicApiController
     {
-        private readonly IQueryStatisticsService _queryStatisticsService;
-        public QueryStatisticsAppService(IQueryStatisticsService queryStatisticsService)
+        private readonly IHomeService _queryStatisticsService;
+        public HomeAppService(IHomeService queryStatisticsService)
         {
             _queryStatisticsService = queryStatisticsService;
         }
@@ -50,66 +50,77 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         /// 获取业务分类统计
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetBusinessStatistics")]
-        public List<DtoBusinessStatistics> GetBusinessStatistics()
+        [HttpGet("GetBusiness")]
+        public List<DtoBusinessStatistics> GetBusiness()
         {
-            return _queryStatisticsService.GetBusinessStatistics();
+            return _queryStatisticsService.GetBusiness();
         }
         /// <summary>
         /// 获取用户需求数量统计
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetPublicSentimentStatistics")]
-        public DtoPublicSentimentStatisticsQuery GetPublicSentimentStatistics()
+        [HttpGet("GetPublicSentiment")]
+        public DtoPublicSentimentStatisticsQuery GetPublicSentiment()
         {
-            return _queryStatisticsService.GetPublicSentimentStatistics();
+            return _queryStatisticsService.GetPublicSentiment();
         }
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetPublicSentimentDayStatistics")]
-        public List<DtoYearMonthDayStatistics> GetPublicSentimentDayStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        [HttpGet("GetPublicSentimentDay")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentDay([FromQuery] DtoYearMonthDayStatisticsQuery model)
         {
-            return _queryStatisticsService.GetPublicSentimentDayStatistics(model);
+            return _queryStatisticsService.GetPublicSentimentDay(model);
         }
         /// <summary>
         /// 获取用户需求数量统计(月)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetPublicSentimentMonthStatistics")]
-        public List<DtoYearMonthDayStatistics> GetPublicSentimentMonthStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        [HttpGet("GetPublicSentimentMonth")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentMonth([FromQuery] DtoYearMonthDayStatisticsQuery model)
         {
-            return _queryStatisticsService.GetPublicSentimentMonthStatistics(model);
+            return _queryStatisticsService.GetPublicSentimentMonth(model);
         }
         /// <summary>
         /// 获取用户需求数量统计(年)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetPublicSentimentYearStatistics")]
-        public List<DtoYearMonthDayStatistics> GetPublicSentimentYearStatistics([FromQuery] DtoYearMonthDayStatisticsQuery model)
+        [HttpGet("GetPublicSentimentYear")]
+        public List<DtoYearMonthDayStatistics> GetPublicSentimentYear([FromQuery] DtoYearMonthDayStatisticsQuery model)
         {
-            return _queryStatisticsService.GetPublicSentimentYearStatistics(model);
+            return _queryStatisticsService.GetPublicSentimentYear(model);
         }
 
         /// <summary>
         /// 获取服务数量统计
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetServiceTotalStatistics")]
-        public DtoServiceTotal GetServiceTotalStatistics()
+        [HttpGet("GetServiceTotal")]
+        public DtoServiceTotal GetServiceTotal()
         {
-            return _queryStatisticsService.GetServiceTotalStatistics();
+            return _queryStatisticsService.GetServiceTotal();
         }
 
         /// <summary>
         /// 获取预约服务数量统计
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetReserveTotalStatistics")]
-        public DtoReserveTotal GetReserveTotalStatistics()
+        [HttpGet("GetReserveTotal")]
+        public DtoReserveTotal GetReserveTotal()
         {
-            return _queryStatisticsService.GetReserveTotalStatistics();
+            return _queryStatisticsService.GetReserveTotal();
+        }
+
+
+        /// <summary>
+        /// 获取有事好商量预约数量（30天）
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetReserveCount")]
+        public List<DtoReserveCount> GetReserveCount()
+        {
+            return _queryStatisticsService.GetReserveCount();
         }
 
         /// <summary>
@@ -122,6 +133,15 @@ namespace JiangDuo.Application.AppService.QueryStatistics
             return _queryStatisticsService.GetReserveVenuedevice(model);
         }
 
+        /// <summary>
+        /// 获取活动预约数量（30天）
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetServiceCount")]
+        public List<DtoServiceCount> GetServiceCount()
+        {
+            return _queryStatisticsService.GetServiceCount();
+        }
         /// <summary>
         /// 获取活动预约场地列表
         /// </summary>
