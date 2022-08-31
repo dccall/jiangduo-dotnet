@@ -4,30 +4,26 @@ using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppletAppService.AppletLogin.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Services;
-using JiangDuo.Application.AppService.ServiceService.Services;
 using JiangDuo.Application.AppService.WorkOrderService.Services;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Services;
 using JiangDuo.Core.Utils;
-using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
 {
-    public class AppletLoginService: IAppletLoginService, ITransient
+    public class AppletLoginService : IAppletLoginService, ITransient
     {
-
         private readonly ILogger<AppletLoginService> _logger;
         private readonly WeiXinService _weiXinService;
         private readonly IRepository<Resident> _residentRepository;
         private readonly IVerifyCodeService _verifyCodeService;
         private readonly IRepository<Official> _officialRepository;
+
         public AppletLoginService(ILogger<AppletLoginService> logger,
             IWorkOrderService workOrderService,
             IRepository<Resident> residentRepository,
@@ -66,6 +62,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             //_aliyunSmsService.SendSms(phone,templateCode,data);
             return true;
         }
+
         /// <summary>
         /// 小程序登录(手机号登录)
         /// </summary>
@@ -87,7 +84,6 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             var officialEntity = _officialRepository.Where(x => !x.IsDeleted && x.PhoneNumber == model.Phone).FirstOrDefault();
             if (officialEntity != null)
             {
-
                 var weixinResult = await _weiXinService.WeiXinLogin(model.JsCode);
                 officialEntity.OpenId = weixinResult.OpenId;
                 _officialRepository.UpdateNow(officialEntity);
@@ -98,11 +94,12 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
                     SelectAreaId = officialEntity.SelectAreaId ?? 0,
                     Type = AccountType.Official//账号类型人大
                 });
-                
-                return new DtoAppletLoginResult() {
-                     AccessToken= jwtToken.AccessToken,
-                     RefreshToken= jwtToken.RefreshToken,
-                      Type= AccountType.Official
+
+                return new DtoAppletLoginResult()
+                {
+                    AccessToken = jwtToken.AccessToken,
+                    RefreshToken = jwtToken.RefreshToken,
+                    Type = AccountType.Official
                 };
             }
             //判断居民账号是否存在
@@ -110,7 +107,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
             if (residentEntity == null)//没有就新增
             {
                 var weixinResult = await _weiXinService.WeiXinLogin(model.JsCode);
-                residentEntity =new Resident();
+                residentEntity = new Resident();
                 residentEntity.PhoneNumber = model.Phone;
                 residentEntity.OpenId = weixinResult.OpenId;
                 residentEntity.Id = YitIdHelper.NextId();
@@ -135,7 +132,5 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
                 Type = AccountType.Resident
             };
         }
-
-
     }
 }

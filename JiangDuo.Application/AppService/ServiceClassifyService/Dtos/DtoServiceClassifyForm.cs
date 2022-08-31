@@ -1,10 +1,4 @@
-﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JiangDuo.Application.AppService.ServiceClassifyService.Dto
 {
@@ -13,7 +7,8 @@ namespace JiangDuo.Application.AppService.ServiceClassifyService.Dto
         /// <summary>
         /// 主键
         /// </summary>
-        public long? Id { get;  set; }
+        public long? Id { get; set; }
+
         /// <summary>
         /// 分类名称
         /// </summary>

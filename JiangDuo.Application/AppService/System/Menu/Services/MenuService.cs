@@ -1,33 +1,26 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Application.Menu.Dtos;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using Furion;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using JiangDuo.Application.Menu.Dtos;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
 
 namespace JiangDuo.Application.Menu.Services
 {
-    public class MenuService :IMenuService, ITransient
+    public class MenuService : IMenuService, ITransient
     {
-
         private readonly ILogger<MenuService> _logger;
         private readonly IRepository<SysMenu> _menuRepository;
 
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
+
         public MenuService(ILogger<MenuService> logger,
             IRepository<SysRoleMenu> roleMenuRepository,
             IRepository<SysMenu> menuRepository)
@@ -44,7 +37,7 @@ namespace JiangDuo.Application.Menu.Services
         public List<MenuTreeDto> GetTreeMenu(MenuRequest model)
         {
             var query = _menuRepository.Where(x => !x.IsDeleted);
-             query = query.Where(!string.IsNullOrEmpty( model.Title), x => x.Title.Contains(model.Title));
+            query = query.Where(!string.IsNullOrEmpty(model.Title), x => x.Title.Contains(model.Title));
             var menulist = query.OrderBy(x => x.Order).ProjectToType<MenuTreeDto>().ToList();
             var roots = GetRoots(menulist);
             foreach (var root in roots)
@@ -53,6 +46,7 @@ namespace JiangDuo.Application.Menu.Services
             }
             return roots;
         }
+
         /// <summary>
         /// 获取菜单列表
         /// </summary>
@@ -100,7 +94,7 @@ namespace JiangDuo.Application.Menu.Services
             _menuRepository.Update(entity);
             return await _menuRepository.SaveNowAsync();
         }
-    
+
         public async Task<int> FakeDelete(long id)
         {
             DeleteCheked(new List<long>() { id });
@@ -112,15 +106,17 @@ namespace JiangDuo.Application.Menu.Services
             entity.IsDeleted = true;
             return await _menuRepository.SaveNowAsync();
         }
+
         public async Task<int> FakeDelete(List<long> idList)
         {
             DeleteCheked(idList);
-             var result= await _menuRepository.Context.BatchUpdate<SysMenu>()
-                .Where(x => idList.Contains(x.Id))
-                .Set(x => x.IsDeleted, x => true)
-                .ExecuteAsync();
+            var result = await _menuRepository.Context.BatchUpdate<SysMenu>()
+               .Where(x => idList.Contains(x.Id))
+               .Set(x => x.IsDeleted, x => true)
+               .ExecuteAsync();
             return result;
         }
+
         /// <summary>
         /// 新增修改校验
         /// </summary>
@@ -128,7 +124,7 @@ namespace JiangDuo.Application.Menu.Services
         private void InsertUpdateChecked(DtoMenuForm model)
         {
             var query = _menuRepository.AsQueryable();
-            query = query.Where(s => !s.IsDeleted&& s.Title == model.Title);
+            query = query.Where(s => !s.IsDeleted && s.Title == model.Title);
             if (model.Id.HasValue)
             {
                 query = query.Where(s => s.Id != model.Id);
@@ -138,13 +134,13 @@ namespace JiangDuo.Application.Menu.Services
                 throw Oops.Oh("[{0}]菜单名重复", model.Title);
             }
         }
+
         /// <summary>
         /// 删除前校验
         /// </summary>
         /// <param name="idList"></param>
         private void DeleteCheked(List<long> idList)
         {
-
             var list = _roleMenuRepository.Where(x => idList.Contains(x.MenuId))
                 .Join(_menuRepository.Entities, x => x.MenuId, y => y.Id, (x, y) => y).Select(x => x.Title)
                 .Distinct();
@@ -164,10 +160,10 @@ namespace JiangDuo.Application.Menu.Services
                 {
                     roots.Add(menuTreeDto);
                 }
-
             }
             return roots;
         }
+
         private void GetChildren(MenuTreeDto node, List<MenuTreeDto> allList)
         {
             var list = allList.Where(s => s.ParentId == node.Id).ToList();

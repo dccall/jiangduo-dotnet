@@ -2,10 +2,7 @@
 using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using JiangDuo.Application.AppService.SelectAreaService.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.SelectAreaService;
@@ -17,12 +14,13 @@ namespace JiangDuo.Application.AppService.SelectAreaService;
 [ApiDescriptionSettings("Default", "选区管理")]
 public class SelectAreaAppService : IDynamicApiController
 {
- 
     private readonly ISelectAreaService _selectAreaService;
+
     public SelectAreaAppService(ISelectAreaService SelectAreaService)
     {
         _selectAreaService = SelectAreaService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -42,6 +40,7 @@ public class SelectAreaAppService : IDynamicApiController
     {
         return await _selectAreaService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -51,6 +50,7 @@ public class SelectAreaAppService : IDynamicApiController
     {
         return await _selectAreaService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -60,6 +60,7 @@ public class SelectAreaAppService : IDynamicApiController
     {
         return await _selectAreaService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -69,6 +70,7 @@ public class SelectAreaAppService : IDynamicApiController
     {
         return await _selectAreaService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

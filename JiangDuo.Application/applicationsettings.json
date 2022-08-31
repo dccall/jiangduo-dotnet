@@ -12,7 +12,7 @@
       }
     ]
   },
-  "UserDefaultPassword":"a123456",//用户默认密码
+  "UserDefaultPassword": "a123456", //用户默认密码
   "AuthorizeCodeChecked": false, //开启菜单Code拦截
   "OperLogSwitch": false, //开启用户操作日志
   "DynamicApiControllerSettings": {

@@ -1,21 +1,17 @@
-﻿
-using JiangDuo.Application.System.Dept.Dtos;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using JiangDuo.Application.System.Dept.Dtos;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
 
 namespace JiangDuo.Application.System.Dept.Services
 {
@@ -25,12 +21,14 @@ namespace JiangDuo.Application.System.Dept.Services
         /// 日志
         /// </summary>
         private readonly ILogger<DeptService> _logger;
+
         /// <summary>
         /// SysDept仓储
         /// </summary>
         private readonly IRepository<SysDept> _deptRepository;
 
         private readonly IRepository<SysUser> _userRepository;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -43,6 +41,7 @@ namespace JiangDuo.Application.System.Dept.Services
             _deptRepository = deptRepository;
             _userRepository = userRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -54,7 +53,7 @@ namespace JiangDuo.Application.System.Dept.Services
             query = query.Where(!string.IsNullOrEmpty(model.DeptName), x => x.DeptName.Contains(model.DeptName));
             return query.OrderByDescending(x => x.Order).ProjectToType<DeptDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
-      
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -68,6 +67,7 @@ namespace JiangDuo.Application.System.Dept.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -103,14 +103,15 @@ namespace JiangDuo.Application.System.Dept.Services
             entity = model.Adapt(entity);
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
-            _deptRepository.Update(entity,ignoreNullValues:false);
+            _deptRepository.Update(entity, ignoreNullValues: false);
             return await _deptRepository.SaveNowAsync();
         }
+
         private void InsertUpdateChecked(DtoDeptForm model)
         {
             var query = _deptRepository.AsQueryable();
             query = query.Where(s => s.DeptName == model.DeptName);
-            if (model.Id!=0)
+            if (model.Id != 0)
             {
                 query = query.Where(s => s.Id != model.Id);
             }
@@ -119,13 +120,14 @@ namespace JiangDuo.Application.System.Dept.Services
                 throw Oops.Oh("[{0}]部门名重复", model.DeptName);
             }
         }
+
         /// <summary>
         /// 删除前校验
         /// </summary>
         /// <param name="idList"></param>
         private void DeleteCheked(List<long> idList)
         {
-            var list = _deptRepository.Where(x => idList.Contains(x.ParentId.Value)&&!x.IsDeleted).Select(x => x.DeptName);
+            var list = _deptRepository.Where(x => idList.Contains(x.ParentId.Value) && !x.IsDeleted).Select(x => x.DeptName);
             if (list.Count() > 0)
             {
                 throw Oops.Oh("部门存在[{0}]部门，无法删除", string.Join(",", list));
@@ -137,8 +139,8 @@ namespace JiangDuo.Application.System.Dept.Services
             {
                 throw Oops.Oh("[{0}]部门被使用，无法删除", string.Join(",", list2));
             }
-
         }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -155,6 +157,7 @@ namespace JiangDuo.Application.System.Dept.Services
             entity.IsDeleted = true;
             return await _deptRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -169,6 +172,7 @@ namespace JiangDuo.Application.System.Dept.Services
                 .ExecuteAsync();
             return result;
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -180,6 +184,7 @@ namespace JiangDuo.Application.System.Dept.Services
             _deptRepository.Delete(id);
             return await _deptRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -194,6 +199,5 @@ namespace JiangDuo.Application.System.Dept.Services
             }
             return await _deptRepository.SaveNowAsync();
         }
-
     }
 }

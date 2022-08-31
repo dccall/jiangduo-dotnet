@@ -1,7 +1,4 @@
-﻿using Furion.DatabaseAccessor;
-using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
+﻿using JiangDuo.Core.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

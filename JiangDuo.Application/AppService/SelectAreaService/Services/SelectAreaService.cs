@@ -1,31 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.SelectAreaService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.SelectAreaService.Services
 {
-    public class SelectAreaService:ISelectAreaService, ITransient
+    public class SelectAreaService : ISelectAreaService, ITransient
     {
         private readonly ILogger<SelectAreaService> _logger;
         private readonly IRepository<SelectArea> _selectAreaRepository;
+
         public SelectAreaService(ILogger<SelectAreaService> logger, IRepository<SelectArea> selectAreaRepository)
         {
             _logger = logger;
             _selectAreaRepository = selectAreaRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -35,10 +34,11 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
         {
             var query = _selectAreaRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.SelectAreaName), x => x.SelectAreaName.Contains(model.SelectAreaName));
-            query = query.Where(model.SelectAreaType!=null, x => x.SelectAreaType==model.SelectAreaType);
+            query = query.Where(model.SelectAreaType != null, x => x.SelectAreaType == model.SelectAreaType);
             //将数据映射到DtoSelectArea中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoSelectArea>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoSelectArea>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -52,6 +52,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -59,7 +60,6 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoSelectAreaForm model)
         {
-
             var entity = model.Adapt<SelectArea>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -67,7 +67,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
             _selectAreaRepository.Insert(entity);
             return await _selectAreaRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -88,7 +88,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
             _selectAreaRepository.Update(entity);
             return await _selectAreaRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -104,6 +104,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
             entity.IsDeleted = true;
             return await _selectAreaRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -117,7 +118,5 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

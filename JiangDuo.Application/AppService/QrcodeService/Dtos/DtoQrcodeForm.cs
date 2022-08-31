@@ -1,30 +1,28 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Core.Models;
-using System;
+﻿using JiangDuo.Core.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QrcodeService.Dto
 {
-    public class DtoQrcodeForm 
+    public class DtoQrcodeForm
     {
         /// <summary>
         /// 主键
         /// </summary>
-        public long? Id { get;  set; }
+        public long? Id { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
         [MaxLength(50)]
         public string Name { get; set; }
+
         /// <summary>
         /// 内容
         /// </summary>
         [MaxLength(500)]
         public string Content { get; set; }
+
         /// <summary>
         /// 附件
         /// </summary>

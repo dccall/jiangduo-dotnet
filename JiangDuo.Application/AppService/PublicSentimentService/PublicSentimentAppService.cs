@@ -2,12 +2,8 @@
 using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
 using JiangDuo.Application.AppService.PublicSentimentService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.PublicSentimentService;
@@ -19,12 +15,13 @@ namespace JiangDuo.Application.AppService.PublicSentimentService;
 [ApiDescriptionSettings("Default", "民情民意")]
 public class PublicSentimentAppService : IDynamicApiController
 {
- 
     private readonly IPublicSentimentService _publicSentimentService;
+
     public PublicSentimentAppService(IPublicSentimentService publicSentimentService)
     {
         _publicSentimentService = publicSentimentService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -44,6 +41,7 @@ public class PublicSentimentAppService : IDynamicApiController
     {
         return await _publicSentimentService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -53,6 +51,7 @@ public class PublicSentimentAppService : IDynamicApiController
     {
         return await _publicSentimentService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -62,6 +61,7 @@ public class PublicSentimentAppService : IDynamicApiController
     {
         return await _publicSentimentService.Update(model);
     }
+
     /// <summary>
     /// 完结反馈
     /// </summary>
@@ -72,6 +72,7 @@ public class PublicSentimentAppService : IDynamicApiController
     {
         return await _publicSentimentService.Feedback(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -81,6 +82,7 @@ public class PublicSentimentAppService : IDynamicApiController
     {
         return await _publicSentimentService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

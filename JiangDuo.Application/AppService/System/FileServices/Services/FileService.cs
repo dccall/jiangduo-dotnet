@@ -1,6 +1,5 @@
 ﻿using Furion;
 using Furion.DatabaseAccessor;
-using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.System.FileServices.Dtos;
@@ -15,23 +14,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace JiangDuo.Application.AppService.System.FileServices.Services
 {
-    public class FileService: IFileService, ITransient
+    public class FileService : IFileService, ITransient
     {
-
         private readonly ILogger<FileService> _logger;
         private readonly IRepository<SysUploadFile> _uploadRepository;
+
         public FileService(ILogger<FileService> logger,
             IRepository<SysUploadFile> uploadRepository)
         {
             _logger = logger;
             _uploadRepository = uploadRepository;
         }
+
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -40,10 +39,11 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
         public PagedList<DtoUploadFile> GetList(DtoUploadFileQuery model)
         {
             var query = _uploadRepository.Where(x => !x.IsDeleted);
-            query = query.Where(model.FileSource != null, x => x.FileSource == model.FileSource) ;
-            var pageList= _uploadRepository.Where(x => !x.IsDeleted).ProjectToType<DtoUploadFile>().ToPagedList(model.PageIndex, model.PageSize);
+            query = query.Where(model.FileSource != null, x => x.FileSource == model.FileSource);
+            var pageList = _uploadRepository.Where(x => !x.IsDeleted).ProjectToType<DtoUploadFile>().ToPagedList(model.PageIndex, model.PageSize);
             return pageList;
         }
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -59,6 +59,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
             var dto = entity.Adapt<DtoUploadFile>();
             return dto;
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -89,6 +90,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
             }
             return count;
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -96,7 +98,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
         /// <returns></returns>
         public async Task<int> Delete(List<long> idList)
         {
-            var fileList= _uploadRepository.AsQueryable().Where(x => idList.Contains(x.FileId));
+            var fileList = _uploadRepository.AsQueryable().Where(x => idList.Contains(x.FileId));
             foreach (var file in fileList)
             {
                 _uploadRepository.Delete(file);
@@ -116,7 +118,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
                         {
                             File.Delete(saveDirectory);
                         }
-                        catch (Exception){}
+                        catch (Exception) { }
                     }
                 }
             }
@@ -166,7 +168,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
             return fileInfo;
         }
 
-        public  IActionResult FileDownload(long fileId)
+        public IActionResult FileDownload(long fileId)
         {
             var uploadFile = _uploadRepository.FindOrDefault(fileId);
             if (uploadFile == null)
@@ -186,7 +188,7 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
             };
         }
 
-        private  FileStream GetFileStream(long fileId)
+        private FileStream GetFileStream(long fileId)
         {
             var uploadFile = _uploadRepository.FindOrDefault(fileId);
             // 如：保存到网站根目录下的 uploads 目录
@@ -198,6 +200,5 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
             }
             return new FileStream(filePath, FileMode.Open);
         }
-
     }
 }

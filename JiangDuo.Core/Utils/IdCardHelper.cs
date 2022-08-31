@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JiangDuo.Core.Enums;
+﻿using JiangDuo.Core.Enums;
+using System;
 using System.ComponentModel;
+
 namespace JiangDuo.Core.Utils
 {
     public static class IdCardHelper
@@ -65,9 +62,7 @@ namespace JiangDuo.Core.Utils
             }
             return age;
         }
-
     }
-
 
     /// <summary>
     /// 定义 生日年龄性别 实体
@@ -80,13 +75,14 @@ namespace JiangDuo.Core.Utils
         public string SexName => Sex.GetDescription();
     }
 
-
     public enum Sex
     {
         [Description("未知")]
         Normal = 0,
+
         [Description("男")]
         Male = 1,
+
         [Description("女")]
         Female = 2
     }

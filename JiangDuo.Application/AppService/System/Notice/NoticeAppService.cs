@@ -1,12 +1,9 @@
-﻿using JiangDuo.Application.System.Notice.Dtos;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.System.Notice.Dtos;
 using JiangDuo.Application.System.Notice.Services;
 using JiangDuo.Core.Utils;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Notice
@@ -21,12 +18,15 @@ namespace JiangDuo.Application.System.Notice
         /// 公告
         /// </summary>
         private readonly INoticeService _noticeService;
+
         private readonly RedisCache _redisService;
+
         public NoticeAppService(INoticeService noticeService, RedisCache redisService)
         {
             _noticeService = noticeService;
             _redisService = redisService;
         }
+
         /// <summary>
         /// 获取公告列表（分页）
         /// </summary>
@@ -46,6 +46,7 @@ namespace JiangDuo.Application.System.Notice
         {
             return await _noticeService.GetById(id);
         }
+
         /// <summary>
         /// 公告新增
         /// </summary>
@@ -55,6 +56,7 @@ namespace JiangDuo.Application.System.Notice
         {
             return await _noticeService.Insert(model);
         }
+
         /// <summary>
         /// 公告修改
         /// </summary>
@@ -64,6 +66,7 @@ namespace JiangDuo.Application.System.Notice
         {
             return await _noticeService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除公告
         /// </summary>
@@ -73,6 +76,7 @@ namespace JiangDuo.Application.System.Notice
         {
             return await _noticeService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除公告
         /// </summary>
@@ -83,6 +87,5 @@ namespace JiangDuo.Application.System.Notice
         {
             return await _noticeService.FakeDelete(idList);
         }
-      
     }
 }

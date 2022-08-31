@@ -4,10 +4,6 @@ using JiangDuo.Application.AppletAppService.AppletLogin.Services;
 using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.AppletLogin
@@ -19,12 +15,13 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin
     [ApiDescriptionSettings("Default", "小程序端统一登录")]
     public class AppletLoginAppService : IDynamicApiController
     {
-
         private readonly IAppletLoginService _appletLoginService;
+
         public AppletLoginAppService(IAppletLoginService appletLoginService)
         {
             _appletLoginService = appletLoginService;
         }
+
         /// <summary>
         /// 获取验证码
         /// </summary>
@@ -36,6 +33,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin
         {
             return await _appletLoginService.GetVerifyCode(phone);
         }
+
         /// <summary>
         /// 登录(手机号登录)
         /// </summary>

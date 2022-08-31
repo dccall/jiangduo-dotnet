@@ -1,10 +1,5 @@
 ﻿using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.NewsService.Dto
 {
@@ -14,14 +9,17 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// 状态
         /// </summary>
         public NewsStatus? Status { get; set; }
+
         /// <summary>
         /// 新闻标题
         /// </summary>
         public string Title { get; set; }
+
         /// <summary>
         /// 新闻分类
         /// </summary>
         public long? NewsClassifyId { get; set; }
+
         /// <summary>
         /// 是否推荐
         /// </summary>

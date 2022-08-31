@@ -1,13 +1,8 @@
-﻿
+﻿using Furion.DynamicApiController;
 using JiangDuo.Application.Role.Dtos;
 using JiangDuo.Application.Role.Services;
-using Furion.DependencyInjection;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.Menu
@@ -19,19 +14,22 @@ namespace JiangDuo.Application.Menu
     public class RoleAppService : IDynamicApiController
     {
         private readonly IRoleService _roleService;
+
         public RoleAppService(IRoleService roleService)
         {
-            _roleService=roleService;
+            _roleService = roleService;
         }
+
         /// <summary>
         /// 查询列表（分页）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<PagedList<RoleDto>> Get([FromQuery]RoleRequest model)
+        public async Task<PagedList<RoleDto>> Get([FromQuery] RoleRequest model)
         {
             return await _roleService.GetList(model);
         }
+
         /// <summary>
         /// 根据id获取详情
         /// </summary>
@@ -41,6 +39,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _roleService.GetById(id);
         }
+
         /// <summary>
         /// 角色新增
         /// </summary>
@@ -50,6 +49,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _roleService.Insert(model);
         }
+
         /// <summary>
         /// 角色修改
         /// </summary>
@@ -59,6 +59,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _roleService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除角色
         /// </summary>
@@ -68,6 +69,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _roleService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除角色
         /// </summary>

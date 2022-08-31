@@ -1,15 +1,10 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Furion.DatabaseAccessor;
+using JiangDuo.Core.Models;
 
 namespace JiangDuo.Application.System.Notice.Dtos
 {
     [Manual]
-    public class NoticeDto:SysNotice
+    public class NoticeDto : SysNotice
     {
     }
 }

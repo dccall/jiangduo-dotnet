@@ -1,14 +1,4 @@
-﻿using JiangDuo.Application.AppService.OnlineletterService.Dto;
-using JiangDuo.Application.AppService.ReserveService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Core.Base;
-using JiangDuo.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.WorkOrderService.Dto
 {
@@ -17,7 +7,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// <summary>
         /// 工单id
         /// </summary>
-        public long WordOrderId { get;  set; }
+        public long WordOrderId { get; set; }
 
         /// <summary>
         /// 处理内容

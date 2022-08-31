@@ -1,34 +1,34 @@
-﻿using JiangDuo.Application.System.Notice.Dtos;
-using JiangDuo.Application.Tools;
+﻿using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.System.Notice.Dtos;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Utils;
-using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.System.Notice.Services
 {
     public class NoticeService : INoticeService, ITransient
     {
-
         /// <summary>
         /// 日志
         /// </summary>
         private readonly ILogger<NoticeService> _logger;
+
         /// <summary>
         /// SysNotice仓储
         /// </summary>
         private readonly IRepository<SysNotice> _noticeRepository;
+
         private readonly RedisCache _redisService;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -41,6 +41,7 @@ namespace JiangDuo.Application.System.Notice.Services
             _noticeRepository = noticeRepository;
             _redisService = redisService;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -50,6 +51,7 @@ namespace JiangDuo.Application.System.Notice.Services
         {
             return _noticeRepository.Where(x => !x.IsDeleted).ProjectToType<NoticeDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -62,6 +64,7 @@ namespace JiangDuo.Application.System.Notice.Services
             var dto = entity.Adapt<NoticeDto>();
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -69,7 +72,6 @@ namespace JiangDuo.Application.System.Notice.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoNoticeForm model)
         {
-
             var entity = model.Adapt<SysNotice>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -78,6 +80,7 @@ namespace JiangDuo.Application.System.Notice.Services
             _noticeRepository.Insert(entity);
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量新增
         /// </summary>
@@ -97,6 +100,7 @@ namespace JiangDuo.Application.System.Notice.Services
             //提交
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -117,6 +121,7 @@ namespace JiangDuo.Application.System.Notice.Services
             _noticeRepository.Update(entity);
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量修改
         /// </summary>
@@ -141,6 +146,7 @@ namespace JiangDuo.Application.System.Notice.Services
             //提交
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -156,6 +162,7 @@ namespace JiangDuo.Application.System.Notice.Services
             entity.IsDeleted = true;
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -169,6 +176,7 @@ namespace JiangDuo.Application.System.Notice.Services
                 .ExecuteAsync();
             return result;
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -179,6 +187,7 @@ namespace JiangDuo.Application.System.Notice.Services
             _noticeRepository.Delete(id);
             return await _noticeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>

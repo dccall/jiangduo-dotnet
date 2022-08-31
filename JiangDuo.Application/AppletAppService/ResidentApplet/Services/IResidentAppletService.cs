@@ -4,13 +4,7 @@ using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
-using JiangDuo.Core.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletService.ResidentApplet.Services
@@ -22,12 +16,13 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<string> Login(DtoResidentLogin model);
+        public Task<string> Login(DtoResidentLogin model);
+
         /// <summary>
         /// 获取账号信息
         /// </summary>
         /// <returns></returns>
-        public  Task<DtoResident> GetAccountInfo();
+        public Task<DtoResident> GetAccountInfo();
 
         /// <summary>
         /// 用户实名认证
@@ -35,6 +30,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> AccountCertified(DtoAccountCertified model);
+
         /// <summary>
         /// 修改/完善个人信息
         /// </summary>
@@ -54,7 +50,7 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public  Task<DtoNews> GetNewsById(long id);
+        public Task<DtoNews> GetNewsById(long id);
 
         /// <summary>
         /// 查询已发布的服务
@@ -68,21 +64,21 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<string> JoinService(DtoJoinService model);
+        public Task<string> JoinService(DtoJoinService model);
 
         /// <summary>
         /// 取消参与服务(服务/活动)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<string> CancelService(DtoCancelService model);
+        public Task<string> CancelService(DtoCancelService model);
 
         /// <summary>
         /// 根据Id获取服务详情
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public  Task<DtoServiceInfo> GetServiceById(long id);
+        public Task<DtoServiceInfo> GetServiceById(long id);
 
         /// <summary>
         /// 查询我的参与和预约的服务
@@ -91,25 +87,27 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <returns></returns>
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model);
 
-
         /// <summary>
         /// 获取服务/活动预约记录(占用记录)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<List<DtoParticipant>> GetServiceOccupancyList(DtoServiceSubscribeQuery model);
+
         /// <summary>
         /// 确认占位服务
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<DtoParticipant> ConfirmOccupancyService(DtoSubscribeService model);
+
         /// <summary>
         /// 取消占位服务
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> CancelOccupancyService(DtoSubscribeService model);
+
         /// <summary>
         /// 预约服务（占位）提交
         /// </summary>
@@ -129,7 +127,8 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// </summary>
         /// <param name="id">id</param>
         /// <returns></returns>
-        public  Task<DtoPublicSentiment> GetPublicSentimentDetail(long id);
+        public Task<DtoPublicSentiment> GetPublicSentimentDetail(long id);
+
         /// <summary>
         /// 新增需求（码上说马上办）
         /// </summary>

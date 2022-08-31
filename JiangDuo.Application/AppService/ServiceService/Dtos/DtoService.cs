@@ -1,15 +1,9 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
 using JiangDuo.Application.AppService.VenuedeviceService.Dto;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
 
 namespace JiangDuo.Application.AppService.ServiceService.Dto
 {

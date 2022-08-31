@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace JiangDuo.Core.Services
 {
@@ -15,6 +11,5 @@ namespace JiangDuo.Core.Services
         /// <param name="templateCode"></param>
         /// <param name="data"></param>
         public void SendSms(string mobile, string templateCode, Dictionary<string, string> data);
-
     }
 }

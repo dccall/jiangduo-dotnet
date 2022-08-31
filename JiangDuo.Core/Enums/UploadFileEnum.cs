@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
@@ -14,6 +9,7 @@ namespace JiangDuo.Core.Enums
     {
         [Description("默认")]
         Null = 0,
+
         [Description("业务1")]
         Normal = 1
     }

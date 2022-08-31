@@ -1,11 +1,8 @@
-﻿using JiangDuo.Application.System.DictItem.Dto;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.System.DictItem.Dto;
 using JiangDuo.Application.System.DictItem.Services;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.DictItem
@@ -14,16 +11,18 @@ namespace JiangDuo.Application.System.DictItem
     /// 字典项管理
     /// </summary>
     [Route("api/[controller]")]
-    public class DictitemAppService: IDynamicApiController
+    public class DictitemAppService : IDynamicApiController
     {
         /// <summary>
         /// 字典项
         /// </summary>
         private readonly IDictItemService _dictItemService;
+
         public DictitemAppService(IDictItemService dictItemService)
         {
             _dictItemService = dictItemService;
         }
+
         /// <summary>
         /// 获取字典项列表（分页）
         /// </summary>
@@ -43,6 +42,7 @@ namespace JiangDuo.Application.System.DictItem
         {
             return await _dictItemService.GetById(id);
         }
+
         /// <summary>
         /// 字典项新增
         /// </summary>
@@ -52,6 +52,7 @@ namespace JiangDuo.Application.System.DictItem
         {
             return await _dictItemService.Insert(model);
         }
+
         /// <summary>
         /// 字典项修改
         /// </summary>
@@ -61,6 +62,7 @@ namespace JiangDuo.Application.System.DictItem
         {
             return await _dictItemService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除字典项
         /// </summary>
@@ -70,6 +72,7 @@ namespace JiangDuo.Application.System.DictItem
         {
             return await _dictItemService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除字典项
         /// </summary>

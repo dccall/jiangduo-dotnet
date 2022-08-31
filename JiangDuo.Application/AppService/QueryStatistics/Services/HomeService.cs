@@ -1,9 +1,5 @@
-﻿using Furion;
-using Furion.DatabaseAccessor;
-using Furion.DatabaseAccessor.Extensions;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
-using JiangDuo.Application.AppService.BusinessService.Dto;
-using JiangDuo.Application.AppService.BusinessService.Services;
 using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
@@ -13,8 +9,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Services
 {
@@ -32,6 +26,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         private readonly IRepository<Village> _villageRepository;
         private readonly IRepository<Business> _businessRepository;
         private readonly IRepository<PublicSentiment> _publicSentimentRepository;
+
         public HomeService(ILogger<HomeService> logger,
             IRepository<Resident> residentRepository,
             IRepository<Core.Models.Service> serviceRepository,
@@ -58,6 +53,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             _businessRepository = businessRepository;
             _publicSentimentRepository = publicSentimentRepository;
         }
+
         /// <summary>
         /// 获取选区信息
         /// </summary>
@@ -82,7 +78,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         {
             DtoTotal dto = new DtoTotal();
 
-            dto.TotalPopulation = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x=>x.Population).Sum();
+            dto.TotalPopulation = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x => x.Population).Sum();
             dto.TotalGrossArea = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x => x.GrossArea).Sum();
             dto.TotalCount = _selectAreaRepository.Where(x => !x.IsDeleted).Count();
             dto.AreaTotalCount = _selectAreaRepository.Where(x => !x.IsDeleted && x.SelectAreaType == SelectAreaTypeEnum.SelectArea).Count();
@@ -95,6 +91,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
 
             return dto;
         }
+
         /// <summary>
         /// 获取用户需求业务分类统计
         /// </summary>
@@ -110,6 +107,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             }).ToList();
             return list;
         }
+
         /// <summary>
         /// 获取用户需求数量统计
         /// </summary>
@@ -123,19 +121,19 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             dto.FeedbackCount = _publicSentimentRepository.Where(x => !x.IsDeleted && x.Status == PublicSentimentStatus.Feedback).Count();
             return dto;
         }
+
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentDay(DtoYearMonthDayStatisticsQuery model)
         {
-
             var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
             query = query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
 
             //            var sql = @"
-            //select 
+            //select
             //count(0) as count,
             //DATE_FORMAT(CreatedTime,'%Y-%m-%d') as date
             //from publicsentiment
@@ -155,7 +153,6 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentMonth(DtoYearMonthDayStatisticsQuery model)
         {
-
             var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
             query = query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
@@ -166,13 +163,13 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             }).ToList();
             return list;
         }
+
         /// <summary>
         /// 获取用户需求数量统计(年)
         /// </summary>
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentYear(DtoYearMonthDayStatisticsQuery model)
         {
-
             var query = _publicSentimentRepository.Where(x => !x.IsDeleted);
             query = query.Where(model.StartTime != null, x => model.StartTime >= x.CreatedTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
@@ -207,6 +204,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
 
             return dto;
         }
+
         /// <summary>
         /// 获取预约服务数量统计
         /// </summary>
@@ -232,20 +230,21 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             var endDate = startDate.AddDays(30);
             var query = _reserveRepository.AsQueryable().Where(x => !x.IsDeleted && x.Status == ReserveStatus.Audited);
             //两个时间比较，取反。包含时间范围
-            query = query.Where(x => !(x.StartTime.Date>= endDate.Date && x.EndTime.Date <= startDate.Date));
-            var list= query.ToList();
-            List<DtoReserveCount> resultList= new List<DtoReserveCount>();
-            while (startDate<= endDate)
+            query = query.Where(x => !(x.StartTime.Date >= endDate.Date && x.EndTime.Date <= startDate.Date));
+            var list = query.ToList();
+            List<DtoReserveCount> resultList = new List<DtoReserveCount>();
+            while (startDate <= endDate)
             {
                 resultList.Add(new DtoReserveCount()
                 {
                     Date = startDate.Date.ToString("yyyy-MM-dd"),
-                    Count = list.Where(x=> x.StartTime.Date <= startDate.Date && startDate.Date <= x.EndTime.Date).Count()
-                }); 
+                    Count = list.Where(x => x.StartTime.Date <= startDate.Date && startDate.Date <= x.EndTime.Date).Count()
+                });
                 startDate = startDate.AddDays(1);
             }
             return resultList;
         }
+
         /// <summary>
         /// 获取活动预约数量（30天）
         /// </summary>
@@ -264,7 +263,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
                 resultList.Add(new DtoServiceCount()
                 {
                     Date = startDate.Date.ToString("yyyy-MM-dd"),
-                    Count = list.Where(x => x.PlanStartTime.Value.Date <= startDate.Date && startDate.Date <= x.PlanEndTime.Value.Date ).Count()
+                    Count = list.Where(x => x.PlanStartTime.Value.Date <= startDate.Date && startDate.Date <= x.PlanEndTime.Value.Date).Count()
                 });
                 startDate = startDate.AddDays(1);
             }
@@ -305,10 +304,10 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
                              Creator = x.Creator,
                              SelectAreaId = x.SelectAreaId,
                              CreatedTime = x.CreatedTime,
-                              
                          };
             return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 获取活动预约场地列表
         /// </summary>
@@ -316,7 +315,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         public PagedList<DtoService> GetServiceVenuedevice(DtoReserveVenuedeviceQuery model)
         {
             var query = _serviceRepository.AsQueryable().Where(x => !x.IsDeleted && x.Status == ServiceStatusEnum.Published);
-            query = query.Where(model.ReserveDate != null, x => x.PlanStartTime.Value.Date<= model.ReserveDate.Value.Date && model.ReserveDate.Value.Date <= x.PlanEndTime.Value.Date);
+            query = query.Where(model.ReserveDate != null, x => x.PlanStartTime.Value.Date <= model.ReserveDate.Value.Date && model.ReserveDate.Value.Date <= x.PlanEndTime.Value.Date);
 
             var query2 = from service in query
                          join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1

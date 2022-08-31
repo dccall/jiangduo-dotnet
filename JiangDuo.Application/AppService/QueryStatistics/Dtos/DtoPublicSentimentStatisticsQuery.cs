@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
 {
@@ -12,19 +8,21 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
         /// 总数量
         /// </summary>
         public long TotalCount { get; set; }
+
         /// <summary>
         /// 待处理数量
         /// </summary>
         public long NotProcessedCount { get; set; }
+
         /// <summary>
         /// 进行中数量
         /// </summary>
         public long InProgressCount { get; set; }
+
         /// <summary>
         /// 已完结数量
         /// </summary>
         public long FeedbackCount { get; set; }
-
     }
 
     public class DtoBusinessStatistics
@@ -33,15 +31,18 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
         /// 业务分类名称
         /// </summary>
         public string BusinessName { get; set; }
+
         /// <summary>
         /// 数量
         /// </summary>
         public int Count { get; set; }
+
         /// <summary>
         /// 百分比
         /// </summary>
 
         public double Percentage { get; set; }
+
         /// <summary>
         /// 百分比
         /// </summary>
@@ -49,11 +50,10 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
         {
             get
             {
-                return Percentage.ToString("0.00")+"%";
+                return Percentage.ToString("0.00") + "%";
             }
         }
     }
-
 
     public class DtoYearMonthDayStatisticsQuery
     {
@@ -68,6 +68,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Dtos
         /// </summary>
 
         public string Date { get; set; }
+
         /// <summary>
         /// 数量
         /// </summary>

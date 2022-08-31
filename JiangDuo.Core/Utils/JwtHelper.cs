@@ -1,7 +1,6 @@
 ﻿using Furion;
 using Furion.DataEncryption;
 using Furion.FriendlyException;
-using JiangDuo.Core.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,6 @@ namespace JiangDuo.Core.Utils
 {
     public static class JwtHelper
     {
-
         public static JwtTokenResult GetJwtToken(AccountModel model)
         {
             // token
@@ -36,6 +34,7 @@ namespace JiangDuo.Core.Utils
             }
             return long.Parse(id.Value);
         }
+
         public static AccountModel GetAccountInfo()
         {
             var user = App.User.FindFirst(s => s.Type == "AccountModel");
@@ -47,21 +46,23 @@ namespace JiangDuo.Core.Utils
         }
     }
 
-
     public class AccountModel
     {
         /// <summary>
         /// id
         /// </summary>
         public long Id { get; set; }
+
         /// <summary>
         /// 姓名
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// 选区
         /// </summary>
         public long SelectAreaId { get; set; }
+
         /// <summary>
         /// 账号类型
         /// </summary>
@@ -72,10 +73,13 @@ namespace JiangDuo.Core.Utils
     {
         [Description("系统")]
         System = 0,
+
         [Description("居民")]
         Resident = 1,
+
         [Description("人大")]
         Official = 2,
+
         [Description("志愿者")]
         Volunteer = 3,
     }
@@ -86,6 +90,7 @@ namespace JiangDuo.Core.Utils
         /// 账号token
         /// </summary>
         public string AccessToken { get; set; }
+
         /// <summary>
         /// 刷新token
         /// </summary>

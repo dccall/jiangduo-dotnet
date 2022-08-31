@@ -1,19 +1,16 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.VenuedeviceService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.VenuedeviceService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.VenuedeviceService.Services
 {
@@ -25,6 +22,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         private readonly IRepository<SysUploadFile> _uploadRepository;
         private readonly IRepository<Building> _buiildingRepository;
         private readonly IRepository<SelectArea> _selectAreaRepository;
+
         public VenuedeviceService(ILogger<VenuedeviceService> logger,
             IRepository<Regulation> regulationRepository,
             IRepository<SysUploadFile> uploadRepository,
@@ -39,6 +37,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             _uploadRepository = uploadRepository;
             _selectAreaRepository = selectAreaRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -48,8 +47,8 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         {
             var query = _venuedeviceRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.VenuedeviceName), x => x.Name.Contains(model.VenuedeviceName));
-            query = query.Where(model.SelectAreaId!=null, x => x.SelectAreaId == model.SelectAreaId);
-            
+            query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
+
             var query2 = from v in query
                          join b in _buiildingRepository.Entities on v.BuildingId equals b.Id into result1
                          from vb in result1.DefaultIfEmpty()
@@ -80,6 +79,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             var pageList = query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
             return pageList;
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -87,7 +87,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
         /// <returns></returns>
         public async Task<DtoVenuedevice> GetById(long id)
         {
-            var query = _venuedeviceRepository.Where(x => !x.IsDeleted&&x.Id==id);
+            var query = _venuedeviceRepository.Where(x => !x.IsDeleted && x.Id == id);
             var query2 = from v in query
                          join b in _buiildingRepository.Entities on v.BuildingId equals b.Id into result1
                          from vb in result1.DefaultIfEmpty()
@@ -101,7 +101,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
                              Id = v.Id,
                              Name = v.Name,
                              SelectAreaId = v.SelectAreaId,
-                             SelectAreaName=vs.SelectAreaName,
+                             SelectAreaName = vs.SelectAreaName,
                              BuildingId = v.BuildingId,
                              Images = v.Images,
                              RegulationId = v.RegulationId,
@@ -127,6 +127,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             }
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -148,7 +149,6 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
                 var buiilding = _buiildingRepository.FindOrDefault(model.BuildingId);
                 entity.SelectAreaId = buiilding?.SelectAreaId;
             }
-
 
             _venuedeviceRepository.Insert(entity);
             return await _venuedeviceRepository.SaveNowAsync();
@@ -199,6 +199,7 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
             entity.IsDeleted = true;
             return await _venuedeviceRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -212,7 +213,5 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
     }
 }

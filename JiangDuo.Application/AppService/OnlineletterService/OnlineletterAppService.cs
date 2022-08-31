@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.OnlineletterService.Dto;
 using JiangDuo.Application.AppService.OnlineletterService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OnlineletterService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.OnlineletterService;
 [ApiDescriptionSettings("Default", "码上说马上办")]
 public class OnlineletterAppService : IDynamicApiController
 {
- 
     private readonly IOnlineletterService _onlineletterService;
+
     public OnlineletterAppService(IOnlineletterService onlineletterService)
     {
         _onlineletterService = onlineletterService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class OnlineletterAppService : IDynamicApiController
     {
         return await _onlineletterService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class OnlineletterAppService : IDynamicApiController
     {
         return await _onlineletterService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class OnlineletterAppService : IDynamicApiController
     {
         return await _onlineletterService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class OnlineletterAppService : IDynamicApiController
     {
         return await _onlineletterService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

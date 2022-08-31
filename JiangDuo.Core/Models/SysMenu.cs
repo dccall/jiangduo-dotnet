@@ -1,6 +1,5 @@
-﻿using JiangDuo.Core.Base;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
-using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,23 +12,26 @@ namespace JiangDuo.Core.Models
     /// 菜单权限表
     /// </summary>
     [Table("sys_menu")]
-    public partial class SysMenu: Base.BaseEntity, IEntitySeedData<SysMenu>
+    public partial class SysMenu : Base.BaseEntity, IEntitySeedData<SysMenu>
     {
         /// <summary>
         /// 菜单标题
         /// </summary>
         [MaxLength(50)]
         public string Title { get; set; } = null!;
+
         /// <summary>
         /// 权限编号
         /// </summary>
         [MaxLength(50)]
         public string Code { get; set; } = null!;
+
         /// <summary>
         /// 路由名称
         /// </summary>
         [MaxLength(50)]
         public string Name { get; set; } = null!;
+
         /// <summary>
         /// 路由地址
         /// </summary>
@@ -40,43 +42,49 @@ namespace JiangDuo.Core.Models
         /// 显示顺序
         /// </summary>
         public int Order { get; set; }
+
         /// <summary>
         /// 父菜单ID
         /// </summary>
         public long? ParentId { get; set; } = -1;
+
         /// <summary>
         /// 是否为外链
         /// </summary>
         public int? IsFrame { get; set; }
+
         /// <summary>
         /// 外链地址
         /// </summary>
         [MaxLength(500)]
         public string Href { get; set; }
+
         /// <summary>
         /// 是否缓存
         /// </summary>
         public int? KeepAlive { get; set; }
+
         /// <summary>
         /// 是否隐藏
         /// </summary>
         public int? Hide { get; set; }
+
         /// <summary>
         /// 菜单类型
         /// </summary>
         public MenuType Type { get; set; }
+
         /// <summary>
         /// 菜单图标
         /// </summary>
         [MaxLength(100)]
         public string Icon { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>
         [MaxLength(500)]
         public string Remark { get; set; }
-
-   
 
         /// <summary>
         /// 种子数据
@@ -86,18 +94,17 @@ namespace JiangDuo.Core.Models
         /// <returns></returns>
         public IEnumerable<SysMenu> HasData(DbContext dbContext, Type dbContextLocator)
         {
-            
             return new List<SysMenu>
             {
-                new SysMenu { 
+                new SysMenu {
                     Id=1,
                     Title="首页",
-                    Name="dashboard", 
+                    Name="dashboard",
                     Path="/dashboard",
                     Icon="carbon:dashboard",
                     Order=0,
                     CreatedTime=DateTime.UtcNow,
-                    Creator=0  
+                    Creator=0
                 },
                 new SysMenu {
                     Id=2,
@@ -108,7 +115,7 @@ namespace JiangDuo.Core.Models
                     Order=1,
                     CreatedTime=DateTime.UtcNow,
                     Creator=0
-                }, 
+                },
                 new SysMenu {
                     Id=3,
                     ParentId=2,

@@ -1,11 +1,7 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
 
 namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
 {
@@ -15,15 +11,18 @@ namespace JiangDuo.Application.AppService.VenuedeviceService.Dto
         /// <summary>
         /// 所属建筑名称
         /// </summary>
-        public string BuildingName{ get; set; }
+        public string BuildingName { get; set; }
+
         /// <summary>
         /// 所属选区
         /// </summary>
         public string SelectAreaName { get; set; }
+
         /// <summary>
         /// 类型名称
         /// </summary>
-        public string TypeName=> Type.GetDescription();
+        public string TypeName => Type.GetDescription();
+
         /// <summary>
         /// 规章制度
         /// </summary>

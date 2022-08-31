@@ -1,28 +1,25 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.QrcodeService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.QrcodeService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.QrcodeService.Services
 {
-    public class QrcodeService:IQrcodeService, ITransient
+    public class QrcodeService : IQrcodeService, ITransient
     {
         private readonly ILogger<QrcodeService> _logger;
         private readonly IRepository<Qrcode> _qrcodeRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
+
         public QrcodeService(ILogger<QrcodeService> logger,
             IRepository<SysUploadFile> uploadFileRepository,
             IRepository<Qrcode> qrcodeRepository)
@@ -31,6 +28,7 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
             _qrcodeRepository = qrcodeRepository;
             _uploadFileRepository = uploadFileRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -42,8 +40,9 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoQrcode中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoQrcode>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoQrcode>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -63,6 +62,7 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -70,7 +70,6 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoQrcodeForm model)
         {
-
             var entity = model.Adapt<Qrcode>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -82,7 +81,7 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
             _qrcodeRepository.Insert(entity);
             return await _qrcodeRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -107,7 +106,7 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
             _qrcodeRepository.Update(entity);
             return await _qrcodeRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -123,6 +122,7 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
             entity.IsDeleted = true;
             return await _qrcodeRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -136,7 +136,5 @@ namespace JiangDuo.Application.AppService.QrcodeService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

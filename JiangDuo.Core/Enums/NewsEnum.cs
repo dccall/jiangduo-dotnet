@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
@@ -11,10 +6,13 @@ namespace JiangDuo.Core.Enums
     {
         [Description("默认")]
         Normal = 0,
+
         [Description("草稿")]
         Draft = 1,
+
         [Description("未发布")]
         NoPublish = 2,
+
         [Description("已发布")]
         Publish = 3
     }

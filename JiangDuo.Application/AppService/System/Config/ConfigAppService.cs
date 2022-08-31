@@ -1,11 +1,8 @@
-﻿using JiangDuo.Application.System.Config.Dto;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.System.Config.Dto;
 using JiangDuo.Application.System.Config.Services;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Config
@@ -14,16 +11,18 @@ namespace JiangDuo.Application.System.Config
     /// 系统配置
     /// </summary>
     [Route("api/[controller]")]
-    public class ConfigAppService: IDynamicApiController
+    public class ConfigAppService : IDynamicApiController
     {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfigService _configService;
+
         public ConfigAppService(IConfigService configService)
         {
             _configService = configService;
         }
+
         /// <summary>
         /// 获取配置列表（分页）
         /// </summary>
@@ -63,6 +62,7 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.Insert(model);
         }
+
         /// <summary>
         /// 配置修改
         /// </summary>
@@ -72,6 +72,7 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除配置
         /// </summary>
@@ -81,6 +82,7 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除配置
         /// </summary>
@@ -91,6 +93,5 @@ namespace JiangDuo.Application.System.Config
         {
             return await _configService.FakeDelete(idList);
         }
-
     }
 }

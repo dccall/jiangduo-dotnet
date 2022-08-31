@@ -16,7 +16,7 @@ namespace ArkNeTransport.Application.Common.Utils
         /// <returns></returns>
         public static IConfiguration JsonConvertConfig(string jsonTxt)
         {
-            //创建存储区为内存流  
+            //创建存储区为内存流
             Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonTxt));
             var builder = new ConfigurationBuilder();
             IConfiguration config = builder.AddJsonStream(stream).Build();

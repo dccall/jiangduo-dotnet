@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.VillageService.Dto;
 using JiangDuo.Application.AppService.VillageService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.VillageService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.VillageService;
 [ApiDescriptionSettings("Default", "村落管理")]
 public class VillageAppService : IDynamicApiController
 {
- 
     private readonly IVillageService _villageService;
+
     public VillageAppService(IVillageService villageService)
     {
         _villageService = villageService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class VillageAppService : IDynamicApiController
     {
         return await _villageService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class VillageAppService : IDynamicApiController
     {
         return await _villageService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class VillageAppService : IDynamicApiController
     {
         return await _villageService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class VillageAppService : IDynamicApiController
     {
         return await _villageService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

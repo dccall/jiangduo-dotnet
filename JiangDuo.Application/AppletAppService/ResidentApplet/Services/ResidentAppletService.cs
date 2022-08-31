@@ -1,36 +1,30 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
+using JiangDuo.Application.AppletService.ResidentApplet.Services;
+using JiangDuo.Application.AppService.NewsService.Dto;
+using JiangDuo.Application.AppService.NewsService.Services;
+using JiangDuo.Application.AppService.PublicSentimentService.Dto;
+using JiangDuo.Application.AppService.PublicSentimentService.Services;
+using JiangDuo.Application.AppService.ResidentService.Dto;
+using JiangDuo.Application.AppService.ResidentService.Services;
+using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
+using JiangDuo.Application.AppService.ServiceService.Services;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
+using JiangDuo.Application.AppService.WorkOrderService.Services;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Services;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppletService.ResidentApplet.Services;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppletAppService.ResidentApplet.Dtos;
-using JiangDuo.Core.Services;
-using Furion;
-using JiangDuo.Application.AppService.ResidentService.Dto;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
-using JiangDuo.Application.AppService.WorkOrderService.Services;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Services;
-using JiangDuo.Core.Base;
-using JiangDuo.Application.AppService.PublicSentimentService.Services;
-using JiangDuo.Application.AppService.PublicSentimentService.Dto;
-using JiangDuo.Application.AppService.NewsService.Services;
-using JiangDuo.Application.AppService.NewsService.Dto;
-using Furion.DataValidation;
-using JiangDuo.Application.AppService.ResidentService.Services;
-using JiangDuo.Application.AppService.VenuedeviceService.Services;
-using JiangDuo.Application.AppService.ServiceService.Dtos;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 {
@@ -54,6 +48,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         private readonly IVenuedeviceService _venuedeviceService;
 
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
+
         public ResidentAppletService(ILogger<ResidentAppletService> logger,
             IServiceService serviceService,
                  IRepository<Official> officialRepository,
@@ -111,7 +106,6 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             return jwtTokenResult.AccessToken;
         }
 
-
         /// <summary>
         /// 获取账号信息
         /// </summary>
@@ -119,10 +113,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<DtoResident> GetAccountInfo()
         {
             var id = JwtHelper.GetAccountId();
-           
+
             var dto = await _residentService.GetById(id);
             return dto;
         }
+
         /// <summary>
         /// 用户实名认证
         /// </summary>
@@ -173,6 +168,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             return "修改失败";
         }
+
         /// <summary>
         /// 用户信息修改
         /// </summary>
@@ -224,6 +220,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             model.Status = NewsStatus.Publish;
             return _newService.GetList(model);
         }
+
         /// <summary>
         /// 根据id查询新闻详情
         /// </summary>
@@ -282,12 +279,10 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                              SelectAreaId = s.SelectAreaId,
                              Updater = s.Updater,
                              VillagesRange = s.VillagesRange,
-                             IsSignUp = _participantRepository.Entities.Where(x => x.Status == ParticipantStatus.Normal&& x.ResidentId == userid && x.ServiceId == s.Id).Any()
+                             IsSignUp = _participantRepository.Entities.Where(x => x.Status == ParticipantStatus.Normal && x.ResidentId == userid && x.ServiceId == s.Id).Any()
                          };
             return query2.ToPagedList(model.PageIndex, model.PageSize);
-
         }
-       
 
         /// <summary>
         /// 根据Id获取服务详情
@@ -329,11 +324,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             SelectAreaId = s.SelectAreaId,
                             Updater = s.Updater,
                             VillagesRange = s.VillagesRange,
-                            IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid&& x.Status == ParticipantStatus.Normal && x.ServiceId == s.Id).Any()
+                            IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid && x.Status == ParticipantStatus.Normal && x.ServiceId == s.Id).Any()
                         };
             var dto = query.FirstOrDefault();
             var result = _participantRepository
-              .Where(x => !x.IsDeleted&& x.Status == ParticipantStatus.Normal && x.ServiceId == id)
+              .Where(x => !x.IsDeleted && x.Status == ParticipantStatus.Normal && x.ServiceId == id)
               .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
               {
                   Resident = y,
@@ -355,6 +350,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             return dto;
         }
+
         /// <summary>
         /// 查询我的参与和预约的服务
         /// </summary>
@@ -363,16 +359,16 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var query = from p in _participantRepository.Entities.Where(p=> p.Status == ParticipantStatus.Normal && p.ResidentId == id)
+            var query = from p in _participantRepository.Entities.Where(p => p.Status == ParticipantStatus.Normal && p.ResidentId == id)
                         join s in _serviceRepository.Entities on p.ServiceId equals s.Id
                         join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result1
                         from so in result1.DefaultIfEmpty()
                         join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result2
                         from sv in result2.DefaultIfEmpty()
-                        //根据报名时间排序、活动状态、活动开始时间
+                            //根据报名时间排序、活动状态、活动开始时间
                         orderby p.CreatedTime descending, s.Status, s.PlanStartTime ascending
-                        
-                        select  new DtoServiceInfo
+
+                        select new DtoServiceInfo
                         {
                             Id = s.Id,
                             Address = s.Address,
@@ -402,10 +398,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             RegistTime = p.RegistTime,
                             StartTime = p.StartTime,
                             EndTime = p.EndTime,
-                            ParticipantId=p.Id
+                            ParticipantId = p.Id
                         };
-            return query .ToPagedList(model.PageIndex, model.PageSize);
+            return query.ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 参与服务(服务/活动)
         /// </summary>
@@ -438,6 +435,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             await _participantRepository.InsertNowAsync(entity);
             return "已参与";
         }
+
         /// <summary>
         /// 取消参与服务(服务/活动)
         /// </summary>
@@ -486,6 +484,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
 
             return list;
         }
+
         /// <summary>
         /// 确认占位服务
         /// </summary>
@@ -499,7 +498,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var exists = _participantRepository.Where(x =>
             //x.ResidentId == id &&
             x.ServiceId == model.ServiceId
-            && model.StartTime == x.StartTime 
+            && model.StartTime == x.StartTime
             && model.EndTime == x.EndTime).Any();
             if (exists)
             {
@@ -519,6 +518,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var dto = entity.Adapt<DtoParticipant>();
             return dto;
         }
+
         /// <summary>
         /// 取消占位服务
         /// </summary>
@@ -527,17 +527,17 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<string> CancelOccupancyService(DtoSubscribeService model)
         {
             var id = JwtHelper.GetAccountId();
-            var query= _participantRepository.Where(x =>x.ResidentId == id&& x.ServiceId == model.ServiceId&&x.Status== ParticipantStatus.Occupancy);
-            query = query.Where(model.StartTime!=null,x=> model.StartTime == x.StartTime);
-            query = query.Where(model.EndTime != null,x=> model.EndTime == x.EndTime);
+            var query = _participantRepository.Where(x => x.ResidentId == id && x.ServiceId == model.ServiceId && x.Status == ParticipantStatus.Occupancy);
+            query = query.Where(model.StartTime != null, x => model.StartTime == x.StartTime);
+            query = query.Where(model.EndTime != null, x => model.EndTime == x.EndTime);
             var list = query.ToList();
             _participantRepository.DeleteNow(list);
             return "取消成功";
         }
 
-        private  void ChckedServiceStatus(long serviceId,DateTime? startTime=null,DateTime? endTime = null)
+        private void ChckedServiceStatus(long serviceId, DateTime? startTime = null, DateTime? endTime = null)
         {
-            var service =  _serviceRepository.FindOrDefault(serviceId);
+            var service = _serviceRepository.FindOrDefault(serviceId);
             if (service == null)
             {
                 throw Oops.Oh("服务不存在");
@@ -547,7 +547,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 throw Oops.Oh("服务状态异常，无法预约");
             }
-            if(startTime!=null&& endTime != null)
+            if (startTime != null && endTime != null)
             {
                 //判断预约时间是 在服务范围内
                 if (!(service.PlanStartTime <= startTime && endTime <= service.PlanEndTime))
@@ -555,8 +555,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                     throw Oops.Oh("{0}~{1}预约时间不在服务范围内", startTime.Value.ToString("yyyy-MM-dd HH:mm:ss"), endTime.Value.ToString("yyyy-MM-dd HH:mm:ss"));
                 }
             }
-           
         }
+
         /// <summary>
         /// 预约服务(服务/活动)
         /// </summary>
@@ -568,13 +568,14 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 ChckedServiceStatus(modelList[0].ServiceId.Value);
             }
-            var idList= modelList.Select(x => x.Id).ToList();
-            var count= await _participantRepository.Context.BatchUpdate<Participant>()
+            var idList = modelList.Select(x => x.Id).ToList();
+            var count = await _participantRepository.Context.BatchUpdate<Participant>()
                 .Where(x => idList.Contains(x.Id))
                 .Set(x => x.Status, x => ParticipantStatus.Normal) //将占用改为默认状态
                 .ExecuteAsync();
-            return count>0?"预约成功":"预约失败";
+            return count > 0 ? "预约成功" : "预约失败";
         }
+
         /// <summary>
         /// 获取我的需求列表（码上说马上办）
         /// </summary>
@@ -586,6 +587,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             model.ResidentId = id;//查询我的需求
             return _publicSentimentService.GetList(model);
         }
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -612,7 +614,5 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             return "提交失败";
         }
-
-
     }
 }

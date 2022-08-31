@@ -1,26 +1,19 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using Microsoft.AspNetCore.Mvc;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.ReserveService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Application.AppService.OnlineletterService.Dto;
-using JiangDuo.Application.AppService.VolunteerService.Dto;
 
 namespace JiangDuo.Application.AppService.WorkOrderService.Services
 {
@@ -43,6 +36,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
         private readonly IRepository<PublicSentiment> _publicSentimentRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
         private readonly IRepository<Business> _businessRepository;
+
         public WorkOrderService(ILogger<WorkOrderService> logger, IRepository<Workorder> workOrderRepository,
             IRepository<Reserve> reserveRepository,
             IRepository<Core.Models.Service> serviceRepository,
@@ -79,6 +73,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             _publicSentimentRepository = publicSentimentRepository;
             _uploadFileRepository = uploadFileRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -153,9 +148,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                          };
 
             return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
-
         }
-
 
         /// <summary>
         /// 根据id查询详情
@@ -212,6 +205,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -246,7 +240,6 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return await _workOrderRepository.SaveNowAsync();
         }
-
 
         /// <summary>
         /// 修改
@@ -291,6 +284,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             entity.IsDeleted = true;
             return await _workOrderRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -304,9 +298,6 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
-
 
         /// <summary>
         /// 工单指派（接收人/协助人）
@@ -349,6 +340,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return "已指派";
         }
+
         /// <summary>
         /// 工单完成
         /// </summary>
@@ -372,6 +364,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return "已完成";
         }
+
         /// <summary>
         /// 工单完结（已完成待审核 工单【管理员】）
         /// </summary>
@@ -413,6 +406,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             }
             return "已完结";
         }
+
         /// <summary>
         /// 工单处理（不变更状态）
         /// </summary>
@@ -436,6 +430,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return "操作成功!";
         }
+
         /// <summary>
         /// 工单处理（状态变更）
         /// </summary>
@@ -462,7 +457,6 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
 
             return "操作成功!";
         }
-
 
         /// <summary>
         /// 添加工单处理记录
@@ -526,12 +520,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                 return sysUserEntity.NickName;
             }
             return "";
-
         }
+
         private string GetWorkOrderNo()
         {
             return DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
         }
-
     }
 }

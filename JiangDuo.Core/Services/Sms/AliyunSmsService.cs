@@ -9,16 +9,13 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Services
 {
-    public class AliyunSmsService: IAliyunSmsService, ITransient
+    public class AliyunSmsService : IAliyunSmsService, ITransient
     {
-
         private readonly ILogger<AliyunSmsService> _logger;
+
         public AliyunSmsService(ILogger<AliyunSmsService> logger)
         {
             _logger = logger;
@@ -30,9 +27,8 @@ namespace JiangDuo.Core.Services
         /// <param name="mobile"></param>
         /// <param name="templateCode"></param>
         /// <param name="data"></param>
-        public  void SendSms(string mobile, string templateCode, Dictionary<string, string> data)
+        public void SendSms(string mobile, string templateCode, Dictionary<string, string> data)
         {
-
             var accessKeyId = App.Configuration["sms-accessKeyId"];
             var accessKeySecret = App.Configuration["sms-accessKeySecret"];
             Config config = new Config
@@ -43,7 +39,6 @@ namespace JiangDuo.Core.Services
                 AccessKeySecret = accessKeySecret,
                 Endpoint = "dysmsapi.aliyuncs.com",
                 //其它配置项
-
             };
             // 访问的域名
             config.Endpoint = "dysmsapi.aliyuncs.com";
@@ -68,6 +63,5 @@ namespace JiangDuo.Core.Services
                 throw Oops.Oh("发送短信失败" + e.Message);
             }
         }
-
     }
 }

@@ -1,32 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.RegulationService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.RegulationService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.RegulationService.Services
 {
-    public class RegulationService:IRegulationService, ITransient
+    public class RegulationService : IRegulationService, ITransient
     {
         private readonly ILogger<RegulationService> _logger;
         private readonly IRepository<Regulation> _regulationRepository;
+
         public RegulationService(ILogger<RegulationService> logger, IRepository<Regulation> regulationRepository)
         {
             _logger = logger;
             _regulationRepository = regulationRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -38,8 +36,9 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoRegulation中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoRegulation>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoRegulation>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -53,6 +52,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -60,7 +60,6 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoRegulationForm model)
         {
-
             var entity = model.Adapt<Regulation>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -68,7 +67,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             _regulationRepository.Insert(entity);
             return await _regulationRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -89,7 +88,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             _regulationRepository.Update(entity);
             return await _regulationRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -105,6 +104,7 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
             entity.IsDeleted = true;
             return await _regulationRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -118,7 +118,5 @@ namespace JiangDuo.Application.AppService.RegulationService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

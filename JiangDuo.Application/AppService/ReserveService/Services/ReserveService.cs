@@ -1,24 +1,19 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.ReserveService.Dto;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
+using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.ReserveService.Dto;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.VolunteerService.Dto;
-using JiangDuo.Application.AppService.VenuedeviceService.Services;
 
 namespace JiangDuo.Application.AppService.ReserveService.Services
 {
@@ -44,9 +39,10 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _workOrderRepository = workOrderRepository;
             _venuedeviceRepository = venuedeviceRepository;
             _reservevolunteerRepository = reservevolunteerRepository;
-            _volunteerRepository =volunteerRepository;
+            _volunteerRepository = volunteerRepository;
             _venuedeviceService = venuedeviceService;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -56,7 +52,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         {
             var query = _reserveRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Theme), x => x.Theme.Contains(model.Theme));
-            query = query.Where(!(model.SelectAreaId == null|| model.SelectAreaId==-1), x => x.SelectAreaId == model.SelectAreaId);
+            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.Creator != null, x => x.Creator == model.Creator);
             query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
@@ -89,6 +85,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                          };
             return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -120,8 +117,8 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                 CreatedTime = x.CreatedTime,
             }).FirstOrDefault();
             //志愿者
-            var volunteerList=  _reservevolunteerRepository.Where(x => x.ReserveId == id)
-                .Join(_volunteerRepository.Entities, x => x.VolunteerId, y => y.Id, (x, y) =>y).ProjectToType<DtoVolunteer>().ToList();
+            var volunteerList = _reservevolunteerRepository.Where(x => x.ReserveId == id)
+                .Join(_volunteerRepository.Entities, x => x.VolunteerId, y => y.Id, (x, y) => y).ProjectToType<DtoVolunteer>().ToList();
             dto.VolunteerList = volunteerList;
 
             if (dto.VenueDeviceId != 0)
@@ -130,6 +127,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             }
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -180,7 +178,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             entity.Updater = JwtHelper.GetAccountId();
             _reserveRepository.Update(entity);
 
-            var volunteer= _reservevolunteerRepository.Where(x => x.ReserveId == model.Id).ToList();
+            var volunteer = _reservevolunteerRepository.Where(x => x.ReserveId == model.Id).ToList();
             _reservevolunteerRepository.Delete(volunteer);
 
             List<Reservevolunteer> addList = new List<Reservevolunteer>();
@@ -200,6 +198,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
 
             return await _reserveRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 修改状态
         /// </summary>
@@ -217,6 +216,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _reserveRepository.Update(entity);
             return await _reserveRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -232,6 +232,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             entity.IsDeleted = true;
             return await _reserveRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -245,7 +246,5 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
     }
 }

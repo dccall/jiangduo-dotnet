@@ -2,10 +2,7 @@
 using JiangDuo.Core.Services.GaoDe;
 using JiangDuo.Core.Services.GaoDe.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.CommonAppService.GaoAppDeService;
@@ -17,12 +14,13 @@ namespace JiangDuo.Application.CommonAppService.GaoAppDeService;
 [ApiDescriptionSettings("Default", "高德地图接口")]
 public class GaoDeAppService : IDynamicApiController
 {
- 
     private readonly GaoDeService _gaoDeService;
+
     public GaoDeAppService(GaoDeService gaoDeService)
     {
-        _gaoDeService=gaoDeService;
+        _gaoDeService = gaoDeService;
     }
+
     /// <summary>
     /// 根据关键词查询地点
     /// </summary>
@@ -32,6 +30,4 @@ public class GaoDeAppService : IDynamicApiController
     {
         return await _gaoDeService.SearchLocation(model);
     }
-
-   
 }

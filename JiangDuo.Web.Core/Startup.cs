@@ -67,7 +67,7 @@ public class Startup : AppStartup
 		app.UseCors(builder =>
 		{
 			//设置同源地址，不然有跨域问题
-			builder.WithOrigins("https://localhost:7079", "同源地址")
+			builder.WithOrigins("https://localhost:7079")
 				.AllowAnyHeader()
 				.WithMethods("GET", "POST")
 				.AllowCredentials();

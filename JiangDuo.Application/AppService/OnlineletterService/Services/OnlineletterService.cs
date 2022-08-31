@@ -1,33 +1,34 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.OnlineletterService.Dto;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.OnlineletterService.Dto;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
 
 namespace JiangDuo.Application.AppService.OnlineletterService.Services
 {
-    public class OnlineletterService:IOnlineletterService, ITransient
+    public class OnlineletterService : IOnlineletterService, ITransient
     {
         private readonly ILogger<OnlineletterService> _logger;
         private readonly IRepository<OnlineLetters> _onlineletterRepository;
 
         private readonly IRepository<Workorder> _workOrderRepository;
+
         public OnlineletterService(ILogger<OnlineletterService> logger, IRepository<OnlineLetters> onlineletterRepository, IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
             _onlineletterRepository = onlineletterRepository;
             _workOrderRepository = workOrderRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -36,11 +37,12 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
         public PagedList<DtoOnlineletter> GetList(DtoOnlineletterQuery model)
         {
             var query = _onlineletterRepository.Where(x => !x.IsDeleted);
-            query = query.Where(model.BusinessId!=null, x => x.BusinessId==model.BusinessId);
+            query = query.Where(model.BusinessId != null, x => x.BusinessId == model.BusinessId);
 
             //将数据映射到DtoOnlineletter中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOnlineletter>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOnlineletter>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -58,9 +60,9 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
                 dto.WorkOrder = workOrderEntity.Adapt<DtoWorkOrder>();
             }
 
-
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -68,7 +70,6 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoOnlineletterForm model)
         {
-
             var entity = model.Adapt<OnlineLetters>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -76,7 +77,7 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
             _onlineletterRepository.Insert(entity);
             return await _onlineletterRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -97,7 +98,7 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
             _onlineletterRepository.Update(entity);
             return await _onlineletterRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -113,6 +114,7 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
             entity.IsDeleted = true;
             return await _onlineletterRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -126,7 +128,5 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

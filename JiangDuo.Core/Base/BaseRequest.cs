@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JiangDuo.Core.Base
+﻿namespace JiangDuo.Core.Base
 {
     public class BaseRequest
     {
-
-
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 20;
     }

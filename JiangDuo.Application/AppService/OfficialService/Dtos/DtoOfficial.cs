@@ -1,11 +1,7 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
 
 namespace JiangDuo.Application.AppService.OfficialService.Dto
 {
@@ -16,10 +12,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 性别
         /// </summary>
         public string SexName => Sex.GetDescription();
+
         /// <summary>
         /// 角色名称
         /// </summary>
         public string OfficialRoleName => OfficialRole.GetDescription();
+
         /// <summary>
         /// 肖像
         /// </summary>

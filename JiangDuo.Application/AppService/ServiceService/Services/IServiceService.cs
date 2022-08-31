@@ -1,14 +1,7 @@
-﻿using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
-using JiangDuo.Application.System.Config.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JiangDuo.Core.Models;
+﻿using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -20,6 +13,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public PagedList<DtoService> GetList(DtoServiceQuery model);
+
         /// <summary>
         /// 根据id查询
         /// </summary>
@@ -32,13 +26,15 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<List<DtoParticipant>> GetServiceRegistList(DtoServiceSubscribeQuery model);
+        public Task<List<DtoParticipant>> GetServiceRegistList(DtoServiceSubscribeQuery model);
+
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         Task<int> Insert(DtoServiceForm model);
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -51,15 +47,16 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<int> UpdateStatus(DtoUpdateServiceStatus model);
+        public Task<int> UpdateStatus(DtoUpdateServiceStatus model);
+
         /// <summary>
         /// 假删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<int> FakeDelete(long id);
+
         //批量假删除
         public Task<int> FakeDelete(List<long> idList);
-     
     }
 }

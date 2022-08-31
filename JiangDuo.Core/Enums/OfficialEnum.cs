@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
@@ -14,6 +9,7 @@ namespace JiangDuo.Core.Enums
     {
         [Description("人大")]
         Normal = 0,
+
         [Description("主席")]
         Chairman = 1
     }

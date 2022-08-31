@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JiangDuo.Application.AppletAppService.OfficialApplet.Dtos
+﻿namespace JiangDuo.Application.AppletAppService.OfficialApplet.Dtos
 {
     public class DtoOfficialLogin
     {
@@ -17,7 +11,6 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Dtos
         /// 验证码
         /// </summary>
         public string Code { get; set; }
-
 
         /// <summary>
         /// 小程序登录code

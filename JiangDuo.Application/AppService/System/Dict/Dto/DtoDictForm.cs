@@ -1,11 +1,5 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Core.Enums;
-using System;
-using System.Collections.Generic;
+﻿using JiangDuo.Core.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Dict.Dto
 {
@@ -14,22 +8,25 @@ namespace JiangDuo.Application.System.Dict.Dto
         /// <summary>
         /// 主键
         /// </summary>
-        public long? Id { get;  set; }
+        public long? Id { get; set; }
 
         /// <summary>
         /// 字典名称
         /// </summary>
         [MaxLength(100)]
         public string DictName { get; set; } = null!;
+
         /// <summary>
         /// 字典类型
         /// </summary>
         [MaxLength(100)]
         public string DictType { get; set; }
+
         /// <summary>
         /// 状态
         /// </summary>
         public DictStatus Status { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>

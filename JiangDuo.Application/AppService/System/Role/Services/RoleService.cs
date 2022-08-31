@@ -1,21 +1,17 @@
-﻿using JiangDuo.Application.Role.Dtos;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using JiangDuo.Application.Role.Dtos;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
 
 namespace JiangDuo.Application.Role.Services
 {
@@ -25,6 +21,7 @@ namespace JiangDuo.Application.Role.Services
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysUserRole> _userRoleRepository;
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
+
         public RoleService(ILogger<RoleService> logger,
             IRepository<SysUserRole> userRoleRepository,
             IRepository<SysRoleMenu> roleMenuRepository,
@@ -51,6 +48,7 @@ namespace JiangDuo.Application.Role.Services
             var list = await query.OrderByDescending(x => x.CreatedTime).ProjectToType<RoleDto>().ToPagedListAsync(model.PageIndex, model.PageSize);
             return list;
         }
+
         /// <summary>
         ///根据主键查询
         /// </summary>
@@ -60,9 +58,10 @@ namespace JiangDuo.Application.Role.Services
         {
             var entity = await _roleRepository.FindOrDefaultAsync(id);
             var dto = entity.Adapt<RoleDto>();
-            dto.MenuIdList = _roleMenuRepository.Where(x => x.RoleId == id).Select(x=>x.MenuId).ToList();
+            dto.MenuIdList = _roleMenuRepository.Where(x => x.RoleId == id).Select(x => x.MenuId).ToList();
             return dto;
         }
+
         /// <summary>
         /// 新增
         /// </summary>
@@ -78,7 +77,7 @@ namespace JiangDuo.Application.Role.Services
             entity.Status = RoleStatus.Normal;
             _roleRepository.Insert(entity);
 
-            if(model.MenuIdList!=null&& model.MenuIdList.Count() > 0)
+            if (model.MenuIdList != null && model.MenuIdList.Count() > 0)
             {
                 //添加新菜单
                 var newRoleMenu = model.MenuIdList.Select(menuId => new SysRoleMenu()
@@ -93,6 +92,7 @@ namespace JiangDuo.Application.Role.Services
 
             return 1;
         }
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -129,6 +129,7 @@ namespace JiangDuo.Application.Role.Services
             await _roleRepository.SaveNowAsync();
             return 1;
         }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -145,6 +146,7 @@ namespace JiangDuo.Application.Role.Services
             entity.IsDeleted = true;
             return await _roleRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -177,6 +179,7 @@ namespace JiangDuo.Application.Role.Services
                 throw Oops.Oh("[{0}]角色名重复", model.RoleName);
             }
         }
+
         /// <summary>
         /// 删除前校验
         /// </summary>

@@ -1,13 +1,10 @@
 ﻿using JiangDuo.Application.OperLog.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.OperLog.Services
 {
-   public interface  IOperLogService
+    public interface IOperLogService
     {
         public Task<PagedList<OperLogDto>> GetList(OperLogRequest model);
 

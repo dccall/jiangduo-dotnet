@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Enums
 {
@@ -34,6 +30,5 @@ namespace JiangDuo.Core.Enums
             }
             return name;
         }
-
     }
 }

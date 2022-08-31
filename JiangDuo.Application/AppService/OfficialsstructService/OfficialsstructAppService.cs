@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.OfficialsstructService.Dto;
 using JiangDuo.Application.AppService.OfficialsstructService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OfficialsstructService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.OfficialsstructService;
 [ApiDescriptionSettings("Default", "人大结构管理")]
 public class OfficialsstructAppService : IDynamicApiController
 {
- 
     private readonly IOfficialsstructService _officialsstructService;
+
     public OfficialsstructAppService(IOfficialsstructService officialsstructService)
     {
         _officialsstructService = officialsstructService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class OfficialsstructAppService : IDynamicApiController
     {
         return await _officialsstructService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class OfficialsstructAppService : IDynamicApiController
     {
         return await _officialsstructService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class OfficialsstructAppService : IDynamicApiController
     {
         return await _officialsstructService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class OfficialsstructAppService : IDynamicApiController
     {
         return await _officialsstructService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

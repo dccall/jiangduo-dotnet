@@ -1,8 +1,6 @@
-﻿using Furion.DatabaseAccessor;
-using JiangDuo.Core.Base;
+﻿using JiangDuo.Core.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -1,20 +1,18 @@
-﻿using JiangDuo.Application.System.Dict.Dto;
-using JiangDuo.Application.Tools;
+﻿using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.System.Dict.Dto;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.System.Dict.Services
 {
@@ -24,6 +22,7 @@ namespace JiangDuo.Application.System.Dict.Services
         /// 日志
         /// </summary>
         private readonly ILogger<DictService> _logger;
+
         /// <summary>
         /// SysDict仓储
         /// </summary>
@@ -33,6 +32,7 @@ namespace JiangDuo.Application.System.Dict.Services
         /// SysDictItem仓储
         /// </summary>
         private readonly IRepository<SysDictItem> _dictItemRepository;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -45,6 +45,7 @@ namespace JiangDuo.Application.System.Dict.Services
             _dictRepository = dictRepository;
             _dictItemRepository = dictItemRepository;
         }
+
         /// <summary>
         /// 分页,一对多分页
         /// </summary>
@@ -52,11 +53,12 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public PagedList<DictDto> GetList(DictRequest model)
         {
-            var query = _dictRepository.Where(x => !x.IsDeleted&&x.Status== DictStatus.Normal);
+            var query = _dictRepository.Where(x => !x.IsDeleted && x.Status == DictStatus.Normal);
             query = query.Where(!string.IsNullOrEmpty(model.DictName), x => x.DictName.Contains(model.DictName));
             //将数据映射到DictDto中
             return query.Include(u => u.SysDictItem).ProjectToType<DictDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -64,12 +66,13 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public async Task<DictDto> GetById(long id)
         {
-            var entity = await _dictRepository.Where(x=>x.Id== id).Include(u => u.SysDictItem).FirstOrDefaultAsync();
-           
+            var entity = await _dictRepository.Where(x => x.Id == id).Include(u => u.SysDictItem).FirstOrDefaultAsync();
+
             var dto = entity.Adapt<DictDto>();
 
             return dto;
         }
+
         /// <summary>
         /// 根据名称查询详情
         /// </summary>
@@ -77,12 +80,13 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public async Task<DictDto> GetByDictName(string dictName)
         {
-            var entity = await _dictRepository.Where(x=>!x.IsDeleted && x.Status == DictStatus.Normal && x.DictName== dictName).Include(u => u.SysDictItem.Where(x=>!x.IsDeleted && x.Status == DictStatus.Normal)).FirstOrDefaultAsync();
+            var entity = await _dictRepository.Where(x => !x.IsDeleted && x.Status == DictStatus.Normal && x.DictName == dictName).Include(u => u.SysDictItem.Where(x => !x.IsDeleted && x.Status == DictStatus.Normal)).FirstOrDefaultAsync();
 
             var dto = entity.Adapt<DictDto>();
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -90,7 +94,6 @@ namespace JiangDuo.Application.System.Dict.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoDictForm model)
         {
-
             var entity = model.Adapt<SysDict>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -99,7 +102,7 @@ namespace JiangDuo.Application.System.Dict.Services
             _dictRepository.Insert(entity);
             return await _dictRepository.SaveNowAsync();
         }
-      
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -120,7 +123,7 @@ namespace JiangDuo.Application.System.Dict.Services
             _dictRepository.Update(entity);
             return await _dictRepository.SaveNowAsync();
         }
-      
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -137,6 +140,7 @@ namespace JiangDuo.Application.System.Dict.Services
             }
             return 0;
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -150,6 +154,5 @@ namespace JiangDuo.Application.System.Dict.Services
                 .ExecuteAsync();
             return result;
         }
-       
     }
 }

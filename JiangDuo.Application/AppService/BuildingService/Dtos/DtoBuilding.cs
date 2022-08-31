@@ -1,10 +1,6 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
+﻿using Furion.DatabaseAccessor;
+using JiangDuo.Core.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.BuildingService.Dto
 {

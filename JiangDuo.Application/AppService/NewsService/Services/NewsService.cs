@@ -1,20 +1,16 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.NewsService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.NewsService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.NewsService.Services
 {
@@ -24,6 +20,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
         private readonly IRepository<News> _newsRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
         private readonly IRepository<Newsclassify> _newsclassifyRepository;
+
         public NewsService(ILogger<NewsService> logger,
              IRepository<SysUploadFile> uploadFileRepository,
              IRepository<Newsclassify> newsclassifyRepository,
@@ -34,6 +31,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             _uploadFileRepository = uploadFileRepository;
             _newsclassifyRepository = newsclassifyRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -71,8 +69,8 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                          };
             var pageList = query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
             return pageList;
-
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -112,6 +110,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             }
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -157,6 +156,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             _newsRepository.Update(entity);
             return await _newsRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 更新状态
         /// </summary>
@@ -191,6 +191,7 @@ namespace JiangDuo.Application.AppService.NewsService.Services
             entity.IsDeleted = true;
             return await _newsRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -204,7 +205,5 @@ namespace JiangDuo.Application.AppService.NewsService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
     }
 }

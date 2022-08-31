@@ -1,36 +1,23 @@
-﻿
-using JiangDuo.Core.Models;
-using Furion;
-using Furion.DatabaseAccessor;
-using Furion.FriendlyException;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Utils;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace JiangDuo.Application.Filters
 {
     /// <summary>
     /// 角色拦截
     /// </summary>
-    public class AppletRoleFilterAttribute : Attribute,IActionFilter
+    public class AppletRoleFilterAttribute : Attribute, IActionFilter
     {
         public AccountType RuleType { get; set; }
-
 
         public AppletRoleFilterAttribute(AccountType ruleType)
         {
             RuleType = ruleType;
         }
+
         public void OnActionExecuting(ActionExecutingContext context)
         {
             var allowAnonymousAttribute = context.HttpContext.GetMetadata<AllowAnonymousAttribute>();
@@ -43,11 +30,9 @@ namespace JiangDuo.Application.Filters
                 }
             }
         }
+
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            
         }
-
     }
-
 }

@@ -1,14 +1,9 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Core.Enums;
+﻿using JiangDuo.Core.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ServiceService.Dto
 {
-    public class DtoServiceSubscribeQuery 
+    public class DtoServiceSubscribeQuery
     {
         /// <summary>
         /// 登记日期

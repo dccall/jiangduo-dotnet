@@ -1,12 +1,4 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.NewsService.Dto
 {
@@ -15,7 +7,8 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// <summary>
         /// 主键
         /// </summary>
-        public long Id { get;  set; }
+        public long Id { get; set; }
+
         /// <summary>
         /// 状态
         /// </summary>

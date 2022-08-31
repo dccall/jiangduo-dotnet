@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.ServiceClassifyService.Dto;
 using JiangDuo.Application.AppService.ServiceClassifyService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ServiceClassifyService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.ServiceClassifyService;
 [ApiDescriptionSettings("Default", "服务管理（一老一小）", "服务分类")]
 public class ServiceClassifyAppService : IDynamicApiController
 {
- 
     private readonly IServiceClassifyService _serviceClassifyService;
+
     public ServiceClassifyAppService(IServiceClassifyService serviceClassifyService)
     {
         _serviceClassifyService = serviceClassifyService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class ServiceClassifyAppService : IDynamicApiController
     {
         return await _serviceClassifyService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class ServiceClassifyAppService : IDynamicApiController
     {
         return await _serviceClassifyService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class ServiceClassifyAppService : IDynamicApiController
     {
         return await _serviceClassifyService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class ServiceClassifyAppService : IDynamicApiController
     {
         return await _serviceClassifyService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

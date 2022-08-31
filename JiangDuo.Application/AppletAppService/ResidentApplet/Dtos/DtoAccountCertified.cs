@@ -1,10 +1,5 @@
 ﻿using Furion.DataValidation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
 {
@@ -23,7 +18,6 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
         [DataValidation(ValidationTypes.IDCard, ErrorMessage = "请输入正确的身份证号码")]
         [Display(Name = "身份证号码")]
         public string Idnumber { get; set; }
-
 
         /// <summary>
         /// 所属村Id

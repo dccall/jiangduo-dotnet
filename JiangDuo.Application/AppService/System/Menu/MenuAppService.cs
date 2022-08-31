@@ -1,31 +1,25 @@
-﻿
+﻿using Furion.DynamicApiController;
 using JiangDuo.Application.Menu.Dtos;
 using JiangDuo.Application.Menu.Services;
-using JiangDuo.Core.Attributes;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using JiangDuo.Core.Filters;
 
 namespace JiangDuo.Application.Menu
 {
-
     /// <summary>
     /// 菜单管理
     /// </summary>
     [Route("api/[controller]")]
     public class MenuAppService : IDynamicApiController
     {
-
         private readonly IMenuService _menuService;
+
         public MenuAppService(IMenuService menuService)
         {
-            _menuService=menuService;
+            _menuService = menuService;
         }
+
         /// <summary>
         /// 获取菜单列表（分页）
         /// </summary>
@@ -35,13 +29,14 @@ namespace JiangDuo.Application.Menu
         {
             return _menuService.GetList(model);
         }
+
         /// <summary>
         /// 获取树形菜单
         /// </summary>
         /// <returns></returns>
         public List<MenuTreeDto> GetTreeMenu([FromQuery] MenuRequest model)
         {
-            var result= _menuService.GetTreeMenu(model);
+            var result = _menuService.GetTreeMenu(model);
             return result;
         }
 
@@ -54,6 +49,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _menuService.GetById(id);
         }
+
         /// <summary>
         /// 菜单新增
         /// </summary>
@@ -63,6 +59,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _menuService.Insert(model);
         }
+
         /// <summary>
         /// 菜单修改
         /// </summary>
@@ -72,6 +69,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _menuService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除菜单
         /// </summary>
@@ -81,6 +79,7 @@ namespace JiangDuo.Application.Menu
         {
             return await _menuService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除菜单
         /// </summary>
@@ -91,6 +90,5 @@ namespace JiangDuo.Application.Menu
         {
             return await _menuService.FakeDelete(idList);
         }
-
     }
 }

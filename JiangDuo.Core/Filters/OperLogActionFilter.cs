@@ -7,18 +7,14 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Filters;
 
-public class OperLogActionFilterAttribute :Attribute, IAsyncActionFilter
+public class OperLogActionFilterAttribute : Attribute, IAsyncActionFilter
 {
-
     public string Name { get; set; }
 
     public OperLogActionFilterAttribute(string name)

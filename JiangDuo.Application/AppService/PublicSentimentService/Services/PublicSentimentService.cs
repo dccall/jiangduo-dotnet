@@ -1,23 +1,18 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.PublicSentimentService.Dto;
+using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.PublicSentimentService.Dto;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppService.PublicSentimentService.Dtos;
-using JiangDuo.Core.Enums;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace JiangDuo.Application.AppService.PublicSentimentService.Services
 {
@@ -29,7 +24,6 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
         private readonly IRepository<SelectArea> _selectAreaRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
         private readonly IRepository<Business> _businessRepository;
-
 
         public PublicSentimentService(ILogger<PublicSentimentService> logger,
             IRepository<PublicSentiment> publicSentimentRepository,
@@ -47,6 +41,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             _businessRepository = businessRepository;
             _uploadFileRepository = uploadFileRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -60,7 +55,11 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.ResidentId != null, x => x.ResidentId == model.ResidentId);
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
-            
+            query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
+            query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
+
+
+
 
             var query2 = from p in query
                          join r in _residentRepository.Entities on p.ResidentId equals r.Id into result1
@@ -85,7 +84,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                              Creator = p.Creator,
                              BusinessId = p.BusinessId,
                              BusinessName = pb.Name,
-                             WorkorderType=p.WorkorderType,
+                             WorkorderType = p.WorkorderType,
                              SelectAreaId = p.SelectAreaId,
                              SelectAreaName = ps.SelectAreaName,
                              Attachments = p.Attachments,
@@ -95,8 +94,8 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                          };
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);
-
         }
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -143,6 +142,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             }
             return await Task.FromResult(dto);
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -229,6 +229,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             entity.IsDeleted = true;
             return await _publicSentimentRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -242,8 +243,5 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
-
     }
 }

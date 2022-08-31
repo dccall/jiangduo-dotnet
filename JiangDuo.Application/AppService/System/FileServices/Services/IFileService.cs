@@ -3,10 +3,7 @@ using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.System.FileServices.Services
@@ -26,12 +23,14 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<DtoUploadFile> GetById(long id);
+
         /// <summary>
         /// 根据id删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<int> Delete(long id);
+
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -39,8 +38,8 @@ namespace JiangDuo.Application.AppService.System.FileServices.Services
         /// <returns></returns>
         public Task<int> Delete([FromBody] List<long> idList);
 
-
         public Task<SysUploadFile> UploadFileAsync(IFormFile file, UploadFileSource fileSource = UploadFileSource.Null);
+
         public IActionResult FileDownload(long fileId);
     }
 }

@@ -1,29 +1,30 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.BusinessService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BusinessService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.BusinessService.Services
 {
-    public class BusinessService:IBusinessService, ITransient
+    public class BusinessService : IBusinessService, ITransient
     {
         private readonly ILogger<BusinessService> _logger;
         private readonly IRepository<Business> _businessRepository;
+
         public BusinessService(ILogger<BusinessService> logger, IRepository<Business> businessRepository)
         {
             _logger = logger;
             _businessRepository = businessRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -35,8 +36,9 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoBusiness中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoBusiness>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoBusiness>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据id查询详情
         /// </summary>
@@ -50,6 +52,7 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -57,7 +60,6 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoBusinessForm model)
         {
-
             var entity = model.Adapt<Business>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -65,7 +67,7 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
             _businessRepository.Insert(entity);
             return await _businessRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -86,7 +88,7 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
             _businessRepository.Update(entity);
             return await _businessRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -102,6 +104,7 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
             entity.IsDeleted = true;
             return await _businessRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -115,7 +118,5 @@ namespace JiangDuo.Application.AppService.BusinessService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

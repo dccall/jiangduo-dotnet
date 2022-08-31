@@ -1,6 +1,5 @@
-﻿using JiangDuo.Core.Base;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
-using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,17 +12,19 @@ namespace JiangDuo.Core.Models
     /// 角色信息表
     /// </summary>
     [Table("sys_role")]
-    public partial class SysRole: Base.BaseEntity, IEntitySeedData<SysRole>
+    public partial class SysRole : Base.BaseEntity, IEntitySeedData<SysRole>
     {
         /// <summary>
         /// 角色名称
         /// </summary>
         [MaxLength(50)]
         public string RoleName { get; set; } = null!;
+
         /// <summary>
         /// 角色状态（0正常 1停用）
         /// </summary>
-        public RoleStatus Status { get; set; } 
+        public RoleStatus Status { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>

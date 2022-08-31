@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.OfficialService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OfficialService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.OfficialService;
 [ApiDescriptionSettings("Default", "人大名单管理")]
 public class OfficialAppService : IDynamicApiController
 {
- 
     private readonly IOfficialService _officialService;
+
     public OfficialAppService(IOfficialService officialService)
     {
         _officialService = officialService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>
@@ -80,6 +81,4 @@ public class OfficialAppService : IDynamicApiController
     {
         return await _officialService.FakeDelete(idList);
     }
-
-   
 }

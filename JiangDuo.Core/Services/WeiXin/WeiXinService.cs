@@ -3,28 +3,23 @@ using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Services
 {
-    public class WeiXinService: ITransient
+    public class WeiXinService : ITransient
     {
         private readonly ILogger<WeiXinService> _logger;
         private readonly IWeiXinHttp _weiXinHttp;
 
         private string appid => App.Configuration["WeiXin:Appid"];
         private string secret => App.Configuration["WeiXin:Secret"];
+
         public WeiXinService(ILogger<WeiXinService> logger, IWeiXinHttp weiXinHttp)
         {
             _logger = logger;
             _weiXinHttp = weiXinHttp;
         }
-
-
 
         public async Task<WeiXinLoginResult> WeiXinLogin(string code)
         {
@@ -36,7 +31,7 @@ namespace JiangDuo.Core.Services
             var json = JsonConvert.DeserializeObject<WeiXinLoginResult>(res);
             if (json.Errcode != 0)
             {
-                throw Oops.Oh("调用微信登录失败"+json.Errmsg);
+                throw Oops.Oh("调用微信登录失败" + json.Errmsg);
             }
             return json;
         }

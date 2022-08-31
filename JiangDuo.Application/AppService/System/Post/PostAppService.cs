@@ -1,13 +1,8 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.System.Config.Services;
+﻿using Furion.DynamicApiController;
 using JiangDuo.Application.System.Post.Dto;
 using JiangDuo.Application.System.Post.Services;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Post
@@ -22,10 +17,12 @@ namespace JiangDuo.Application.System.Post
         /// 配置
         /// </summary>
         private readonly IPostService _postService;
+
         public PostAppService(IPostService postService)
         {
             _postService = postService;
         }
+
         /// <summary>
         /// 获取配置列表（分页）
         /// </summary>
@@ -45,6 +42,7 @@ namespace JiangDuo.Application.System.Post
         {
             return await _postService.GetById(id);
         }
+
         /// <summary>
         /// 配置新增
         /// </summary>
@@ -54,6 +52,7 @@ namespace JiangDuo.Application.System.Post
         {
             return await _postService.Insert(model);
         }
+
         /// <summary>
         /// 配置修改
         /// </summary>
@@ -63,6 +62,7 @@ namespace JiangDuo.Application.System.Post
         {
             return await _postService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除配置
         /// </summary>
@@ -72,6 +72,7 @@ namespace JiangDuo.Application.System.Post
         {
             return await _postService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除配置
         /// </summary>

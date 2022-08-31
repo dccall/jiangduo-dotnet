@@ -6,17 +6,10 @@ using JiangDuo.Application.AppService.PublicSentimentService.Dto;
 using JiangDuo.Application.AppService.ResidentService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.Filters;
-using JiangDuo.Core.Base;
 using JiangDuo.Core.Utils;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet;
@@ -29,8 +22,8 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet;
 [AppletRoleFilter(AccountType.Resident)]//只允许居民账号类型访问
 public class ResidentAppletAppService : IDynamicApiController
 {
- 
     private readonly IResidentAppletService _residentAppletService;
+
     public ResidentAppletAppService(IResidentAppletService residentAppletService)
     {
         _residentAppletService = residentAppletService;
@@ -54,6 +47,7 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.GetAccountInfo();
     }
+
     /// <summary>
     /// 用户实名认证
     /// </summary>
@@ -63,6 +57,7 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.AccountCertified(model);
     }
+
     /// <summary>
     /// 修改/完善个人信息
     /// </summary>
@@ -72,15 +67,17 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.UpdateAccountInfo(model);
     }
+
     /// <summary>
     /// 获取新闻列表
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
-    public  PagedList<DtoNews> GetNewsList([FromQuery] DtoNewsQuery model)
+    public PagedList<DtoNews> GetNewsList([FromQuery] DtoNewsQuery model)
     {
-        return  _residentAppletService.GetNewsList(model);
+        return _residentAppletService.GetNewsList(model);
     }
+
     /// <summary>
     /// 根据id查询新闻详情
     /// </summary>
@@ -147,10 +144,11 @@ public class ResidentAppletAppService : IDynamicApiController
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpGet("GetServiceOccupancyList")]
-    public Task<List<DtoParticipant>> GetServiceOccupancyList([FromQuery]DtoServiceSubscribeQuery model)
+    public Task<List<DtoParticipant>> GetServiceOccupancyList([FromQuery] DtoServiceSubscribeQuery model)
     {
         return _residentAppletService.GetServiceOccupancyList(model);
     }
+
     /// <summary>
     /// 确认占位服务
     /// </summary>
@@ -161,6 +159,7 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return _residentAppletService.ConfirmOccupancyService(model);
     }
+
     /// <summary>
     /// 取消占位服务
     /// </summary>
@@ -171,6 +170,7 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return _residentAppletService.CancelOccupancyService(model);
     }
+
     /// <summary>
     /// 预约服务（占位）提交
     /// </summary>
@@ -189,7 +189,7 @@ public class ResidentAppletAppService : IDynamicApiController
     /// <returns></returns>
     public PagedList<DtoPublicSentiment> GetMyPublicSentiment([FromQuery] DtoPublicSentimentQuery model)
     {
-        return  _residentAppletService.GetMyPublicSentiment(model);
+        return _residentAppletService.GetMyPublicSentiment(model);
     }
 
     /// <summary>
@@ -201,6 +201,7 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return _residentAppletService.GetPublicSentimentDetail(id);
     }
+
     /// <summary>
     /// 新增公共需求（码上说马上办）
     /// </summary>
@@ -210,6 +211,4 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.AddPublicSentiment(model);
     }
-  
-
 }

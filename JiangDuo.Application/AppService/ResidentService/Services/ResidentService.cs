@@ -1,38 +1,36 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.ResidentService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.ResidentService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.ResidentService.Services
 {
-    public class ResidentService:IResidentService, ITransient
+    public class ResidentService : IResidentService, ITransient
     {
         private readonly ILogger<ResidentService> _logger;
         private readonly IRepository<Resident> _residentRepository;
         private readonly IRepository<Village> _villageRepository;
         private readonly IRepository<SelectArea> _selectAreaRepository;
+
         public ResidentService(ILogger<ResidentService> logger,
             IRepository<SelectArea> selectAreaRepository,
-            IRepository<Resident> residentRepository,IRepository<Village> villageRepository)
+            IRepository<Resident> residentRepository, IRepository<Village> villageRepository)
         {
             _logger = logger;
             _residentRepository = residentRepository;
             _villageRepository = villageRepository;
             _selectAreaRepository = selectAreaRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -78,8 +76,9 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
                          };
 
             //将数据映射到DtoResident中
-            return query2.OrderByDescending(s=>s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -87,7 +86,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
         /// <returns></returns>
         public async Task<DtoResident> GetById(long id)
         {
-            var query =  _residentRepository.Where(x=>x.Id==id);
+            var query = _residentRepository.Where(x => x.Id == id);
 
             var query2 = from x in query
                          join v in _villageRepository.Entities on x.VillageId equals v.Id into result1
@@ -124,6 +123,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -131,7 +131,6 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoResidentForm model)
         {
-
             var entity = model.Adapt<Resident>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -139,15 +138,14 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
 
             if (entity.VillageId != null)
             {
-               var village = _villageRepository.FindOrDefault(entity.VillageId);
+                var village = _villageRepository.FindOrDefault(entity.VillageId);
                 entity.SelectAreaId = village?.SelectAreaId;
             }
-
 
             _residentRepository.Insert(entity);
             return await _residentRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -174,7 +172,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             _residentRepository.Update(entity);
             return await _residentRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -190,6 +188,7 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
             entity.IsDeleted = true;
             return await _residentRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -203,7 +202,5 @@ namespace JiangDuo.Application.AppService.ResidentService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

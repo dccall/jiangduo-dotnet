@@ -1,13 +1,8 @@
-﻿
+﻿using Furion.DynamicApiController;
 using JiangDuo.Application.OperLog.Dtos;
 using JiangDuo.Application.OperLog.Services;
-using Furion.DependencyInjection;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.OperLog
@@ -19,19 +14,22 @@ namespace JiangDuo.Application.OperLog
     public class OperLogAppService : IDynamicApiController
     {
         private readonly IOperLogService _operLogService;
+
         public OperLogAppService(IOperLogService operLogService)
         {
             _operLogService = operLogService;
         }
+
         /// <summary>
         /// 查询列表（分页）
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<PagedList<OperLogDto>> Get([FromQuery]OperLogRequest model)
+        public async Task<PagedList<OperLogDto>> Get([FromQuery] OperLogRequest model)
         {
             return await _operLogService.GetList(model);
         }
+
         /// <summary>
         /// 根据id获取详情
         /// </summary>
@@ -41,6 +39,7 @@ namespace JiangDuo.Application.OperLog
         {
             return await _operLogService.GetById(id);
         }
+
         /// <summary>
         /// 新增
         /// </summary>
@@ -50,7 +49,7 @@ namespace JiangDuo.Application.OperLog
         {
             return await _operLogService.Insert(model);
         }
-       
+
         /// <summary>
         /// 根据id删除
         /// </summary>
@@ -60,6 +59,7 @@ namespace JiangDuo.Application.OperLog
         {
             return await _operLogService.Delete(id);
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>

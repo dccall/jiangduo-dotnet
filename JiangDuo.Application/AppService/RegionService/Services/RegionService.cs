@@ -1,32 +1,28 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.RegionService.Dto;
+using JiangDuo.Core.Models;
 using Mapster;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.RegionService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.RegionService.Services
 {
-    public class RegionService:IRegionService, ITransient
+    public class RegionService : IRegionService, ITransient
     {
         private readonly ILogger<RegionService> _logger;
         private readonly IRepository<SysRegion> _regionRepository;
+
         public RegionService(ILogger<RegionService> logger, IRepository<SysRegion> regionRepository)
         {
             _logger = logger;
             _regionRepository = regionRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -35,11 +31,12 @@ namespace JiangDuo.Application.AppService.RegionService.Services
         public PagedList<DtoRegion> GetList(DtoRegionQuery model)
         {
             var query = _regionRepository.AsQueryable();
-            query = query.Where(model.RegionLevel!=null,x=>x.RegionLevel==model.RegionLevel);
-            query = query.Where(model.RegionParentId!=null,x=>x.RegionParentId == model.RegionParentId);
+            query = query.Where(model.RegionLevel != null, x => x.RegionLevel == model.RegionLevel);
+            query = query.Where(model.RegionParentId != null, x => x.RegionParentId == model.RegionParentId);
             //将数据映射到DtoRegion中
-            return query.OrderByDescending(s=>s.RegionName).ProjectToType<DtoRegion>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.RegionName).ProjectToType<DtoRegion>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -53,6 +50,7 @@ namespace JiangDuo.Application.AppService.RegionService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -60,13 +58,12 @@ namespace JiangDuo.Application.AppService.RegionService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoRegionForm model)
         {
-
             var entity = model.Adapt<SysRegion>();
             entity.RegionId = YitIdHelper.NextId();
             _regionRepository.Insert(entity);
             return await _regionRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -85,7 +82,7 @@ namespace JiangDuo.Application.AppService.RegionService.Services
             _regionRepository.Update(entity);
             return await _regionRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -100,6 +97,7 @@ namespace JiangDuo.Application.AppService.RegionService.Services
             }
             return await _regionRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -113,7 +111,5 @@ namespace JiangDuo.Application.AppService.RegionService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

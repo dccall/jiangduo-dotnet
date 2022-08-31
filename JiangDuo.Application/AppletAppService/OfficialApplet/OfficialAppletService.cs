@@ -9,12 +9,8 @@ using JiangDuo.Application.AppService.WorkOrderService.Dto;
 using JiangDuo.Application.Filters;
 using JiangDuo.Core.Base;
 using JiangDuo.Core.Utils;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.OfficialApplet;
@@ -27,14 +23,12 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet;
 [AppletRoleFilter(AccountType.Official)]//只允许人大账号类型访问
 public class OfficialAppletService : IDynamicApiController
 {
- 
     private readonly IOfficialAppletService _officialAppletService;
+
     public OfficialAppletService(IOfficialAppletService officialAppletService)
     {
         _officialAppletService = officialAppletService;
     }
-
-
 
     ///// <summary>
     ///// 人大登录（微信code登录）
@@ -69,18 +63,17 @@ public class OfficialAppletService : IDynamicApiController
     //    return await _officialAppletService.GetVerifyCode(phone);
     //}
 
-
-
     /// <summary>
     /// 我的服务列表(一老一小)
     /// </summary>
     /// <param name="model">数据</param>
     /// <returns></returns>
     [HttpGet("GetMyServices")]
-    public  PagedList<DtoService> GetMyServices([FromQuery] DtoServiceQuery model)
+    public PagedList<DtoService> GetMyServices([FromQuery] DtoServiceQuery model)
     {
-        return  _officialAppletService.GetMyServices(model);
+        return _officialAppletService.GetMyServices(model);
     }
+
     /// <summary>
     /// 服务详情(一老一小)
     /// </summary>
@@ -91,6 +84,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return _officialAppletService.GetServicesDetail(id);
     }
+
     /// <summary>
     /// 创建服务(一老一小）
     /// </summary>
@@ -101,6 +95,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.AddServices(model);
     }
+
     /// <summary>
     /// 删除服务(一老一小)
     /// </summary>
@@ -111,6 +106,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.DeleteServices(id);
     }
+
     /// <summary>
     /// 获取我的预约（有事好商量）
     /// </summary>
@@ -119,8 +115,9 @@ public class OfficialAppletService : IDynamicApiController
     [HttpGet("GetMyReserves")]
     public PagedList<DtoReserve> GetMyReserves([FromQuery] DtoReserveQuery model)
     {
-        return  _officialAppletService.GetMyReserves(model);
+        return _officialAppletService.GetMyReserves(model);
     }
+
     /// <summary>
     /// 获取预约详情(有事好商量)
     /// </summary>
@@ -131,6 +128,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.GetReserveDetail(id);
     }
+
     /// <summary>
     /// 添加预约(有事好商量)
     /// </summary>
@@ -141,6 +139,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.AddReserve(model);
     }
+
     /// <summary>
     /// 删除预约（有事好商量）
     /// </summary>
@@ -151,6 +150,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.DeleteReserve(id);
     }
+
     /// <summary>
     /// 获取我的工单
     /// </summary>
@@ -172,6 +172,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return _officialAppletService.GetHelpers(model);
     }
+
     /// <summary>
     /// 根据id查询工单详情
     /// </summary>
@@ -181,6 +182,7 @@ public class OfficialAppletService : IDynamicApiController
     {
         return await _officialAppletService.GetWorkOrderDetail(id);
     }
+
     /// <summary>
     /// 工单完成
     /// </summary>

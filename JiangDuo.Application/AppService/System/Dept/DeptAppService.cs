@@ -1,11 +1,8 @@
-﻿using JiangDuo.Application.System.Dept.Dtos;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.System.Dept.Dtos;
 using JiangDuo.Application.System.Dept.Services;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Dept
@@ -14,16 +11,18 @@ namespace JiangDuo.Application.System.Dept
     /// 部门管理
     /// </summary>
     [Route("api/[controller]")]
-    public class DeptAppService: IDynamicApiController
+    public class DeptAppService : IDynamicApiController
     {
         /// <summary>
         /// 部门
         /// </summary>
         private readonly IDeptService _deptService;
+
         public DeptAppService(IDeptService deptService)
         {
             _deptService = deptService;
         }
+
         /// <summary>
         /// 获取部门列表（分页）
         /// </summary>
@@ -33,7 +32,7 @@ namespace JiangDuo.Application.System.Dept
         {
             return _deptService.GetList(model);
         }
-       
+
         /// <summary>
         /// 根据id获取详情
         /// </summary>
@@ -43,6 +42,7 @@ namespace JiangDuo.Application.System.Dept
         {
             return await _deptService.GetById(id);
         }
+
         /// <summary>
         /// 部门新增
         /// </summary>
@@ -52,6 +52,7 @@ namespace JiangDuo.Application.System.Dept
         {
             return await _deptService.Insert(model);
         }
+
         /// <summary>
         /// 部门修改
         /// </summary>
@@ -61,6 +62,7 @@ namespace JiangDuo.Application.System.Dept
         {
             return await _deptService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除部门
         /// </summary>
@@ -70,6 +72,7 @@ namespace JiangDuo.Application.System.Dept
         {
             return await _deptService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除部门
         /// </summary>

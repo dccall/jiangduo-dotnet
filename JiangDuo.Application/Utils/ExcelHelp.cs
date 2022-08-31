@@ -1,30 +1,15 @@
-﻿using JiangDuo.Core;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using Furion;
-using Furion.DatabaseAccessor;
-using Furion.FriendlyException;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Furion.DatabaseAccessor;
+using JiangDuo.Core.Attributes;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Npoi.Mapper;
-using Npoi.Mapper.Attributes;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Core.Attributes;
 
 namespace JiangDuo.Application.Tools
 {
     public static class ExcelHelp
     {
-
         /// <summary>
         /// List转Excel
         /// </summary>
@@ -72,6 +57,7 @@ namespace JiangDuo.Application.Tools
             }
             return ModelList;
         }
+
         /// <summary>
         /// 导出到excel
         /// </summary>
@@ -79,15 +65,16 @@ namespace JiangDuo.Application.Tools
         /// <param name="list"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static IActionResult ExportExcel<T>(string fileName,List<T> list) where T : class
+        public static IActionResult ExportExcel<T>(string fileName, List<T> list) where T : class
         {
-            var file= ParseListToExcel(list);
+            var file = ParseListToExcel(list);
             return new FileStreamResult(new MemoryStream(file.ToArray()), "application/octet-stream")
             {
                 FileDownloadName = fileName // 配置文件下载显示名
             };
         }
     }
+
     public class Test
     {
         [ExportProperty("编号")]
@@ -96,6 +83,4 @@ namespace JiangDuo.Application.Tools
         [ExportProperty("名称")]
         public string Name { get; set; }
     }
-
-   
 }

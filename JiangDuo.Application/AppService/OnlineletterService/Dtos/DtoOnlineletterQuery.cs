@@ -1,9 +1,4 @@
 ﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OnlineletterService.Dto
 {
@@ -13,10 +8,12 @@ namespace JiangDuo.Application.AppService.OnlineletterService.Dto
         /// 业务类型
         /// </summary>
         public long? BusinessId { get; set; }
+
         /// <summary>
         /// 所属选区Id
         /// </summary>
         public long? SelectAreaId { get; set; }
+
         /// <summary>
         /// 关联工单Id
         /// </summary>

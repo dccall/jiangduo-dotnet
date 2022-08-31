@@ -1,31 +1,31 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.System.Config.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.System.Config.Services
 {
-    public class ConfigService:IConfigService, ITransient
+    public class ConfigService : IConfigService, ITransient
     {
         /// <summary>
         /// 日志
         /// </summary>
         private readonly ILogger<ConfigService> _logger;
+
         /// <summary>
         /// SysConfig仓储
         /// </summary>
         private readonly IRepository<SysConfig> _configRepository;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -36,6 +36,7 @@ namespace JiangDuo.Application.System.Config.Services
             _logger = logger;
             _configRepository = configRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -47,8 +48,9 @@ namespace JiangDuo.Application.System.Config.Services
             query = query.Where(!string.IsNullOrEmpty(model.ConfigName), x => x.ConfigName.Contains(model.ConfigName));
 
             //将数据映射到ConfigDto中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<ConfigDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<ConfigDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -62,6 +64,7 @@ namespace JiangDuo.Application.System.Config.Services
 
             return dto;
         }
+
         /// <summary>
         /// 根据key查询详情
         /// </summary>
@@ -69,7 +72,6 @@ namespace JiangDuo.Application.System.Config.Services
         /// <returns></returns>
         public async Task<ConfigDto> GetByKey(string key)
         {
-
             var entity = await _configRepository.FirstOrDefaultAsync(x => x.ConfigKey == key);
 
             var dto = entity.Adapt<ConfigDto>();
@@ -84,7 +86,6 @@ namespace JiangDuo.Application.System.Config.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoConfigForm model)
         {
-
             var entity = model.Adapt<SysConfig>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -92,7 +93,7 @@ namespace JiangDuo.Application.System.Config.Services
             _configRepository.Insert(entity);
             return await _configRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -113,7 +114,7 @@ namespace JiangDuo.Application.System.Config.Services
             _configRepository.Update(entity);
             return await _configRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -129,6 +130,7 @@ namespace JiangDuo.Application.System.Config.Services
             entity.IsDeleted = true;
             return await _configRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -142,7 +144,5 @@ namespace JiangDuo.Application.System.Config.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

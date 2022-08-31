@@ -1,27 +1,17 @@
-﻿
-using JiangDuo.Application.Role.Dtos;
-using JiangDuo.Application.Role.Services;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.AppService.System.FileServices.Dtos;
+using JiangDuo.Application.AppService.System.FileServices.Services;
+using JiangDuo.Application.System.FileServices.Dtos;
 using JiangDuo.Application.Tools;
-using JiangDuo.Core.Attributes;
-using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
-using Furion;
-using Furion.DependencyInjection;
-using Furion.DynamicApiController;
+using JiangDuo.Core.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using JiangDuo.Core.Filters;
-using Microsoft.AspNetCore.Authorization;
-using JiangDuo.Application.AppService.System.FileServices.Services;
-using JiangDuo.Application.System.FileServices.Dtos;
-using JiangDuo.Application.AppService.System.FileServices.Dtos;
-using JiangDuo.Core.Utils;
 
 namespace JiangDuo.Application.System.FileServices
 {
@@ -32,6 +22,7 @@ namespace JiangDuo.Application.System.FileServices
     public class FileAppService : IDynamicApiController
     {
         private readonly IFileService _fileService;
+
         public FileAppService(IFileService fileService)
         {
             _fileService = fileService;
@@ -56,6 +47,7 @@ namespace JiangDuo.Application.System.FileServices
         {
             return await _fileService.GetById(id);
         }
+
         /// <summary>
         /// 根据id删除
         /// </summary>
@@ -65,6 +57,7 @@ namespace JiangDuo.Application.System.FileServices
         {
             return await _fileService.Delete(id);
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -76,8 +69,6 @@ namespace JiangDuo.Application.System.FileServices
             return await _fileService.Delete(idList);
         }
 
-
-
         /// <summary>
         /// 文件上传
         /// </summary>
@@ -87,9 +78,10 @@ namespace JiangDuo.Application.System.FileServices
         [HttpPost]
         public async Task<SysUploadFile> UploadFile(IFormFile file, [FromForm] UploadRequest model)
         {
-           var fileInfo= await _fileService.UploadFileAsync(file, model.FileSource);
-           return fileInfo;
+            var fileInfo = await _fileService.UploadFileAsync(file, model.FileSource);
+            return fileInfo;
         }
+
         /// <summary>
         /// 文件下载
         /// </summary>
@@ -97,7 +89,7 @@ namespace JiangDuo.Application.System.FileServices
         /// <returns></returns>
         [HttpGet, NonUnify]
         [AllowAnonymous]
-        public  IActionResult Download(long fileId)
+        public IActionResult Download(long fileId)
         {
             return _fileService.FileDownload(fileId);
         }
@@ -107,12 +99,12 @@ namespace JiangDuo.Application.System.FileServices
         /// </summary>
         /// <returns></returns>
         [HttpGet, NonUnify]
-        public  IActionResult ExportExcel()
+        public IActionResult ExportExcel()
         {
             List<Test> list = new List<Test>();
             for (int i = 0; i < 10; i++)
             {
-                list.Add(new Test() { Id = i, Name = "名称"+ i });
+                list.Add(new Test() { Id = i, Name = "名称" + i });
             }
 
             var file = NPOIHelper.ExportXlsFile(list, "测试文件");
@@ -123,6 +115,7 @@ namespace JiangDuo.Application.System.FileServices
 
             //return ExcelHelp.ExportExcel("测试文件.xlsx", list);
         }
+
         /// <summary>
         /// 导入Excel
         /// </summary>

@@ -1,11 +1,6 @@
 ﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Models
 {
@@ -20,6 +15,7 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(50)]
         public string Name { get; set; }
+
         /// <summary>
         /// 内容
         /// </summary>

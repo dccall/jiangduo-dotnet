@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
-
     /// <summary>
     /// 菜单类型
     /// </summary>
@@ -15,9 +9,11 @@ namespace JiangDuo.Core.Enums
     {
         [Description("菜单")]
         Menu = 0,
+
         [Description("按钮")]
         Button = 1
     }
+
     /// <summary>
     /// 菜单状态
     /// </summary>
@@ -25,20 +21,20 @@ namespace JiangDuo.Core.Enums
     {
         [Description("正常")]
         Normal = 0,
+
         [Description("停用")]
         Stop = 1
     }
+
     /// <summary>
     /// 菜单显示状态
     /// </summary>
     public enum MenuVisible
     {
-
         [Description("显示")]
         Show = 0,
+
         [Description("隐藏")]
         Hide = 0,
     }
-    
-
 }

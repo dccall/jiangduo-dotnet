@@ -1,32 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.VolunteerService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.VolunteerService.Services
 {
-    public class VolunteerService:IVolunteerService, ITransient
+    public class VolunteerService : IVolunteerService, ITransient
     {
         private readonly ILogger<VolunteerService> _logger;
         private readonly IRepository<Volunteer> _volunteerRepository;
+
         public VolunteerService(ILogger<VolunteerService> logger, IRepository<Volunteer> volunteerRepository)
         {
             _logger = logger;
             _volunteerRepository = volunteerRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -39,8 +37,9 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             //不传或者传-1查询全部
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
             //将数据映射到DtoVolunteer中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVolunteer>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVolunteer>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -54,6 +53,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -61,7 +61,6 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoVolunteerForm model)
         {
-
             var entity = model.Adapt<Volunteer>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -69,7 +68,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             _volunteerRepository.Insert(entity);
             return await _volunteerRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -90,7 +89,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             _volunteerRepository.Update(entity);
             return await _volunteerRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -106,6 +105,7 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             entity.IsDeleted = true;
             return await _volunteerRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -119,7 +119,5 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

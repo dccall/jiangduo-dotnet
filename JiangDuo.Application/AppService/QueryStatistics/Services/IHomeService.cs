@@ -1,11 +1,7 @@
 ﻿using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Services
 {
@@ -16,11 +12,13 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public List<DtoSelectAreaInfo> GetSelectAreaInfoList();
+
         /// <summary>
         /// 获取基本数据总数统计
         /// </summary>
         /// <returns></returns>
         public DtoTotal GetBaseTotalCount();
+
         /// <summary>
         /// 获取用户需求业务分类统计
         /// </summary>
@@ -32,21 +30,25 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public DtoPublicSentimentStatisticsQuery GetPublicSentiment();
+
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentDay(DtoYearMonthDayStatisticsQuery model);
+
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentMonth(DtoYearMonthDayStatisticsQuery model);
+
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
         /// <returns></returns>
         public List<DtoYearMonthDayStatistics> GetPublicSentimentYear(DtoYearMonthDayStatisticsQuery model);
+
         /// <summary>
         /// 获取服务数量统计
         /// </summary>
@@ -64,12 +66,12 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public List<DtoReserveCount> GetReserveCount();
+
         /// <summary>
         /// 获取有事好商量预约场地列表
         /// </summary>
         /// <returns></returns>
         public PagedList<DtoReserve> GetReserveVenuedevice(DtoReserveVenuedeviceQuery model);
-
 
         /// <summary>
         /// 获取活动预约数量（30天）

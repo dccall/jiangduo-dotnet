@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
@@ -14,10 +9,13 @@ namespace JiangDuo.Core.Enums
         /// </summary>
         [Description("默认")]
         Normal = 0,
+
         [Description("待处理")]
         NotProcessed = 1,
+
         [Description("进行中")]
         InProgress = 2,
+
         [Description("完结已反馈")]
         Feedback = 3
     }

@@ -1,11 +1,8 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
+
 namespace JiangDuo.Application.AppService.NewsService.Dto
 {
     [Manual]
@@ -20,6 +17,7 @@ namespace JiangDuo.Application.AppService.NewsService.Dto
         /// 分类名称
         /// </summary>
         public string NewsClassifyName { get; set; }
+
         /// <summary>
         /// 文件对象
         /// </summary>

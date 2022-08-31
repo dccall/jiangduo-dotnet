@@ -1,6 +1,4 @@
 ﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JiangDuo.Core.Models
@@ -15,6 +13,7 @@ namespace JiangDuo.Core.Models
         /// 有事好商量预约Id
         /// </summary>
         public long ReserveId { get; set; }
+
         /// <summary>
         /// 志愿者Id
         /// </summary>

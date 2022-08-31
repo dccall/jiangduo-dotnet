@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Attributes
 {
@@ -13,6 +9,7 @@ namespace JiangDuo.Core.Attributes
         public bool CanExport { get; set; }
         public string Name { get; set; }
         public EntityPropertyFormat Format { get; set; }
+
         public ExportPropertyAttribute(string name)
         {
             Name = name;

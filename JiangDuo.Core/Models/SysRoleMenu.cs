@@ -15,10 +15,12 @@ namespace JiangDuo.Core.Models
     {
         [Key]
         public long Id { get; set; }
+
         /// <summary>
         /// 角色ID
         /// </summary>
         public long RoleId { get; set; }
+
         /// <summary>
         /// 菜单ID
         /// </summary>

@@ -1,13 +1,8 @@
 ﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Post.Dto
 {
-    public class PostRequest: BaseRequest
+    public class PostRequest : BaseRequest
     {
         /// <summary>
         ///  职位名称

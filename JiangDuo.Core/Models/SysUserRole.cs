@@ -11,14 +11,16 @@ namespace JiangDuo.Core.Models
     /// 用户和角色关联表
     /// </summary>
     [Table("sys_user_role")]
-    public partial class SysUserRole: IEntity, IEntitySeedData<SysUserRole>
+    public partial class SysUserRole : IEntity, IEntitySeedData<SysUserRole>
     {
         [Key]
         public long Id { get; set; }
+
         /// <summary>
         /// 用户ID
         /// </summary>
         public long UserId { get; set; }
+
         /// <summary>
         /// 角色ID
         /// </summary>

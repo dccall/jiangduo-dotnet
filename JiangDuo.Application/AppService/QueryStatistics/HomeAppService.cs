@@ -4,11 +4,7 @@ using JiangDuo.Application.AppService.QueryStatistics.Services;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics
 {
@@ -20,11 +16,11 @@ namespace JiangDuo.Application.AppService.QueryStatistics
     public class HomeAppService : IDynamicApiController
     {
         private readonly IHomeService _queryStatisticsService;
+
         public HomeAppService(IHomeService queryStatisticsService)
         {
             _queryStatisticsService = queryStatisticsService;
         }
-
 
         /// <summary>
         /// 获取选区信息
@@ -55,6 +51,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetBusiness();
         }
+
         /// <summary>
         /// 获取用户需求数量统计
         /// </summary>
@@ -64,6 +61,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetPublicSentiment();
         }
+
         /// <summary>
         /// 获取用户需求数量统计(日)
         /// </summary>
@@ -73,6 +71,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetPublicSentimentDay(model);
         }
+
         /// <summary>
         /// 获取用户需求数量统计(月)
         /// </summary>
@@ -82,6 +81,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetPublicSentimentMonth(model);
         }
+
         /// <summary>
         /// 获取用户需求数量统计(年)
         /// </summary>
@@ -112,7 +112,6 @@ namespace JiangDuo.Application.AppService.QueryStatistics
             return _queryStatisticsService.GetReserveTotal();
         }
 
-
         /// <summary>
         /// 获取有事好商量预约数量（30天）
         /// </summary>
@@ -128,7 +127,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetReserveVenuedevice")]
-        public PagedList<DtoReserve> GetReserveVenuedevice([FromQuery]DtoReserveVenuedeviceQuery model)
+        public PagedList<DtoReserve> GetReserveVenuedevice([FromQuery] DtoReserveVenuedeviceQuery model)
         {
             return _queryStatisticsService.GetReserveVenuedevice(model);
         }
@@ -142,6 +141,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         {
             return _queryStatisticsService.GetServiceCount();
         }
+
         /// <summary>
         /// 获取活动预约场地列表
         /// </summary>

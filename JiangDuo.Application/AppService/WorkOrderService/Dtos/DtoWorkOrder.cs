@@ -1,15 +1,7 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.ReserveService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Application.AppService.OnlineletterService.Dto;
-using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
 
 namespace JiangDuo.Application.AppService.WorkorderService.Dto
 {
@@ -29,7 +21,7 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// <summary>
         /// 工单状态名称
         /// </summary>
-        public string StatusName=> Status.GetDescription();
+        public string StatusName => Status.GetDescription();
 
         /// <summary>
         /// 业务类型名称
@@ -45,6 +37,7 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         /// 工单日志
         /// </summary>
         public List<Workorderlog> Workorderlogs { get; set; }
+
         /// <summary>
         /// 工单反馈
         /// </summary>

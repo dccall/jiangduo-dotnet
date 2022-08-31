@@ -1,21 +1,15 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.VolunteerService.Dto;
+﻿using Furion.DatabaseAccessor;
 using JiangDuo.Application.AppService.VenuedeviceService.Dto;
+using JiangDuo.Application.AppService.VolunteerService.Dto;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using System.Collections.Generic;
 
 namespace JiangDuo.Application.AppService.ReserveService.Dto
 {
     [Manual]
     public class DtoReserve : Reserve
     {
-
         /// <summary>
         /// 状态名称
         /// </summary>

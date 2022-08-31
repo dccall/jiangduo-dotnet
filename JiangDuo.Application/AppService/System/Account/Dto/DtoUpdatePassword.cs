@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JiangDuo.Application.Account.Dtos
 {
@@ -18,12 +13,14 @@ namespace JiangDuo.Application.Account.Dtos
         [Required(ErrorMessage = "{0}不能为空")]
         [Display(Name = "原密码")]
         public string OldPassWord { get; set; }
+
         /// <summary>
         /// 新密码
         /// </summary>
         [Required(ErrorMessage = "{0}不能为空")]
         [Display(Name = "新密码")]
         public string NewPassWord { get; set; }
+
         /// <summary>
         /// 确认密码
         /// </summary>

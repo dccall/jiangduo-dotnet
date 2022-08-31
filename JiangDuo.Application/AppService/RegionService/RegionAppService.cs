@@ -1,13 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.RegionService.Dto;
 using JiangDuo.Application.AppService.RegionService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.RegionService;
 
@@ -18,12 +13,13 @@ namespace JiangDuo.Application.AppService.RegionService;
 [ApiDescriptionSettings("Default", "省市区")]
 public class RegionAppService : IDynamicApiController
 {
- 
     private readonly IRegionService _regionService;
+
     public RegionAppService(IRegionService regionService)
     {
         _regionService = regionService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>

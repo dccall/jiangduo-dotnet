@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ReserveService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.ReserveService;
 [ApiDescriptionSettings("Default", "有事好商量（场地预约）")]
 public class ReserveAppService : IDynamicApiController
 {
- 
     private readonly IReserveService _reserveService;
+
     public ReserveAppService(IReserveService reserveService)
     {
         _reserveService = reserveService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class ReserveAppService : IDynamicApiController
     {
         return await _reserveService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class ReserveAppService : IDynamicApiController
     {
         return await _reserveService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class ReserveAppService : IDynamicApiController
     {
         return await _reserveService.Update(model);
     }
+
     /// <summary>
     /// 修改状态
     /// </summary>
@@ -71,6 +71,7 @@ public class ReserveAppService : IDynamicApiController
     {
         return await _reserveService.UpdateStatus(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -80,6 +81,7 @@ public class ReserveAppService : IDynamicApiController
     {
         return await _reserveService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

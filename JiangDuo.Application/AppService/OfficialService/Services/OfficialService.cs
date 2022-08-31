@@ -1,25 +1,25 @@
-﻿using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.OfficialService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.OfficialService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.OfficialService.Services
 {
-    public class OfficialService:IOfficialService, ITransient
+    public class OfficialService : IOfficialService, ITransient
     {
         private readonly ILogger<OfficialService> _logger;
         private readonly IRepository<Official> _officialRepository;
         private readonly IRepository<SysUploadFile> _uploadRepository;
+
         public OfficialService(ILogger<OfficialService> logger,
             IRepository<SysUploadFile> uploadRepository,
             IRepository<Official> officialRepository)
@@ -28,6 +28,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             _officialRepository = officialRepository;
             _uploadRepository = uploadRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -39,12 +40,13 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
             //不传或者传-1查询全部
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
-            query = query.Where(model.OfficialRole!=null, x => x.OfficialRole == model.OfficialRole); 
+            query = query.Where(model.OfficialRole != null, x => x.OfficialRole == model.OfficialRole);
             query = query.Where(!(model.CategoryId == null || model.CategoryId == -1), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -62,9 +64,9 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                 dto.AvatarList = _uploadRepository.Where(x => idList.Contains(x.FileId.ToString())).ToList();
             }
 
-
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -72,7 +74,6 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoOfficialForm model)
         {
-
             var entity = model.Adapt<Official>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -86,7 +87,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             _officialRepository.Insert(entity);
             return await _officialRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -111,7 +112,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             _officialRepository.Update(entity);
             return await _officialRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -127,6 +128,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity.IsDeleted = true;
             return await _officialRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -140,7 +142,5 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

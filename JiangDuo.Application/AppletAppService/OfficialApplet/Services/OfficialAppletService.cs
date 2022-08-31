@@ -1,37 +1,32 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
+using Furion.DataValidation;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppletAppService.OfficialApplet.Dtos;
+using JiangDuo.Application.AppletService.OfficialApplet.Services;
+using JiangDuo.Application.AppService.OfficialService.Dto;
+using JiangDuo.Application.AppService.ReserveService.Dto;
+using JiangDuo.Application.AppService.ReserveService.Services;
+using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Services;
+using JiangDuo.Application.AppService.WorkorderService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Dto;
+using JiangDuo.Application.AppService.WorkOrderService.Services;
+using JiangDuo.Core.Base;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Services;
+using JiangDuo.Core.Utils;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppletService.OfficialApplet.Services;
-using JiangDuo.Application.AppletAppService.OfficialApplet.Dtos;
-using JiangDuo.Core.Services;
-using JiangDuo.Application.AppService.WorkOrderService.Services;
-using JiangDuo.Application.AppService.ServiceService.Services;
-using Furion.DataValidation;
-using JiangDuo.Application.AppService.WorkOrderService.Dto;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Core.Base;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using JiangDuo.Application.AppService.ReserveService.Services;
-using JiangDuo.Application.AppService.ReserveService.Dto;
-using Microsoft.AspNetCore.Mvc;
-using JiangDuo.Application.AppService.OfficialService.Dto;
 
 namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
 {
-    public class OfficialAppletService:IOfficialAppletService, ITransient
+    public class OfficialAppletService : IOfficialAppletService, ITransient
     {
         private readonly ILogger<OfficialAppletService> _logger;
         private readonly IRepository<Core.Models.Service> _serviceRepository;
@@ -49,11 +44,12 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<SelectArea> _selectAreaRepository;
         private readonly IRepository<Business> _businessRepository;
-        public OfficialAppletService(ILogger<OfficialAppletService> logger, 
-            IWorkOrderService workOrderService, 
-            IRepository<Resident> residentRepository, 
-            WeiXinService weiXinService, 
-            IRepository<Core.Models.Service> serviceRepository, 
+
+        public OfficialAppletService(ILogger<OfficialAppletService> logger,
+            IWorkOrderService workOrderService,
+            IRepository<Resident> residentRepository,
+            WeiXinService weiXinService,
+            IRepository<Core.Models.Service> serviceRepository,
             IRepository<Workorder> workOrderRepository,
             IVerifyCodeService verifyCodeService,
             IAliyunSmsService aliyunSmsService,
@@ -80,10 +76,9 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             _reserveService = reserveService;
             _serviceService = serviceService;
             _venuedeviceRepository = venuedeviceRepositor;
-            _selectAreaRepository= selectAreaRepository;
+            _selectAreaRepository = selectAreaRepository;
             _businessRepository = businessRepository;
         }
-
 
         /// <summary>
         /// 获取验证码
@@ -128,7 +123,6 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                 throw Oops.Oh($"账号不存在");
             }
 
-
             AccountModel accountModel = new AccountModel();
             accountModel.Id = officialEntity.Id;
             accountModel.Name = officialEntity.Name;
@@ -145,10 +139,9 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         /// <returns></returns>
         public async Task<string> LoginWeiXin(DtoOfficialLogin model)
         {
-
             //获取openId
             var result = await _weiXinService.WeiXinLogin(model.JsCode);
-            var officialEntity = _officialRepository.Where(x => !x.IsDeleted&& x.OpenId == result.OpenId).FirstOrDefault();
+            var officialEntity = _officialRepository.Where(x => !x.IsDeleted && x.OpenId == result.OpenId).FirstOrDefault();
             if (officialEntity == null)
             {
                 throw Oops.Oh($"账号不存在");
@@ -211,7 +204,6 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                          };
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);
-
         }
 
         /// <summary>
@@ -221,7 +213,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         /// <returns></returns>
         public async Task<string> AddServices(DtoServiceForm model)
         {
-            var account= JwtHelper.GetAccountInfo();
+            var account = JwtHelper.GetAccountInfo();
             model.OfficialsId = account.Id;
             model.SelectAreaId = account.SelectAreaId;
             var count = await _serviceService.Insert(model);
@@ -231,6 +223,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             }
             return "添加失败";
         }
+
         /// <summary>
         /// 删除服务(一老一小)
         /// </summary>
@@ -245,6 +238,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             }
             return "删除失败";
         }
+
         /// <summary>
         /// 服务详情(一老一小)
         /// </summary>
@@ -252,7 +246,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         /// <returns></returns>
         public async Task<DtoService> GetServicesDetail([FromQuery] long id)
         {
-            var dto= await _serviceService.GetById(id);
+            var dto = await _serviceService.GetById(id);
             return dto;
         }
 
@@ -272,33 +266,34 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
             query = query.Where(model.StartTime != null, x => x.ReserveDate <= model.EndTime);
             var query2 = from x in query
-                            join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
-                            from rv in result1.DefaultIfEmpty()
-                            orderby x.CreatedTime descending
-                            select new DtoReserve()
-                            {
-                                Id = x.Id,
-                                Theme = x.Theme,
-                                Number = x.Number,
-                                ReserveDate = x.ReserveDate,
-                                StartTime = x.StartTime,
-                                EndTime = x.EndTime,
-                                MeetingResults = x.MeetingResults,
-                                Remarks = x.Remarks,
-                                VenueDeviceId = x.VenueDeviceId,
-                                VenueDeviceName = rv.Name,
-                                AuditFindings = x.AuditFindings,
-                                WorkOrderId = x.WorkOrderId,
-                                IsDeleted = x.IsDeleted,
-                                Status = x.Status,
-                                UpdatedTime = x.UpdatedTime,
-                                Updater = x.Updater,
-                                Creator = x.Creator,
-                                SelectAreaId = x.SelectAreaId,
-                                CreatedTime = x.CreatedTime
-                            };
-           return query2.ToPagedList(model.PageIndex, model.PageSize);
+                         join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
+                         from rv in result1.DefaultIfEmpty()
+                         orderby x.CreatedTime descending
+                         select new DtoReserve()
+                         {
+                             Id = x.Id,
+                             Theme = x.Theme,
+                             Number = x.Number,
+                             ReserveDate = x.ReserveDate,
+                             StartTime = x.StartTime,
+                             EndTime = x.EndTime,
+                             MeetingResults = x.MeetingResults,
+                             Remarks = x.Remarks,
+                             VenueDeviceId = x.VenueDeviceId,
+                             VenueDeviceName = rv.Name,
+                             AuditFindings = x.AuditFindings,
+                             WorkOrderId = x.WorkOrderId,
+                             IsDeleted = x.IsDeleted,
+                             Status = x.Status,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             Creator = x.Creator,
+                             SelectAreaId = x.SelectAreaId,
+                             CreatedTime = x.CreatedTime
+                         };
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 获取预约详情(有事好商量)
         /// </summary>
@@ -308,6 +303,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             return await _reserveService.GetById(id);
         }
+
         /// <summary>
         /// 添加预约(有事好商量)
         /// </summary>
@@ -324,12 +320,13 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             }
             return "删除成功";
         }
+
         /// <summary>
         /// 删除预约（有事好商量）
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<string> DeleteReserve([FromQuery]long id)
+        public async Task<string> DeleteReserve([FromQuery] long id)
         {
             var count = await _reserveService.FakeDelete(id);
             if (count > 0)
@@ -349,24 +346,23 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             var id = JwtHelper.GetAccountId();
             var query = _workOrderRepository.Where(x => !x.IsDeleted);
             query = query.Where(x => x.RecipientId == id || x.AssistantId == id);//派给我的/或者我协助的
-            if (model.Status== WorkorderStatusEnum.Completed)
+            if (model.Status == WorkorderStatusEnum.Completed)
             {
-
                 List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() {
                     WorkorderStatusEnum.Completed,//完成
                     WorkorderStatusEnum.Audited,//审核通过
                     WorkorderStatusEnum.End };//完结
-                query = query.Where( x => statusList.Contains(x.Status));
+                query = query.Where(x => statusList.Contains(x.Status));
             }
             else
             {
-                List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() { 
+                List<WorkorderStatusEnum> statusList = new List<WorkorderStatusEnum>() {
                     WorkorderStatusEnum.InProgress,//进行中
                     WorkorderStatusEnum.AuditFailed//审核未通过
                 };
                 query = query.Where(model.Status != null, x => x.Status == model.Status);
             }
-         
+
             var query2 = from w in query
                          join a in _selectAreaRepository.Entities on w.SelectAreaId equals a.Id into result1
                          from wa in result1.DefaultIfEmpty()
@@ -400,12 +396,12 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                              SelectAreaName = wa.SelectAreaName,
                              WorkorderSource = w.WorkorderSource,
                              WorkorderType = w.WorkorderType,
-                             IsHelper =w.AssistantId==id,//是否是协助订单
+                             IsHelper = w.AssistantId == id,//是否是协助订单
                          };
 
             return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
-
         }
+
         /// <summary>
         /// 获取协助人（分页）
         /// </summary>
@@ -415,7 +411,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             var id = JwtHelper.GetAccountId();
             var query = _officialRepository.Where(x => !x.IsDeleted);
-            query = query.Where(x=>x.Id!= id);
+            query = query.Where(x => x.Id != id);
             //将数据映射到DtoOfficial中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
         }
@@ -429,6 +425,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             return await _workOrderService.GetById(id);
         }
+
         /// <summary>
         /// 工单完成
         /// </summary>
@@ -436,7 +433,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         /// <returns></returns>
         public async Task<string> WorkOrderCompleted(DtoWorkOrderCompletedHandel model)
         {
-            return  await _workOrderService.WorkOrderCompleted(model);
+            return await _workOrderService.WorkOrderCompleted(model);
         }
 
         /// <summary>
@@ -458,9 +455,5 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             return await _workOrderService.WorkOrderHandel(model);
         }
-
-       
-
-
     }
 }

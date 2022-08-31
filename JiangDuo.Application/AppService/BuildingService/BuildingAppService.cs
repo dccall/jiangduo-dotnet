@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.BuildingService.Dto;
 using JiangDuo.Application.AppService.BuildingService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.BuildingService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.BuildingService;
 [ApiDescriptionSettings("Default", "建筑管理")]
 public class BuildingAppService : IDynamicApiController
 {
- 
     private readonly IBuildingService _buildingService;
+
     public BuildingAppService(IBuildingService buildingService)
     {
         _buildingService = buildingService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class BuildingAppService : IDynamicApiController
     {
         return await _buildingService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class BuildingAppService : IDynamicApiController
     {
         return await _buildingService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class BuildingAppService : IDynamicApiController
     {
         return await _buildingService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class BuildingAppService : IDynamicApiController
     {
         return await _buildingService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

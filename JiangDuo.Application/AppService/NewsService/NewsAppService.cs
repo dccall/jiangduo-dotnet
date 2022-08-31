@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.NewsService.Dto;
 using JiangDuo.Application.AppService.NewsService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.NewsService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.NewsService;
 [ApiDescriptionSettings("Default", "新闻管理")]
 public class NewsAppService : IDynamicApiController
 {
- 
     private readonly INewsService _newsService;
+
     public NewsAppService(INewsService newsService)
     {
         _newsService = newsService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class NewsAppService : IDynamicApiController
     {
         return await _newsService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class NewsAppService : IDynamicApiController
     {
         return await _newsService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class NewsAppService : IDynamicApiController
     {
         return await _newsService.Update(model);
     }
+
     /// <summary>
     /// 更新状态
     /// </summary>
@@ -81,6 +81,7 @@ public class NewsAppService : IDynamicApiController
     {
         return await _newsService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

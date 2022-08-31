@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace JiangDuo.Core.Enums
 {
@@ -11,8 +6,10 @@ namespace JiangDuo.Core.Enums
     {
         [Description("未知")]
         Normal = 0,
+
         [Description("男")]
         Male = 1,
+
         [Description("女")]
         Female = 2
     }

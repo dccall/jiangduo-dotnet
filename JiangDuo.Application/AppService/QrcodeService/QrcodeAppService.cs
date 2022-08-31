@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.QrcodeService.Dto;
 using JiangDuo.Application.AppService.QrcodeService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QrcodeService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.QrcodeService;
 [ApiDescriptionSettings("Default", "二维码管理")]
 public class QrcodeAppService : IDynamicApiController
 {
- 
     private readonly IQrcodeService _qrcodeService;
+
     public QrcodeAppService(IQrcodeService qrcodeService)
     {
         _qrcodeService = qrcodeService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class QrcodeAppService : IDynamicApiController
     {
         return await _qrcodeService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class QrcodeAppService : IDynamicApiController
     {
         return await _qrcodeService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class QrcodeAppService : IDynamicApiController
     {
         return await _qrcodeService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class QrcodeAppService : IDynamicApiController
     {
         return await _qrcodeService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

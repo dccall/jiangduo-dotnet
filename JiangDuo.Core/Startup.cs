@@ -7,7 +7,6 @@ namespace JiangDuo.Core;
 [AppStartup(10)]
 public class Startup : AppStartup
 {
-
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddRemoteRequest(options =>
@@ -23,7 +22,5 @@ public class Startup : AppStartup
                 c.BaseAddress = new Uri(App.Configuration["WeiXin:Address"]);
             });
         });
-
-       
     }
 }

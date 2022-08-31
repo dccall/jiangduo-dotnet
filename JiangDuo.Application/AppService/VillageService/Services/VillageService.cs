@@ -1,32 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.VillageService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.VillageService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.VillageService.Services
 {
-    public class VillageService:IVillageService, ITransient
+    public class VillageService : IVillageService, ITransient
     {
         private readonly ILogger<VillageService> _logger;
         private readonly IRepository<Village> _villageRepository;
+
         public VillageService(ILogger<VillageService> logger, IRepository<Village> villageRepository)
         {
             _logger = logger;
             _villageRepository = villageRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -36,11 +34,12 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         {
             var query = _villageRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
-            query = query.Where(!(model.SelectAreaId==null||model.SelectAreaId==-1), x => x.SelectAreaId==model.SelectAreaId);
-            
+            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
             //将数据映射到DtoVillage中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoVillage>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVillage>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -54,6 +53,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -61,7 +61,6 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoVillageForm model)
         {
-
             var entity = model.Adapt<Village>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -69,7 +68,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             _villageRepository.Insert(entity);
             return await _villageRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -90,7 +89,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             _villageRepository.Update(entity);
             return await _villageRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -106,6 +105,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             entity.IsDeleted = true;
             return await _villageRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -119,7 +119,5 @@ namespace JiangDuo.Application.AppService.VillageService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

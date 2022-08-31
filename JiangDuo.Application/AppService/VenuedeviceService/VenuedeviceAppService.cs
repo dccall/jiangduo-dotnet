@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.VenuedeviceService.Dto;
 using JiangDuo.Application.AppService.VenuedeviceService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.VenuedeviceService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.VenuedeviceService;
 [ApiDescriptionSettings("Default", "场地设备管理")]
 public class VenuedeviceAppService : IDynamicApiController
 {
- 
     private readonly IVenuedeviceService _venuedeviceService;
+
     public VenuedeviceAppService(IVenuedeviceService venuedeviceService)
     {
         _venuedeviceService = venuedeviceService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class VenuedeviceAppService : IDynamicApiController
     {
         return await _venuedeviceService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class VenuedeviceAppService : IDynamicApiController
     {
         return await _venuedeviceService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class VenuedeviceAppService : IDynamicApiController
     {
         return await _venuedeviceService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class VenuedeviceAppService : IDynamicApiController
     {
         return await _venuedeviceService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

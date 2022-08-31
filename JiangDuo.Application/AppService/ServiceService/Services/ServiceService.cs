@@ -1,24 +1,19 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.AppService.ServiceService.Dtos;
+using JiangDuo.Application.AppService.VenuedeviceService.Services;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dto;
-using Furion.FriendlyException;
-using JiangDuo.Application.AppService.WorkorderService.Dto;
-using JiangDuo.Application.AppService.ServiceService.Dtos;
-using JiangDuo.Core.Enums;
-using JiangDuo.Application.AppService.VenuedeviceService.Services;
 
 namespace JiangDuo.Application.AppService.ServiceService.Services
 {
@@ -34,6 +29,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
         private readonly IRepository<Venuedevice> _venuedeviceRepository;
         private readonly IRepository<SysUploadFile> _uploadFileRepository;
+
         public ServiceService(ILogger<ServiceService> logger,
             IRepository<Participant> participantRepository,
             IRepository<Resident> residentRepository,
@@ -53,8 +49,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             _uploadFileRepository = uploadFileRepository;
             _venuedeviceService = venuedeviceService;
         }
-
-
 
         /// <summary>
         /// 分页
@@ -88,7 +82,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
                 };
                 query = query.Where(x => statusList.Contains(x.Status.Value));
             }
-
 
             var query2 = from service in query
                          join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
@@ -126,6 +119,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -133,7 +127,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<DtoService> GetById(long id)
         {
-
             var query = from service in _serviceRepository.Where(x => x.Id == id)
                         join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
                         from so in result1.DefaultIfEmpty()
@@ -200,7 +193,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
         /// <returns></returns>
         public async Task<List<DtoParticipant>> GetServiceRegistList(DtoServiceSubscribeQuery model)
         {
-            //查询服务当前日期的所有预约记录 
+            //查询服务当前日期的所有预约记录
             var query = _participantRepository.AsQueryable(false);
             query = query.Where(model.RegistTime != null, x => x.RegistTime == model.RegistTime);
             query = query.Where(model.ResidentId != null, x => x.ResidentId == model.ResidentId);
@@ -229,7 +222,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             return query2.ToList();
         }
 
-
         /// <summary>
         /// 添加
         /// </summary>
@@ -251,7 +243,6 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
 
             _serviceRepository.Insert(entity);
             return await _serviceRepository.SaveNowAsync();
-
         }
 
         /// <summary>
@@ -318,6 +309,7 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
             entity.IsDeleted = true;
             return await _serviceRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -331,7 +323,5 @@ namespace JiangDuo.Application.AppService.ServiceService.Services
                 .ExecuteAsync();
             return result;
         }
-
-
     }
 }

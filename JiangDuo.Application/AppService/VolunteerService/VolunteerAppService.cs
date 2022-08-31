@@ -1,12 +1,8 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.VolunteerService.Dto;
 using JiangDuo.Application.AppService.VolunteerService.Services;
-using JiangDuo.Application.AppService.SelectAreaService.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.VolunteerService;
@@ -18,12 +14,13 @@ namespace JiangDuo.Application.AppService.VolunteerService;
 [ApiDescriptionSettings("Default", "志愿者管理")]
 public class VolunteerAppService : IDynamicApiController
 {
- 
     private readonly IVolunteerService _volunteerService;
+
     public VolunteerAppService(IVolunteerService volunteerService)
     {
         _volunteerService = volunteerService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -43,6 +40,7 @@ public class VolunteerAppService : IDynamicApiController
     {
         return await _volunteerService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -52,6 +50,7 @@ public class VolunteerAppService : IDynamicApiController
     {
         return await _volunteerService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -61,6 +60,7 @@ public class VolunteerAppService : IDynamicApiController
     {
         return await _volunteerService.Update(model);
     }
+
     /// <summary>
     /// 根据id删除
     /// </summary>
@@ -70,6 +70,7 @@ public class VolunteerAppService : IDynamicApiController
     {
         return await _volunteerService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

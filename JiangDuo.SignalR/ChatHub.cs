@@ -1,5 +1,7 @@
 ﻿using Furion;
+using Furion.FriendlyException;
 using Furion.InstantMessaging;
+using JiangDuo.Core.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -16,22 +18,33 @@ namespace JiangDuo.SignalR
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ChatHub : Hub<IChatClient>
     {
+
+        // 其他代码
+        public static void HttpConnectionDispatcherOptionsSettings(HttpConnectionDispatcherOptions options)
+        {
+            // 配置
+            options.CloseOnAuthenticationExpiration
+        }
+        public static void HubEndpointConventionBuilderSettings(HubEndpointConventionBuilder Builder)
+        {
+            // 配置
+        }
+
         /// <summary>
         /// 建立连接
         /// </summary>
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
-            var userId = "";
-            var connectionId = Context.ConnectionId;
-            var userIdClaim = Context.User?.FindFirst(s => s.Type == "UserId");
-            if (userIdClaim != null)
+            var userIdClaim = Context.User?.FindFirst(s => s.Type == "Id");
+            if (userIdClaim == null)
             {
-                userId=userIdClaim.Value;
             }
+
+            var connectionId = Context.ConnectionId;
+            var userId = userIdClaim.Value;
             //添加到组
             await Groups.AddToGroupAsync(connectionId, userId);
-
             await base.OnConnectedAsync();
         }
         /// <summary>
@@ -41,7 +54,7 @@ namespace JiangDuo.SignalR
         /// <returns></returns>
         public override Task OnDisconnectedAsync(Exception? exception)
         {
-
+            
 
             return base.OnDisconnectedAsync(exception);
         }
@@ -56,10 +69,6 @@ namespace JiangDuo.SignalR
             await Clients.Caller.ReceiveMessage(userId, message);
             //给除了自己的其他所有人
             await Clients.Others.ReceiveMessage(userId, message);
-            //给指定用户发消息
-            await Clients.User(userId).ReceiveMessage2(userId, message);
-            //给指定用户发消息
-            await Clients.Users(userId, userId, userId).ReceiveMessage2(userId, message);
         }
     }
 }

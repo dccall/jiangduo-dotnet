@@ -1,33 +1,31 @@
-﻿using JiangDuo.Application.System.DictItem.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.System.DictItem.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.System.DictItem.Services
 {
-    public class DictItemService: IDictItemService, ITransient
+    public class DictItemService : IDictItemService, ITransient
     {
         /// <summary>
         /// 日志
         /// </summary>
         private readonly ILogger<DictItemService> _logger;
+
         /// <summary>
         /// SysDictItem仓储
         /// </summary>
         private readonly IRepository<SysDictItem> _dictItemRepository;
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -38,6 +36,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             _logger = logger;
             _dictItemRepository = dictItemRepository;
         }
+
         /// <summary>
         /// 分页,一对多分页
         /// </summary>
@@ -46,12 +45,13 @@ namespace JiangDuo.Application.System.DictItem.Services
         public PagedList<DictItemDto> GetList(DictItemRequest model)
         {
             var query = _dictItemRepository.Where(x => !x.IsDeleted);
-            query= query.Where(model.DictId!=null ,x => x.SysDictId==model.DictId);
-            query= query.Where(model.Status!=null ,x => x.Status == model.Status);
+            query = query.Where(model.DictId != null, x => x.SysDictId == model.DictId);
+            query = query.Where(model.Status != null, x => x.Status == model.Status);
 
             //将数据映射到DictItemDto中
-            return query.OrderByDescending(x=>x.Order).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(x => x.Order).ProjectToType<DictItemDto>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -65,6 +65,7 @@ namespace JiangDuo.Application.System.DictItem.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -72,7 +73,6 @@ namespace JiangDuo.Application.System.DictItem.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoDictItemForm model)
         {
-
             var entity = model.Adapt<SysDictItem>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -81,6 +81,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             _dictItemRepository.Insert(entity);
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量新增
         /// </summary>
@@ -100,6 +101,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             //提交
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -120,6 +122,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             _dictItemRepository.Update(entity);
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量修改
         /// </summary>
@@ -144,6 +147,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             //提交
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -159,6 +163,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             entity.IsDeleted = true;
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -172,6 +177,7 @@ namespace JiangDuo.Application.System.DictItem.Services
                 .ExecuteAsync();
             return result;
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -182,6 +188,7 @@ namespace JiangDuo.Application.System.DictItem.Services
             _dictItemRepository.Delete(id);
             return await _dictItemRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量删除
         /// </summary>

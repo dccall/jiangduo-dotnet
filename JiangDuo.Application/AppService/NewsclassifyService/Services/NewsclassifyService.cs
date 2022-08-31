@@ -1,32 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.NewsclassifyService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.NewsclassifyService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.NewsclassifyService.Services
 {
-    public class NewsclassifyService:INewsclassifyService, ITransient
+    public class NewsclassifyService : INewsclassifyService, ITransient
     {
         private readonly ILogger<NewsclassifyService> _logger;
         private readonly IRepository<Newsclassify> _newsclassifyRepository;
+
         public NewsclassifyService(ILogger<NewsclassifyService> logger, IRepository<Newsclassify> newsclassifyRepository)
         {
             _logger = logger;
             _newsclassifyRepository = newsclassifyRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -38,8 +36,9 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
             query = query.Where(!string.IsNullOrEmpty(model.ClassifyName), x => x.ClassifyName.Contains(model.ClassifyName));
 
             //将数据映射到DtoNewsclassify中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoNewsclassify>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoNewsclassify>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -53,6 +52,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -60,7 +60,6 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoNewsclassifyForm model)
         {
-
             var entity = model.Adapt<Newsclassify>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -68,7 +67,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
             _newsclassifyRepository.Insert(entity);
             return await _newsclassifyRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -89,7 +88,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
             _newsclassifyRepository.Update(entity);
             return await _newsclassifyRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -105,6 +104,7 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
             entity.IsDeleted = true;
             return await _newsclassifyRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -118,7 +118,5 @@ namespace JiangDuo.Application.AppService.NewsclassifyService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

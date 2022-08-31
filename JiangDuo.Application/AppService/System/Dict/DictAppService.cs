@@ -1,12 +1,8 @@
-﻿using JiangDuo.Application.System.Dict.Dto;
+﻿using Furion.DynamicApiController;
+using JiangDuo.Application.System.Dict.Dto;
 using JiangDuo.Application.System.Dict.Services;
-using JiangDuo.Core.Models;
-using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.System.Dict
@@ -15,16 +11,18 @@ namespace JiangDuo.Application.System.Dict
     /// 字典管理
     /// </summary>
     [Route("api/[controller]")]
-    public class DictAppService: IDynamicApiController
+    public class DictAppService : IDynamicApiController
     {
         /// <summary>
         /// 字典
         /// </summary>
         private readonly IDictService _dictService;
+
         public DictAppService(IDictService dictService)
         {
             _dictService = dictService;
         }
+
         /// <summary>
         /// 获取字典列表（分页）
         /// </summary>
@@ -44,6 +42,7 @@ namespace JiangDuo.Application.System.Dict
         {
             return await _dictService.GetById(id);
         }
+
         /// <summary>
         /// 根据名称查询详情
         /// </summary>
@@ -54,6 +53,7 @@ namespace JiangDuo.Application.System.Dict
         {
             return await _dictService.GetByDictName(dictName);
         }
+
         /// <summary>
         /// 字典新增
         /// </summary>
@@ -63,6 +63,7 @@ namespace JiangDuo.Application.System.Dict
         {
             return await _dictService.Insert(model);
         }
+
         /// <summary>
         /// 字典修改
         /// </summary>
@@ -72,6 +73,7 @@ namespace JiangDuo.Application.System.Dict
         {
             return await _dictService.Update(model);
         }
+
         /// <summary>
         /// 根据id删除字典
         /// </summary>
@@ -81,6 +83,7 @@ namespace JiangDuo.Application.System.Dict
         {
             return await _dictService.FakeDelete(id);
         }
+
         /// <summary>
         /// 批量删除字典
         /// </summary>

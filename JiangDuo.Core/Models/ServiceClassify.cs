@@ -1,6 +1,4 @@
 ﻿using JiangDuo.Core.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +8,7 @@ namespace JiangDuo.Core.Models
     /// 服务分类
     /// </summary>
     [Table("serviceclassify")]
-    public partial class ServiceClassify:BaseEntity
+    public partial class ServiceClassify : BaseEntity
     {
         /// <summary>
         /// 分类名称

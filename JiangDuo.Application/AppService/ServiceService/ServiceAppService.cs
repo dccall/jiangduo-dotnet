@@ -2,10 +2,7 @@
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ServiceService;
@@ -14,15 +11,16 @@ namespace JiangDuo.Application.AppService.ServiceService;
 /// 服务管理
 /// </summary>
 [Route("api/[controller]")]
-[ApiDescriptionSettings(Name = "Service" , Groups =new string[] { "Default", "服务管理（一老一小）" })]
+[ApiDescriptionSettings(Name = "Service", Groups = new string[] { "Default", "服务管理（一老一小）" })]
 public class ServiceAppService : IDynamicApiController
 {
- 
     private readonly IServiceService _serviceService;
+
     public ServiceAppService(IServiceService serviceService)
     {
         _serviceService = serviceService;
     }
+
     /// <summary>
     /// 获取列表（分页）
     /// </summary>
@@ -42,6 +40,7 @@ public class ServiceAppService : IDynamicApiController
     {
         return await _serviceService.GetById(id);
     }
+
     /// <summary>
     /// 新增
     /// </summary>
@@ -51,6 +50,7 @@ public class ServiceAppService : IDynamicApiController
     {
         return await _serviceService.Insert(model);
     }
+
     /// <summary>
     /// 修改
     /// </summary>
@@ -60,7 +60,6 @@ public class ServiceAppService : IDynamicApiController
     {
         return await _serviceService.Update(model);
     }
-
 
     /// <summary>
     /// 修改状态
@@ -82,6 +81,7 @@ public class ServiceAppService : IDynamicApiController
     {
         return await _serviceService.FakeDelete(id);
     }
+
     /// <summary>
     /// 批量删除
     /// </summary>

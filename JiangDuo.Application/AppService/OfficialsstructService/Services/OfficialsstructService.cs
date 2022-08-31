@@ -1,32 +1,30 @@
-﻿using JiangDuo.Application.System.Config.Dto;
-using JiangDuo.Application.Tools;
-using JiangDuo.Core.Models;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Furion.FriendlyException;
+using JiangDuo.Application.AppService.OfficialsstructService.Dto;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using JiangDuo.Application.AppService.BuildingService.Dto;
-using JiangDuo.Application.AppService.OfficialsstructService.Dto;
-using Furion.FriendlyException;
 
 namespace JiangDuo.Application.AppService.OfficialsstructService.Services
 {
-    public class OfficialsstructService:IOfficialsstructService, ITransient
+    public class OfficialsstructService : IOfficialsstructService, ITransient
     {
         private readonly ILogger<OfficialsstructService> _logger;
         private readonly IRepository<Officialsstruct> _officialsstructRepository;
+
         public OfficialsstructService(ILogger<OfficialsstructService> logger, IRepository<Officialsstruct> officialsstructRepository)
         {
             _logger = logger;
             _officialsstructRepository = officialsstructRepository;
         }
+
         /// <summary>
         /// 分页
         /// </summary>
@@ -38,8 +36,9 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
 
             //将数据映射到DtoOfficialsstruct中
-            return query.OrderByDescending(s=>s.CreatedTime).ProjectToType<DtoOfficialsstruct>().ToPagedList(model.PageIndex, model.PageSize);
+            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficialsstruct>().ToPagedList(model.PageIndex, model.PageSize);
         }
+
         /// <summary>
         /// 根据编号查询详情
         /// </summary>
@@ -53,6 +52,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
 
             return dto;
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -60,7 +60,6 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
         /// <returns></returns>
         public async Task<int> Insert(DtoOfficialsstructForm model)
         {
-
             var entity = model.Adapt<Officialsstruct>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
@@ -68,7 +67,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             _officialsstructRepository.Insert(entity);
             return await _officialsstructRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 修改
         /// </summary>
@@ -89,7 +88,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             _officialsstructRepository.Update(entity);
             return await _officialsstructRepository.SaveNowAsync();
         }
-     
+
         /// <summary>
         /// 假删除
         /// </summary>
@@ -105,6 +104,7 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
             entity.IsDeleted = true;
             return await _officialsstructRepository.SaveNowAsync();
         }
+
         /// <summary>
         /// 批量假删除
         /// </summary>
@@ -118,7 +118,5 @@ namespace JiangDuo.Application.AppService.OfficialsstructService.Services
                 .ExecuteAsync();
             return result;
         }
-    
-
     }
 }

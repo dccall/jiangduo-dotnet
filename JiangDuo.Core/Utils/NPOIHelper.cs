@@ -2,19 +2,15 @@
 using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Core.Utils
 {
-    public  class NPOIHelper
+    public class NPOIHelper
     {
         private static HSSFWorkbook CreateHSSFWorkbook(string title)
         {
@@ -28,6 +24,7 @@ namespace JiangDuo.Core.Utils
             workbook.SummaryInformation = si;
             return workbook;
         }
+
         public static List<HeadValueInfoExcel> GetHeadValue<T>(List<T> list)
         {
             List<HeadValueInfoExcel> headList = new List<HeadValueInfoExcel>();
@@ -56,8 +53,7 @@ namespace JiangDuo.Core.Utils
 
         public static byte[] ExportXlsFile(DataTable data, List<HeadValueInfoExcel> headValueList, string title)
         {
-
-            var hssfworkbook= CreateHSSFWorkbook(title);
+            var hssfworkbook = CreateHSSFWorkbook(title);
             ISheet sheet1 = hssfworkbook.CreateSheet("Sheet1");
             sheet1.CreateRow(0).CreateCell(0).SetCellValue(title);
             int listCount = data.Rows.Count;
@@ -104,6 +100,7 @@ namespace JiangDuo.Core.Utils
             ms.Close();
             return ms.ToArray();
         }
+
         public static byte[] ExportXlsFile<T>(List<T> list, string title)
         {
             //获取属性的别名作为表头
@@ -142,7 +139,6 @@ namespace JiangDuo.Core.Utils
                 {
                     if (value is Hashtable)
                     {
-
                         object properotyValue = null; // 属性的值
                         System.Reflection.PropertyInfo properotyInfo = null; // 属性的信息
                         properotyInfo = value.GetType().GetProperty(headInfo.ValueName);
@@ -188,17 +184,15 @@ namespace JiangDuo.Core.Utils
                         cell.CellStyle = cellstyle;
                         cell.SetCellValue(cellValue);
                     }
-
                 }
             }
             MemoryStream ms = new MemoryStream();
             hssfworkbook.Write(ms);
-            var reuslt= ms.ToArray();
+            var reuslt = ms.ToArray();
             hssfworkbook.Close();
             ms.Close();
             return reuslt;
         }
-
     }
 
     public class HeadValueInfoExcel

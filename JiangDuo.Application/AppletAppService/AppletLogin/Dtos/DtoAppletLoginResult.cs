@@ -1,9 +1,4 @@
 ﻿using JiangDuo.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.AppletLogin.Dtos
 {
@@ -13,6 +8,7 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Dtos
         /// 账号token
         /// </summary>
         public string AccessToken { get; set; }
+
         /// <summary>
         /// 刷新token
         /// </summary>
@@ -22,6 +18,5 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Dtos
         /// 用户类型
         /// </summary>
         public AccountType Type { get; set; }
-
     }
 }

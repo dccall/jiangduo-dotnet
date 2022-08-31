@@ -9,6 +9,5 @@ namespace JiangDuo.SignalR
     public interface IChatClient
     {
         Task ReceiveMessage(string user, string message);
-        Task ReceiveMessage2(string user, string message);
     }
 }

@@ -1,25 +1,20 @@
-﻿using JiangDuo.Core.Base;
-using JiangDuo.Application.Menu.Dtos;
-using JiangDuo.Application.Tools;
-using JiangDuo.Application.User.Dtos;
-using JiangDuo.Core;
-using JiangDuo.Core.Enums;
-using JiangDuo.Core.Models;
+﻿using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using JiangDuo.Application.AppService.System.User.Dtos;
+using JiangDuo.Application.User.Dtos;
+using JiangDuo.Core.Enums;
+using JiangDuo.Core.Models;
+using JiangDuo.Core.Utils;
 using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
-using JiangDuo.Core.Utils;
-using Furion;
-using JiangDuo.Application.AppService.System.User.Dtos;
 
 namespace JiangDuo.Application.User.Services;
 
@@ -28,13 +23,13 @@ namespace JiangDuo.Application.User.Services;
 /// </summary>
 public class UserService : IUserService, ITransient
 {
-
     private readonly ILogger<UserService> _logger;
     private readonly IRepository<SysUser> _userRepository;
     private readonly IRepository<SysRole> _roleRepository;
     private readonly IRepository<SysMenu> _menuRepository;
     private readonly IRepository<SysUserRole> _userRoleRepository;
     private readonly IRepository<SysRoleMenu> _roleMenuRepository;
+
     public UserService(ILogger<UserService> logger,
          IRepository<SysRole> roleRepository,
          IRepository<SysUserRole> userRoleRepository,
@@ -86,8 +81,8 @@ public class UserService : IUserService, ITransient
             IsDeleted = user.IsDeleted,
         }).ToPagedListAsync(model.PageIndex, model.PageSize);
         return list;
-
     }
+
     /// <summary>
     /// 根据id获取用户
     /// </summary>
@@ -166,6 +161,7 @@ public class UserService : IUserService, ITransient
         }
         return await _userRoleRepository.SaveNowAsync();
     }
+
     public async Task<int> FakeDelete(long id)
     {
         var entity = _userRepository.FindOrDefault(id);
@@ -176,6 +172,7 @@ public class UserService : IUserService, ITransient
         entity.IsDeleted = true;
         return await _userRepository.SaveNowAsync();
     }
+
     public async Task<int> FakeDelete(List<long> idList)
     {
         var result = await _userRepository.Context.BatchUpdate<SysUser>()
@@ -184,6 +181,7 @@ public class UserService : IUserService, ITransient
             .ExecuteAsync();
         return result;
     }
+
     /// <summary>
     /// 重置密码
     /// </summary>
@@ -204,8 +202,9 @@ public class UserService : IUserService, ITransient
         //只更新密码属性
         _userRepository.UpdateInclude(entity, new[] { nameof(SysUser.PassWord) });
         _userRepository.SaveNow();
-        return "密码已重置"+ defaultPassword;
+        return "密码已重置" + defaultPassword;
     }
+
     /// <summary>
     /// 修改用户状态
     /// </summary>

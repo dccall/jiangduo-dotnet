@@ -1,18 +1,13 @@
 ﻿using Furion.DatabaseAccessor;
 using JiangDuo.Application.AppService.ServiceService.Dtos;
 using JiangDuo.Application.AppService.VenuedeviceService.Dto;
-using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
 {
-
     [Manual]
     public class DtoServiceInfo : Core.Models.Service
     {
@@ -65,6 +60,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Dtos
         /// 报名时间
         /// </summary>
         public DateTime? RegistTime { get; set; }
+
         /// <summary>
         /// 预约开始时间
         /// </summary>
