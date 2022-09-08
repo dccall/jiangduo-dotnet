@@ -443,6 +443,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         /// <returns></returns>
         public async Task<string> CancelService(DtoCancelService model)
         {
+            var id = JwtHelper.GetAccountId();
             //var service = await _serviceRepository.FindOrDefaultAsync(model.ServiceId);
             //if (service == null)
             //{
@@ -456,7 +457,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             var entity = _participantRepository.FindOrDefault(model.ParticipantId);
             if (entity == null)
             {
-                throw Oops.Oh("你没有参过该服务");
+                throw Oops.Oh("你没有参加过该服务");
+            }
+            if (entity.ResidentId != id)
+            {
+                throw Oops.Oh("操作失败,只能取消自己的参加！");
             }
             await _participantRepository.DeleteNowAsync(entity);
             return "已取消";

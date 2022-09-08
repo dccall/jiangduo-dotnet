@@ -23,7 +23,7 @@ namespace JiangDuo.SignalR
         public static void HttpConnectionDispatcherOptionsSettings(HttpConnectionDispatcherOptions options)
         {
             // 配置
-            options.CloseOnAuthenticationExpiration
+            //options.CloseOnAuthenticationExpiration
         }
         public static void HubEndpointConventionBuilderSettings(HubEndpointConventionBuilder Builder)
         {
@@ -36,15 +36,11 @@ namespace JiangDuo.SignalR
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
-            var userIdClaim = Context.User?.FindFirst(s => s.Type == "Id");
-            if (userIdClaim == null)
-            {
-            }
-
+            var userId = Context.User?.FindFirst(s => s.Type == "Id")?.Value;
             var connectionId = Context.ConnectionId;
-            var userId = userIdClaim.Value;
             //添加到组
             await Groups.AddToGroupAsync(connectionId, userId);
+            
             await base.OnConnectedAsync();
         }
         /// <summary>
@@ -54,8 +50,9 @@ namespace JiangDuo.SignalR
         /// <returns></returns>
         public override Task OnDisconnectedAsync(Exception? exception)
         {
-            
-
+            var userId = Context.User?.FindFirst(s => s.Type == "Id");
+            var connectionId = Context.ConnectionId;
+            Groups.RemoveFromGroupAsync(connectionId,userId.ToString());
             return base.OnDisconnectedAsync(exception);
         }
         // 定义一个方法供客户端调用
