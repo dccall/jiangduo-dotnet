@@ -18,10 +18,14 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
     {
         private readonly ILogger<SelectAreaService> _logger;
         private readonly IRepository<SelectArea> _selectAreaRepository;
+        private readonly IRepository<Village> _villageRepository;
 
-        public SelectAreaService(ILogger<SelectAreaService> logger, IRepository<SelectArea> selectAreaRepository)
+        public SelectAreaService(ILogger<SelectAreaService> logger,
+            IRepository<Village> villageRepository,
+            IRepository<SelectArea> selectAreaRepository)
         {
             _logger = logger;
+            _villageRepository = villageRepository;
             _selectAreaRepository = selectAreaRepository;
         }
 
@@ -32,11 +36,32 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
         /// <returns></returns>
         public PagedList<DtoSelectArea> GetList(DtoSelectAreaQuery model)
         {
-            var query = _selectAreaRepository.Where(x => !x.IsDeleted);
+            var query = _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.SelectAreaName), x => x.SelectAreaName.Contains(model.SelectAreaName));
             query = query.Where(model.SelectAreaType != null, x => x.SelectAreaType == model.SelectAreaType);
+
+            var query2 = query.Select(x => new DtoSelectArea()
+            {
+                Id = x.Id,
+                SelectAreaName = x.SelectAreaName,
+                SelectAreaRange = x.SelectAreaRange,
+                Area = x.Area,
+                City = x.City,
+                ParentId = x.ParentId,
+                Province = x.Province,
+                SelectAreaType = x.SelectAreaType,
+                CreatedTime = x.CreatedTime,
+                Creator = x.Creator,
+                IsDeleted = x.IsDeleted,
+                UpdatedTime = x.UpdatedTime,
+                Updater = x.Updater,
+                GrossArea = _villageRepository.AsQueryable(false).Where(v => !v.IsDeleted && v.SelectAreaId == x.Id).Select(y => y.GrossArea).Sum(),
+                Population = _villageRepository.AsQueryable(false).Where(v => !v.IsDeleted && v.SelectAreaId == x.Id).Select(y => y.Population).Sum(),
+
+            });
+
             //将数据映射到DtoSelectArea中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoSelectArea>().ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>
@@ -47,6 +72,8 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
         public async Task<DtoSelectArea> GetById(long id)
         {
             var entity = await _selectAreaRepository.FindOrDefaultAsync(id);
+            entity.GrossArea = _villageRepository.AsQueryable(false).Where(v => !v.IsDeleted && v.SelectAreaId == entity.Id).Select(y => y.GrossArea).Sum();
+            entity.Population = _villageRepository.AsQueryable(false).Where(v => !v.IsDeleted && v.SelectAreaId == entity.Id).Select(y => y.Population).Sum();
 
             var dto = entity.Adapt<DtoSelectArea>();
 

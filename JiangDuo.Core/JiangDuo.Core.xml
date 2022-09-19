@@ -314,6 +314,11 @@
             所属选区Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Official.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
         <member name="P:JiangDuo.Core.Models.Official.OpenId">
             <summary>
             微信OpenId
@@ -1548,6 +1553,16 @@
         <member name="P:JiangDuo.Core.Models.Village.SelectAreaId">
             <summary>
             选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Village.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Village.GrossArea">
+            <summary>
+            总面积
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Volunteer">

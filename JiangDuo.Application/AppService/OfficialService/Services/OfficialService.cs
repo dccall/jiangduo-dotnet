@@ -58,6 +58,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var dto = entity.Adapt<DtoOfficial>();
 
+            //前端级联传参
+            if (dto.SelectAreaId!=null&&dto.VillageId!=null)
+            {
+                dto.AreaVillage.Add(dto.SelectAreaId.Value);
+                dto.AreaVillage.Add(dto.VillageId.Value);
+            }
             if (dto != null && !string.IsNullOrEmpty(dto.Avatar))
             {
                 var idList = dto.Avatar.Split(',').ToList();
@@ -78,7 +84,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
-
+            //前端级联传参
+            if (model.AreaVillage.Any()&& model.AreaVillage.Count()==2)
+            {
+                entity.SelectAreaId = model.AreaVillage[0];
+                entity.VillageId = model.AreaVillage[1];
+            }
             if (model.AvatarList != null && model.AvatarList.Any())
             {
                 entity.Avatar = String.Join(",", model.AvatarList.Select(x => x.FileId));
@@ -103,6 +114,13 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             }
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
+
+            //前端级联传参
+            if (model.AreaVillage.Any() && model.AreaVillage.Count() == 2)
+            {
+                entity.SelectAreaId = model.AreaVillage[0];
+                entity.VillageId = model.AreaVillage[1];
+            }
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             if (model.AvatarList != null && model.AvatarList.Any())

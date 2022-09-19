@@ -19,5 +19,15 @@ namespace JiangDuo.Application.AppService.VillageService.Dto
         /// 选区id
         /// </summary>
         public long? SelectAreaId { get; set; }
+
+        /// <summary>
+        /// 人口数
+        /// </summary>
+        public long Population { get; set; }
+
+        /// <summary>
+        /// 总面积
+        /// </summary>
+        public double GrossArea { get; set; }
     }
 }

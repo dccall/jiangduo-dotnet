@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace JiangDuo.Application.CommonAppService.GaoAppDeService;
 
 /// <summary>
-/// 新闻管理
+/// 高德地图接口
 /// </summary>
 [Route("api/[controller]")]
 [ApiDescriptionSettings("Default", "高德地图接口")]

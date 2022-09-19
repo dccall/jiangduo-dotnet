@@ -1666,6 +1666,11 @@
             肖像
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.AreaVillage">
+            <summary>
+            选区-村庄(前端级联)
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
             主键
@@ -1726,6 +1731,11 @@
             所属选区Id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OpenId">
             <summary>
             微信OpenId
@@ -1769,6 +1779,11 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.AvatarList">
             <summary>
             肖像
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.AreaVillage">
+            <summary>
+            选区-村庄
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.SelectAreaId">
@@ -4852,6 +4867,11 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillage.OfficialCount">
+            <summary>
+            人大代表数量
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Id">
             <summary>
             主键
@@ -4865,6 +4885,16 @@
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.SelectAreaId">
             <summary>
             选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.GrossArea">
+            <summary>
+            总面积
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery.Name">
@@ -7925,7 +7955,7 @@
         </member>
         <member name="T:JiangDuo.Application.CommonAppService.GaoAppDeService.GaoDeAppService">
             <summary>
-            新闻管理
+            高德地图接口
             </summary>
         </member>
         <member name="M:JiangDuo.Application.CommonAppService.GaoAppDeService.GaoDeAppService.SearchLocation(JiangDuo.Core.Services.GaoDe.Dtos.SearchLocationRequestModel)">

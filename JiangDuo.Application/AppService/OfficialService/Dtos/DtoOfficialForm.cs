@@ -75,6 +75,11 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         public long? SelectAreaId { get; set; }
 
         /// <summary>
+        /// 所属村Id
+        /// </summary>
+        public long? VillageId { get; set; }
+
+        /// <summary>
         /// 微信OpenId
         /// </summary>
         [MaxLength(50)]
@@ -123,5 +128,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// </summary>
 
         public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
+
+        /// <summary>
+        /// 选区-村庄
+        /// </summary>
+        public List<long> AreaVillage { get; set; } = new List<long>();
     }
 }

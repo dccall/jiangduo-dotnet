@@ -78,8 +78,20 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         {
             DtoTotal dto = new DtoTotal();
 
-            dto.TotalPopulation = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x => x.Population).Sum();
-            dto.TotalGrossArea = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x => x.GrossArea).Sum();
+            
+            //查询所有村的人数总和
+            dto.TotalPopulation = (from x in _selectAreaRepository.Entities
+                                   join y in _villageRepository.Entities on x.Id equals y.SelectAreaId
+                                   where !x.IsDeleted && !y.IsDeleted
+                                   select y.Population).Sum();
+
+            //查询所有村的面积总和
+            dto.TotalGrossArea = (from x in _selectAreaRepository.Entities
+                                  join y in _villageRepository.Entities on x.Id equals y.SelectAreaId
+                                  where !x.IsDeleted && !y.IsDeleted
+                                  select y.GrossArea).Sum();
+
+
             dto.TotalCount = _selectAreaRepository.Where(x => !x.IsDeleted).Count();
             dto.AreaTotalCount = _selectAreaRepository.Where(x => !x.IsDeleted && x.SelectAreaType == SelectAreaTypeEnum.SelectArea).Count();
             dto.TownTotalCount = _selectAreaRepository.Where(x => !x.IsDeleted && x.SelectAreaType == SelectAreaTypeEnum.Town).Count();

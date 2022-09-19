@@ -22,5 +22,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 肖像
         /// </summary>
         public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
+
+        /// <summary>
+        /// 选区-村庄(前端级联)
+        /// </summary>
+        public List<long> AreaVillage { get; set; } = new List<long>();
     }
 }

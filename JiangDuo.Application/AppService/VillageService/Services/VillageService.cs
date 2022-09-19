@@ -18,11 +18,15 @@ namespace JiangDuo.Application.AppService.VillageService.Services
     {
         private readonly ILogger<VillageService> _logger;
         private readonly IRepository<Village> _villageRepository;
-
-        public VillageService(ILogger<VillageService> logger, IRepository<Village> villageRepository)
+        private readonly IRepository<Official> _officialRepository;
+        public VillageService(ILogger<VillageService> logger,
+            IRepository<Official> officialRepository,
+            IRepository<Village> villageRepository)
         {
             _logger = logger;
             _villageRepository = villageRepository;
+
+            _officialRepository = officialRepository;
         }
 
         /// <summary>
@@ -35,6 +39,23 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             var query = _villageRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
+            var query2 = query.Select(x => new DtoVillage()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                SelectAreaId = model.SelectAreaId,
+                GrossArea=x.GrossArea,
+                Population=x.Population,
+                OfficialCount= _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.VillageId==x.Id).Count(),
+                CreatedTime = x.CreatedTime,
+                Creator = x.Creator,
+                IsDeleted = x.IsDeleted,
+                UpdatedTime = x.UpdatedTime,
+                Updater = x.Updater,
+               
+            });
+
 
             //将数据映射到DtoVillage中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVillage>().ToPagedList(model.PageIndex, model.PageSize);
@@ -50,6 +71,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             var entity = await _villageRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoVillage>();
+            dto.OfficialCount = _officialRepository.AsQueryable(false).Where(o => !o.IsDeleted && o.VillageId == dto.Id).Count();
 
             return dto;
         }
