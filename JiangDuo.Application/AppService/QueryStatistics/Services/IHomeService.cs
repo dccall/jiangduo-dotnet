@@ -1,7 +1,11 @@
-﻿using JiangDuo.Application.AppService.QueryStatistics.Dtos;
+﻿using JiangDuo.Application.AppService.OfficialService.Dto;
+using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Core.Base;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Services
 {
@@ -84,5 +88,28 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <returns></returns>
         public PagedList<DtoService> GetServiceVenuedevice(DtoReserveVenuedeviceQuery model);
+
+
+        /// <summary>
+        /// 人大完结工单排名
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<PagedList<DtoOfficial>> OfficialRanking(BaseRequest model);
+
+
+        /// <summary>
+        /// 人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<List<DtoOfficialOrderCount>> OfficialOrderCount(DateTime? month);
+
+        /// <summary>
+        /// 工单类型 总数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<List<DtoOrderTypeCount>> OrderTypeCount();
     }
 }

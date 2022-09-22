@@ -91,6 +91,11 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         public long? PublicSentimentId { get; set; }
 
         /// <summary>
+        /// 附件
+        /// </summary>
+        public string Attachments { get; set; }
+
+        /// <summary>
         /// 附件列表
         /// </summary>
         public List<SysUploadFile> AttachmentsList { get; set; } = new List<SysUploadFile>();

@@ -1,14 +1,17 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics.Services
 {
@@ -78,7 +81,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         {
             DtoTotal dto = new DtoTotal();
 
-            
+
             //查询所有村的人数总和
             dto.TotalPopulation = (from x in _selectAreaRepository.Entities
                                    join y in _villageRepository.Entities on x.Id equals y.SelectAreaId
@@ -364,6 +367,101 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
                          };
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);
+        }
+
+        /// <summary>
+        /// 人大完结工单排名
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<PagedList<DtoOfficial>> OfficialRanking(BaseRequest model)
+        {
+            var query = _officialRepository.Where(x => !x.IsDeleted);
+
+            var query2 = query.Select(x => new DtoOfficial()
+            {
+                Id = x.Id,
+                Address = x.Address,
+                OfficialRole = x.OfficialRole,
+                OfficialsstructId = x.OfficialsstructId,
+                Nationality = x.Nationality,
+                Name = x.Name,
+                Party = x.Party,
+                Idnumber = x.Idnumber,
+                OpenId = x.OpenId,
+                Avatar = x.Avatar,
+                Birthday = x.Birthday,
+                CategoryId = x.CategoryId,
+                CulturalLevel = x.CategoryId,
+                PersonalResume = x.PersonalResume,
+                Post = x.Post,
+                Score = x.Score,
+                Sex = x.Sex,
+                VillageId = x.VillageId,
+                PhoneNumber = x.PhoneNumber,
+                PoliticalOutlook = x.PoliticalOutlook,
+
+                OverOrderCount = _workOrderRepository.AsQueryable(false).Where(w => w.RecipientId == x.Id && w.Status == WorkorderStatusEnum.End).Count(),
+
+                IsDeleted = x.IsDeleted,
+                UpdatedTime = x.UpdatedTime,
+                Updater = x.Updater,
+                Creator = x.Creator,
+                SelectAreaId = x.SelectAreaId,
+                CreatedTime = x.CreatedTime
+            }).OrderByDescending(x => x.OverOrderCount);
+
+            //将数据映射到DtoOfficial中
+            return await query2.ToPagedListAsync(model.PageIndex, model.PageSize);
+        }
+
+        /// <summary>
+        /// 人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<DtoOfficialOrderCount>> OfficialOrderCount(DateTime? month)
+        {
+            month = month == null ? DateTime.Now : month;
+            var list= _officialRepository.AsQueryable(false).Where(x => !x.IsDeleted).Select(x => new DtoOfficialOrderCount()
+            {
+                Date = month.Value.ToString("yyyy-MM"),
+                Name = x.Name,
+                OverOrderCount = _workOrderRepository.AsQueryable(false)
+                .Where(w => w.RecipientId == x.Id
+                && w.Status == WorkorderStatusEnum.End
+                && w.OverTime.Value.Year == month.Value.Year
+                && w.OverTime.Value.Month == month.Value.Month)
+                .Count()
+            }).OrderByDescending(x => x.OverOrderCount).ToList();
+
+            return list;
+        }
+
+        /// <summary>
+        /// 工单类型 总数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<DtoOrderTypeCount>> OrderTypeCount()
+        {
+            var reserveCount = _workOrderRepository.AsQueryable(false)
+                .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.Reserve&&x.Status== WorkorderStatusEnum.End)
+                .Count();
+            var serviceCount = _workOrderRepository.AsQueryable(false)
+                    .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.Service && x.Status == WorkorderStatusEnum.End)
+                    .Count();
+            var onlineCount = _workOrderRepository.AsQueryable(false)
+                   .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.OnlineLetters && x.Status == WorkorderStatusEnum.End)
+                   .Count();
+
+
+            List<DtoOrderTypeCount> list = new List<DtoOrderTypeCount>();
+            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.Reserve,OverOrderCount= reserveCount});
+            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.Service, OverOrderCount= serviceCount });
+            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.OnlineLetters, OverOrderCount= onlineCount });
+
+            return list;
         }
     }
 }

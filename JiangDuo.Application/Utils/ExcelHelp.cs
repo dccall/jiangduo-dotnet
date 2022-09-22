@@ -10,6 +10,7 @@ namespace JiangDuo.Application.Tools
 {
     public static class ExcelHelp
     {
+      
         /// <summary>
         /// List转Excel
         /// </summary>
@@ -78,6 +79,7 @@ namespace JiangDuo.Application.Tools
     public class Test
     {
         [ExportProperty("编号")]
+        
         public int Id { get; set; }
 
         [ExportProperty("名称")]

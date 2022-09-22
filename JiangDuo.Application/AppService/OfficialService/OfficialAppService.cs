@@ -1,8 +1,10 @@
 ﻿using Furion.DynamicApiController;
 using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.OfficialService.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OfficialService;
@@ -80,5 +82,31 @@ public class OfficialAppService : IDynamicApiController
     public async Task<int> Delete([FromBody] List<long> idList)
     {
         return await _officialService.FakeDelete(idList);
+    }
+
+
+    /// <summary>
+    /// 导出excel
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet, NonUnify]
+    public IActionResult ExportExcel([FromQuery]DtoOfficialQuery model)
+    {
+        var ms= _officialService.ExportExcel(model);
+
+        return new FileStreamResult(new MemoryStream(ms.ToArray()), "application/octet-stream")
+        {
+            FileDownloadName = "人大.xlsx" // 配置文件下载显示名
+        };
+    }
+
+
+    /// <summary>
+    /// 导入excel
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> ImportExcel(IFormFile file)
+    {
+        return _officialService.ImportExcel(file);
     }
 }

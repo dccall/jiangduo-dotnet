@@ -1,6 +1,0 @@
-use mysql;
-select host, user, authentication_string, plugin from user;
-
-update user set host='%' where user='root';
-
-FLUSH PRIVILEGES;

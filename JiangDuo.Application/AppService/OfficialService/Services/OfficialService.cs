@@ -1,13 +1,18 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using Furion.Logging;
 using JiangDuo.Application.AppService.OfficialService.Dto;
+using JiangDuo.Application.AppService.OfficialService.Dtos;
+using JiangDuo.Application.Tools;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Utils;
 using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
@@ -59,7 +64,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             var dto = entity.Adapt<DtoOfficial>();
 
             //前端级联传参
-            if (dto.SelectAreaId!=null&&dto.VillageId!=null)
+            if (dto.SelectAreaId != null && dto.VillageId != null)
             {
                 dto.AreaVillage.Add(dto.SelectAreaId.Value);
                 dto.AreaVillage.Add(dto.VillageId.Value);
@@ -85,7 +90,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
             //前端级联传参
-            if (model.AreaVillage.Any()&& model.AreaVillage.Count()==2)
+            if (model.AreaVillage.Any() && model.AreaVillage.Count() == 2)
             {
                 entity.SelectAreaId = model.AreaVillage[0];
                 entity.VillageId = model.AreaVillage[1];
@@ -160,5 +165,56 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                 .ExecuteAsync();
             return result;
         }
+
+
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <returns></returns>
+        public MemoryStream ExportExcel( DtoOfficialQuery model)
+        {
+            var pageList = GetList(model);
+            var dtoList= pageList.Items.Adapt<List<DtoOfficialExport>>();
+            var mapper = new Npoi.Mapper.Mapper();
+            mapper.Put<DtoOfficialExport>(dtoList, "人大名单", true);
+            mapper.Put<DtoOfficialExport>(dtoList, "人大2", true);
+            MemoryStream ms = new MemoryStream();
+            mapper.Save(ms);
+            return ms;
+        }
+
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ImportExcel(IFormFile file)
+        {
+            if (file == null)
+            {
+                throw Oops.Oh("缺少上传文件");
+            }
+            try
+            {
+                var list = ExcelHelp.ParseExcelToList<DtoOfficialExport>(file.OpenReadStream(), "人大名单");
+                var entityList = list.Adapt<List<Official>>();
+                var createdId= JwtHelper.GetAccountId();
+                entityList.ForEach(x =>
+                {
+                    x.CreatedTime = DateTime.Now;
+                    x.Creator = createdId;
+                });
+                await _officialRepository.Context.BulkInsertAsync(entityList);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Error("人大导入失败"+e.Message);
+                throw Oops.Oh("人大导入失败" + e.Message);
+            }
+       
+        }
+
     }
+
+   
 }

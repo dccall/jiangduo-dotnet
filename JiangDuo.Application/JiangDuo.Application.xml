@@ -1671,6 +1671,11 @@
             选区-村庄(前端级联)
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.OverOrderCount">
+            <summary>
+            完结工单数量
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Id">
             <summary>
             主键
@@ -1811,6 +1816,91 @@
             人大角色
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Sex">
+            <summary>
+            性别1男2女
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.CategoryId">
+            <summary>
+            类别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.CulturalLevel">
+            <summary>
+            文化程度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Party">
+            <summary>
+            党派
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Post">
+            <summary>
+            职务
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.PersonalResume">
+            <summary>
+            个人履历
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.PoliticalOutlook">
+            <summary>
+            政治面貌
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.OfficialsstructId">
+            <summary>
+            人大结构
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.OfficialRole">
+            <summary>
+            角色
+            </summary>
+        </member>
         <member name="T:JiangDuo.Application.AppService.OfficialService.OfficialAppService">
             <summary>
             人大名单管理
@@ -1858,6 +1948,18 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.OfficialAppService.ExportExcel(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
+            <summary>
+            导出excel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.OfficialAppService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导入excel
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.OfficialService.Services.IOfficialService.GetList(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
             <summary>
             分页
@@ -1891,6 +1993,18 @@
             假删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.IOfficialService.ExportExcel(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
+            <summary>
+            导出excel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.IOfficialService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导入excel
+            </summary>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.GetList(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
@@ -1933,6 +2047,18 @@
             批量假删除
             </summary>
             <param name="idList">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.ExportExcel(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
+            <summary>
+            导出excel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.ImportExcel(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导出excel
+            </summary>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialsstructService.Dto.DtoOfficialsstructForm.Id">
@@ -2689,6 +2815,36 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCount.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCount.Name">
+            <summary>
+            人大名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCount.OverOrderCount">
+            <summary>
+            完结数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOrderTypeCount.Type">
+            <summary>
+            工单类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOrderTypeCount.TypeName">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOrderTypeCount.OverOrderCount">
+            <summary>
+            数量
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoPublicSentimentStatisticsQuery.TotalCount">
             <summary>
             总数量
@@ -2972,6 +3128,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.GetOfficialRanking(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            人大完结工单排名
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OfficialOrderCount(System.Nullable{System.DateTime})">
+            <summary>
+            人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OrderTypeCount">
+            <summary>
+            工单类型 总数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
@@ -3050,6 +3226,27 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OfficialRanking(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            人大完结工单排名
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OfficialOrderCount(System.Nullable{System.DateTime})">
+            <summary>
+            人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OrderTypeCount">
+            <summary>
+            工单类型 总数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetSelectAreaInfoList">
             <summary>
             获取选区信息
@@ -3126,6 +3323,27 @@
             <summary>
             获取活动预约场地列表
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OfficialRanking(JiangDuo.Core.Base.BaseRequest)">
+            <summary>
+            人大完结工单排名
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OfficialOrderCount(System.Nullable{System.DateTime})">
+            <summary>
+            人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OrderTypeCount">
+            <summary>
+            工单类型 总数量
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Id">
@@ -5503,6 +5721,11 @@
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.PublicSentimentId">
             <summary>
             引用公共需求Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.Attachments">
+            <summary>
+            附件
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.WorkOrderService.Dto.DtoWorkOrderForm.AttachmentsList">

@@ -1,5 +1,7 @@
 ﻿using JiangDuo.Application.AppService.OfficialService.Dto;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.OfficialService.Services
@@ -43,5 +45,17 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
         //批量假删除
         public Task<int> FakeDelete(List<long> idList);
+
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <returns></returns>
+        public MemoryStream ExportExcel(DtoOfficialQuery model);
+
+        /// <summary>
+        /// 导入excel
+        /// </summary>
+        /// <returns></returns>
+        public  Task<bool> ImportExcel(IFormFile file);
     }
 }

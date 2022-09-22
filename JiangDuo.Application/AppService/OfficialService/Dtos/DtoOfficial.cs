@@ -27,5 +27,11 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 选区-村庄(前端级联)
         /// </summary>
         public List<long> AreaVillage { get; set; } = new List<long>();
+
+
+        /// <summary>
+        /// 完结工单数量
+        /// </summary>
+        public int OverOrderCount { get; set; } = 0;
     }
 }

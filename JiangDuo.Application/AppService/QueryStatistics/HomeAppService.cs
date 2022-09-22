@@ -1,10 +1,14 @@
 ﻿using Furion.DynamicApiController;
+using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.QueryStatistics.Services;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Core.Base;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.QueryStatistics
 {
@@ -150,6 +154,38 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         public PagedList<DtoService> GetServiceVenuedevice([FromQuery] DtoReserveVenuedeviceQuery model)
         {
             return _queryStatisticsService.GetServiceVenuedevice(model);
+        }
+
+
+        /// <summary>
+        /// 人大完结工单排名
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet("GetOfficialRanking")]
+        public async Task<PagedList<DtoOfficial>> GetOfficialRanking([FromQuery] BaseRequest model)
+        {
+            return await _queryStatisticsService.OfficialRanking(model);
+        }
+
+        /// <summary>
+        /// 人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet("GetOfficialOrderCount")]
+        public async Task<List<DtoOfficialOrderCount>> OfficialOrderCount([FromQuery] DateTime? month)
+        {
+            return await _queryStatisticsService.OfficialOrderCount(month);
+        }
+        /// <summary>
+        /// 工单类型 总数量
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetOrderTypeCount")]
+        public Task<List<DtoOrderTypeCount>> OrderTypeCount()
+        {
+            return  _queryStatisticsService.OrderTypeCount();
         }
     }
 }
