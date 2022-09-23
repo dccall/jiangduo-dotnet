@@ -174,18 +174,42 @@ namespace JiangDuo.Application.AppService.QueryStatistics
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpGet("GetOfficialOrderCount")]
-        public async Task<List<DtoOfficialOrderCount>> OfficialOrderCount([FromQuery] DateTime? month)
+        public async Task<PagedList<DtoOfficialOrderCount>> OfficialOrderCount([FromQuery] DtoOfficialOrderCountQuery model)
         {
-            return await _queryStatisticsService.OfficialOrderCount(month);
+            return await _queryStatisticsService.OfficialOrderCount(model);
         }
+
+        /// <summary>
+        /// 导出人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet("ExportOfficialOrderCount")]
+        public async Task<IActionResult> ExportOfficialOrderCount([FromQuery] DtoOfficialOrderCountQuery model)
+        {
+            return await _queryStatisticsService.ExportOfficialOrderCount(model);
+        }
+
         /// <summary>
         /// 工单类型 总数量
         /// </summary>
+        /// <param name="month"></param>
         /// <returns></returns>
         [HttpGet("GetOrderTypeCount")]
-        public Task<List<DtoOrderTypeCount>> OrderTypeCount()
+        public Task<List<DtoOrderTypeCount>> OrderTypeCount([FromQuery] DateTime? month)
         {
-            return  _queryStatisticsService.OrderTypeCount();
+            return  _queryStatisticsService.OrderTypeCount(month);
+        }
+
+        /// <summary>
+        /// 导出工单类型 总数量
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        [HttpGet("ExportOrderTypeCount")]
+        public async Task<IActionResult> ExportOrderTypeCount([FromQuery] DateTime? month)
+        {
+            return await _queryStatisticsService.ExportOrderTypeCount(month);
         }
     }
 }

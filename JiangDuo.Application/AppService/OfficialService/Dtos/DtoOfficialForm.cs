@@ -36,7 +36,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         public DateTime? Birthday { get; set; }
 
         /// <summary>
-        /// 名族
+        /// 民族
         /// </summary>
         [MaxLength(50)]
         public string Nationality { get; set; }

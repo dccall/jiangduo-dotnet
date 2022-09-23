@@ -4,12 +4,15 @@ using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
+using JiangDuo.Application.Tools;
 using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -420,48 +423,95 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<List<DtoOfficialOrderCount>> OfficialOrderCount(DateTime? month)
+        public async Task<PagedList<DtoOfficialOrderCount>> OfficialOrderCount(DtoOfficialOrderCountQuery model)
         {
-            month = month == null ? DateTime.Now : month;
-            var list= _officialRepository.AsQueryable(false).Where(x => !x.IsDeleted).Select(x => new DtoOfficialOrderCount()
+            var month = model.Month == null ? DateTime.Now : model.Month.Value;
+            var lastMonth = month.AddMonths(-1);
+            var list = await _officialRepository.AsQueryable(false).Where(x => !x.IsDeleted).Select(x => new DtoOfficialOrderCount()
             {
-                Date = month.Value.ToString("yyyy-MM"),
+                Date = month.ToString("yyyy-MM"),
                 Name = x.Name,
                 OverOrderCount = _workOrderRepository.AsQueryable(false)
-                .Where(w => w.RecipientId == x.Id
-                && w.Status == WorkorderStatusEnum.End
-                && w.OverTime.Value.Year == month.Value.Year
-                && w.OverTime.Value.Month == month.Value.Month)
-                .Count()
-            }).OrderByDescending(x => x.OverOrderCount).ToList();
+                 .Where(w => w.RecipientId == x.Id
+                 && w.Status == WorkorderStatusEnum.End
+                 && w.OverTime.Value.Year == month.Year
+                 && w.OverTime.Value.Month == month.Month)
+                 .Count(),
+                LastMonthOrderCount = _workOrderRepository.AsQueryable(false)
+                 .Where(w => w.RecipientId == x.Id
+                 && w.Status == WorkorderStatusEnum.End
+                 && w.OverTime.Value.Year == lastMonth.Year
+                 && w.OverTime.Value.Month == lastMonth.Month)
+                 .Count()
+            }).OrderByDescending(x => x.OverOrderCount).ToPagedListAsync(model.PageIndex, model.PageSize);
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> ExportOfficialOrderCount(DtoOfficialOrderCountQuery model)
+        {
+            var pageList = await OfficialOrderCount(model);
+            var list = pageList.Items.ToList();
+            return ExcelHelp.ExportExcel("人大每月工单数量.xlsx", list);
+        }
+        /// <summary>
+        /// 工单类型 总数量
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public async Task<List<DtoOrderTypeCount>> OrderTypeCount(DateTime? month)
+        {
+            month= month == null ? DateTime.Now : month;
+
+            var reserveCount = _workOrderRepository.AsQueryable(false)
+                .Where(x => !x.IsDeleted
+                && x.WorkorderType == WorkorderTypeEnum.Reserve
+                && x.Status == WorkorderStatusEnum.End
+                && x.OverTime.Value.Year == month.Value.Year
+                && x.OverTime.Value.Month == month.Value.Month
+                )
+                .Count();
+            var serviceCount = _workOrderRepository.AsQueryable(false)
+                    .Where(x => !x.IsDeleted
+                    && x.WorkorderType == WorkorderTypeEnum.Service
+                    && x.Status == WorkorderStatusEnum.End
+                     && x.OverTime.Value.Year == month.Value.Year
+                    && x.OverTime.Value.Month == month.Value.Month
+                    )
+                    .Count();
+            var onlineCount = _workOrderRepository.AsQueryable(false)
+                   .Where(x => !x.IsDeleted
+                   && x.WorkorderType == WorkorderTypeEnum.OnlineLetters
+                    && x.OverTime.Value.Year == month.Value.Year
+                    && x.OverTime.Value.Month == month.Value.Month
+                   && x.Status == WorkorderStatusEnum.End)
+                   .Count();
+
+
+            List<DtoOrderTypeCount> list = new List<DtoOrderTypeCount>();
+            list.Add(new DtoOrderTypeCount() {Date= month.Value.ToString("yyyy-MM"), Type = WorkorderTypeEnum.Reserve, OverOrderCount = reserveCount });
+            list.Add(new DtoOrderTypeCount() { Date = month.Value.ToString("yyyy-MM"), Type = WorkorderTypeEnum.Service, OverOrderCount = serviceCount });
+            list.Add(new DtoOrderTypeCount() { Date = month.Value.ToString("yyyy-MM"), Type = WorkorderTypeEnum.OnlineLetters, OverOrderCount = onlineCount });
 
             return list;
         }
 
         /// <summary>
-        /// 工单类型 总数量
+        /// 导出 工单类型 总数量
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="month"></param>
         /// <returns></returns>
-        public async Task<List<DtoOrderTypeCount>> OrderTypeCount()
+        public async Task<IActionResult> ExportOrderTypeCount(DateTime? month)
         {
-            var reserveCount = _workOrderRepository.AsQueryable(false)
-                .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.Reserve&&x.Status== WorkorderStatusEnum.End)
-                .Count();
-            var serviceCount = _workOrderRepository.AsQueryable(false)
-                    .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.Service && x.Status == WorkorderStatusEnum.End)
-                    .Count();
-            var onlineCount = _workOrderRepository.AsQueryable(false)
-                   .Where(x => !x.IsDeleted && x.WorkorderType == WorkorderTypeEnum.OnlineLetters && x.Status == WorkorderStatusEnum.End)
-                   .Count();
-
-
-            List<DtoOrderTypeCount> list = new List<DtoOrderTypeCount>();
-            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.Reserve,OverOrderCount= reserveCount});
-            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.Service, OverOrderCount= serviceCount });
-            list.Add(new DtoOrderTypeCount() {Type= WorkorderTypeEnum.OnlineLetters, OverOrderCount= onlineCount });
-
-            return list;
+            var list = await OrderTypeCount(month);
+            return ExcelHelp.ExportExcel("工单类型总数量.xlsx", list);
         }
+
     }
 }

@@ -3,6 +3,7 @@ using JiangDuo.Application.AppService.QueryStatistics.Dtos;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ServiceService.Dto;
 using JiangDuo.Core.Base;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -103,13 +104,28 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public  Task<List<DtoOfficialOrderCount>> OfficialOrderCount(DateTime? month);
+        public Task<PagedList<DtoOfficialOrderCount>> OfficialOrderCount(DtoOfficialOrderCountQuery model);
+
+        /// <summary>
+        /// 人大每月工单数量
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<IActionResult> ExportOfficialOrderCount(DtoOfficialOrderCountQuery model);
+
 
         /// <summary>
         /// 工单类型 总数量
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="month"></param>
         /// <returns></returns>
-        public  Task<List<DtoOrderTypeCount>> OrderTypeCount();
+        public Task<List<DtoOrderTypeCount>> OrderTypeCount(DateTime? month);
+
+        /// <summary>
+        /// 导出工单类型 总数量
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public Task<IActionResult> ExportOrderTypeCount(DateTime? month);
     }
 }

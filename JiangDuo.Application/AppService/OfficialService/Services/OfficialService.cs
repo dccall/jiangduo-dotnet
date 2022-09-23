@@ -176,6 +176,9 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             var pageList = GetList(model);
             var dtoList= pageList.Items.Adapt<List<DtoOfficialExport>>();
             var mapper = new Npoi.Mapper.Mapper();
+
+
+
             mapper.Put<DtoOfficialExport>(dtoList, "人大名单", true);
             mapper.Put<DtoOfficialExport>(dtoList, "人大2", true);
             MemoryStream ms = new MemoryStream();

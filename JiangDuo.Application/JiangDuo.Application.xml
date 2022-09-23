@@ -1703,7 +1703,7 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Nationality">
             <summary>
-            名族
+            民族
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.CulturalLevel">
@@ -2830,6 +2830,21 @@
             完结数量
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCount.LastMonthOrderCount">
+            <summary>
+            上月完结数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCount.MonthGrowth">
+            <summary>
+            月增长（环比）
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOrderTypeCount.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOrderTypeCount.Type">
             <summary>
             工单类型
@@ -3135,17 +3150,32 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OfficialOrderCount(System.Nullable{System.DateTime})">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
             <summary>
             人大每月工单数量
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OrderTypeCount">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.ExportOfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
+            <summary>
+            导出人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.OrderTypeCount(System.Nullable{System.DateTime})">
             <summary>
             工单类型 总数量
             </summary>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.HomeAppService.ExportOrderTypeCount(System.Nullable{System.DateTime})">
+            <summary>
+            导出工单类型 总数量
+            </summary>
+            <param name="month"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.GetSelectAreaInfoList">
@@ -3233,18 +3263,32 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OfficialOrderCount(System.Nullable{System.DateTime})">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
             <summary>
             人大每月工单数量
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OrderTypeCount">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.ExportOfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
+            <summary>
+            人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.OrderTypeCount(System.Nullable{System.DateTime})">
             <summary>
             工单类型 总数量
             </summary>
-            <param name="model"></param>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.HomeService.ExportOrderTypeCount(System.Nullable{System.DateTime})">
+            <summary>
+            导出 工单类型 总数量
+            </summary>
+            <param name="month"></param>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.GetSelectAreaInfoList">
@@ -3332,18 +3376,32 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OfficialOrderCount(System.Nullable{System.DateTime})">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
             <summary>
             人大每月工单数量
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OrderTypeCount">
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.ExportOfficialOrderCount(JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoOfficialOrderCountQuery)">
+            <summary>
+            人大每月工单数量
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.OrderTypeCount(System.Nullable{System.DateTime})">
             <summary>
             工单类型 总数量
             </summary>
-            <param name="model"></param>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.QueryStatistics.Services.IHomeService.ExportOrderTypeCount(System.Nullable{System.DateTime})">
+            <summary>
+            导出工单类型 总数量
+            </summary>
+            <param name="month"></param>
             <returns></returns>
         </member>
         <member name="P:JiangDuo.Application.AppService.RegionService.Dto.DtoRegionForm.Id">
