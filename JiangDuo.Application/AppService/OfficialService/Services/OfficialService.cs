@@ -4,6 +4,9 @@ using Furion.FriendlyException;
 using Furion.Logging;
 using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.OfficialService.Dtos;
+using JiangDuo.Application.AppService.OfficialsstructService.Dto;
+using JiangDuo.Application.AppService.SelectAreaService.Dto;
+using JiangDuo.Application.AppService.VillageService.Dto;
 using JiangDuo.Application.Tools;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Utils;
@@ -23,14 +26,26 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
     {
         private readonly ILogger<OfficialService> _logger;
         private readonly IRepository<Official> _officialRepository;
+        private readonly IRepository<Officialsstruct> _officialsstructRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        private readonly IRepository<Village> _villageRepository;
         private readonly IRepository<SysUploadFile> _uploadRepository;
 
         public OfficialService(ILogger<OfficialService> logger,
             IRepository<SysUploadFile> uploadRepository,
-            IRepository<Official> officialRepository)
+            IRepository<Official> officialRepository,
+            IRepository<Officialsstruct> officialsstructRepository,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<Village> villageRepository
+
+
+            )
         {
             _logger = logger;
             _officialRepository = officialRepository;
+            _selectAreaRepository = selectAreaRepository;
+            _villageRepository = villageRepository;
+            _officialsstructRepository = officialsstructRepository;
             _uploadRepository = uploadRepository;
         }
 
@@ -46,7 +61,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             //不传或者传-1查询全部
             query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
             query = query.Where(model.OfficialRole != null, x => x.OfficialRole == model.OfficialRole);
-            query = query.Where(!(model.CategoryId == null || model.CategoryId == -1), x => x.CategoryId == model.CategoryId);
+            query = query.Where(!(model.CategoryId == null || model.CategoryId == "-1"), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
@@ -168,6 +183,29 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
 
         /// <summary>
+        /// 模板excel
+        /// </summary>
+        /// <returns></returns>
+        public MemoryStream ExportTemplateExcel()
+        {
+            var dtoList = new List<DtoOfficialExport>();
+
+            var officialsstructList = _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoOfficialsstructExport>().ToList();
+            var areaList = _selectAreaRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoSelectAreaExport>().ToList();
+            var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillageExport>().ToList();
+
+            var mapper = new Npoi.Mapper.Mapper();
+            mapper.Put(dtoList, "人大名单", true);
+            mapper.Put(officialsstructList, "人大结构(职务)", true);
+            mapper.Put(areaList, "选区", true);
+            mapper.Put(villageList, "村", true);
+            MemoryStream ms = new MemoryStream();
+            mapper.Save(ms);
+            return ms;
+        }
+
+
+        /// <summary>
         /// 导出excel
         /// </summary>
         /// <returns></returns>
@@ -175,12 +213,15 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         {
             var pageList = GetList(model);
             var dtoList= pageList.Items.Adapt<List<DtoOfficialExport>>();
+            var officialsstructList = _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoOfficialsstructExport>().ToList();
+            var areaList = _selectAreaRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoSelectAreaExport>().ToList();
+            var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillageExport>().ToList();
+
             var mapper = new Npoi.Mapper.Mapper();
-
-
-
-            mapper.Put<DtoOfficialExport>(dtoList, "人大名单", true);
-            mapper.Put<DtoOfficialExport>(dtoList, "人大2", true);
+            mapper.Put(dtoList, "人大名单", true);
+            mapper.Put(officialsstructList, "人大结构", true);
+            mapper.Put(areaList, "选区", true);
+            mapper.Put(villageList, "村", true);
             MemoryStream ms = new MemoryStream();
             mapper.Save(ms);
             return ms;
@@ -198,14 +239,44 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             }
             try
             {
-                var list = ExcelHelp.ParseExcelToList<DtoOfficialExport>(file.OpenReadStream(), "人大名单");
+                var list = ExcelHelp.ParseExcelToList<DtoOfficialImport>(file.OpenReadStream(), "人大名单");
                 var entityList = list.Adapt<List<Official>>();
                 var createdId= JwtHelper.GetAccountId();
-                entityList.ForEach(x =>
+                var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillage>().ToList();
+                var officialList=_officialRepository.AsQueryable().Where(x => !x.IsDeleted).ToList();
+
+                var structIdList= _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).Select(x => x.Id).ToList();
+                var IdNumbers = officialList.Select(x=>x.Idnumber).ToList();
+                var PhoneNumber = officialList.Select(x=>x.PhoneNumber).ToList();
+                var index = 1;
+
+                entityList.ForEach(official =>
                 {
-                    x.CreatedTime = DateTime.Now;
-                    x.Creator = createdId;
+                    index++;
+                    official.CreatedTime = DateTime.Now;
+                    official.Creator = createdId;
+
+                    official.ValidationNullOrEmpty(index);
+                    if (IdNumbers.Contains(official.Idnumber))
+                    {
+                        throw Oops.Oh($"第{index}行身份证号已存在");
+                    }
+                    if (PhoneNumber.Contains(official.PhoneNumber))
+                    {
+                        throw Oops.Oh($"第{index}行手机号码已存在");
+                    }
+                    if (structIdList.Contains(official.Post))
+                    {
+                        throw Oops.Oh($"第{index}行职务Id不存在");
+                    }
+                    var exList = villageList.Where(v => v.SelectAreaId == official.SelectAreaId && v.Id == official.VillageId).ToList();
+                    if(exList.Count()==0)
+                    {
+                        throw Oops.Oh($"第{index}行选区Id和村Id不匹配");
+                    }
+
                 });
+
                 await _officialRepository.Context.BulkInsertAsync(entityList);
                 return true;
             }

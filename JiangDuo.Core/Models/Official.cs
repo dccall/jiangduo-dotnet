@@ -1,4 +1,5 @@
-﻿using JiangDuo.Core.Base;
+﻿using Furion.FriendlyException;
+using JiangDuo.Core.Base;
 using JiangDuo.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,9 +27,10 @@ namespace JiangDuo.Core.Models
         public SexEnum Sex { get; set; }
 
         /// <summary>
-        /// 类别 1.区人大，2.镇人大
+        /// 类别
         /// </summary>
-        public long? CategoryId { get; set; }
+        [MaxLength(20)]
+        public string CategoryId { get; set; }
 
         /// <summary>
         /// 生日
@@ -36,7 +38,7 @@ namespace JiangDuo.Core.Models
         public DateTime? Birthday { get; set; }
 
         /// <summary>
-        /// 名族
+        /// 民族
         /// </summary>
         [MaxLength(50)]
         public string Nationality { get; set; }
@@ -44,7 +46,8 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 文化程度
         /// </summary>
-        public long? CulturalLevel { get; set; }
+        [MaxLength(20)]
+        public string CulturalLevel { get; set; }
 
         /// <summary>
         /// 党派
@@ -55,8 +58,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 职务
         /// </summary>
-        [MaxLength(50)]
-        public string Post { get; set; }
+        public long Post { get; set; }
 
         /// <summary>
         /// 身份证号码
@@ -67,6 +69,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 手机号码
         /// </summary>
+        [MaxLength(11)]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -110,7 +113,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 人大结构Id
         /// </summary>
-        public long? OfficialsstructId { get; set; }
+        //public long? OfficialsstructId { get; set; }
 
         /// <summary>
         /// 角色
@@ -122,5 +125,31 @@ namespace JiangDuo.Core.Models
         /// </summary>
         [MaxLength(255)]
         public string Avatar { get; set; }
+
+
+
+        public void ValidationNullOrEmpty(int index = 0)
+        {
+            if (string.IsNullOrEmpty(this.Name))
+            {
+                throw Oops.Oh($"第{index}行姓名不能为空");
+            }
+            if (string.IsNullOrEmpty(this.CategoryId))
+            {
+                throw Oops.Oh($"第{index}行类别不能为空");
+            }
+            if (string.IsNullOrEmpty(this.Idnumber))
+            {
+                throw Oops.Oh($"第{index}行身份证号码不能为空");
+            }
+            if (string.IsNullOrEmpty(this.PhoneNumber))
+            {
+                throw Oops.Oh($"第{index}行手机号码不能为空");
+            }
+            if (this.Post == null)
+            {
+                throw Oops.Oh($"第{index}行职务不能为空");
+            }
+        }
     }
 }

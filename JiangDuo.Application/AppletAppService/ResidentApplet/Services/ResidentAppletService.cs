@@ -359,8 +359,14 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public PagedList<DtoServiceInfo> GetMyServiceList(DtoMyServiceQuery model)
         {
             var id = JwtHelper.GetAccountId();
-            var query = from p in _participantRepository.Entities.Where(p => p.Status == ParticipantStatus.Normal && p.ResidentId == id)
-                        join s in _serviceRepository.Entities on p.ServiceId equals s.Id
+
+            var query = _participantRepository.AsQueryable(false)
+                .Where(p => p.Status == ParticipantStatus.Normal && p.ResidentId == id);
+            var currentDate = DateTime.Now;
+            query = query.Where(model.NotStarted, x => x.StartTime.Value > currentDate|| x.RegistTime.Value > currentDate.Date);
+
+            var query2 = from p in query
+                         join s in _serviceRepository.Entities on p.ServiceId equals s.Id
                         join official in _officialRepository.Entities on s.OfficialsId equals official.Id into result1
                         from so in result1.DefaultIfEmpty()
                         join venuedevice in _venuedeviceRepository.Entities on s.VenueDeviceId equals venuedevice.Id into result2
@@ -400,7 +406,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             EndTime = p.EndTime,
                             ParticipantId = p.Id
                         };
-            return query.ToPagedList(model.PageIndex, model.PageSize);
+            return query2.ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>

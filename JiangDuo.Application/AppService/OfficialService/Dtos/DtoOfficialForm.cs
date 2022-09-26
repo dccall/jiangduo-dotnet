@@ -28,7 +28,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 类别
         /// </summary>
-        public long? CategoryId { get; set; }
+        [MaxLength(20)]
+        public string CategoryId { get; set; }
 
         /// <summary>
         /// 生日
@@ -44,7 +45,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 文化程度
         /// </summary>
-        public long? CulturalLevel { get; set; }
+        [MaxLength(20)]
+        public string CulturalLevel { get; set; }
 
         /// <summary>
         /// 党派
@@ -55,8 +57,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 职务
         /// </summary>
-        [MaxLength(50)]
-        public string Post { get; set; }
+        public long Post { get; set; }
 
         /// <summary>
         /// 身份证号码
@@ -67,6 +68,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 手机号码
         /// </summary>
+        [MaxLength(11)]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -105,12 +107,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 积分
         /// </summary>
-        public int Score { get; set; }
+        public long Score { get; set; }
 
         /// <summary>
         /// 人大结构Id
         /// </summary>
-        public long? OfficialsstructId { get; set; }
+        //public long? OfficialsstructId { get; set; }
 
         /// <summary>
         /// 角色

@@ -57,5 +57,11 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         /// </summary>
         /// <returns></returns>
         public  Task<bool> ImportExcel(IFormFile file);
+
+        /// <summary>
+        /// 模板excel
+        /// </summary>
+        /// <returns></returns>
+        public MemoryStream ExportTemplateExcel();
     }
 }

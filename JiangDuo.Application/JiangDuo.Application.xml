@@ -354,6 +354,11 @@
             服务id
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoMyServiceQuery.NotStarted">
+            <summary>
+            未开始
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppletAppService.ResidentApplet.Dtos.DtoResidentLogin.Code">
             <summary>
             微信code
@@ -1766,11 +1771,6 @@
             积分
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OfficialsstructId">
-            <summary>
-            人大结构Id
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.OfficialRole">
             <summary>
             角色
@@ -1796,9 +1796,9 @@
             所属选区Id
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.OfficialsstructId">
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Post">
             <summary>
-            人大结构Id
+            职务Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.CategoryId">
@@ -1891,14 +1891,79 @@
             政治面貌
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.OfficialsstructId">
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Name">
             <summary>
-            人大结构
+            姓名
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.OfficialRole">
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Sex">
             <summary>
-            角色
+            性别1男2女
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.CategoryId">
+            <summary>
+            类别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Nationality">
+            <summary>
+            民族
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.CulturalLevel">
+            <summary>
+            文化程度
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Party">
+            <summary>
+            党派
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Post">
+            <summary>
+            职务
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Idnumber">
+            <summary>
+            身份证号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.SelectAreaId">
+            <summary>
+            所属选区Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.VillageId">
+            <summary>
+            所属村Id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.PersonalResume">
+            <summary>
+            个人履历
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Address">
+            <summary>
+            住址
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.PoliticalOutlook">
+            <summary>
+            政治面貌
             </summary>
         </member>
         <member name="T:JiangDuo.Application.AppService.OfficialService.OfficialAppService">
@@ -1946,6 +2011,12 @@
             批量删除
             </summary>
             <param name="idList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.OfficialAppService.ExportTemplateExcel">
+            <summary>
+            导出模板
+            </summary>
             <returns></returns>
         </member>
         <member name="M:JiangDuo.Application.AppService.OfficialService.OfficialAppService.ExportExcel(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
@@ -2007,6 +2078,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.IOfficialService.ExportTemplateExcel">
+            <summary>
+            模板excel
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.GetList(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
             <summary>
             分页
@@ -2049,6 +2126,12 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.ExportTemplateExcel">
+            <summary>
+            模板excel
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.OfficialService.Services.OfficialService.ExportExcel(JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery)">
             <summary>
             导出excel
@@ -2060,6 +2143,16 @@
             导出excel
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialsstructService.Dto.DtoOfficialsstructExport.Name">
+            <summary>
+            人大结构名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialsstructService.Dto.DtoOfficialsstructExport.Remarks">
+            <summary>
+            描述
+            </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialsstructService.Dto.DtoOfficialsstructForm.Id">
             <summary>
@@ -4181,6 +4274,31 @@
             <param name="idList">编号</param>
             <returns></returns>
         </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.SelectAreaName">
+            <summary>
+            选区名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.SelectAreaType">
+            <summary>
+            区域类型1.区2.镇
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.SelectAreaRange">
+            <summary>
+            选区范围(坐标集合)
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.GrossArea">
+            <summary>
+            总面积
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaForm.Id">
             <summary>
             主键
@@ -5146,6 +5264,31 @@
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillage.OfficialCount">
             <summary>
             人大代表数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageExport.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageExport.Name">
+            <summary>
+            村名称
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageExport.SelectAreaId">
+            <summary>
+            选区id
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageExport.Population">
+            <summary>
+            人口数
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageExport.GrossArea">
+            <summary>
+            总面积
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Id">

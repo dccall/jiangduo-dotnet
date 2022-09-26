@@ -85,6 +85,21 @@ public class OfficialAppService : IDynamicApiController
     }
 
 
+
+    /// <summary>
+    /// 导出模板
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult ExportTemplateExcel()
+    {
+        var ms = _officialService.ExportTemplateExcel();
+
+        return new FileStreamResult(new MemoryStream(ms.ToArray()), "application/octet-stream")
+        {
+            FileDownloadName = "人大导入模板.xlsx" // 配置文件下载显示名
+        };
+    }
+
     /// <summary>
     /// 导出excel
     /// </summary>

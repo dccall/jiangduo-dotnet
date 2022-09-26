@@ -11,14 +11,14 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         public long? SelectAreaId { get; set; }
 
         /// <summary>
-        /// 人大结构Id
+        /// 职务Id
         /// </summary>
-        public long? OfficialsstructId { get; set; }
+        public long? Post { get; set; }
 
         /// <summary>
         /// 类别 1.区人大，2.镇人大
         /// </summary>
-        public long? CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         /// <summary>
         /// 姓名

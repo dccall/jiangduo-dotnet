@@ -271,7 +271,7 @@
         </member>
         <member name="P:JiangDuo.Core.Models.Official.CategoryId">
             <summary>
-            类别 1.区人大，2.镇人大
+            类别
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.Birthday">
@@ -281,7 +281,7 @@
         </member>
         <member name="P:JiangDuo.Core.Models.Official.Nationality">
             <summary>
-            名族
+            民族
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.CulturalLevel">
@@ -342,11 +342,6 @@
         <member name="P:JiangDuo.Core.Models.Official.Score">
             <summary>
             积分
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Official.OfficialsstructId">
-            <summary>
-            人大结构Id
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.OfficialRole">

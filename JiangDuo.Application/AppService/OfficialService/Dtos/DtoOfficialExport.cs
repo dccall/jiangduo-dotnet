@@ -1,4 +1,5 @@
-﻿using JiangDuo.Core.Enums;
+﻿using Furion.FriendlyException;
+using JiangDuo.Core.Enums;
 using Npoi.Mapper.Attributes;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// <summary>
         /// 职务
         /// </summary>
-        [Column("职务")]
+        [Column("职务Id")]
         public string Post { get; set; }
 
         /// <summary>
@@ -74,12 +75,14 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// <summary>
         /// 所属选区Id
         /// </summary>
-        public long? SelectAreaId { get; set; }
+        [Column("所属选区Id")]
+        public string SelectAreaId { get; set; }
 
         /// <summary>
         /// 所属村Id
         /// </summary>
-        public long? VillageId { get; set; }
+        [Column("所属村Id")]
+        public string VillageId { get; set; }
 
         /// <summary>
         /// 个人履历
@@ -98,18 +101,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// </summary>
         [Column("政治面貌")]
         public string PoliticalOutlook { get; set; }
-        /// <summary>
-        /// 人大结构
-        /// </summary>
-        [Column("人大结构")]
-        public string OfficialsstructId { get; set; }
 
-        /// <summary>
-        /// 角色
-        /// </summary>
-        [Column("角色:1人大2主席")]
-        public OfficialRoleEnum OfficialRole { get; set; }
 
+
+       
 
     }
 }
