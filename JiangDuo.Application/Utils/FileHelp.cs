@@ -24,7 +24,7 @@ namespace JiangDuo.Application.Tools
             var uploadFileRepository = Db.GetRepository<SysUploadFile>();
             var userId = JwtHelper.GetAccountId();
             // 如：保存到网站根目录下的 uploads 目录
-            var path = "uploads/" + userId;
+            var path = $"uploads/" + userId;
             var saveDirectory = Path.Combine(App.HostEnvironment.ContentRootPath, path);
             if (!Directory.Exists(saveDirectory)) Directory.CreateDirectory(saveDirectory);
             //// 这里还可以获取文件的信息

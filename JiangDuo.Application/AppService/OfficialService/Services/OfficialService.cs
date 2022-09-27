@@ -265,14 +265,18 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                     {
                         throw Oops.Oh($"第{index}行手机号码已存在");
                     }
-                    if (structIdList.Contains(official.Post))
+                    if (!structIdList.Contains(official.Post))
                     {
-                        throw Oops.Oh($"第{index}行职务Id不存在");
+                        throw Oops.Oh($"第{index}行职务Id系统中不存在");
                     }
-                    var exList = villageList.Where(v => v.SelectAreaId == official.SelectAreaId && v.Id == official.VillageId).ToList();
-                    if(exList.Count()==0)
+                    var village = villageList.Where(v =>v.Id == official.VillageId).FirstOrDefault();
+                    if(village==null)
                     {
-                        throw Oops.Oh($"第{index}行选区Id和村Id不匹配");
+                        throw Oops.Oh($"第{index}行村Id系统中不存在");
+                    }
+                    else
+                    {
+                        official.SelectAreaId = village.SelectAreaId;
                     }
 
                 });
