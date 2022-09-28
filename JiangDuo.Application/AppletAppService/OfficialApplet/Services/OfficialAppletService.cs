@@ -168,7 +168,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
             query = query.Where(model.ServiceClassifyId != null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
-            query = query.Where(model.Creator != null, x => x.Creator == account.Id);
+            query = query.Where( x => x.Creator == account.Id|| x.OfficialsId== account.Id);
             var query2 = from service in query
                          join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
                          from so in result1.DefaultIfEmpty()
