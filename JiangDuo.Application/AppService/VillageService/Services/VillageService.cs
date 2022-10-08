@@ -2,6 +2,7 @@
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.VillageService.Dto;
+using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Utils;
 using Mapster;
@@ -19,14 +20,17 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         private readonly ILogger<VillageService> _logger;
         private readonly IRepository<Village> _villageRepository;
         private readonly IRepository<Official> _officialRepository;
+        private readonly IRepository<SelectArea> _selectAreaRepository;
         public VillageService(ILogger<VillageService> logger,
             IRepository<Official> officialRepository,
+            IRepository<SelectArea> selectAreaRepository,
             IRepository<Village> villageRepository)
         {
             _logger = logger;
             _villageRepository = villageRepository;
 
             _officialRepository = officialRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
 
         /// <summary>
@@ -38,7 +42,23 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         {
             var query = _villageRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
-            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
+            if(!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            {
+                //获取所有子节点选区id
+                var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted&&x.Id== model.SelectAreaId.Value)
+                                  join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted )
+                                  on x.Id equals x2.ParentId into result1
+                                  from c in result1.DefaultIfEmpty() where c!=null
+                                  select c.Id).ToList();
+
+                areaIdList.Add(model.SelectAreaId.Value);
+
+                query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
+
+            }
+
+            //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
 
             var query2 = query.Select(x => new DtoVillage()
             {

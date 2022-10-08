@@ -15,19 +15,37 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// 姓名
         /// </summary>
         [Column("姓名")]
-        public string Name { get; set; } 
+        public string Name { get; set; }
+
 
         /// <summary>
-        /// 性别1男2女
+        /// 性别
         /// </summary>
-        [Column("性别1男2女")]
-        public int Sex { get; set; }
+        [Ignore]
+        public SexEnum Sex { get; set; }
 
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Column("性别:男|女")]
+        public string SexName => Sex.GetDescription();
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        [Ignore]
+        public OfficialType Type { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        [Column("类型:区代表|镇代表")]
+        public string TypeName => Type.GetDescription();
 
         /// <summary>
         /// 类别
         /// </summary>
-        [Column("类别1.区代表2.镇代表")]
+        [Column("类别")]
         public string CategoryId { get; set; }
 
         /// <summary>
@@ -57,7 +75,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// <summary>
         /// 职务
         /// </summary>
-        [Column("职务Id")]
+        [Column("职务")]
         public string Post { get; set; }
 
         /// <summary>

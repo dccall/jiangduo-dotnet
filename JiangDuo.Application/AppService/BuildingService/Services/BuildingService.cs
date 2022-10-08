@@ -2,6 +2,7 @@
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using JiangDuo.Application.AppService.BuildingService.Dto;
+using JiangDuo.Core.Enums;
 using JiangDuo.Core.Models;
 using JiangDuo.Core.Utils;
 using Mapster;
@@ -19,12 +20,15 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
         private readonly ILogger<BuildingService> _logger;
         private readonly IRepository<Building> _buiildingRepository;
         private readonly IRepository<SysUploadFile> _uploadRepository;
-
-        public BuildingService(ILogger<BuildingService> logger, IRepository<Building> buiildingRepository, IRepository<SysUploadFile> uploadRepository)
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        public BuildingService(ILogger<BuildingService> logger,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<Building> buiildingRepository, IRepository<SysUploadFile> uploadRepository)
         {
             _logger = logger;
             _buiildingRepository = buiildingRepository;
             _uploadRepository = uploadRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
 
         /// <summary>
@@ -36,8 +40,25 @@ namespace JiangDuo.Application.AppService.BuildingService.Services
         {
             var query = _buiildingRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.BuildingName), x => x.BuildingName.Contains(model.BuildingName));
+
+
+            if (!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            {
+                //获取所有子节点选区id
+                var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted && x.Id == model.SelectAreaId.Value)
+                                  join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted )
+                                  on x.Id equals x2.ParentId into result1
+                                  from c in result1.DefaultIfEmpty()
+                                  where c != null
+                                  select c.Id).ToList();
+
+                areaIdList.Add(model.SelectAreaId.Value);
+
+                query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
+
+            }
             //不传或者传-1查询全部
-            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+            //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
 
             //将数据映射到DtoBuilding中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoBuilding>().ToPagedList(model.PageIndex, model.PageSize);

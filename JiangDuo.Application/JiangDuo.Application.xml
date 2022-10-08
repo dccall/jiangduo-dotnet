@@ -1661,6 +1661,11 @@
             性别
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.TypeName">
+            <summary>
+            类型
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.OfficialRoleName">
             <summary>
             角色名称
@@ -1694,6 +1699,11 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Sex">
             <summary>
             性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Type">
+            <summary>
+            类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.CategoryId">
@@ -1798,12 +1808,17 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Post">
             <summary>
-            职务Id
+            职务
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Type">
+            <summary>
+            类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.CategoryId">
             <summary>
-            类别 1.区人大，2.镇人大
+            类别
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.Name">
@@ -1823,7 +1838,22 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Sex">
             <summary>
-            性别1男2女
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.SexName">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.TypeName">
+            <summary>
+            类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.CategoryId">
@@ -1898,7 +1928,22 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Sex">
             <summary>
-            性别1男2女
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.SexName">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.TypeName">
+            <summary>
+            类型
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.CategoryId">

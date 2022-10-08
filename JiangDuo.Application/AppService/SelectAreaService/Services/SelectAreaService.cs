@@ -61,7 +61,7 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
             });
 
             //将数据映射到DtoSelectArea中
-            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderBy(s => s.SelectAreaName).ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>

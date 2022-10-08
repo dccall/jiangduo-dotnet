@@ -27,6 +27,11 @@ namespace JiangDuo.Core.Models
         public SexEnum Sex { get; set; }
 
         /// <summary>
+        /// 类型
+        /// </summary>
+        public OfficialType Type { get; set; }
+
+        /// <summary>
         /// 类别
         /// </summary>
         [MaxLength(20)]
@@ -58,7 +63,7 @@ namespace JiangDuo.Core.Models
         /// <summary>
         /// 职务
         /// </summary>
-        public long Post { get; set; }
+        public string Post { get; set; }
 
         /// <summary>
         /// 身份证号码

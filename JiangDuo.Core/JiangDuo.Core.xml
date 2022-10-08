@@ -54,6 +54,11 @@
             人大角色类型
             </summary>
         </member>
+        <member name="T:JiangDuo.Core.Enums.OfficialType">
+            <summary>
+            人大类型
+            </summary>
+        </member>
         <member name="F:JiangDuo.Core.Enums.PublicSentimentStatus.Normal">
             <summary>
             默认
@@ -267,6 +272,11 @@
         <member name="P:JiangDuo.Core.Models.Official.Sex">
             <summary>
             性别
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Official.Type">
+            <summary>
+            类型
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.CategoryId">

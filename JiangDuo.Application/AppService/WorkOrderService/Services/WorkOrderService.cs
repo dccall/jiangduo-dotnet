@@ -90,7 +90,23 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             query = query.Where(model.Status != null, x => x.Status == model.Status);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
-            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
+            if (!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            {
+                //获取所有子节点选区id
+                var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted && x.Id == model.SelectAreaId.Value)
+                                  join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted )
+                                  on x.Id equals x2.ParentId into result1
+                                  from c in result1.DefaultIfEmpty()
+                                  where c != null
+                                  select c.Id).ToList();
+
+                areaIdList.Add(model.SelectAreaId.Value);
+
+                query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
+
+            }
+            //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
 
             if (model.Status == null && model.PageSource == 1)
             {

@@ -2,6 +2,7 @@
 
   "ConnectionStrings": {
     "MySqlDbConnectionString": "Data Source=localhost;Database=jiangduo;User ID=root;Password=root;pooling=true;port=3306;CharSet=utf8;sslMode=none;AllowLoadLocalInfile=true;",
+    //"MySqlDbConnectionString": "Data Source=36.139.202.113;Database=jiangduo;User ID=root;Password=root1547183048&&;pooling=true;port=3306;CharSet=utf8;sslMode=none;AllowLoadLocalInfile=true;",
     "RedisConnectionString": "127.0.0.1:6379,allowadmin=true,password=123456,connectTimeout=10000,defaultDatabase=1"
   }
 }

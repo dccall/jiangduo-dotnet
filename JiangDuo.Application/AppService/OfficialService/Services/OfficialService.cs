@@ -54,17 +54,37 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         /// </summary>
         /// <param name="model">数据</param>
         /// <returns></returns>
-        public PagedList<DtoOfficial> GetList(DtoOfficialQuery model)
+        public  PagedList<DtoOfficial> GetList(DtoOfficialQuery model)
         {
             var query = _officialRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
+            query = query.Where(model.Type!=null, x => x.Type==model.Type);
+
+            
             //不传或者传-1查询全部
-            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+            //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
+            if (!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            {
+                //获取所有子节点选区id
+                var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted && x.Id == model.SelectAreaId.Value)
+                                  join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted )
+                                  on x.Id equals x2.ParentId into result1
+                                  from c in result1.DefaultIfEmpty()
+                                  where c != null
+                                  select c.Id).ToList();
+
+                areaIdList.Add(model.SelectAreaId.Value);
+
+                query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
+
+            }
+
             query = query.Where(model.OfficialRole != null, x => x.OfficialRole == model.OfficialRole);
             query = query.Where(!(model.CategoryId == null || model.CategoryId == "-1"), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+            return   query.OrderByDescending(s => s.Id).ThenByDescending(x=>x.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>
@@ -196,9 +216,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var mapper = new Npoi.Mapper.Mapper();
             mapper.Put(dtoList, "人大名单", true);
-            mapper.Put(officialsstructList, "人大结构(职务)", true);
             mapper.Put(areaList, "选区", true);
-            mapper.Put(villageList, "村", true);
+            mapper.Put(villageList, "村/组织", true);
             MemoryStream ms = new MemoryStream();
             mapper.Save(ms);
             return ms;
@@ -219,7 +238,6 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var mapper = new Npoi.Mapper.Mapper();
             mapper.Put(dtoList, "人大名单", true);
-            mapper.Put(officialsstructList, "人大结构", true);
             mapper.Put(areaList, "选区", true);
             mapper.Put(villageList, "村", true);
             MemoryStream ms = new MemoryStream();
@@ -249,7 +267,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                 var IdNumbers = officialList.Select(x=>x.Idnumber).ToList();
                 var PhoneNumber = officialList.Select(x=>x.PhoneNumber).ToList();
                 var index = 1;
-
+                var excelPhoneNumber= entityList.Select(x => x.PhoneNumber).ToList();
                 entityList.ForEach(official =>
                 {
                     index++;
@@ -265,19 +283,15 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                     {
                         throw Oops.Oh($"第{index}行手机号码已存在");
                     }
-                    if (!structIdList.Contains(official.Post))
-                    {
-                        throw Oops.Oh($"第{index}行职务Id系统中不存在");
-                    }
-                    var village = villageList.Where(v =>v.Id == official.VillageId).FirstOrDefault();
-                    if(village==null)
-                    {
-                        throw Oops.Oh($"第{index}行村Id系统中不存在");
-                    }
-                    else
-                    {
-                        official.SelectAreaId = village.SelectAreaId;
-                    }
+                    //var village = villageList.Where(v =>v.Id == official.VillageId).FirstOrDefault();
+                    //if(village==null)
+                    //{
+                    //    throw Oops.Oh($"第{index}行村Id系统中不存在");
+                    //}
+                    //else
+                    //{
+                    //    official.SelectAreaId = village.SelectAreaId;
+                    //}
 
                 });
 
@@ -286,8 +300,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             }
             catch (Exception e)
             {
-                Log.Error("人大导入失败"+e.Message);
-                throw Oops.Oh("人大导入失败" + e.Message);
+                Log.Error("导入失败"+e.Message);
+                throw Oops.Oh("导入失败" + e.Message);
             }
        
         }

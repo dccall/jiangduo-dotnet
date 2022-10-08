@@ -28,9 +28,9 @@ public class OfficialAppService : IDynamicApiController
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
-    public PagedList<DtoOfficial> Get([FromQuery] DtoOfficialQuery model)
+    public  PagedList<DtoOfficial> Get([FromQuery] DtoOfficialQuery model)
     {
-        return _officialService.GetList(model);
+        return  _officialService.GetList(model);
     }
 
     /// <summary>

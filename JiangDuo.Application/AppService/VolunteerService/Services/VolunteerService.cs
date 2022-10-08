@@ -18,11 +18,14 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
     {
         private readonly ILogger<VolunteerService> _logger;
         private readonly IRepository<Volunteer> _volunteerRepository;
-
-        public VolunteerService(ILogger<VolunteerService> logger, IRepository<Volunteer> volunteerRepository)
+        private readonly IRepository<SelectArea> _selectAreaRepository;
+        public VolunteerService(ILogger<VolunteerService> logger,
+            IRepository<SelectArea> selectAreaRepository,
+            IRepository<Volunteer> volunteerRepository)
         {
             _logger = logger;
             _volunteerRepository = volunteerRepository;
+            _selectAreaRepository = selectAreaRepository;
         }
 
         /// <summary>
@@ -35,7 +38,24 @@ namespace JiangDuo.Application.AppService.VolunteerService.Services
             var query = _volunteerRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
             //不传或者传-1查询全部
-            query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+            //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
+
+            if (!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            {
+                //获取所有子节点选区id
+                var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted && x.Id == model.SelectAreaId.Value)
+                                  join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted )
+                                  on x.Id equals x2.ParentId into result1
+                                  from c in result1.DefaultIfEmpty()
+                                  where c != null
+                                  select c.Id).ToList();
+
+                areaIdList.Add(model.SelectAreaId.Value);
+
+                query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
+
+            }
+
             //将数据映射到DtoVolunteer中
             return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVolunteer>().ToPagedList(model.PageIndex, model.PageSize);
         }

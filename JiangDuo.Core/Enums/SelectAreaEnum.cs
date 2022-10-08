@@ -11,6 +11,9 @@ namespace JiangDuo.Core.Enums
         SelectArea = 1,
 
         [Description("镇选区")]
-        Town = 2
+        Town = 2,
+
+        [Description("其它")]
+        Other = 3
     }
 }
