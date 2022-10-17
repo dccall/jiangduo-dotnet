@@ -61,7 +61,20 @@ namespace JiangDuo.Application.AppService.SelectAreaService.Services
             });
 
             //将数据映射到DtoSelectArea中
-            return query2.OrderBy(s => s.SelectAreaName).ToPagedList(model.PageIndex, model.PageSize);
+            var list=  query2.OrderBy(s => s.SelectAreaName).ToPagedList(model.PageIndex, model.PageSize);
+            foreach (var item in list.Items)
+            {
+                //获取子集
+                var childenList= list.Items.Where(x => x.ParentId == item.Id).ToList();
+                //如果有子集
+                if (childenList.Any())
+                {
+                    item.GrossArea += childenList.Select(x => x.GrossArea).Sum();
+                    item.Population += childenList.Select(x => x.Population).Sum();
+                }
+            } 
+
+            return list;
         }
 
         /// <summary>
