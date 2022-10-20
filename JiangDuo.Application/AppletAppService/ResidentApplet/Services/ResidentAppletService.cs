@@ -617,7 +617,9 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         public async Task<string> AddPublicSentiment(DtoPublicSentimentForm model)
         {
             var account = JwtHelper.GetAccountInfo();
+            var resident = await _residentRepository.FindOrDefaultAsync(account.Id);
             model.ResidentId = account.Id;  //居民是自己
+            model.PhoneNumber = resident.PhoneNumber;
             var count = await _publicSentimentService.Insert(model);
             if (count > 0)
             {

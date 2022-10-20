@@ -65,5 +65,10 @@ namespace JiangDuo.Core.Models
         /// 反馈时间
         /// </summary>
         public DateTime? FeedbackTime { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 }

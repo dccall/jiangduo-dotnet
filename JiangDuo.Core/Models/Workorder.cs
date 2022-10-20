@@ -108,5 +108,10 @@ namespace JiangDuo.Core.Models
         /// 附件
         /// </summary>
         public string Attachments { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 }

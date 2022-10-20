@@ -3,13 +3,12 @@ using JiangDuo.Core.Enums;
 
 namespace JiangDuo.Application.AppService.ReserveService.Dto
 {
-    public class DtoReserveQueryStatus : BaseRequest
+    public class DtoReserveOverForm 
     {
         public long ReserveId { get; set; }
-
         /// <summary>
-        /// 状态
+        /// 会议结果
         /// </summary>
-        public ReserveStatus Status { get; set; }
+        public string MeetingResults { get; set; }
     }
 }

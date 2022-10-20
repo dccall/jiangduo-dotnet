@@ -168,7 +168,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             query = query.Where(model.ServiceType != null, x => x.ServiceType == model.ServiceType);
             query = query.Where(model.ServiceClassifyId != null, x => x.ServiceClassifyId == model.ServiceClassifyId.Value);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
-            query = query.Where( x => x.Creator == account.Id|| x.OfficialsId== account.Id);
+            query = query.Where(x => x.Creator == account.Id || x.OfficialsId == account.Id);
             var query2 = from service in query
                          join official in _officialRepository.Entities on service.OfficialsId equals official.Id into result1
                          from so in result1.DefaultIfEmpty()
@@ -268,6 +268,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             var query2 = from x in query
                          join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
                          from rv in result1.DefaultIfEmpty()
+                         join official in _officialRepository.Entities on x.Creator equals official.Id into result2
+                         from ro in result2.DefaultIfEmpty()
                          orderby x.CreatedTime descending
                          select new DtoReserve()
                          {
@@ -288,6 +290,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                              UpdatedTime = x.UpdatedTime,
                              Updater = x.Updater,
                              Creator = x.Creator,
+                             CreatorName=ro.Name,
                              SelectAreaId = x.SelectAreaId,
                              CreatedTime = x.CreatedTime
                          };
@@ -397,6 +400,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
                              WorkorderSource = w.WorkorderSource,
                              WorkorderType = w.WorkorderType,
                              IsHelper = w.AssistantId == id,//是否是协助订单
+                             PhoneNumber = w.PhoneNumber
                          };
 
             return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);

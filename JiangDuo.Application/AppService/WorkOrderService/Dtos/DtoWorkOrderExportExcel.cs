@@ -103,6 +103,12 @@ namespace JiangDuo.Application.AppService.WorkorderService.Dto
         [Column("工单内容")]
         public string Content { get; set; }
 
+
+        /// <summary>
+        /// 联系电话
+        /// </summary>
+        [Column("联系电话")]
+        public string PhoneNumber { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

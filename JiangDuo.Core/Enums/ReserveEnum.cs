@@ -18,5 +18,8 @@ namespace JiangDuo.Core.Enums
 
         [Description("已完成")]
         Completed = 3,
+
+        [Description("已总结")]
+        Over = 4,
     }
 }

@@ -99,5 +99,10 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Dto
         /// 附件列表
         /// </summary>
         public List<SysUploadFile> AttachmentsList { get; set; } = new List<SysUploadFile>();
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 }

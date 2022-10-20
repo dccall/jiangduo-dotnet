@@ -50,5 +50,10 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Dto
         /// 所属选区Id
         /// </summary>
         public long? SelectAreaId { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 }

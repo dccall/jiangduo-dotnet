@@ -10,6 +10,12 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
     [Manual]
     public class DtoReserve : Reserve
     {
+
+        /// <summary>
+        /// 创建者名称
+        /// </summary>
+        public string CreatorName { get; set; }
+
         /// <summary>
         /// 状态名称
         /// </summary>

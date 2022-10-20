@@ -465,6 +465,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             workOrderEntity.Status = model.Status;
             _workOrderRepository.UpdateNow(workOrderEntity);
 
+
+
             //添加处理内容
             AddWordOrderFeedback(workOrderEntity.Id, model.HandelContent, workOrderEntity.Status);
 

@@ -67,9 +67,19 @@ public class ReserveAppService : IDynamicApiController
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost("UpdateStatus")]
-    public async Task<int> UpdateStatus(DtoReserveQueryStatus model)
+    public async Task<int> UpdateStatus(DtoReserveStatus model)
     {
         return await _reserveService.UpdateStatus(model);
+    }
+    /// <summary>
+    /// 预约完结
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("ReserveOver")]
+    public async Task<int> ReserveOver(DtoReserveOverForm model)
+    {
+        return await _reserveService.ReserveOver(model);
     }
 
     /// <summary>

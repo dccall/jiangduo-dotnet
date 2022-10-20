@@ -519,6 +519,11 @@
             反馈时间
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.PublicSentiment.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Qrcode">
             <summary>
             二维码
@@ -1733,6 +1738,11 @@
         <member name="P:JiangDuo.Core.Models.Workorder.Attachments">
             <summary>
             附件
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Core.Models.Workorder.PhoneNumber">
+            <summary>
+            手机号码
             </summary>
         </member>
         <member name="T:JiangDuo.Core.Models.Workorderfeedback">

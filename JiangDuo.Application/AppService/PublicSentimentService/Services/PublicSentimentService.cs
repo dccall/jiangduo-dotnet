@@ -57,6 +57,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
+            query = query.Where(!string.IsNullOrEmpty(model.PhoneNumber), x => x.PhoneNumber.Contains(model.PhoneNumber) );
 
 
 
@@ -91,6 +92,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                              CreatedTime = p.CreatedTime,
                              FeedbackPersonId = p.FeedbackPersonId,
                              FeedbackPerson = p.FeedbackPerson,
+                              
                          };
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);

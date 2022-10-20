@@ -26,7 +26,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         private readonly IRepository<Reservevolunteer> _reservevolunteerRepository;
         private readonly IRepository<Volunteer> _volunteerRepository;
         private readonly IVenuedeviceService _venuedeviceService;
-
+        private readonly IRepository<Official> _officialRepository;
         private readonly IRepository<SelectArea> _selectAreaRepository;
 
         public ReserveService(ILogger<ReserveService> logger, IRepository<Reserve> reserveRepository,
@@ -35,6 +35,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             IRepository<Volunteer> volunteerRepository,
             IVenuedeviceService venuedeviceService,
             IRepository<SelectArea> selectAreaRepository,
+            IRepository<Official> officialRepository,
             IRepository<Workorder> workOrderRepository)
         {
             _logger = logger;
@@ -45,6 +46,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _volunteerRepository = volunteerRepository;
             _venuedeviceService = venuedeviceService;
             _selectAreaRepository = selectAreaRepository;
+            _officialRepository = officialRepository;
         }
 
         /// <summary>
@@ -83,6 +85,8 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             var query2 = from x in query
                          join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
                          from rv in result1.DefaultIfEmpty()
+                         join official in _officialRepository.Entities on x.Creator equals official.Id into result2
+                         from ro in result2.DefaultIfEmpty()
                          orderby x.CreatedTime descending
                          select new DtoReserve()
                          {
@@ -103,6 +107,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
                              UpdatedTime = x.UpdatedTime,
                              Updater = x.Updater,
                              Creator = x.Creator,
+                             CreatorName= ro.Name,
                              SelectAreaId = x.SelectAreaId,
                              CreatedTime = x.CreatedTime
                          };
@@ -117,28 +122,36 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         public async Task<DtoReserve> GetById(long id)
         {
             var query = _reserveRepository.Where(x => x.Id == id);
-            var dto = query.Join(_venuedeviceRepository.Entities, x => x.VenueDeviceId, y => y.Id, (x, y) => new DtoReserve()
-            {
-                Id = x.Id,
-                Theme = x.Theme,
-                Number = x.Number,
-                ReserveDate = x.ReserveDate,
-                StartTime = x.StartTime,
-                EndTime = x.EndTime,
-                MeetingResults = x.MeetingResults,
-                Remarks = x.Remarks,
-                VenueDeviceId = x.VenueDeviceId,
-                VenueDeviceName = y.Name,
-                AuditFindings = x.AuditFindings,
-                WorkOrderId = x.WorkOrderId,
-                IsDeleted = x.IsDeleted,
-                Status = x.Status,
-                UpdatedTime = x.UpdatedTime,
-                Updater = x.Updater,
-                Creator = x.Creator,
-                SelectAreaId = x.SelectAreaId,
-                CreatedTime = x.CreatedTime,
-            }).FirstOrDefault();
+            var query2 = from x in query
+                         join venuedevice in _venuedeviceRepository.Entities on x.VenueDeviceId equals venuedevice.Id into result1
+                         from rv in result1.DefaultIfEmpty()
+                         join official in _officialRepository.Entities on x.Creator equals official.Id into result2
+                         from ro in result2.DefaultIfEmpty()
+                         orderby x.CreatedTime descending
+                         select new DtoReserve()
+                         {
+                             Id = x.Id,
+                             Theme = x.Theme,
+                             Number = x.Number,
+                             ReserveDate = x.ReserveDate,
+                             StartTime = x.StartTime,
+                             EndTime = x.EndTime,
+                             MeetingResults = x.MeetingResults,
+                             Remarks = x.Remarks,
+                             VenueDeviceId = x.VenueDeviceId,
+                             VenueDeviceName = rv.Name,
+                             AuditFindings = x.AuditFindings,
+                             WorkOrderId = x.WorkOrderId,
+                             IsDeleted = x.IsDeleted,
+                             Status = x.Status,
+                             UpdatedTime = x.UpdatedTime,
+                             Updater = x.Updater,
+                             Creator = x.Creator,
+                             CreatorName = ro.Name,
+                             SelectAreaId = x.SelectAreaId,
+                             CreatedTime = x.CreatedTime
+                         };
+            var dto = query2.FirstOrDefault();
             //志愿者
             var volunteerList = _reservevolunteerRepository.Where(x => x.ReserveId == id)
                 .Join(_volunteerRepository.Entities, x => x.VolunteerId, y => y.Id, (x, y) => y).ProjectToType<DtoVolunteer>().ToList();
@@ -227,7 +240,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<int> UpdateStatus(DtoReserveQueryStatus model)
+        public async Task<int> UpdateStatus(DtoReserveStatus model)
         {
             //先根据id查询实体
             var entity = _reserveRepository.FindOrDefault(model.ReserveId);
@@ -239,6 +252,25 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             _reserveRepository.Update(entity);
             return await _reserveRepository.SaveNowAsync();
         }
+        /// <summary>
+        /// 预约完结
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> ReserveOver(DtoReserveOverForm model)
+        {
+            //先根据id查询实体
+            var entity = _reserveRepository.FindOrDefault(model.ReserveId);
+            if (entity == null)
+            {
+                throw Oops.Oh("数据不存在");
+            }
+            entity.Status =  ReserveStatus.Over;
+            entity.MeetingResults = model.MeetingResults;
+            _reserveRepository.Update(entity);
+            return await _reserveRepository.SaveNowAsync();
+        }
+
 
         /// <summary>
         /// 假删除
