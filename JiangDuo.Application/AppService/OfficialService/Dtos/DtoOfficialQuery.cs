@@ -18,7 +18,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 类型
         /// </summary>
-        public OfficialType? Type { get; set; }
+        public string Type { get; set; }
         /// <summary>
         /// 类别
         /// </summary>

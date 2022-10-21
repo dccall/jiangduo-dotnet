@@ -1676,11 +1676,6 @@
             肖像
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.AreaVillage">
-            <summary>
-            选区-村庄(前端级联)
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.OverOrderCount">
             <summary>
             完结工单数量
@@ -1703,7 +1698,7 @@
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.Type">
             <summary>
-            类型
+            类型(多类型用,隔开)
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.CategoryId">
@@ -1796,11 +1791,6 @@
             肖像
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialForm.AreaVillage">
-            <summary>
-            选区-村庄
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficialQuery.SelectAreaId">
             <summary>
             所属选区Id
@@ -1851,11 +1841,6 @@
             类型
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.TypeName">
-            <summary>
-            类型
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.CategoryId">
             <summary>
             类别
@@ -1901,11 +1886,6 @@
             所属选区Id
             </summary>
         </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.VillageId">
-            <summary>
-            所属村Id
-            </summary>
-        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialExport.PersonalResume">
             <summary>
             个人履历
@@ -1937,11 +1917,6 @@
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.Type">
-            <summary>
-            类型
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.TypeName">
             <summary>
             类型
             </summary>
@@ -1989,11 +1964,6 @@
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.SelectAreaId">
             <summary>
             所属选区Id
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.VillageId">
-            <summary>
-            所属村Id
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dtos.DtoOfficialImport.PersonalResume">
@@ -3091,6 +3061,11 @@
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.CompletedCount">
             <summary>
             已完成总数量
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveTotal.OverCount">
+            <summary>
+            已完结总数量
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.QueryStatistics.Dtos.DtoReserveVenuedeviceQuery.ReserveDate">
@@ -4368,21 +4343,6 @@
         <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.SelectAreaType">
             <summary>
             区域类型1.区2.镇
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.SelectAreaRange">
-            <summary>
-            选区范围(坐标集合)
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.Population">
-            <summary>
-            人口数
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaExport.GrossArea">
-            <summary>
-            总面积
             </summary>
         </member>
         <member name="P:JiangDuo.Application.AppService.SelectAreaService.Dto.DtoSelectAreaForm.Id">

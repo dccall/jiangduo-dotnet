@@ -27,9 +27,9 @@ namespace JiangDuo.Core.Models
         public SexEnum Sex { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 类型(多类型用,隔开)
         /// </summary>
-        public OfficialType Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// 类别
@@ -82,10 +82,6 @@ namespace JiangDuo.Core.Models
         /// </summary>
         public long? SelectAreaId { get; set; }
 
-        /// <summary>
-        /// 所属村Id
-        /// </summary>
-        public long? VillageId { get; set; }
 
         /// <summary>
         /// 微信OpenId

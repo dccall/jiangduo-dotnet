@@ -127,7 +127,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             accountModel.Id = officialEntity.Id;
             accountModel.Name = officialEntity.Name;
             accountModel.Type = AccountType.Official;//账号类型
-            accountModel.SelectAreaId = officialEntity.SelectAreaId ?? 0;
+            //accountModel.SelectAreaId = string.IsNullOrEmpty(officialEntity.SelectAreaId) ? 0 : long.Parse(officialEntity.SelectAreaId.Split(",")[0]);
+            accountModel.SelectAreaId = officialEntity.SelectAreaId??0;
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }
@@ -150,7 +151,8 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             accountModel.Id = officialEntity.Id;
             accountModel.Name = officialEntity.Name;
             accountModel.Type = AccountType.Official;//账号类型
-            accountModel.SelectAreaId = officialEntity.SelectAreaId ?? 0;
+            accountModel.SelectAreaId = officialEntity.SelectAreaId??0;
+            //accountModel.SelectAreaId= string.IsNullOrEmpty(officialEntity.SelectAreaId) ? 0 : long.Parse(officialEntity.SelectAreaId.Split(",")[0]);
             var jwtTokenResult = JwtHelper.GetJwtToken(accountModel);
             return jwtTokenResult.AccessToken;
         }

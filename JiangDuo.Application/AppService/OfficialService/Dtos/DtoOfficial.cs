@@ -16,7 +16,18 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// <summary>
         /// 类型
         /// </summary>
-        public string TypeName => Type.GetDescription();
+        public string TypeName {
+            get {
+                if (!string.IsNullOrEmpty(Type))
+                {
+                    string type = Type;
+                    type = type.Replace("1", "区");
+                    type = type.Replace("2", "镇");
+                    return type;
+                }
+                return "";
+            }
+        }
 
         /// <summary>
         /// 角色名称
@@ -27,11 +38,6 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         /// 肖像
         /// </summary>
         public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
-
-        /// <summary>
-        /// 选区-村庄(前端级联)
-        /// </summary>
-        public List<long> AreaVillage { get; set; } = new List<long>();
 
 
         /// <summary>

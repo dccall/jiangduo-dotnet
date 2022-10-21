@@ -69,7 +69,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             var list = _selectAreaRepository.Where(x => !x.IsDeleted).Select(x => new DtoSelectAreaInfo
             {
                 SelectArea = x,
-                OfficialCount = _officialRepository.Entities.Where(s => !s.IsDeleted && s.SelectAreaId == x.Id).Count(),
+                OfficialCount = _officialRepository.Entities.Where(s => !s.IsDeleted && s.SelectAreaId== x.Id).Count(),
                 ResidentCount = _residentRepository.Entities.Where(s => !s.IsDeleted && s.SelectAreaId == x.Id).Count(),
                 VillageCount = _villageRepository.Entities.Where(s => !s.IsDeleted && s.SelectAreaId == x.Id).Count(),
             }).ToList();
@@ -104,9 +104,10 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             dto.VillageTotalCount = _villageRepository.Where(x => !x.IsDeleted).Count();
             dto.ResidentTotalCount = _residentRepository.Where(x => !x.IsDeleted).Count();
             dto.OfficialTotalCount = _officialRepository.Where(x => !x.IsDeleted).Count();
-            dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Area).Count();
-            dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Town).Count();
-
+            //dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Area).Count();
+            //dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Town).Count();
+            dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("区")).Count();
+            dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("镇")).Count();
             return dto;
         }
 
@@ -235,6 +236,8 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             dto.AuditedCount = _reserveRepository.Where(x => !x.IsDeleted && x.Status == ReserveStatus.Audited).Count();
             dto.AuditFailedCount = _reserveRepository.Where(x => !x.IsDeleted && x.Status == ReserveStatus.AuditFailed).Count();
             dto.CompletedCount = _reserveRepository.Where(x => !x.IsDeleted && x.Status == ReserveStatus.Completed).Count();
+            dto.OverCount = _reserveRepository.Where(x => !x.IsDeleted && x.Status == ReserveStatus.Over).Count();
+            
             return dto;
         }
 
@@ -400,7 +403,7 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
                 Post = x.Post,
                 Score = x.Score,
                 Sex = x.Sex,
-                VillageId = x.VillageId,
+                //VillageId = x.VillageId,
                 PhoneNumber = x.PhoneNumber,
                 PoliticalOutlook = x.PoliticalOutlook,
 

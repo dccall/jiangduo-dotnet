@@ -276,7 +276,7 @@
         </member>
         <member name="P:JiangDuo.Core.Models.Official.Type">
             <summary>
-            类型
+            类型(多类型用,隔开)
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.CategoryId">
@@ -322,11 +322,6 @@
         <member name="P:JiangDuo.Core.Models.Official.SelectAreaId">
             <summary>
             所属选区Id
-            </summary>
-        </member>
-        <member name="P:JiangDuo.Core.Models.Official.VillageId">
-            <summary>
-            所属村Id
             </summary>
         </member>
         <member name="P:JiangDuo.Core.Models.Official.OpenId">

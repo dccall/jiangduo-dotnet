@@ -1,6 +1,7 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
+using Furion.LinqBuilder;
 using Furion.Logging;
 using JiangDuo.Application.AppService.OfficialService.Dto;
 using JiangDuo.Application.AppService.OfficialService.Dtos;
@@ -17,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
@@ -58,9 +60,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
         {
             var query = _officialRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
-            query = query.Where(model.Type!=null, x => x.Type==model.Type);
+            query = query.Where(!string.IsNullOrEmpty(model.Type), x => x.Type.Contains(model.Type));
 
-            
             //不传或者传-1查询全部
             //query = query.Where(!(model.SelectAreaId == null || model.SelectAreaId == -1), x => x.SelectAreaId == model.SelectAreaId);
 
@@ -75,9 +76,14 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                                   select c.Id).ToList();
 
                 areaIdList.Add(model.SelectAreaId.Value);
-
+                ////动态lambda
+                //Expression<Func<Official, bool>> where = c => true;
+                //foreach (var areaId in areaIdList)
+                //{
+                //    where = where.Or(x => x.SelectAreaId.Contains(areaId.ToString()));
+                //}
+                //query = query.Where(where);
                 query = query.Where(x => areaIdList.Contains(x.SelectAreaId.Value));
-
             }
 
             query = query.Where(model.OfficialRole != null, x => x.OfficialRole == model.OfficialRole);
@@ -98,12 +104,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var dto = entity.Adapt<DtoOfficial>();
 
-            //前端级联传参
-            if (dto.SelectAreaId != null && dto.VillageId != null)
-            {
-                dto.AreaVillage.Add(dto.SelectAreaId.Value);
-                dto.AreaVillage.Add(dto.VillageId.Value);
-            }
+           
             if (dto != null && !string.IsNullOrEmpty(dto.Avatar))
             {
                 var idList = dto.Avatar.Split(',').ToList();
@@ -124,12 +125,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
             entity.Creator = JwtHelper.GetAccountId();
-            //前端级联传参
-            if (model.AreaVillage.Any() && model.AreaVillage.Count() == 2)
-            {
-                entity.SelectAreaId = model.AreaVillage[0];
-                entity.VillageId = model.AreaVillage[1];
-            }
+            
             if (model.AvatarList != null && model.AvatarList.Any())
             {
                 entity.Avatar = String.Join(",", model.AvatarList.Select(x => x.FileId));
@@ -155,12 +151,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             //将模型数据映射给实体属性
             entity = model.Adapt(entity);
 
-            //前端级联传参
-            if (model.AreaVillage.Any() && model.AreaVillage.Count() == 2)
-            {
-                entity.SelectAreaId = model.AreaVillage[0];
-                entity.VillageId = model.AreaVillage[1];
-            }
+           
             entity.UpdatedTime = DateTime.Now;
             entity.Updater = JwtHelper.GetAccountId();
             if (model.AvatarList != null && model.AvatarList.Any())
@@ -212,12 +203,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
 
             var officialsstructList = _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoOfficialsstructExport>().ToList();
             var areaList = _selectAreaRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoSelectAreaExport>().ToList();
-            var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillageExport>().ToList();
 
             var mapper = new Npoi.Mapper.Mapper();
             mapper.Put(dtoList, "人大名单", true);
             mapper.Put(areaList, "选区", true);
-            mapper.Put(villageList, "村/组织", true);
             MemoryStream ms = new MemoryStream();
             mapper.Save(ms);
             return ms;
@@ -234,12 +223,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             var dtoList= pageList.Items.Adapt<List<DtoOfficialExport>>();
             var officialsstructList = _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoOfficialsstructExport>().ToList();
             var areaList = _selectAreaRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoSelectAreaExport>().ToList();
-            var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillageExport>().ToList();
 
             var mapper = new Npoi.Mapper.Mapper();
             mapper.Put(dtoList, "人大名单", true);
             mapper.Put(areaList, "选区", true);
-            mapper.Put(villageList, "村", true);
             MemoryStream ms = new MemoryStream();
             mapper.Save(ms);
             return ms;
@@ -260,15 +247,16 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                 var list = ExcelHelp.ParseExcelToList<DtoOfficialImport>(file.OpenReadStream(), "人大名单");
                 var entityList = list.Adapt<List<Official>>();
                 var createdId= JwtHelper.GetAccountId();
-                var villageList = _villageRepository.AsQueryable().Where(x => !x.IsDeleted).ProjectToType<DtoVillage>().ToList();
                 var officialList=_officialRepository.AsQueryable().Where(x => !x.IsDeleted).ToList();
 
                 var structIdList= _officialsstructRepository.AsQueryable().Where(x => !x.IsDeleted).Select(x => x.Id).ToList();
                 var IdNumbers = officialList.Select(x=>x.Idnumber).ToList();
                 var PhoneNumber = officialList.Select(x=>x.PhoneNumber).ToList();
-                var index = 1;
-                var excelPhoneNumber= entityList.Select(x => x.PhoneNumber).ToList();
-                entityList.ForEach(official =>
+
+                var index = 1;//从1开始
+                var excelPhoneNumber = new List<string>();
+                //验证
+                foreach (var official in entityList)
                 {
                     index++;
                     official.CreatedTime = DateTime.Now;
@@ -283,18 +271,16 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                     {
                         throw Oops.Oh($"第{index}行手机号码已存在");
                     }
-                    //var village = villageList.Where(v =>v.Id == official.VillageId).FirstOrDefault();
-                    //if(village==null)
-                    //{
-                    //    throw Oops.Oh($"第{index}行村Id系统中不存在");
-                    //}
-                    //else
-                    //{
-                    //    official.SelectAreaId = village.SelectAreaId;
-                    //}
-
-                });
-
+                    //验证excel里手机号是否有重复
+                    if (excelPhoneNumber.Contains(official.Idnumber))
+                    {
+                        throw Oops.Oh($"第{index}行手机号码出现重复");
+                    }
+                    else
+                    {
+                        excelPhoneNumber.Add(official.PhoneNumber);
+                    }
+                }
                 await _officialRepository.Context.BulkInsertAsync(entityList);
                 return true;
             }

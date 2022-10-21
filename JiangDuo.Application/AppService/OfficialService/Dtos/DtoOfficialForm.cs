@@ -26,9 +26,9 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         public SexEnum Sex { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 类型(多类型用,隔开)
         /// </summary>
-        public OfficialType Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// 类别
@@ -136,9 +136,5 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
 
         public List<SysUploadFile> AvatarList { get; set; } = new List<SysUploadFile>();
 
-        /// <summary>
-        /// 选区-村庄
-        /// </summary>
-        public List<long> AreaVillage { get; set; } = new List<long>();
     }
 }

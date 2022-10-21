@@ -26,5 +26,9 @@
         /// 已完成总数量
         /// </summary>
         public long CompletedCount { get; set; }
+        /// <summary>
+        /// 已完结总数量
+        /// </summary>
+        public int OverCount { get; internal set; }
     }
 }

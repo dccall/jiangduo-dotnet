@@ -91,7 +91,8 @@ namespace JiangDuo.Application.AppletAppService.AppletLogin.Services
                 {
                     Id = officialEntity.Id,
                     Name = officialEntity.Name,
-                    SelectAreaId = officialEntity.SelectAreaId ?? 0,
+                    SelectAreaId = officialEntity.SelectAreaId??0,
+                    //SelectAreaId = string.IsNullOrEmpty(officialEntity.SelectAreaId)?0:long.Parse(officialEntity.SelectAreaId.Split(",")[0]),
                     Type = AccountType.Official//账号类型人大
                 });
 

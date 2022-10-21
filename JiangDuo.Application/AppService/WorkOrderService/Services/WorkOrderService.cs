@@ -161,6 +161,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                              SelectAreaName = wa.SelectAreaName,
                              WorkorderSource = w.WorkorderSource,
                              WorkorderType = w.WorkorderType,
+                              PhoneNumber = w.PhoneNumber,
                          };
 
             return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
@@ -207,6 +208,7 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
                              SelectAreaName = wa.SelectAreaName,
                              WorkorderSource = w.WorkorderSource,
                              WorkorderType = w.WorkorderType,
+                              PhoneNumber = w.PhoneNumber,
                          };
             var dto = query2.FirstOrDefault();
             if (!string.IsNullOrEmpty(dto.Attachments))

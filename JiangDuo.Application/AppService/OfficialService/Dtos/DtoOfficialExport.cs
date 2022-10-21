@@ -11,12 +11,16 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
 {
     public class DtoOfficialExport
     {
+        ///// <summary>
+        ///// 编号
+        ///// </summary>
+        //[Column("编号")]
+        //public string Id { get; set; }
         /// <summary>
         /// 姓名
         /// </summary>
         [Column("姓名")]
         public string Name { get; set; }
-
 
         /// <summary>
         /// 性别
@@ -33,14 +37,8 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         /// <summary>
         /// 类型
         /// </summary>
-        [Ignore]
-        public OfficialType Type { get; set; }
-
-        /// <summary>
-        /// 类型
-        /// </summary>
-        [Column("类型:区代表|镇代表")]
-        public string TypeName => Type.GetDescription();
+        [Column("类型:区代表,镇代表")]
+        public string Type { get; set; }
 
         /// <summary>
         /// 类别
@@ -97,12 +95,6 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         public string SelectAreaId { get; set; }
 
         /// <summary>
-        /// 所属村Id
-        /// </summary>
-        [Column("所属村Id")]
-        public string VillageId { get; set; }
-
-        /// <summary>
         /// 个人履历
         /// </summary>
         [Column("个人履历")]
@@ -121,8 +113,12 @@ namespace JiangDuo.Application.AppService.OfficialService.Dtos
         public string PoliticalOutlook { get; set; }
 
 
+        ///// <summary>
+        ///// 头像ID
+        ///// </summary>
+        //[Column("头像ID")]
+        //public string Avatar { get; set; }
 
-       
 
     }
 }

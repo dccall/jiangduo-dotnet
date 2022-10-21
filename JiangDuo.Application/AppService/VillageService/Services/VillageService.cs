@@ -67,7 +67,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
                 SelectAreaId = model.SelectAreaId,
                 GrossArea=x.GrossArea,
                 Population=x.Population,
-                OfficialCount= _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.VillageId==x.Id).Count(),
+                //OfficialCount= _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.VillageId==x.Id).Count(),
                 CreatedTime = x.CreatedTime,
                 Creator = x.Creator,
                 IsDeleted = x.IsDeleted,
@@ -91,7 +91,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             var entity = await _villageRepository.FindOrDefaultAsync(id);
 
             var dto = entity.Adapt<DtoVillage>();
-            dto.OfficialCount = _officialRepository.AsQueryable(false).Where(o => !o.IsDeleted && o.VillageId == dto.Id).Count();
+            //dto.OfficialCount = _officialRepository.AsQueryable(false).Where(o => !o.IsDeleted && o.VillageId == dto.Id).Count();
 
             return dto;
         }
