@@ -106,8 +106,8 @@ namespace JiangDuo.Application.AppService.QueryStatistics.Services
             dto.OfficialTotalCount = _officialRepository.Where(x => !x.IsDeleted).Count();
             //dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Area).Count();
             //dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type== OfficialType.Town).Count();
-            dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("区")).Count();
-            dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("镇")).Count();
+            dto.AreaOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("1")).Count();
+            dto.TownOfficialCount = _officialRepository.Where(x => !x.IsDeleted && x.Type.Contains("2")).Count();
             return dto;
         }
 

@@ -1570,6 +1570,11 @@
             总面积
             </summary>
         </member>
+        <member name="P:JiangDuo.Core.Models.Village.Classify">
+            <summary>
+            分类归属
+            </summary>
+        </member>
         <member name="T:JiangDuo.Core.Models.Volunteer">
             <summary>
             志愿者名称

@@ -30,5 +30,10 @@ namespace JiangDuo.Core.Models
         /// 总面积
         /// </summary>
         public double GrossArea { get; set; }
+        
+        /// <summary>
+        /// 分类归属
+        /// </summary>
+        public string Classify { get; set; }
     }
 }

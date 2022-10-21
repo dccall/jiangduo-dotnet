@@ -42,8 +42,9 @@ namespace JiangDuo.Application.AppService.VillageService.Services
         {
             var query = _villageRepository.Where(x => !x.IsDeleted);
             query = query.Where(!string.IsNullOrEmpty(model.Name), x => x.Name.Contains(model.Name));
+            query = query.Where(!string.IsNullOrEmpty(model.Classify), x => x.Classify.Contains(model.Classify));
 
-            if(!(model.SelectAreaId == null || model.SelectAreaId == -1))
+            if (!(model.SelectAreaId == null || model.SelectAreaId == -1))
             {
                 //获取所有子节点选区id
                 var areaIdList = (from x in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted&&x.Id== model.SelectAreaId.Value)
@@ -67,18 +68,18 @@ namespace JiangDuo.Application.AppService.VillageService.Services
                 SelectAreaId = model.SelectAreaId,
                 GrossArea=x.GrossArea,
                 Population=x.Population,
-                //OfficialCount= _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.VillageId==x.Id).Count(),
+                OfficialCount = _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.SelectAreaId==x.SelectAreaId).Count(),
                 CreatedTime = x.CreatedTime,
                 Creator = x.Creator,
                 IsDeleted = x.IsDeleted,
                 UpdatedTime = x.UpdatedTime,
                 Updater = x.Updater,
-               
+                Classify = x.Classify,
             });
 
 
             //将数据映射到DtoVillage中
-            return query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoVillage>().ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(s => s.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>

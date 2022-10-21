@@ -5362,6 +5362,11 @@
             总面积
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageForm.Classify">
+            <summary>
+            分类归属
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery.Name">
             <summary>
             名称
@@ -5370,6 +5375,11 @@
         <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery.SelectAreaId">
             <summary>
             选区
+            </summary>
+        </member>
+        <member name="P:JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery.Classify">
+            <summary>
+            分类归属
             </summary>
         </member>
         <member name="M:JiangDuo.Application.AppService.VillageService.Services.IVillageService.GetList(JiangDuo.Application.AppService.VillageService.Dto.DtoVillageQuery)">

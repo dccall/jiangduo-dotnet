@@ -57,7 +57,7 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
             query = query.Where(model.WorkorderType != null, x => x.WorkorderType == model.WorkorderType);
             query = query.Where(model.StartTime != null, x => x.CreatedTime >= model.StartTime);
             query = query.Where(model.EndTime != null, x => x.CreatedTime <= model.EndTime);
-            query = query.Where(!string.IsNullOrEmpty(model.PhoneNumber), x => x.PhoneNumber.Contains(model.PhoneNumber) );
+            query = query.Where(!string.IsNullOrEmpty(model.PhoneNumber), x => x.PhoneNumber.Contains(model.PhoneNumber));
 
 
 
@@ -92,7 +92,8 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                              CreatedTime = p.CreatedTime,
                              FeedbackPersonId = p.FeedbackPersonId,
                              FeedbackPerson = p.FeedbackPerson,
-                              
+
+                             PhoneNumber = p.PhoneNumber,
                          };
 
             return query2.ToPagedList(model.PageIndex, model.PageSize);
@@ -134,7 +135,8 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                             CreatedTime = p.CreatedTime,
                             FeedbackPersonId = p.FeedbackPersonId,
                             FeedbackPerson = p.FeedbackPerson,
-                            WorkorderType = p.WorkorderType
+                            WorkorderType = p.WorkorderType,
+                            PhoneNumber = p.PhoneNumber,
                         };
             var dto = query.FirstOrDefault();
             if (dto != null && !string.IsNullOrEmpty(dto.Attachments))

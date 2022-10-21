@@ -235,8 +235,8 @@ namespace JiangDuo.Application.AppService.WorkOrderService.Services
             var entityWorkOrder = model.Adapt<Workorder>();
             entityWorkOrder.Id = YitIdHelper.NextId();
             entityWorkOrder.WorkOrderNo = GetWorkOrderNo();
-            entityWorkOrder.OriginatorId = account.Id; //发起人是自己
-            entityWorkOrder.OriginatorName = GetPersonnelName(entityWorkOrder.OriginatorId);
+            //entityWorkOrder.OriginatorId = account.Id; //发起人是自己
+            //entityWorkOrder.OriginatorName = GetPersonnelName(entityWorkOrder.OriginatorId);
             entityWorkOrder.Status = WorkorderStatusEnum.NotProcessed;//待处理
             entityWorkOrder.CreatedTime = DateTime.Now;
             entityWorkOrder.Creator = account.Id;
