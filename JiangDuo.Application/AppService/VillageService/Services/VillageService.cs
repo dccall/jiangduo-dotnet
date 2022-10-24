@@ -65,7 +65,7 @@ namespace JiangDuo.Application.AppService.VillageService.Services
             {
                 Id = x.Id,
                 Name = x.Name,
-                SelectAreaId = model.SelectAreaId,
+                SelectAreaId = x.SelectAreaId,
                 GrossArea=x.GrossArea,
                 Population=x.Population,
                 OfficialCount = _officialRepository.AsQueryable(false).Where(o=>!o.IsDeleted&&o.SelectAreaId==x.SelectAreaId).Count(),

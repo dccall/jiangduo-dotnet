@@ -174,7 +174,7 @@ namespace JiangDuo.Application.AppService.ReserveService.Services
             var entity = model.Adapt<Reserve>();
             entity.Id = YitIdHelper.NextId();
             entity.CreatedTime = DateTime.Now;
-            entity.Creator = JwtHelper.GetAccountId();
+            //entity.Creator = JwtHelper.GetAccountId();
             entity.Status = ReserveStatus.Audit;//审核中
             _reserveRepository.Insert(entity);
 

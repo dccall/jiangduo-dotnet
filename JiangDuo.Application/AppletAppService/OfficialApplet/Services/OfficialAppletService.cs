@@ -318,6 +318,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
         {
             var account = JwtHelper.GetAccountInfo();
             model.SelectAreaId = account.SelectAreaId;
+            model.Creator = JwtHelper.GetAccountId();
             var count = await _reserveService.Insert(model);
             if (count > 0)
             {

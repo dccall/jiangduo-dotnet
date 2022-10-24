@@ -3905,6 +3905,11 @@
             志愿者列表
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveForm.Creator">
+            <summary>
+            创建者
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveOverForm.MeetingResults">
             <summary>
             会议结果

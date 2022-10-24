@@ -135,22 +135,22 @@ namespace JiangDuo.Core.Models
             {
                 throw Oops.Oh($"第{index}行姓名不能为空");
             }
-            if (string.IsNullOrEmpty(this.CategoryId))
-            {
-                throw Oops.Oh($"第{index}行类别不能为空");
-            }
-            if (string.IsNullOrEmpty(this.Idnumber))
-            {
-                throw Oops.Oh($"第{index}行身份证号码不能为空");
-            }
+            //if (string.IsNullOrEmpty(this.CategoryId))
+            //{
+            //    throw Oops.Oh($"第{index}行类别不能为空");
+            //}
+            //if (string.IsNullOrEmpty(this.Idnumber))
+            //{
+            //    throw Oops.Oh($"第{index}行身份证号码不能为空");
+            //}
             if (string.IsNullOrEmpty(this.PhoneNumber))
             {
                 throw Oops.Oh($"第{index}行手机号码不能为空");
             }
-            if (this.Post == null)
-            {
-                throw Oops.Oh($"第{index}行职务不能为空");
-            }
+            //if (this.Post == null)
+            //{
+            //    throw Oops.Oh($"第{index}行职务不能为空");
+            //}
         }
     }
 }

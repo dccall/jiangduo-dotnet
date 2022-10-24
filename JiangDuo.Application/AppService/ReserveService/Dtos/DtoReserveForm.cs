@@ -47,13 +47,13 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(300)]
+        //[MaxLength(300)]
         public string Remarks { get; set; }
 
         /// <summary>
         /// 会议结果
         /// </summary>
-        [MaxLength(300)]
+        //[MaxLength(300)]
         public string MeetingResults { get; set; }
 
         /// <summary>
@@ -75,5 +75,11 @@ namespace JiangDuo.Application.AppService.ReserveService.Dto
         /// 志愿者列表
         /// </summary>
         public List<DtoVolunteer> VolunteerList { get; set; }
+
+
+        /// <summary>
+        /// 创建者
+        /// </summary>
+        public long Creator { get; set; }
     }
 }

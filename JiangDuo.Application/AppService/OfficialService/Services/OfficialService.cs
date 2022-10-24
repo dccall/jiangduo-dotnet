@@ -263,10 +263,10 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
                     official.Creator = createdId;
 
                     official.ValidationNullOrEmpty(index);
-                    if (IdNumbers.Contains(official.Idnumber))
-                    {
-                        throw Oops.Oh($"第{index}行身份证号已存在");
-                    }
+                    //if (IdNumbers.Contains(official.Idnumber))
+                    //{
+                    //    throw Oops.Oh($"第{index}行身份证号已存在");
+                    //}
                     if (PhoneNumber.Contains(official.PhoneNumber))
                     {
                         throw Oops.Oh($"第{index}行手机号码已存在");
