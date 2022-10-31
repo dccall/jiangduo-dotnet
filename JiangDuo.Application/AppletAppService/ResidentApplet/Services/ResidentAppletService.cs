@@ -285,6 +285,34 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
         }
 
         /// <summary>
+        /// 获取指定日期服务的报名列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<DtoJoinServiceResident>> GetParticipantByDate(DtoGetParticipant model)
+        {
+            var userid = JwtHelper.GetAccountId();
+            var query = _participantRepository.Where(x => !x.IsDeleted && x.ServiceId == model.ServiceId);
+            query= query.Where(x => x.RegistTime.Value.Date==model.Date);
+            var query2= from x in query
+            join resident in _residentRepository.AsQueryable() on x.ResidentId equals resident.Id into result
+            from xr in result.DefaultIfEmpty()
+            select new DtoJoinServiceResident()
+            {
+                Resident = xr,
+                RegistTime = x.RegistTime,
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                Status=x.Status,
+                Self= x.ResidentId== userid
+            };
+            var list =  query2.ToList();
+
+            return list;
+        }
+
+
+        /// <summary>
         /// 根据Id获取服务详情
         /// </summary>
         /// <param name="id">编号</param>
@@ -327,17 +355,17 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
                             IsSignUp = _participantRepository.Entities.Where(x => x.ResidentId == userid && x.Status == ParticipantStatus.Normal && x.ServiceId == s.Id).Any()
                         };
             var dto = query.FirstOrDefault();
-            var result = _participantRepository
-              .Where(x => !x.IsDeleted && x.Status == ParticipantStatus.Normal && x.ServiceId == id)
-              .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
-              {
-                  Resident = y,
-                  RegistTime = x.RegistTime,
-                  StartTime = x.StartTime,
-                  EndTime = x.EndTime,
-              }).ToList();
-            //获取服务参与人
-            dto.JoinServiceResident = result;
+            //var result = _participantRepository
+            //  .Where(x => !x.IsDeleted && x.Status == ParticipantStatus.Normal && x.ServiceId == id)
+            //  .Join(_residentRepository.Where(x => !x.IsDeleted), x => x.ResidentId, y => y.Id, (x, y) => new DtoJoinServiceResident()
+            //  {
+            //      Resident = y,
+            //      RegistTime = x.RegistTime,
+            //      StartTime = x.StartTime,
+            //      EndTime = x.EndTime,
+            //  }).ToList();
+            ////获取服务参与人
+            //dto.JoinServiceResident = result;
 
             if (!string.IsNullOrEmpty(dto.Attachments))
             {
@@ -348,6 +376,11 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             {
                 dto.Venuedevice = await _venuedeviceService.GetById(dto.VenueDeviceId.Value);
             }
+
+            
+
+
+
             return dto;
         }
 
@@ -628,5 +661,7 @@ namespace JiangDuo.Application.AppletAppService.ResidentApplet.Services
             }
             return "提交失败";
         }
+
+
     }
 }

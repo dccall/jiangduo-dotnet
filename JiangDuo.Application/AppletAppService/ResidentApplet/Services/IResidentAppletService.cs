@@ -135,5 +135,13 @@ namespace JiangDuo.Application.AppletService.ResidentApplet.Services
         /// <param name="model"></param>
         /// <returns></returns>
         public Task<string> AddPublicSentiment(DtoPublicSentimentForm model);
+
+
+        /// <summary>
+        /// 获取指定日期服务的报名列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public  Task<List<DtoJoinServiceResident>> GetParticipantByDate(DtoGetParticipant model);
     }
 }

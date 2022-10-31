@@ -211,4 +211,16 @@ public class ResidentAppletAppService : IDynamicApiController
     {
         return await _residentAppletService.AddPublicSentiment(model);
     }
+
+
+    /// <summary>
+    /// 获取指定日期服务的报名列表
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("GetParticipantByDate")]
+    public async Task<List<DtoJoinServiceResident>> GetParticipantByDate([FromQuery]DtoGetParticipant model)
+    {
+        return await _residentAppletService.GetParticipantByDate(model);
+    }
 }
