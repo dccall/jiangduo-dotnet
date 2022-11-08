@@ -1697,6 +1697,11 @@
             类型
             </summary>
         </member>
+        <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.ParentAreaName">
+            <summary>
+            父级选区名称
+            </summary>
+        </member>
         <member name="P:JiangDuo.Application.AppService.OfficialService.Dto.DtoOfficial.OfficialRoleName">
             <summary>
             角色名称

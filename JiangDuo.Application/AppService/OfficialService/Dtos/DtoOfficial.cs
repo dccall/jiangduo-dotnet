@@ -30,6 +30,11 @@ namespace JiangDuo.Application.AppService.OfficialService.Dto
         }
 
         /// <summary>
+        /// 父级选区名称
+        /// </summary>
+        public string ParentAreaName { get; set; }
+
+        /// <summary>
         /// 角色名称
         /// </summary>
         public string OfficialRoleName => OfficialRole.GetDescription();

@@ -90,7 +90,28 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             query = query.Where(!(model.CategoryId == null || model.CategoryId == "-1"), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
-            return   query.OrderByDescending(s => s.Id).ThenByDescending(x=>x.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+            var dto= query.OrderByDescending(s => s.Id).ThenByDescending(x => x.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+
+            //区选区，展示父级区选区名称
+            if (model.Type == "1")
+            {
+                var ids = dto.Items.Select(x => x.SelectAreaId).ToList();
+                var parentList= (from x in _selectAreaRepository.AsQueryable(false).Where(x => ids.Contains(x.Id))
+                join x2 in _selectAreaRepository.AsQueryable(false).Where(x => !x.IsDeleted)
+                on x.ParentId equals x2.Id into result1
+                from c in result1.DefaultIfEmpty()
+                select new { Id=x.Id,ParentId=x.ParentId, ParentName= c==null? x.SelectAreaName: c.SelectAreaName }).ToList();
+
+                foreach (var item in dto.Items)
+                {
+                    var temp= parentList.Where(x => x.Id == item.SelectAreaId).FirstOrDefault();
+                    if (temp != null)
+                    {
+                        item.ParentAreaName = temp.ParentName;
+                    }
+                }
+            }
+            return dto;
         }
 
         /// <summary>
