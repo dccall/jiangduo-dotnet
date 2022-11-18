@@ -94,9 +94,10 @@ namespace JiangDuo.Application.AppService.PublicSentimentService.Services
                              FeedbackPerson = p.FeedbackPerson,
 
                              PhoneNumber = p.PhoneNumber,
+                             
                          };
 
-            return query2.ToPagedList(model.PageIndex, model.PageSize);
+            return query2.OrderByDescending(x=>x.CreatedTime).ToPagedList(model.PageIndex, model.PageSize);
         }
 
         /// <summary>

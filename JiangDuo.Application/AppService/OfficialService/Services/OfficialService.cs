@@ -90,7 +90,7 @@ namespace JiangDuo.Application.AppService.OfficialService.Services
             query = query.Where(!(model.CategoryId == null || model.CategoryId == "-1"), x => x.CategoryId == model.CategoryId);
 
             //将数据映射到DtoOfficial中
-            var dto= query.OrderByDescending(s => s.Id).ThenByDescending(x => x.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
+            var dto= query.OrderByDescending(s => s.CreatedTime).ProjectToType<DtoOfficial>().ToPagedList(model.PageIndex, model.PageSize);
 
             //区选区，展示父级区选区名称
             if (model.Type == "1")

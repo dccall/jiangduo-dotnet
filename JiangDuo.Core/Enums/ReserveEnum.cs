@@ -7,13 +7,13 @@ namespace JiangDuo.Core.Enums
         [Description("默认")]
         Normal = 0,
 
-        [Description("审核中")]
+        [Description("待受理")]
         Audit = 1,
 
-        [Description("审核通过")]
+        [Description("已受理")]
         Audited = 2,
 
-        [Description("审核未通过")]
+        [Description("已拒绝")]
         AuditFailed = -1,
 
         [Description("已完成")]
