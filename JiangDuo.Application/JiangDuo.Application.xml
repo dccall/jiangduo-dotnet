@@ -4047,6 +4047,12 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="M:JiangDuo.Application.AppService.ReserveService.ReserveAppService.ExportWord(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
+            <summary>
+            导出word
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:JiangDuo.Application.AppService.ReserveService.Services.IReserveService.GetList(JiangDuo.Application.AppService.ReserveService.Dto.DtoReserveQuery)">
             <summary>
             分页

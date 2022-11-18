@@ -1,0 +1,52 @@
+﻿
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+@{
+var index =0;
+foreach(var item in Model.Items)
+{
+index++;
+<div class="modal-body">
+
+    <div style="height:100%;width:100%; margin:0 auto;">
+        <table border="1" cellspacing="0" cellpadding="4" bgcolor="#FFF">
+            <tr>
+                <td colspan="4" style="text-align: left">
+                    <p>
+                        <h3>
+                            @index. @item.Theme
+                        </h3>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;background-color: #f3f3f3;">提案人:</td>
+                <td style="text-align: left; ">@item.CreatorName</td>
+                <td style="text-align: left;background-color: #f3f3f3;">场地:</td>
+                <td style="text-align: left;">@item.VenueDeviceName</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; background-color: #f3f3f3;">开始时间:</td>
+                <td style="text-align: left;">@item.StartTime</td>
+                <td style="text-align: left; background-color: #f3f3f3;">结束时间:</td>
+                <td style="text-align: left;">@item.EndTime</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: left">
+                    <p style="font-size:12px;">
+                        @item.Remarks
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<br clear=all style="page-break-before:always" mce_style="page-break-before:always" />
+
+}
+@}
+
+</html>

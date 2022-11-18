@@ -1,8 +1,12 @@
-﻿using Furion.DynamicApiController;
+﻿using Furion;
+using Furion.DynamicApiController;
+using Furion.ViewEngine;
 using JiangDuo.Application.AppService.ReserveService.Dto;
 using JiangDuo.Application.AppService.ReserveService.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace JiangDuo.Application.AppService.ReserveService;
@@ -15,10 +19,11 @@ namespace JiangDuo.Application.AppService.ReserveService;
 public class ReserveAppService : IDynamicApiController
 {
     private readonly IReserveService _reserveService;
-
-    public ReserveAppService(IReserveService reserveService)
+    private readonly IViewEngine _viewEngine;
+    public ReserveAppService(IReserveService reserveService, IViewEngine viewEngine)
     {
         _reserveService = reserveService;
+        _viewEngine = viewEngine;
     }
 
     /// <summary>
@@ -101,5 +106,34 @@ public class ReserveAppService : IDynamicApiController
     public async Task<int> Delete([FromBody] List<long> idList)
     {
         return await _reserveService.FakeDelete(idList);
+    }
+
+    /// <summary>
+    /// 导出word
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet, NonUnify]
+    public IActionResult ExportWord([FromQuery] DtoReserveQuery model)
+    {
+        var path = $"template/ReserveTemplate.html";
+        var templatePath = Path.Combine(App.HostEnvironment.ContentRootPath, path);
+        var file = new FileStream(templatePath, FileMode.Open, FileAccess.Read);
+        var template = File.ReadAllText(templatePath);
+        var pageList=  _reserveService.GetList(model);
+        var html= _viewEngine.RunCompile(template, pageList,builderAction: builder =>
+        {
+            builder.AddAssemblyReference(typeof(PagedList)); // 通过类型
+            builder.AddAssemblyReferenceByName("JiangDuo.Core");
+        });
+
+        MemoryStream stream = new MemoryStream();
+        StreamWriter writer = new StreamWriter(stream);
+        writer.Write(html);
+        writer.Flush();
+
+        return new FileStreamResult(new MemoryStream(stream.ToArray()), "application/msword")
+        {
+            FileDownloadName = "代表建议.doc" // 配置文件下载显示名
+        };
     }
 }

@@ -47,7 +47,8 @@ public class Startup : AppStartup
 				c.BaseAddress = new Uri(App.Configuration["WeiXin:BaseAddress"]);
 			});
 		});
-
+		//添加视图引擎
+		services.AddViewEngine();
 
 		// 添加即时通讯
 		services.AddSignalR();
