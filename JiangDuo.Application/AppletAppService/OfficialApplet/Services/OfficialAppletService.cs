@@ -264,7 +264,7 @@ namespace JiangDuo.Application.AppletAppService.OfficialApplet.Services
             query = query.Where(!string.IsNullOrEmpty(model.Theme), x => x.Theme.Contains(model.Theme));
             query = query.Where(model.SelectAreaId != null, x => x.SelectAreaId == model.SelectAreaId);
             query = query.Where(model.Status != null, x => x.Status == model.Status);
-            query = query.Where(model.Creator != null, x => x.Creator == account.Id);
+            query = query.Where( x => x.Creator == account.Id); //只查自己的
             query = query.Where(model.StartTime != null, x => x.ReserveDate >= model.StartTime);
             query = query.Where(model.StartTime != null, x => x.ReserveDate <= model.EndTime);
             var query2 = from x in query

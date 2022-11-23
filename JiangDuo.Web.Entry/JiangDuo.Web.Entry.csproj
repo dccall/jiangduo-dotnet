@@ -44,6 +44,11 @@
 	<ItemGroup>
 	  <Folder Include="uploads\1\" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="template\ReserveTemplate.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 	<ProjectExtensions>
 		<VisualStudio>
 			<UserProperties properties_4launchsettings_1json__JsonSchema="" />
